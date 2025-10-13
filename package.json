@@ -50,11 +50,6 @@
   "license": "MIT",
   "peerDependencies": {
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "clsx": ">=2.0.0",
-    "tailwind-merge": ">=3.0.0",
-    "zustand": ">=5.0.0",
-    "@monaco-editor/react": ">=4.0.0",
-    "@fortawesome/react-fontawesome": ">=0.2.0"
+    "react-dom": "^19.0.0"
   }
 }
