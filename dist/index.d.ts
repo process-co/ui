@@ -1,4 +1,6 @@
 import * as React from 'react';
+import * as class_variance_authority_types from 'class-variance-authority/types';
+import { VariantProps } from 'class-variance-authority';
 
 interface ExpressionContext {
     [key: string]: any;
@@ -44,4 +46,12 @@ declare function Input({ className, expectedType, ...props }: React.ComponentPro
     expectedType?: string;
 }): React.JSX.Element;
 
-export { type ExpressionResult, Input, type InputProps };
+declare const buttonVariants: (props?: ({
+    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
+    size?: "default" | "sm" | "lg" | "icon" | null | undefined;
+} & class_variance_authority_types.ClassProp) | undefined) => string;
+declare function Button({ className, variant, size, asChild, ...props }: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+}): React.JSX.Element;
+
+export { Button, type ExpressionResult, Input, type InputProps, buttonVariants };
