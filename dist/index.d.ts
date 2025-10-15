@@ -35,7 +35,7 @@ interface ExpressionResult {
         security?: boolean;
     };
 }
-declare function Input({ className, expectedType, ...props }: React.ComponentProps<'input'> & {
+declare function Input({ className, expectedType, ...props }: Omit<React.ComponentProps<'input'>, 'onChange'> & {
     error?: boolean;
     label?: string;
     rapperClassName?: string;
@@ -44,6 +44,7 @@ declare function Input({ className, expectedType, ...props }: React.ComponentPro
     isEvaluating?: boolean;
     isExpressionValid?: boolean;
     expectedType?: string;
+    onChange?: (value: any) => void;
 }): React.JSX.Element;
 
 declare const buttonVariants: (props?: ({
