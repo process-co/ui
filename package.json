@@ -7,7 +7,8 @@
     "**/*.css"
   ],
   "files": [
-    "dist"
+    "dist",
+    "css"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
@@ -23,7 +24,7 @@
         "default": "./dist/index.cjs"
       }
     },
-    "./styles": "./dist/ui.css",
+    "./styles": "./css/ui.css",
     "./package.json": "./package.json"
   },
   "repository": {

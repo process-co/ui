@@ -1,1 +1,6558 @@
-function e(e,r){if(r==null||r>e.length)r=e.length;for(var t=0,n=new Array(r);t<r;t++)n[t]=e[t];return n}function r(e){if(Array.isArray(e))return e}function t(r){if(Array.isArray(r))return e(r)}function n(e,r,t,n,i,o,a){try{var s=e[o](a);var u=s.value}catch(e){t(e);return}if(s.done){r(u)}else{Promise.resolve(u).then(n,i)}}function i(e){return function(){var r=this,t=arguments;return new Promise(function(i,o){var a=e.apply(r,t);function s(e){n(a,i,o,s,u,"next",e)}function u(e){n(a,i,o,s,u,"throw",e)}s(undefined)})}}function o(e,r,t){if(r in e){Object.defineProperty(e,r,{value:t,enumerable:true,configurable:true,writable:true})}else{e[r]=t}return e}function a(e,r){if(r!=null&&typeof Symbol!=="undefined"&&r[Symbol.hasInstance]){return!!r[Symbol.hasInstance](e)}else{return e instanceof r}}function s(e){if(typeof Symbol!=="undefined"&&e[Symbol.iterator]!=null||e["@@iterator"]!=null)return Array.from(e)}function u(e,r){var t=e==null?null:typeof Symbol!=="undefined"&&e[Symbol.iterator]||e["@@iterator"];if(t==null)return;var n=[];var i=true;var o=false;var a,s;try{for(t=t.call(e);!(i=(a=t.next()).done);i=true){n.push(a.value);if(r&&n.length===r)break}}catch(e){o=true;s=e}finally{try{if(!i&&t["return"]!=null)t["return"]()}finally{if(o)throw s}}return n}function l(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function c(){throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}function d(e){for(var r=1;r<arguments.length;r++){var t=arguments[r]!=null?arguments[r]:{};var n=Object.keys(t);if(typeof Object.getOwnPropertySymbols==="function"){n=n.concat(Object.getOwnPropertySymbols(t).filter(function(e){return Object.getOwnPropertyDescriptor(t,e).enumerable}))}n.forEach(function(r){o(e,r,t[r])})}return e}function f(e,r){var t=Object.keys(e);if(Object.getOwnPropertySymbols){var n=Object.getOwnPropertySymbols(e);if(r){n=n.filter(function(r){return Object.getOwnPropertyDescriptor(e,r).enumerable})}t.push.apply(t,n)}return t}function p(e,r){r=r!=null?r:{};if(Object.getOwnPropertyDescriptors){Object.defineProperties(e,Object.getOwnPropertyDescriptors(r))}else{f(Object(r)).forEach(function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(r,t))})}return e}function m(e,r){if(e==null)return{};var t=g(e,r);var n,i;if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(e);for(i=0;i<o.length;i++){n=o[i];if(r.indexOf(n)>=0)continue;if(!Object.prototype.propertyIsEnumerable.call(e,n))continue;t[n]=e[n]}}return t}function g(e,r){if(e==null)return{};var t={};var n=Object.keys(e);var i,o;for(o=0;o<n.length;o++){i=n[o];if(r.indexOf(i)>=0)continue;t[i]=e[i]}return t}function v(e,t){return r(e)||u(e,t)||y(e,t)||l()}function b(e){return t(e)||s(e)||y(e)||c()}function x(e){"@swc/helpers - typeof";return e&&typeof Symbol!=="undefined"&&e.constructor===Symbol?"symbol":typeof e}function y(r,t){if(!r)return;if(typeof r==="string")return e(r,t);var n=Object.prototype.toString.call(r).slice(8,-1);if(n==="Object"&&r.constructor)n=r.constructor.name;if(n==="Map"||n==="Set")return Array.from(n);if(n==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return e(r,t)}function h(e,r){var t,n,i,o={label:0,sent:function(){if(i[0]&1)throw i[1];return i[1]},trys:[],ops:[]},a=Object.create((typeof Iterator==="function"?Iterator:Object).prototype);return a.next=s(0),a["throw"]=s(1),a["return"]=s(2),typeof Symbol==="function"&&(a[Symbol.iterator]=function(){return this}),a;function s(e){return function(r){return u([e,r])}}function u(s){if(t)throw new TypeError("Generator is already executing.");while(a&&(a=0,s[0]&&(o=0)),o)try{if(t=1,n&&(i=s[0]&2?n["return"]:s[0]?n["throw"]||((i=n["return"])&&i.call(n),0):n.next)&&!(i=i.call(n,s[1])).done)return i;if(n=0,i)s=[s[0]&2,i.value];switch(s[0]){case 0:case 1:i=s;break;case 4:o.label++;return{value:s[1],done:false};case 5:o.label++;n=s[1];s=[0];continue;case 7:s=o.ops.pop();o.trys.pop();continue;default:if(!(i=o.trys,i=i.length>0&&i[i.length-1])&&(s[0]===6||s[0]===2)){o=0;continue}if(s[0]===3&&(!i||s[1]>i[0]&&s[1]<i[3])){o.label=s[1];break}if(s[0]===6&&o.label<i[1]){o.label=i[1];i=s;break}if(i&&o.label<i[2]){o.label=i[2];o.ops.push(s);break}if(i[2])o.ops.pop();o.trys.pop();continue}s=r.call(e,o)}catch(e){s=[6,e];n=0}finally{t=i=0}if(s[0]&5)throw s[1];return{value:s[0]?s[1]:void 0,done:true}}}import*as w from"react";import E,{useState as k,useCallback as N,useEffect as S,useMemo as C,useRef as T}from"react";import{create as M}from"zustand";import{Editor as F}from"@monaco-editor/react";import{FontAwesomeIcon as j}from"@fortawesome/react-fontawesome";import{faExpand as O,faSpinner as z}from"@fortawesome/pro-regular-svg-icons";import{Slot as I}from"@radix-ui/react-slot";function P(e){var r,t,n="";if(typeof e=="string"||typeof e=="number")n+=e;else if((typeof e==="undefined"?"undefined":x(e))=="object")if(Array.isArray(e)){var i=e.length;for(r=0;r<i;r++)e[r]&&(t=P(e[r]))&&(n&&(n+=" "),n+=t)}else for(t in e)e[t]&&(n&&(n+=" "),n+=t);return n}function D(){for(var e,r,t=0,n="",i=arguments.length;t<i;t++)(e=arguments[t])&&(r=P(e))&&(n&&(n+=" "),n+=r);return n}var L=D;var V="-",A=function(e){var r=R(e),t=e.conflictingClassGroups,n=e.conflictingClassGroupModifiers;return{getClassGroupId:function(e){var t=e.split(V);return t[0]===""&&t.length!==1&&t.shift(),W(t,r)||K(e)},getConflictingClassGroupIds:function(e,r){var i=t[e]||[];return r&&n[e]?b(i).concat(b(n[e])):i}}},W=function(e,r){var t;if(e.length===0)return r.classGroupId;var n=e[0],i=r.nextPart.get(n),o=i?W(e.slice(1),i):void 0;if(o)return o;if(r.validators.length===0)return;var a=e.join(V);return(t=r.validators.find(function(e){var r=e.validator;return r(a)}))===null||t===void 0?void 0:t.classGroupId},_=/^\[(.+)\]$/,K=function(e){if(_.test(e)){var r=_.exec(e)[1],t=r===null||r===void 0?void 0:r.substring(0,r.indexOf(":"));if(t)return"arbitrary.."+t}},R=function(e){var r=e.theme,t=e.classGroups,n={nextPart:new Map,validators:[]};for(var i in t)G(t[i],n,i,r);return n},G=function(e,r,t,n){e.forEach(function(e){if(typeof e=="string"){var i=e===""?r:B(r,e);i.classGroupId=t;return}if(typeof e=="function"){if($(e)){G(e(n),r,t,n);return}r.validators.push({validator:e,classGroupId:t});return}Object.entries(e).forEach(function(e){var i=v(e,2),o=i[0],a=i[1];G(a,B(r,o),t,n)})})},B=function(e,r){var t=e;return r.split(V).forEach(function(e){t.nextPart.has(e)||t.nextPart.set(e,{nextPart:new Map,validators:[]}),t=t.nextPart.get(e)}),t},$=function(e){return e.isThemeGetter},U=function(e){if(e<1)return{get:function(){},set:function(){}};var r=0,t=new Map,n=new Map,i=function(i,o){t.set(i,o),r++,r>e&&(r=0,n=t,t=new Map)};return{get:function e(e){var r=t.get(e);if(r!==void 0)return r;if((r=n.get(e))!==void 0)return i(e,r),r},set:function e(e,r){t.has(e)?t.set(e,r):i(e,r)}}},q="!",H=":",Q=H.length,J=function(e){var r=e.prefix,t=e.experimentalParseClassName,n=function(e){var r=[],t=0,n=0,i=0,o;for(var a=0;a<e.length;a++){var s=e[a];if(t===0&&n===0){if(s===H){r.push(e.slice(i,a)),i=a+Q;continue}if(s==="/"){o=a;continue}}s==="["?t++:s==="]"?t--:s==="("?n++:s===")"&&n--}var u=r.length===0?e:e.substring(i),l=Y(u),c=l!==u,d=o&&o>i?o-i:void 0;return{modifiers:r,hasImportantModifier:c,baseClassName:l,maybePostfixModifierPosition:d}};if(r){var i=r+H,o=n;n=function(e){return e.startsWith(i)?o(e.substring(i.length)):{isExternal:true,modifiers:[],hasImportantModifier:false,baseClassName:e,maybePostfixModifierPosition:void 0}}}if(t){var a=n;n=function(e){return t({className:e,parseClassName:a})}}return n},Y=function(e){return e.endsWith(q)?e.substring(0,e.length-1):e.startsWith(q)?e.substring(1):e},X=function(e){var r=Object.fromEntries(e.orderSensitiveModifiers.map(function(e){return[e,true]}));return function(e){var t;if(e.length<=1)return e;var n=[],i=[];return e.forEach(function(e){var t;e[0]==="["||r[e]?((t=n).push.apply(t,b(i.sort()).concat([e])),i=[]):i.push(e)}),(t=n).push.apply(t,b(i.sort())),n}},Z=function(e){return d({cache:U(e.cacheSize),parseClassName:J(e),sortModifiers:X(e)},A(e))},ee=/\s+/,er=function(e,r){var t=r.parseClassName,n=r.getClassGroupId,i=r.getConflictingClassGroupIds,o=r.sortModifiers,a=[],s=e.trim().split(ee),u="";for(var l=s.length-1;l>=0;l-=1){var c=s[l],d=t(c),f=d.isExternal,p=d.modifiers,m=d.hasImportantModifier,g=d.baseClassName,v=d.maybePostfixModifierPosition;if(f){u=c+(u.length>0?" "+u:u);continue}var b=!!v,x=n(b?g.substring(0,v):g);if(!x){if(!b){u=c+(u.length>0?" "+u:u);continue}if(x=n(g),!x){u=c+(u.length>0?" "+u:u);continue}b=false}var y=o(p).join(":"),h=m?y+q:y,w=h+x;if(a.includes(w))continue;a.push(w);var E=i(x,b);for(var k=0;k<E.length;++k){var N=E[k];a.push(h+N)}u=c+(u.length>0?" "+u:u)}return u};function et(){var e=0,r,t,n="";for(;e<arguments.length;)(r=arguments[e++])&&(t=en(r))&&(n&&(n+=" "),n+=t);return n}var en=function(e){if(typeof e=="string")return e;var r,t="";for(var n=0;n<e.length;n++)e[n]&&(r=en(e[n]))&&(t&&(t+=" "),t+=r);return t};function ei(e){for(var r=arguments.length,t=new Array(r>1?r-1:0),n=1;n<r;n++){t[n-1]=arguments[n]}var i,o,a,s=u;function u(r){var n=t.reduce(function(e,r){return r(e)},e());return i=Z(n),o=i.cache.get,a=i.cache.set,s=l,l(r)}function l(e){var r=o(e);if(r)return r;var t=er(e,i);return a(e,t),t}return function(){return s(et.apply(null,arguments))}}var eo=function(e){var r=function(r){return r[e]||[]};return r.isThemeGetter=true,r},ea=/^\[(?:(\w[\w-]*):)?(.+)\]$/i,es=/^\((?:(\w[\w-]*):)?(.+)\)$/i,eu=/^\d+\/\d+$/,el=/^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/,ec=/\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/,ed=/^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/,ef=/^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/,ep=/^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/,em=function(e){return eu.test(e)},eg=function(e){return!!e&&!Number.isNaN(Number(e))},ev=function(e){return!!e&&Number.isInteger(Number(e))},eb=function(e){return e.endsWith("%")&&eg(e.slice(0,-1))},ex=function(e){return el.test(e)},ey=function(){return true},eh=function(e){return ec.test(e)&&!ed.test(e)},ew=function(){return false},eE=function(e){return ef.test(e)},ek=function(e){return ep.test(e)},eN=function(e){return!eC(e)&&!ez(e)},eS=function(e){return eW(e,e$,ew)},eC=function(e){return ea.test(e)},eT=function(e){return eW(e,eU,eh)},eM=function(e){return eW(e,eq,eg)},eF=function(e){return eW(e,eK,ew)},ej=function(e){return eW(e,eG,ek)},eO=function(e){return eW(e,ew,eE)},ez=function(e){return es.test(e)},eI=function(e){return e_(e,eU)},eP=function(e){return e_(e,eH)},eD=function(e){return e_(e,eK)},eL=function(e){return e_(e,e$)},eV=function(e){return e_(e,eG)},eA=function(e){return e_(e,eQ,true)},eW=function(e,r,t){var n=ea.exec(e);return n?n[1]?r(n[1]):t(n[2]):false},e_=function(e,r){var t=arguments.length>2&&arguments[2]!==void 0?arguments[2]:false;var n=es.exec(e);return n?n[1]?r(n[1]):t:false},eK=function(e){return e==="position"},eR=new Set(["image","url"]),eG=function(e){return eR.has(e)},eB=new Set(["length","size","percentage"]),e$=function(e){return eB.has(e)},eU=function(e){return e==="length"},eq=function(e){return e==="number"},eH=function(e){return e==="family-name"},eQ=function(e){return e==="shadow"};var eJ=function(){var e=eo("color"),r=eo("font"),t=eo("text"),n=eo("font-weight"),i=eo("tracking"),o=eo("leading"),a=eo("breakpoint"),s=eo("container"),u=eo("spacing"),l=eo("radius"),c=eo("shadow"),d=eo("inset-shadow"),f=eo("drop-shadow"),p=eo("blur"),m=eo("perspective"),g=eo("aspect"),v=eo("ease"),x=eo("animate"),y=function(){return["auto","avoid","all","avoid-page","page","left","right","column"]},h=function(){return["bottom","center","left","left-bottom","left-top","right","right-bottom","right-top","top"]},w=function(){return["auto","hidden","clip","visible","scroll"]},E=function(){return["auto","contain","none"]},k=function(){return[ez,eC,u]},N=function(){return[em,"full","auto"].concat(b(k()))},S=function(){return[ev,"none","subgrid",ez,eC]},C=function(){return["auto",{span:["full",ev,ez,eC]},ev,ez,eC]},T=function(){return[ev,"auto",ez,eC]},M=function(){return["auto","min","max","fr",ez,eC]},F=function(){return["start","end","center","between","around","evenly","stretch","baseline"]},j=function(){return["start","end","center","stretch"]},O=function(){return["auto"].concat(b(k()))},z=function(){return[em,"auto","full","dvw","dvh","lvw","lvh","svw","svh","min","max","fit"].concat(b(k()))},I=function(){return[e,ez,eC]},P=function(){return[eb,eI,eT]},D=function(){return["","none","full",l,ez,eC]},L=function(){return["",eg,eI,eT]},V=function(){return["solid","dashed","dotted","double"]},A=function(){return["normal","multiply","screen","overlay","darken","lighten","color-dodge","color-burn","hard-light","soft-light","difference","exclusion","hue","saturation","color","luminosity"]},W=function(){return["","none",p,ez,eC]},_=function(){return["center","top","top-right","right","bottom-right","bottom","bottom-left","left","top-left",ez,eC]},K=function(){return["none",eg,ez,eC]},R=function(){return["none",eg,ez,eC]},G=function(){return[eg,ez,eC]},B=function(){return[em,"full"].concat(b(k()))};return{cacheSize:500,theme:{animate:["spin","ping","pulse","bounce"],aspect:["video"],blur:[ex],breakpoint:[ex],color:[ey],container:[ex],"drop-shadow":[ex],ease:["in","out","in-out"],font:[eN],"font-weight":["thin","extralight","light","normal","medium","semibold","bold","extrabold","black"],"inset-shadow":[ex],leading:["none","tight","snug","normal","relaxed","loose"],perspective:["dramatic","near","normal","midrange","distant","none"],radius:[ex],shadow:[ex],spacing:["px",eg],text:[ex],tracking:["tighter","tight","normal","wide","wider","widest"]},classGroups:{aspect:[{aspect:["auto","square",em,eC,ez,g]}],container:["container"],columns:[{columns:[eg,eC,ez,s]}],"break-after":[{"break-after":y()}],"break-before":[{"break-before":y()}],"break-inside":[{"break-inside":["auto","avoid","avoid-page","avoid-column"]}],"box-decoration":[{"box-decoration":["slice","clone"]}],box:[{box:["border","content"]}],display:["block","inline-block","inline","flex","inline-flex","table","inline-table","table-caption","table-cell","table-column","table-column-group","table-footer-group","table-header-group","table-row-group","table-row","flow-root","grid","inline-grid","contents","list-item","hidden"],sr:["sr-only","not-sr-only"],float:[{float:["right","left","none","start","end"]}],clear:[{clear:["left","right","both","none","start","end"]}],isolation:["isolate","isolation-auto"],"object-fit":[{object:["contain","cover","fill","none","scale-down"]}],"object-position":[{object:b(h()).concat([eC,ez])}],overflow:[{overflow:w()}],"overflow-x":[{"overflow-x":w()}],"overflow-y":[{"overflow-y":w()}],overscroll:[{overscroll:E()}],"overscroll-x":[{"overscroll-x":E()}],"overscroll-y":[{"overscroll-y":E()}],position:["static","fixed","absolute","relative","sticky"],inset:[{inset:N()}],"inset-x":[{"inset-x":N()}],"inset-y":[{"inset-y":N()}],start:[{start:N()}],end:[{end:N()}],top:[{top:N()}],right:[{right:N()}],bottom:[{bottom:N()}],left:[{left:N()}],visibility:["visible","invisible","collapse"],z:[{z:[ev,"auto",ez,eC]}],basis:[{basis:[em,"full","auto",s].concat(b(k()))}],"flex-direction":[{flex:["row","row-reverse","col","col-reverse"]}],"flex-wrap":[{flex:["nowrap","wrap","wrap-reverse"]}],flex:[{flex:[eg,em,"auto","initial","none",eC]}],grow:[{grow:["",eg,ez,eC]}],shrink:[{shrink:["",eg,ez,eC]}],order:[{order:[ev,"first","last","none",ez,eC]}],"grid-cols":[{"grid-cols":S()}],"col-start-end":[{col:C()}],"col-start":[{"col-start":T()}],"col-end":[{"col-end":T()}],"grid-rows":[{"grid-rows":S()}],"row-start-end":[{row:C()}],"row-start":[{"row-start":T()}],"row-end":[{"row-end":T()}],"grid-flow":[{"grid-flow":["row","col","dense","row-dense","col-dense"]}],"auto-cols":[{"auto-cols":M()}],"auto-rows":[{"auto-rows":M()}],gap:[{gap:k()}],"gap-x":[{"gap-x":k()}],"gap-y":[{"gap-y":k()}],"justify-content":[{justify:b(F()).concat(["normal"])}],"justify-items":[{"justify-items":b(j()).concat(["normal"])}],"justify-self":[{"justify-self":["auto"].concat(b(j()))}],"align-content":[{content:["normal"].concat(b(F()))}],"align-items":[{items:b(j()).concat(["baseline"])}],"align-self":[{self:["auto"].concat(b(j()),["baseline"])}],"place-content":[{"place-content":F()}],"place-items":[{"place-items":b(j()).concat(["baseline"])}],"place-self":[{"place-self":["auto"].concat(b(j()))}],p:[{p:k()}],px:[{px:k()}],py:[{py:k()}],ps:[{ps:k()}],pe:[{pe:k()}],pt:[{pt:k()}],pr:[{pr:k()}],pb:[{pb:k()}],pl:[{pl:k()}],m:[{m:O()}],mx:[{mx:O()}],my:[{my:O()}],ms:[{ms:O()}],me:[{me:O()}],mt:[{mt:O()}],mr:[{mr:O()}],mb:[{mb:O()}],ml:[{ml:O()}],"space-x":[{"space-x":k()}],"space-x-reverse":["space-x-reverse"],"space-y":[{"space-y":k()}],"space-y-reverse":["space-y-reverse"],size:[{size:z()}],w:[{w:[s,"screen"].concat(b(z()))}],"min-w":[{"min-w":[s,"screen","none"].concat(b(z()))}],"max-w":[{"max-w":[s,"screen","none","prose",{screen:[a]}].concat(b(z()))}],h:[{h:["screen"].concat(b(z()))}],"min-h":[{"min-h":["screen","none"].concat(b(z()))}],"max-h":[{"max-h":["screen"].concat(b(z()))}],"font-size":[{text:["base",t,eI,eT]}],"font-smoothing":["antialiased","subpixel-antialiased"],"font-style":["italic","not-italic"],"font-weight":[{font:[n,ez,eM]}],"font-stretch":[{"font-stretch":["ultra-condensed","extra-condensed","condensed","semi-condensed","normal","semi-expanded","expanded","extra-expanded","ultra-expanded",eb,eC]}],"font-family":[{font:[eP,eC,r]}],"fvn-normal":["normal-nums"],"fvn-ordinal":["ordinal"],"fvn-slashed-zero":["slashed-zero"],"fvn-figure":["lining-nums","oldstyle-nums"],"fvn-spacing":["proportional-nums","tabular-nums"],"fvn-fraction":["diagonal-fractions","stacked-fractions"],tracking:[{tracking:[i,ez,eC]}],"line-clamp":[{"line-clamp":[eg,"none",ez,eM]}],leading:[{leading:[o].concat(b(k()))}],"list-image":[{"list-image":["none",ez,eC]}],"list-style-position":[{list:["inside","outside"]}],"list-style-type":[{list:["disc","decimal","none",ez,eC]}],"text-alignment":[{text:["left","center","right","justify","start","end"]}],"placeholder-color":[{placeholder:I()}],"text-color":[{text:I()}],"text-decoration":["underline","overline","line-through","no-underline"],"text-decoration-style":[{decoration:b(V()).concat(["wavy"])}],"text-decoration-thickness":[{decoration:[eg,"from-font","auto",ez,eT]}],"text-decoration-color":[{decoration:I()}],"underline-offset":[{"underline-offset":[eg,"auto",ez,eC]}],"text-transform":["uppercase","lowercase","capitalize","normal-case"],"text-overflow":["truncate","text-ellipsis","text-clip"],"text-wrap":[{text:["wrap","nowrap","balance","pretty"]}],indent:[{indent:k()}],"vertical-align":[{align:["baseline","top","middle","bottom","text-top","text-bottom","sub","super",ez,eC]}],whitespace:[{whitespace:["normal","nowrap","pre","pre-line","pre-wrap","break-spaces"]}],break:[{break:["normal","words","all","keep"]}],hyphens:[{hyphens:["none","manual","auto"]}],content:[{content:["none",ez,eC]}],"bg-attachment":[{bg:["fixed","local","scroll"]}],"bg-clip":[{"bg-clip":["border","padding","content","text"]}],"bg-origin":[{"bg-origin":["border","padding","content"]}],"bg-position":[{bg:b(h()).concat([eD,eF])}],"bg-repeat":[{bg:["no-repeat",{repeat:["","x","y","space","round"]}]}],"bg-size":[{bg:["auto","cover","contain",eL,eS]}],"bg-image":[{bg:["none",{linear:[{to:["t","tr","r","br","b","bl","l","tl"]},ev,ez,eC],radial:["",ez,eC],conic:[ev,ez,eC]},eV,ej]}],"bg-color":[{bg:I()}],"gradient-from-pos":[{from:P()}],"gradient-via-pos":[{via:P()}],"gradient-to-pos":[{to:P()}],"gradient-from":[{from:I()}],"gradient-via":[{via:I()}],"gradient-to":[{to:I()}],rounded:[{rounded:D()}],"rounded-s":[{"rounded-s":D()}],"rounded-e":[{"rounded-e":D()}],"rounded-t":[{"rounded-t":D()}],"rounded-r":[{"rounded-r":D()}],"rounded-b":[{"rounded-b":D()}],"rounded-l":[{"rounded-l":D()}],"rounded-ss":[{"rounded-ss":D()}],"rounded-se":[{"rounded-se":D()}],"rounded-ee":[{"rounded-ee":D()}],"rounded-es":[{"rounded-es":D()}],"rounded-tl":[{"rounded-tl":D()}],"rounded-tr":[{"rounded-tr":D()}],"rounded-br":[{"rounded-br":D()}],"rounded-bl":[{"rounded-bl":D()}],"border-w":[{border:L()}],"border-w-x":[{"border-x":L()}],"border-w-y":[{"border-y":L()}],"border-w-s":[{"border-s":L()}],"border-w-e":[{"border-e":L()}],"border-w-t":[{"border-t":L()}],"border-w-r":[{"border-r":L()}],"border-w-b":[{"border-b":L()}],"border-w-l":[{"border-l":L()}],"divide-x":[{"divide-x":L()}],"divide-x-reverse":["divide-x-reverse"],"divide-y":[{"divide-y":L()}],"divide-y-reverse":["divide-y-reverse"],"border-style":[{border:b(V()).concat(["hidden","none"])}],"divide-style":[{divide:b(V()).concat(["hidden","none"])}],"border-color":[{border:I()}],"border-color-x":[{"border-x":I()}],"border-color-y":[{"border-y":I()}],"border-color-s":[{"border-s":I()}],"border-color-e":[{"border-e":I()}],"border-color-t":[{"border-t":I()}],"border-color-r":[{"border-r":I()}],"border-color-b":[{"border-b":I()}],"border-color-l":[{"border-l":I()}],"divide-color":[{divide:I()}],"outline-style":[{outline:b(V()).concat(["none","hidden"])}],"outline-offset":[{"outline-offset":[eg,ez,eC]}],"outline-w":[{outline:["",eg,eI,eT]}],"outline-color":[{outline:[e]}],shadow:[{shadow:["","none",c,eA,eO]}],"shadow-color":[{shadow:I()}],"inset-shadow":[{"inset-shadow":["none",ez,eC,d]}],"inset-shadow-color":[{"inset-shadow":I()}],"ring-w":[{ring:L()}],"ring-w-inset":["ring-inset"],"ring-color":[{ring:I()}],"ring-offset-w":[{"ring-offset":[eg,eT]}],"ring-offset-color":[{"ring-offset":I()}],"inset-ring-w":[{"inset-ring":L()}],"inset-ring-color":[{"inset-ring":I()}],opacity:[{opacity:[eg,ez,eC]}],"mix-blend":[{"mix-blend":b(A()).concat(["plus-darker","plus-lighter"])}],"bg-blend":[{"bg-blend":A()}],filter:[{filter:["","none",ez,eC]}],blur:[{blur:W()}],brightness:[{brightness:[eg,ez,eC]}],contrast:[{contrast:[eg,ez,eC]}],"drop-shadow":[{"drop-shadow":["","none",f,ez,eC]}],grayscale:[{grayscale:["",eg,ez,eC]}],"hue-rotate":[{"hue-rotate":[eg,ez,eC]}],invert:[{invert:["",eg,ez,eC]}],saturate:[{saturate:[eg,ez,eC]}],sepia:[{sepia:["",eg,ez,eC]}],"backdrop-filter":[{"backdrop-filter":["","none",ez,eC]}],"backdrop-blur":[{"backdrop-blur":W()}],"backdrop-brightness":[{"backdrop-brightness":[eg,ez,eC]}],"backdrop-contrast":[{"backdrop-contrast":[eg,ez,eC]}],"backdrop-grayscale":[{"backdrop-grayscale":["",eg,ez,eC]}],"backdrop-hue-rotate":[{"backdrop-hue-rotate":[eg,ez,eC]}],"backdrop-invert":[{"backdrop-invert":["",eg,ez,eC]}],"backdrop-opacity":[{"backdrop-opacity":[eg,ez,eC]}],"backdrop-saturate":[{"backdrop-saturate":[eg,ez,eC]}],"backdrop-sepia":[{"backdrop-sepia":["",eg,ez,eC]}],"border-collapse":[{border:["collapse","separate"]}],"border-spacing":[{"border-spacing":k()}],"border-spacing-x":[{"border-spacing-x":k()}],"border-spacing-y":[{"border-spacing-y":k()}],"table-layout":[{table:["auto","fixed"]}],caption:[{caption:["top","bottom"]}],transition:[{transition:["","all","colors","opacity","shadow","transform","none",ez,eC]}],"transition-behavior":[{transition:["normal","discrete"]}],duration:[{duration:[eg,"initial",ez,eC]}],ease:[{ease:["linear","initial",v,ez,eC]}],delay:[{delay:[eg,ez,eC]}],animate:[{animate:["none",x,ez,eC]}],backface:[{backface:["hidden","visible"]}],perspective:[{perspective:[m,ez,eC]}],"perspective-origin":[{"perspective-origin":_()}],rotate:[{rotate:K()}],"rotate-x":[{"rotate-x":K()}],"rotate-y":[{"rotate-y":K()}],"rotate-z":[{"rotate-z":K()}],scale:[{scale:R()}],"scale-x":[{"scale-x":R()}],"scale-y":[{"scale-y":R()}],"scale-z":[{"scale-z":R()}],"scale-3d":["scale-3d"],skew:[{skew:G()}],"skew-x":[{"skew-x":G()}],"skew-y":[{"skew-y":G()}],transform:[{transform:[ez,eC,"","none","gpu","cpu"]}],"transform-origin":[{origin:_()}],"transform-style":[{transform:["3d","flat"]}],translate:[{translate:B()}],"translate-x":[{"translate-x":B()}],"translate-y":[{"translate-y":B()}],"translate-z":[{"translate-z":B()}],"translate-none":["translate-none"],accent:[{accent:I()}],appearance:[{appearance:["none","auto"]}],"caret-color":[{caret:I()}],"color-scheme":[{scheme:["normal","dark","light","light-dark","only-dark","only-light"]}],cursor:[{cursor:["auto","default","pointer","wait","text","move","help","not-allowed","none","context-menu","progress","cell","crosshair","vertical-text","alias","copy","no-drop","grab","grabbing","all-scroll","col-resize","row-resize","n-resize","e-resize","s-resize","w-resize","ne-resize","nw-resize","se-resize","sw-resize","ew-resize","ns-resize","nesw-resize","nwse-resize","zoom-in","zoom-out",ez,eC]}],"field-sizing":[{"field-sizing":["fixed","content"]}],"pointer-events":[{"pointer-events":["auto","none"]}],resize:[{resize:["none","","y","x"]}],"scroll-behavior":[{scroll:["auto","smooth"]}],"scroll-m":[{"scroll-m":k()}],"scroll-mx":[{"scroll-mx":k()}],"scroll-my":[{"scroll-my":k()}],"scroll-ms":[{"scroll-ms":k()}],"scroll-me":[{"scroll-me":k()}],"scroll-mt":[{"scroll-mt":k()}],"scroll-mr":[{"scroll-mr":k()}],"scroll-mb":[{"scroll-mb":k()}],"scroll-ml":[{"scroll-ml":k()}],"scroll-p":[{"scroll-p":k()}],"scroll-px":[{"scroll-px":k()}],"scroll-py":[{"scroll-py":k()}],"scroll-ps":[{"scroll-ps":k()}],"scroll-pe":[{"scroll-pe":k()}],"scroll-pt":[{"scroll-pt":k()}],"scroll-pr":[{"scroll-pr":k()}],"scroll-pb":[{"scroll-pb":k()}],"scroll-pl":[{"scroll-pl":k()}],"snap-align":[{snap:["start","end","center","align-none"]}],"snap-stop":[{snap:["normal","always"]}],"snap-type":[{snap:["none","x","y","both"]}],"snap-strictness":[{snap:["mandatory","proximity"]}],touch:[{touch:["auto","none","manipulation"]}],"touch-x":[{"touch-pan":["x","left","right"]}],"touch-y":[{"touch-pan":["y","up","down"]}],"touch-pz":["touch-pinch-zoom"],select:[{select:["none","text","all","auto"]}],"will-change":[{"will-change":["auto","scroll","contents","transform",ez,eC]}],fill:[{fill:["none"].concat(b(I()))}],"stroke-w":[{stroke:[eg,eI,eT,eM]}],stroke:[{stroke:["none"].concat(b(I()))}],"forced-color-adjust":[{"forced-color-adjust":["auto","none"]}]},conflictingClassGroups:{overflow:["overflow-x","overflow-y"],overscroll:["overscroll-x","overscroll-y"],inset:["inset-x","inset-y","start","end","top","right","bottom","left"],"inset-x":["right","left"],"inset-y":["top","bottom"],flex:["basis","grow","shrink"],gap:["gap-x","gap-y"],p:["px","py","ps","pe","pt","pr","pb","pl"],px:["pr","pl"],py:["pt","pb"],m:["mx","my","ms","me","mt","mr","mb","ml"],mx:["mr","ml"],my:["mt","mb"],size:["w","h"],"font-size":["leading"],"fvn-normal":["fvn-ordinal","fvn-slashed-zero","fvn-figure","fvn-spacing","fvn-fraction"],"fvn-ordinal":["fvn-normal"],"fvn-slashed-zero":["fvn-normal"],"fvn-figure":["fvn-normal"],"fvn-spacing":["fvn-normal"],"fvn-fraction":["fvn-normal"],"line-clamp":["display","overflow"],rounded:["rounded-s","rounded-e","rounded-t","rounded-r","rounded-b","rounded-l","rounded-ss","rounded-se","rounded-ee","rounded-es","rounded-tl","rounded-tr","rounded-br","rounded-bl"],"rounded-s":["rounded-ss","rounded-es"],"rounded-e":["rounded-se","rounded-ee"],"rounded-t":["rounded-tl","rounded-tr"],"rounded-r":["rounded-tr","rounded-br"],"rounded-b":["rounded-br","rounded-bl"],"rounded-l":["rounded-tl","rounded-bl"],"border-spacing":["border-spacing-x","border-spacing-y"],"border-w":["border-w-s","border-w-e","border-w-t","border-w-r","border-w-b","border-w-l"],"border-w-x":["border-w-r","border-w-l"],"border-w-y":["border-w-t","border-w-b"],"border-color":["border-color-s","border-color-e","border-color-t","border-color-r","border-color-b","border-color-l"],"border-color-x":["border-color-r","border-color-l"],"border-color-y":["border-color-t","border-color-b"],translate:["translate-x","translate-y","translate-none"],"translate-none":["translate","translate-x","translate-y","translate-z"],"scroll-m":["scroll-mx","scroll-my","scroll-ms","scroll-me","scroll-mt","scroll-mr","scroll-mb","scroll-ml"],"scroll-mx":["scroll-mr","scroll-ml"],"scroll-my":["scroll-mt","scroll-mb"],"scroll-p":["scroll-px","scroll-py","scroll-ps","scroll-pe","scroll-pt","scroll-pr","scroll-pb","scroll-pl"],"scroll-px":["scroll-pr","scroll-pl"],"scroll-py":["scroll-pt","scroll-pb"],touch:["touch-x","touch-y","touch-pz"],"touch-x":["touch"],"touch-y":["touch"],"touch-pz":["touch"]},conflictingClassGroupModifiers:{"font-size":["leading"]},orderSensitiveModifiers:["before","after","placeholder","file","marker","selection","first-line","first-letter","backdrop","*","**"]}};var eY=ei(eJ);function eX(){for(var e=arguments.length,r=new Array(e),t=0;t<e;t++){r[t]=arguments[t]}return eY(D(r))}function eZ(e){var r=e.className,t=e.wrapperClassName,n=e.type,i=e.required,o=e.error,a=m(e,["className","wrapperClassName","type","required","error"]);return w.createElement("div",{className:eX("uii:relative",t)},w.createElement("input",d({"aria-invalid":o,type:n,"data-slot":"input",className:eX("uii:border-input uii:file:text-foreground uii:placeholder:text-muted-foreground uii:selection:bg-primary uii:selection:text-primary-foreground uii:flex uii:h-9 uii:w-full uii:min-w-0 uii:rounded-sm uii:border uii:bg-transparent uii:px-3 uii:py-1 uii:text-base uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:file:inline-flex uii:file:h-7 uii:file:border-0 uii:file:bg-transparent uii:file:text-sm uii:file:font-medium uii:disabled:pointer-events-none uii:disabled:cursor-not-allowed uii:disabled:opacity-50 uii:md:text-sm","uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px]","uii:aria-invalid:ring-destructive/20 uii:dark:aria-invalid:ring-destructive/40 uii:aria-invalid:border-destructive",{"uii:pr-30":o},r)},a)),o&&w.createElement("span",{className:"uii:absolute uii:inset-y-0 uii:right-0 uii:flex uii:items-center uii:pr-2 uii:border-l-10 uii:border-l-background uii:my-[6px] uii:pointer-events-none "},w.createElement("span",{className:"uii:bg-destructive uii:text-white uii:px-1.5 uii:py-1.5 uii:rounded-xs uii:uppercase uii:tracking-wide uii:font-medium uii:text-xs uii:leading-none uii:font-sans"},o&&i?"required":"error")))}var e0={expression:"",mode:"value",isEditing:false,currentValue:void 0,isFullScreen:false},e1=M(function(e,r){return{states:{},setState:function(r,t){e(function(e){return{states:p(d({},e.states),o({},r,t))}})},getState:function(e){return r().states[e]||e0},clear:function(r){e(function(e){return{states:p(d({},e.states),o({},r,e0))}})},switchToValue:function(e){var t=r().getState(e);r().setState(e,p(d({},t),{mode:"value",isEditing:false}))},switchToExpression:function(e){var t=r().getState(e);r().setState(e,p(d({},t),{mode:"expression",isEditing:false}))},switchToEditor:function(e){var t=r().getState(e);r().setState(e,p(d({},t),{mode:"expression",isEditing:true}))},setExpression:function(e,t){var n=r().getState(e);r().setState(e,p(d({},n),{expression:t}))},setEditing:function(e,t){var n=r().getState(e);r().setState(e,p(d({},n),{isEditing:t}))},setFullScreen:function(e,t){var n=r().getState(e);r().setState(e,p(d({},n),{isFullScreen:t}))},setCurrentValue:function(e,t){var n=r().getState(e);r().setState(e,p(d({},n),{currentValue:t}))}}});function e2(e){var r=e1(),t=r.getState(e),n=N(function(){r.switchToValue(e)},[r,e]),i=N(function(){r.switchToExpression(e)},[r,e]),o=N(function(){r.switchToEditor(e)},[r,e]),a=N(function(){r.clear(e)},[r,e]),s=N(function(t){r.setExpression(e,t)},[r,e]),u=N(function(t){r.setEditing(e,t)},[r,e]),l=N(function(t){r.setCurrentValue(e,t)},[r,e]),c=N(function(t){r.setFullScreen(e,t)},[r,e]);return{current:t.mode,switchToValue:n,switchToExpression:i,switchToEditor:o,clear:a,isExpressionMode:t.mode==="expression",isEditorMode:t.isEditing,expression:t.expression,setExpression:s,isEditing:t.isEditing,setEditing:u,currentValue:t.currentValue,setCurrentValue:l,isFullScreen:t.isFullScreen,setFullScreen:c}}function e3(e,r,t){var n=arguments.length>3&&arguments[3]!==void 0?arguments[3]:"\uD83D\uDD37";return i(function(){var i,o,a,s,u,l,c,d,f,p,m,g,v,b,x,y,w,E,k;return h(this,function(h){switch(h.label){case 0:if(!t.trim())return[2,(console.log("".concat(n," Type inference skipped - no expression")),null)];if(!e.hasTextFocus())return[2,(console.log("".concat(n," Skipping type inference - editor does not have focus")),null)];console.log("".concat(n," Running type inference, expression:"),t);h.label=1;case 1:h.trys.push([1,5,,6]);i=e.getModel();if(i&&r.editor.getModelMarkers({resource:i.uri}).some(function(e){return e.severity===r.MarkerSeverity.Error}))return[2,(console.log("".concat(n," Type inference skipped - expression has validation errors")),"error")];o="const __expr__ = (".concat(t,");"),a=r.editor.createModel(o,"typescript");return[4,r.languages.typescript.getTypeScriptWorker()];case 2:return[4,h.sent()(a.uri)];case 3:s=h.sent(),u=o.indexOf("__expr__"),l=a.getPositionAt(u);return[4,s.getQuickInfoAtPosition(a.uri.toString(),a.getOffsetAt(l))];case 4:c=h.sent();console.log("".concat(n," QuickInfo response:"),c);d=null;if(c&&c.displayParts){f=!1,p=[];m=true,g=false,v=undefined;try{for(b=c.displayParts[Symbol.iterator]();!(m=(x=b.next()).done);m=true){y=x.value;if(f&&p.push(y),y.kind==="punctuation"&&y.text===":"&&!f){w=c.displayParts[c.displayParts.indexOf(y)-1];w&&(w.kind==="localName"||w.kind==="parameterName")&&(f=!0)}}}catch(e){g=true;v=e}finally{try{if(!m&&b.return!=null){b.return()}}finally{if(g){throw v}}}if(p.length>0){E=p.map(function(e){return e.text}).join("").trim();console.log("".concat(n," Extracted type:"),E),E&&E!=="any"&&(d=E)}}return[2,(a.dispose(),d)];case 5:k=h.sent();return[2,(console.warn("".concat(n," Type inference failed:"),k),null)];case 6:return[2]}})})()}var e5={fontSize:"14px",fontWeight:"normal",wordWrap:"off",lineNumbers:"off",lineNumbersMinChars:0,overviewRulerLanes:0,overviewRulerBorder:false,hideCursorInOverviewRuler:true,lineDecorationsWidth:0,glyphMargin:false,folding:false,scrollBeyondLastColumn:0,scrollbar:{horizontal:"hidden",vertical:"hidden",alwaysConsumeMouseWheel:false},find:{addExtraSpaceOnTop:false,autoFindInSelection:"never",seedSearchStringFromSelection:false},minimap:{enabled:false},wordBasedSuggestions:true,links:false,occurrencesHighlight:false,cursorStyle:"line",renderLineHighlight:"none",contextmenu:false,roundedSelection:false,hover:{delay:300},acceptSuggestionOnEnter:"on",automaticLayout:true,fixedOverflowWidgets:true,padding:{top:4,bottom:4},fontFamily:"inherit",letterSpacing:"normal",lineHeight:"normal"},e4={fontSize:"14px",fontWeight:"normal",wordWrap:"on",lineNumbers:"on",lineNumbersMinChars:3,overviewRulerLanes:3,overviewRulerBorder:true,hideCursorInOverviewRuler:false,lineDecorationsWidth:10,glyphMargin:true,folding:true,scrollBeyondLastColumn:5,scrollbar:{horizontal:"auto",vertical:"auto",alwaysConsumeMouseWheel:false},find:{addExtraSpaceOnTop:false,autoFindInSelection:"never",seedSearchStringFromSelection:false},minimap:{enabled:true},wordBasedSuggestions:true,links:true,occurrencesHighlight:true,cursorStyle:"line",renderLineHighlight:"line",contextmenu:true,roundedSelection:true,hover:{delay:300},acceptSuggestionOnEnter:"off",automaticLayout:true,fixedOverflowWidgets:true,readOnly:false,domReadOnly:false};function e6(e){var r=e.value,t=e.onChange,n=e.onBlur,o=e.onEnter,a=e.onTypeInferred,s=e.onValidationChange,u=e.context,l=u===void 0?{}:u,c=e.className,f=e.placeholder,m=f===void 0?"Enter expression...":f;var g=T(null),v=T(null),b=T(null),x=function(e){v.current=e;var r=Object.keys(l);r.length>0&&e.languages.typescript.javascriptDefaults.addExtraLib("\n        declare const ".concat(r.join(", "),": any;\n      "),"context.d.ts")},y=function(e,r){g.current=e,e.updateOptions(e5),console.log("\uD83D\uDD37 Inline editor mounted!");e.getDomNode();var t=e.addCommand(r.KeyMod.CtrlCmd|r.KeyCode.KEY_F,function(){}),u=e.onKeyDown(function(t){if(t.keyCode===r.KeyCode.Enter){var i,a,s;if(!e.hasTextFocus()){console.log("\uD83D\uDD37 Enter keydown but inline editor does NOT have focus - allowing default");return}if(t.shiftKey){console.log("\uD83D\uDD37 Shift+Enter in INLINE editor - switching to full-screen"),t.preventDefault(),t.stopPropagation(),o&&o();return}var u=(i=e._contentWidgets)===null||i===void 0?void 0:i["editor.widget.suggestWidget"],l=(u===null||u===void 0?void 0:u.widget)&&!u.widget._hidden&&u.widget.state!==void 0&&u.widget.state!==0,c=(s=e._contextKeyService)===null||s===void 0?void 0:(a=s.getContextKeyValue)===null||a===void 0?void 0:a.call(s,"suggestWidgetVisible");l||c?(console.log("\uD83D\uDD37 Enter in INLINE editor - accepting autocomplete"),t.preventDefault(),t.stopPropagation(),e.trigger("","acceptSelectedSuggestion")):(console.log("\uD83D\uDD37 Enter in INLINE editor - blurring (finishing edit)"),t.preventDefault(),t.stopPropagation(),n===null||n===void 0?void 0:n({}))}});e.onDidPaste(function(r){if(r.endLineNumber<=1)return;var t="",n=e.getModel(),i=n.getLineCount();for(var o=0;o<i;o+=1)t+=n.getLineContent(o+1);n.setValue(t),e.setPosition({column:t.length+1,lineNumber:1})}),e.onDidBlurEditorText(function(r){var t=e.getValue();n===null||n===void 0?void 0:n(p(d({},r),{currentValue:t}))}),e.onDidChangeModelContent(function(){var t=e.getModel();if(t){if(s){var n=r.editor.getModelMarkers({resource:t.uri}),o=n.some(function(e){return e.severity===r.MarkerSeverity.Error});s(!o,n)}a&&(b.current&&clearTimeout(b.current),console.log("\uD83D\uDD37 Content changed - debouncing type inference"),b.current=setTimeout(function(){return i(function(){var n,i;return h(this,function(o){switch(o.label){case 0:n=t.getValue();return[4,e3(e,r,n,"\uD83D\uDD37")];case 1:i=o.sent();i&&a(i);return[2]}})})()},200))}});var l=r.editor.onDidChangeMarkers(function(t){var n=e.getModel();if(!n||!a||!t.some(function(e){return e.toString()===n.uri.toString()}))return;var o=r.editor.getModelMarkers({resource:n.uri}).some(function(e){return e.severity===r.MarkerSeverity.Error});console.log("\uD83D\uDD37 Monaco markers changed - hasErrors:",o),o?(b.current&&(clearTimeout(b.current),b.current=null),console.log("\uD83D\uDD37 ERROR detected - immediately setting type to error"),a("error")):(b.current&&clearTimeout(b.current),console.log("\uD83D\uDD37 Errors cleared - triggering type inference"),b.current=setTimeout(function(){return i(function(){var t,i;return h(this,function(o){switch(o.label){case 0:t=n.getValue();return[4,e3(e,r,t,"\uD83D\uDD37")];case 1:i=o.sent();i&&a(i);return[2]}})})()},100))});e.addCommand(r.KeyCode.F1,function(){});var c=e.onDidChangeCursorPosition(function(){return i(function(){var t,n,i;return h(this,function(o){switch(o.label){case 0:if(!(a&&e.hasTextFocus()))return[3,2];t=e.getModel();if(!(t&&t.getValue().trim()))return[3,2];b.current&&clearTimeout(b.current);n=t.getValue();return[4,e3(e,r,n,"\uD83D\uDD37")];case 1:i=o.sent();i&&a(i);o.label=2;case 2:return[2]}})})()});e.setPosition({lineNumber:1,column:999999}),window.requestAnimationFrame(function(){e.focus(),setTimeout(function(){return i(function(){var t,n,i;return h(this,function(o){switch(o.label){case 0:t=e.getModel();if(!(a&&t&&t.getValue()))return[3,3];if(!(console.log("\uD83D\uDD37 Triggering initial type inference for inline editor"),r.editor.getModelMarkers({resource:t.uri}).some(function(e){return e.severity===r.MarkerSeverity.Error})))return[3,1];a("error");return[3,3];case 1:n=t.getValue();return[4,e3(e,r,n,"\uD83D\uDD37")];case 2:i=o.sent();i&&a(i);o.label=3;case 3:return[2]}})})()},100)}),g.current._inlineDisposables={enterKeyDisposable:u,findCommand:t,markerChangeDisposable:l,cursorDisposable:c}};S(function(){return function(){if(g.current){if(console.log("\uD83D\uDD37 Inline editor unmounting - cleaning up"),b.current&&clearTimeout(b.current),g.current._inlineDisposables){var e,r,t,n,i,o,a,s;var u=g.current._inlineDisposables;(r=u.enterKeyDisposable)===null||r===void 0?void 0:(e=r.dispose)===null||e===void 0?void 0:e.call(r),(n=u.findCommand)===null||n===void 0?void 0:(t=n.dispose)===null||t===void 0?void 0:t.call(n),(o=u.markerChangeDisposable)===null||o===void 0?void 0:(i=o.dispose)===null||i===void 0?void 0:i.call(o),(s=u.cursorDisposable)===null||s===void 0?void 0:(a=s.dispose)===null||a===void 0?void 0:a.call(s)}g.current=null}}},[]);var w=function(e){t(e||"")};return E.createElement("div",{className:eX("uii:relative uii:flex-1",c)},E.createElement(F,{theme:"vs-dark",height:"26px",language:"typescript",value:r,onChange:w,onMount:y,beforeMount:x,width:"100%",loading:E.createElement(E.Fragment,null,E.createElement(j,{icon:z,className:"uii:animate-spin"})),options:e5,className:"uii:-ml-[4px] uii:-mt-[1px] inline-editor"}),!r&&E.createElement("div",{className:"uii:absolute uii:inset-0 uii:flex uii:items-center uii:pointer-events-none uii:text-muted-foreground uii:text-sm"},m))}function e8(e){var r=e.value,t=e.onChange,n=e.onClose,o=e.onBlur,a=e.onTypeInferred,s=e.context,u=s===void 0?{}:s,l=e.className,c=e.placeholder,f=c===void 0?"Enter expression...":c;var m=T(null),g=T(null),v=T(null),b=function(e){g.current=e;var r=Object.keys(u);r.length>0&&e.languages.typescript.javascriptDefaults.addExtraLib("\n        declare const ".concat(r.join(", "),": any;\n      "),"context.d.ts")},x=function(e,r){m.current=e,e.updateOptions(e4),console.log("\uD83D\uDFE6 FULL-SCREEN panel editor mounted!"),console.log("Full-screen editor is read-only?",e.getOption(r.editor.EditorOption.readOnly));var t=e.onKeyDown(function(t){if(t.keyCode===r.KeyCode.Escape&&(console.log("\uD83D\uDFE6 Escape pressed in FULL-SCREEN editor - closing"),t.preventDefault(),t.stopPropagation(),n()),t.keyCode===r.KeyCode.Enter){var i,o,a;var s=(i=e._contentWidgets)===null||i===void 0?void 0:i["editor.widget.suggestWidget"],u=(s===null||s===void 0?void 0:s.widget)&&!s.widget._hidden&&s.widget.state!==void 0&&s.widget.state!==0,l=(a=e._contextKeyService)===null||a===void 0?void 0:(o=a.getContextKeyValue)===null||o===void 0?void 0:o.call(a,"suggestWidgetVisible");u||l?(console.log("\uD83D\uDFE6 Enter in FULL-SCREEN - accepting autocomplete"),t.preventDefault(),t.stopPropagation(),e.trigger("","acceptSelectedSuggestion")):console.log("\uD83D\uDFE6 Enter in FULL-SCREEN - allowing newline (default behavior)")}}),s=0,u=e.onDidChangeModelContent(function(t){var n;s++;var o=e.getValue();console.log("\uD83D\uDFE6 FULL-SCREEN content changed (".concat(s,"):"),o),console.log("\uD83D\uDFE6 Line count: ".concat((n=e.getModel())===null||n===void 0?void 0:n.getLineCount())),a&&(v.current&&clearTimeout(v.current),console.log("\uD83D\uDFE6 Content changed - debouncing type inference"),v.current=setTimeout(function(){return i(function(){var t;return h(this,function(n){switch(n.label){case 0:return[4,e3(e,r,o,"\uD83D\uDFE6")];case 1:t=n.sent();t&&a(t);return[2]}})})()},200))}),l=r.editor.onDidChangeMarkers(function(t){var n=e.getModel();if(!n||!a||!t.some(function(e){return e.toString()===n.uri.toString()}))return;var o=r.editor.getModelMarkers({resource:n.uri}).some(function(e){return e.severity===r.MarkerSeverity.Error});console.log("\uD83D\uDFE6 Monaco markers changed - hasErrors:",o),o?(v.current&&(clearTimeout(v.current),v.current=null),console.log("\uD83D\uDFE6 ERROR detected - immediately setting type to error"),a("error")):(v.current&&clearTimeout(v.current),console.log("\uD83D\uDFE6 Errors cleared - triggering type inference"),v.current=setTimeout(function(){return i(function(){var t,i;return h(this,function(o){switch(o.label){case 0:t=n.getValue();return[4,e3(e,r,t,"\uD83D\uDFE6")];case 1:i=o.sent();i&&a(i);return[2]}})})()},100))});e.onDidBlurEditorText(function(r){var t=e.getValue();o===null||o===void 0?void 0:o(p(d({},r),{currentValue:t}))});var c=e.getModel();if(c){var f=c.getLineCount(),g=c.getLineLength(f);e.setPosition({lineNumber:f,column:g+1})}e.focus(),setTimeout(function(){return i(function(){var t,n;return h(this,function(i){switch(i.label){case 0:if(!(a&&c))return[3,3];if(!(console.log("\uD83D\uDFE6 Triggering initial type inference for full-screen editor"),r.editor.getModelMarkers({resource:c.uri}).some(function(e){return e.severity===r.MarkerSeverity.Error})))return[3,1];console.log("\uD83D\uDFE6 Initial load has error - setting type to error"),a("error");return[3,3];case 1:t=c.getValue();return[4,e3(e,r,t,"\uD83D\uDFE6")];case 2:n=i.sent();n&&a(n);i.label=3;case 3:return[2]}})})()},100);var b=e.onDidChangeCursorPosition(function(){return i(function(){var t,n,i;return h(this,function(o){switch(o.label){case 0:if(!(a&&e.hasTextFocus()))return[3,2];t=e.getModel();if(!(t&&t.getValue().trim()))return[3,2];v.current&&clearTimeout(v.current);n=t.getValue();return[4,e3(e,r,n,"\uD83D\uDFE6")];case 1:i=o.sent();i&&a(i);o.label=2;case 2:return[2]}})})()});m.current._fullScreenDisposables={escapeKeyDisposable:t,changeDisposable:u,markerChangeDisposable:l,cursorDisposable:b}};S(function(){return function(){if(m.current){if(console.log("\uD83D\uDFE6 Full-screen editor unmounting - cleaning up"),v.current&&clearTimeout(v.current),m.current._fullScreenDisposables){var e,r,t,n,i,o,a,s;var u=m.current._fullScreenDisposables;(r=u.escapeKeyDisposable)===null||r===void 0?void 0:(e=r.dispose)===null||e===void 0?void 0:e.call(r),(n=u.changeDisposable)===null||n===void 0?void 0:(t=n.dispose)===null||t===void 0?void 0:t.call(n),(o=u.markerChangeDisposable)===null||o===void 0?void 0:(i=o.dispose)===null||i===void 0?void 0:i.call(o),(s=u.cursorDisposable)===null||s===void 0?void 0:(a=s.dispose)===null||a===void 0?void 0:a.call(s)}m.current=null}}},[]);var y=function(e){t(e||"")};return E.createElement("div",{className:eX("uii:relative uii:border uii:rounded-md uii:bg-background",l)},E.createElement("div",{className:"uii:flex uii:items-center uii:justify-between uii:p-2 uii:border-b uii:bg-muted/50"},E.createElement("span",{className:"uii:text-sm uii:font-medium"},"Expression Editor"),E.createElement("button",{type:"button",onClick:n,className:"uii:text-muted-foreground hover:uii:text-foreground uii:p-1 uii:rounded uii:cursor-pointer uii:text-xs"},"✕")),E.createElement(F,{height:"300px",theme:"vs-dark",language:"typescript",value:r,onChange:y,onMount:x,beforeMount:b,options:e4}),!r&&E.createElement("div",{className:"uii:absolute uii:inset-0 uii:flex uii:items-center uii:justify-center uii:pointer-events-none uii:text-muted-foreground"},f))}function e9(e,r){var t=v(k(null),2),n=t[0],i=t[1],o=v(k([]),2),a=o[0],s=o[1],u=v(k([]),2),l=u[0],c=u[1],d=v(k(false),2),f=d[0],p=d[1],m=v(k(null),2),g=m[0],b=m[1],y=T(0),h=T(null),w=T(r||"default");return S(function(){w.current=r||"default"},[r]),S(function(){if((typeof window==="undefined"?"undefined":x(window))>"u"||!navigator.serviceWorker){b("Service worker not available");return}var e=function(e){if(e.data.type==="AST_PARSE_RESULT"){var r=e.data.payload,t=r.id,n=r.controlKey,o=r.result;t===y.current&&n===w.current?(console.log("Service worker AST response:",{id:t,controlKey:n,result:o}),i(o.ast),s(o.tokens),c(o.dependencies||[]),b(o.error||null),p(false)):console.log("Ignoring AST response - wrong control:",{receivedId:t,expectedId:y.current,receivedKey:n,expectedKey:w.current})}};return h.current=e,navigator.serviceWorker.addEventListener("message",e),function(){h.current&&navigator.serviceWorker.removeEventListener("message",h.current)}},[]),S(function(){if(!e.trim()){i(null),s([]),c([]),b(null),p(false);return}if(!navigator.serviceWorker||!navigator.serviceWorker.controller){b("Service worker not ready"),p(false);return}p(true),b(null),y.current++,console.log("Sending expression to service worker:",{expression:e.trim(),controlKey:w.current,id:y.current}),navigator.serviceWorker.controller.postMessage({type:"PARSE_AST",payload:{expression:e.trim(),id:y.current,controlKey:w.current}})},[e]),{ast:n,tokens:a,dependencies:l,isLoading:f,error:g}}function e7(e){var r=e.ast,t=e.key,n=e.className,i=e.variant,o=i===void 0?"inline":i,a=e.showTokens,s=a===void 0?false:a,u=e.tokens,l=u===void 0?[]:u;var c=function(e){switch(e){case"StringLiteral":return"uii:text-green-600 uii:bg-green-100";case"NumericLiteral":return"uii:text-purple-600 uii:bg-purple-100";case"Identifier":return"uii:text-blue-600 uii:bg-blue-100";case"Keyword":case"Literal":return"uii:text-orange-600 uii:bg-orange-100";case"BinaryExpression":return"uii:text-gray-700 uii:bg-gray-100";case"CallExpression":return"uii:text-indigo-600 uii:bg-indigo-100";case"MemberExpression":return"uii:text-cyan-600 uii:bg-cyan-100";case"UnaryExpression":return"uii:text-pink-600 uii:bg-pink-100";case"ParenthesizedExpression":return"uii:text-yellow-600 uii:bg-yellow-100";default:return"uii:text-gray-600 uii:bg-gray-100"}},d=function(e){var r=arguments.length>1&&arguments[1]!==void 0?arguments[1]:0;return r>2?null:e.type==="Identifier"?E.createElement("span",{key:"".concat(e.start,"-").concat(e.end),className:"uii:inline-flex uii:items-center uii:mr-1"},E.createElement("span",{className:"uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-blue-100 uii:text-blue-800 uii:font-mono"},e.name||e.value)):e.type==="StringLiteral"||e.type==="NumericLiteral"?E.createElement("span",{key:"".concat(e.start,"-").concat(e.end),className:"uii:inline-flex uii:items-center uii:mr-1"},E.createElement("span",{className:"uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-green-100 uii:text-green-800 uii:font-mono"},e.value)):e.type==="BinaryExpression"?E.createElement("span",{key:"".concat(e.start,"-").concat(e.end),className:"uii:inline-flex uii:items-center uii:mr-1"},e.left&&d(e.left,r+1),E.createElement("span",{className:"uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-purple-100 uii:text-purple-800 uii:font-mono uii:mx-1"},e.operator),e.right&&d(e.right,r+1)):e.type==="CallExpression"?E.createElement("span",{key:"".concat(e.start,"-").concat(e.end),className:"uii:inline-flex uii:items-center uii:mr-1"},e.callee&&d(e.callee,r+1),E.createElement("span",{className:"text-xs text-gray-600"},"()")):e.type==="PropertyAccessExpression"?E.createElement("span",{key:"".concat(e.start,"-").concat(e.end),className:"uii:inline-flex uii:items-center uii:mr-1"},e.object&&d(e.object,r+1),E.createElement("span",{className:"text-xs text-gray-600"},"."),e.property&&d(e.property,r+1)):E.createElement("span",{key:"".concat(e.start,"-").concat(e.end),className:"uii:inline-flex uii:items-center uii:mr-1"},E.createElement("span",{className:"px-1 py-0.5 rounded text-xs bg-gray-100 text-gray-600 font-mono"},e.type))},f=function(e){var r=arguments.length>1&&arguments[1]!==void 0?arguments[1]:0;if(r>4)return null;var t="  ".repeat(r);return E.createElement("div",{key:"".concat(e.start,"-").concat(e.end),className:"font-mono text-xs"},E.createElement("div",{className:"uii:flex uii:items-start uii:gap-2"},E.createElement("span",{className:"uii:text-gray-400"},t),E.createElement("span",{className:eX("uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:font-semibold",c(e.type))},e.type),e.value&&E.createElement("span",{className:"uii:text-green-600"},'"',e.value,'"'),e.operator&&E.createElement("span",{className:"uii:text-purple-600"},e.operator),e.name&&E.createElement("span",{className:"uii:text-blue-600"},e.name)),e.left&&E.createElement("div",{className:"uii:ml-2"},E.createElement("span",{className:"uii:text-gray-500 uii:text-xs"},"left: "),f(e.left,r+1)),e.right&&E.createElement("div",{className:"uii:ml-2"},E.createElement("span",{className:"uii:text-gray-500 uii:text-xs"},"right: "),f(e.right,r+1)),e.argument&&E.createElement("div",{className:"uii:ml-2"},E.createElement("span",{className:"uii:text-gray-500 uii:text-xs"},"arg: "),f(e.argument,r+1)),e.object&&E.createElement("div",{className:"uii:ml-2"},E.createElement("span",{className:"uii:text-gray-500 uii:text-xs"},"obj: "),f(e.object,r+1)),e.property&&E.createElement("div",{className:"uii:ml-2"},E.createElement("span",{className:"uii:text-gray-500 uii:text-xs"},"prop: "),f(e.property,r+1)),e.index&&E.createElement("div",{className:"uii:ml-2"},E.createElement("span",{className:"uii:text-gray-500 uii:text-xs"},"idx: "),f(e.index,r+1)),!e.left&&!e.right&&!e.argument&&!e.object&&!e.property&&!e.index&&e.children&&e.children.length>0&&E.createElement("div",{className:"uii:ml-2"},e.children.slice(0,3).map(function(e,t){return f(e,r+1)}),e.children.length>3&&E.createElement("div",{className:"uii:ml-2 uii:text-gray-500 uii:text-xs"},"... and ",e.children.length-3," more")))},p=function(){if(l.length===0)return null;var e=l.slice(0,10);return E.createElement("div",{className:"uii:space-y-2"},E.createElement("div",{className:"uii:text-sm uii:font-semibold uii:text-gray-700"},"Tokens ",l.length>10&&"(".concat(l.length," total)"),":"),E.createElement("div",{className:"uii:flex uii:flex-wrap uii:gap-1"},e.map(function(e,r){return E.createElement("span",{key:r,className:eX("uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:font-mono",e.type.includes("Keyword")&&"uii:bg-blue-100 uii:text-blue-800",e.type.includes("Identifier")&&"uii:bg-green-100 uii:text-green-800",e.type.includes("String")&&"uii:bg-yellow-100 uii:text-yellow-800",e.type.includes("Numeric")&&"uii:bg-purple-100 uii:text-purple-800",e.type.includes("Punctuation")&&"uii:bg-gray-100 uii:text-gray-800","uii:bg-gray-100 uii:text-gray-600")},e.value)}),l.length>10&&E.createElement("span",{className:"uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-gray-200 uii:text-gray-600"},"+",l.length-10," more")))};return r?o==="inline"?E.createElement("div",{className:eX("uii:inline-flex uii:items-center uii:gap-2",n)},d(r)):o==="compact"?E.createElement("div",{className:eX("uii:space-y-2",n)},E.createElement("div",{className:"uii:flex uii:flex-wrap uii:gap-1"},d(r)),s&&p()):E.createElement("div",{className:eX("uii:space-y-3",n)},E.createElement("div",{className:"uii:space-y-2"},E.createElement("div",{className:"uii:text-sm uii:font-semibold uii:text-gray-700"},"AST Tree:"),E.createElement("div",{className:"uii:p-3 uii:border uii:rounded-md uii:bg-gray-50 uii:max-h-64 uii:overflow-auto"},f(r))),s&&p()):E.createElement("div",{className:eX("uii:text-gray-500 uii:text-sm uii:italic",n)},"No AST available")}function re(e){var r=e.label,t=e.value,n=e.type,o=e.valuesLoading,s=o===void 0?false:o,u=e.key,l=e.onValueChange,c=e.onDependenciesChange,f=e.metadata,m=e.children,g=e.fieldName,b=e.expressionContext,y=b===void 0?{}:b,w=e.availableNodes,M=e.myInterface,F=e.contextTypeDefinitions,z=e.inlineEditor,I=z===void 0?true:z,P=e.className,D=e.editorClassName,V=e.expressionPlaceholder,A=V===void 0?"Enter expression...":V,W=e.evaluateExpression,_=e.expressionResult,K=e.isEvaluating,R=K===void 0?false:K,G=e.isExpressionValid,B=G===void 0?true:G,$=e.expectedType,U=$===void 0?"any":$;var q=v(k(function(){return p(d({},f||{expression:"",mode:"value",isEditing:false,isFullScreen:false,value:void 0}),{isEditing:false,isFullScreen:false,mode:"value"})}),2),H=q[0],Q=q[1],J=v(k(t&&(typeof t==="undefined"?"undefined":x(t))=="object"&&"expression"in t&&"type"in t&&t.type==="expression"?t.value:t),2),Y=J[0],X=J[1],Z=v(k(t&&(typeof t==="undefined"?"undefined":x(t))=="object"&&"expression"in t&&"type"in t&&t.type==="expression"?t.value:t),2),ee=Z[0],er=Z[1],et=N(function(e){switch(n){case"float":return typeof e=="string"&&!isNaN(parseFloat(e))?parseFloat(e):e;case"integer":case"number":return typeof e=="string"&&!isNaN(parseInt(e))?parseInt(e):e;case"string[]":return typeof e=="string"?e.split(","):e;case"string":default:return e}},[n]),en=v(k(),2),ei=en[0],eo=en[1],ea=e1.getState().getState(g).expression;S(function(){f&&Q(p(d({},f),{isEditing:false,isFullScreen:false}))},[f]);var es=C(function(){return t&&(typeof t==="undefined"?"undefined":x(t))=="object"&&"expression"in t&&"type"in t&&t.type==="expression"},[t]),eu=T(true);S(function(){if(t&&(typeof t==="undefined"?"undefined":x(t))=="object"&&"expression"in t&&"type"in t&&t.type==="expression"){var e=t.value,r=t.expression;e!==void 0&&(er(et(e)),X(et(e))),r&&el.expression!==r&&(el.setExpression(r),eu.current&&!el.isEditing&&el.switchToExpression());var n=!f||f.expression!==r||f.mode==="value"||f.isEditing===true||f.isFullScreen===true;if(eu.current&&n){var i={expression:r||"",value:et(e),mode:"expression",isEditing:false,isFullScreen:false};setTimeout(function(){l(t,p(d({},i),{value:et(t)}))},0)}}else if(!s&&(er(et(t)),X(et(t)),eu.current&&((f===null||f===void 0?void 0:f.expression)||(f===null||f===void 0?void 0:f.mode)==="expression"))){var o={expression:"",value:et(t),mode:"value",isEditing:false,isFullScreen:false};setTimeout(function(){l(et(t),p(d({},o),{value:et(t)}))},0)}eu.current&&setTimeout(function(){eu.current=false},100)},[t,s]);var el=e2(g),ec=e9(el.expression,g),ed=ec.ast,ef=ec.tokens,ep=ec.dependencies,em=ec.isLoading,eg=ec.error,ev=C(function(){return!ed||ep.length===0?[]:ep.map(function(e){return{name:e,exists:y?e in y:false,value:y?y[e]:void 0}})},[ep,y,ed]),eb=v(k(null),2),ex=eb[0],ey=eb[1],eh=N(function(e){ey(e)},[]),ew=C(function(){return el.expression.includes("\n")||el.expression.includes("\r")},[el.expression]),eE=C(function(){return ex||"unknown"},[ex]),ek=C(function(){if(!eE||eE==="unknown"||eE==="any"||eE==="error")return false;var e=eE.toLowerCase().trim(),r=(n||U||"any").toLowerCase().trim();return!(r==="array"&&e.endsWith("[]")||e===r||r==="any"||r==="string"&&(e.startsWith('"')||e.startsWith("'"))||r==="number"&&/^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(e)||r==="integer"&&/^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(e)||r==="integer"&&e==="number"||r==="float"&&/^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(e)||r==="float"&&e==="number"||r==="boolean"&&(e==="true"||e==="false"))},[eE,n,U]),eN=v(k(null),2),eS=eN[0],eC=eN[1],eT=v(k(false),2),eM=eT[0],eF=eT[1],ej=v(k(false),2),eO=ej[0],ez=ej[1],eI=v(k(true),2),eP=eI[0],eD=eI[1],eL=v(k({syntax:true,expression:true,context:true,type:true,security:true}),2),eV=eL[0],eA=eL[1],eW=C(function(){return!el.expression||!el.expression.trim()?false:!!(!eP||!B||eg||!eV.syntax||!eV.expression||(_===null||_===void 0?void 0:_.error)||(eS===null||eS===void 0?void 0:eS.error))},[el.expression,eP,B,eg,eV,_,eS]),e_=T(false),eK=T(false),eR=T(false),eG=N(function(e,r){eD(e),eA(function(r){return p(d({},r),{syntax:e})})},[]),eB=N(function(e){var r=e.includes("\n"),t=e.length>80;el.isFullScreen||el.setFullScreen(r||t)},[el.isFullScreen]),e$=N(function(e,r){return i(function(){var t,n;return h(this,function(i){switch(i.label){case 0:if(!!(!W||!e.trim()))return[3,5];eF(true);i.label=1;case 1:i.trys.push([1,3,4,5]);return[4,W(e,r)];case 2:t=i.sent();eC(t);return[3,5];case 3:n=i.sent();eC({value:null,ast:{kind:0,text:"",color:"#ff0000"},error:a(n,Error)?n.message:"Unknown error",isValid:false,validation:{syntax:false,expression:false,context:false,type:false,security:false}});return[3,5];case 4:eF(false);return[7];case 5:return[2]}})})()},[W]),eU=C(function(){return{expression:el.expression,value:ee,mode:el.current,isEditing:el.isEditing,isFullScreen:el.isFullScreen}},[el.expression,el.current,el.isFullScreen,el.isEditing,ee]),eq=C(function(){return{expression:el.expression,type:"expression"}},[el.currentValue||el.expression]),eH=N(function(e){l(et(e),p(d({},eU),{value:et(e)}))},[l,el,es,ee]),eQ=N(function(e){e_.current=false,el.setExpression(e),eo(e),eB(e),l({expression:e,type:"expression"},p(d({},eU),{expression:e}))},[el,y,l,W,e$,eB]),eJ=N(function(e){var r=arguments.length>1&&arguments[1]!==void 0?arguments[1]:false;return i(function(){return h(this,function(e){if(e_.current){e_.current=false;return[2]}if(eK.current){eK.current=false;return[2]}el.isFullScreen&&!r||ew&&!r||(eR.current=true,el.setEditing(false),el.setFullScreen(false));return[2]})})()},[el,_,eS,y,l,ee,R,eM,eq,ew]);S(function(){l(ee,p(d({},eU),{isFullScreen:el.isFullScreen}))},[el.isFullScreen]),S(function(){el.isEditing&&ew&&!el.isFullScreen&&el.setFullScreen(true)},[ew,el.isEditing,el.isFullScreen]);var eY=N(function(e){switch(e){case"value":el.switchToValue(),el.setFullScreen(false),l(Y||t,void 0);break;case"editor":el.switchToEditor();var r=ew;r&&el.setFullScreen(true);var n={expression:el.expression,value:ee,mode:"expression",isEditing:true,isFullScreen:r};l(el.expression?{expression:el.expression,type:"expression"}:ee,n);break;case"expression":X(ee),el.switchToExpression(),ew&&el.setFullScreen(true);break}},[el,ee,l,ew,Y,t]);S(function(){var e,r;eR.current&&(el.expression&&el.expression.trim()?l(eU.mode==="value"?(e=eU.value)!==null&&e!==void 0?e:"":{expression:eU.expression.trim(),type:"expression"},p(d({},eU),{isEditing:false,isFullScreen:false})):(el.switchToValue(),l((r=eU.value)!==null&&r!==void 0?r:"",p(d({},eU),{mode:"value",expression:"",isEditing:false,isFullScreen:false}))),eR.current=false)},[el.isEditing,el.isFullScreen,eR.current]),S(function(){c&&c(ep)},[ep,c]);var eZ=N(function(){e_.current=true,l(ee,eU),eY("value"),el.setFullScreen(false)},[l,el,Y]),e0=v(k(ee),2),e3=e0[0],e5=e0[1];S(function(){e5(ee)},[ee]);var e4=C(function(){return{value:ee,onChange:eH,onExpressionClick:function(){return eY("editor")},inferredType:eE,hasTypeMismatch:ek,hasError:eW,localInput:e3,setLocalInput:e5,expressionMode:{current:el.current,switchToValue:function(){return eY("value")},switchToExpression:function(){return eY("expression")},switchToEditor:function(){return eY("editor")},clear:eZ,isExpressionMode:el.isExpressionMode,isEditorMode:el.isEditorMode,expression:el.expression,setExpression:eQ,isEditing:el.isEditing,setEditing:el.setEditing,isFullScreen:el.isFullScreen,setFullScreen:el.setFullScreen}}},[ee,eH,el,eY,eZ,eQ,eE,ek,eW]),re=function(){switch(el.current){case"expression":var e;el.expression&&el.expression.trim();(e=_||eS)===null||e===void 0?void 0:e.isValid;return e4.expressionMode.isEditing?E.createElement("div",{key:"".concat(u,"-expression"),className:eX("relative",P)},I&&!el.isFullScreen&&!ew?E.createElement("div",{className:eX("uii:flex uii:h-9 uii:w-full \n              uii:min-w-0 uii:rounded-sm \n              uii:border uii:border-ring \n              uii:bg-background uii:px-3 uii:py-1 uii:text-base uii:shadow-xs \n              uii:ring-ring/50 uii:ring-[3px] uii:transition-[color,box-shadow] \n              uii:outline-none uii:md:text-sm uii:cursor-pointer\n              uii:mt-0.5 ",D)},E.createElement(e6,{value:el.expression,onChange:function(e){eQ(e)},onEnter:function(){eK.current=true,el.setFullScreen(true),setTimeout(function(){eK.current=false},100)},onBlur:eJ,onTypeInferred:eh,onValidationChange:eG,context:y,placeholder:A}),E.createElement("div",{className:"uii:flex uii:items-center uii:gap-2 uii:mt-0.5"},E.createElement("span",{className:"uii:text-xs uii:font-mono uii:cursor-pointer uii:text-muted-foreground",onMouseDown:function(e){e.preventDefault(),e.stopPropagation(),eK.current=true,el.setFullScreen(true),setTimeout(function(){eK.current=false},100)}},E.createElement(j,{icon:O})),E.createElement("span",{className:"uii:text-xs uii:font-mono uii:cursor-pointer uii:text-muted-foreground",onMouseDown:function(e){e.preventDefault(),eZ()}},"Clear"))):E.createElement("div",{className:"uii:space-y-4"},E.createElement(e8,{value:el.expression,onChange:function(e){eQ(e)},onClose:function(){eJ(void 0,true),el.setFullScreen(false)},onBlur:eJ,onTypeInferred:eh,context:y,placeholder:A}),(ed||ep.length>0)&&E.createElement("div",{className:"uii:space-y-3"},eE&&eE!=="unknown"&&E.createElement("div",{className:"uii:space-y-2"},E.createElement("div",{className:"uii:flex uii:items-center uii:gap-2"},E.createElement("div",{className:"uii:text-sm uii:font-semibold uii:text-gray-700"},"Inferred Return Type:"),ex&&eE!=="error"&&E.createElement("span",{className:"uii:px-1.5 uii:py-0.5 uii:text-xs uii:rounded uii:bg-blue-100 uii:text-blue-700 uii:border uii:border-blue-200"},"TypeScript")),E.createElement("div",{className:"uii:flex uii:items-center uii:gap-2"},eE==="error"?E.createElement("span",{className:"uii:px-3 uii:py-1.5 uii:text-sm uii:font-mono uii:rounded uii:border uii:bg-red-50 uii:text-red-800 uii:border-red-200"},"❌ Syntax Error"):E.createElement(E.Fragment,null,E.createElement("span",{className:"uii:px-3 uii:py-1.5 uii:text-sm uii:font-mono uii:rounded uii:border uii:bg-purple-50 uii:text-purple-800 uii:border-purple-200"},eE),ek&&E.createElement("span",{className:"uii:text-xs uii:text-orange-600 uii:font-semibold"},"⚠️ Expected: ",n||U)))),ev.length>0&&E.createElement("div",{className:"uii:space-y-2"},E.createElement("div",{className:"uii:text-sm uii:font-semibold uii:text-gray-700"},"Dependencies (",ev.length,"):"),E.createElement("div",{className:"uii:flex uii:flex-wrap uii:gap-2"},ev.map(function(e,r){return E.createElement("span",{key:r,className:eX("uii:px-2 uii:py-1 uii:text-sm uii:rounded uii:border",e.exists?"uii:bg-blue-100 uii:text-blue-800 uii:border-blue-200":"uii:bg-red-100 uii:text-red-800 uii:border-red-200"),title:e.exists?"Value: ".concat(JSON.stringify(e.value)):"Not found in context"},e.name)}))),ed&&E.createElement(e7,{ast:ed,tokens:ef,variant:"tree",showTokens:true,className:"uii:w-full"}),em&&E.createElement("div",{className:"uii:text-sm uii:text-gray-500 uii:italic"},"Parsing expression..."),eg&&E.createElement("div",{className:"uii:text-sm uii:text-red-600"},"Parse Error: ",eg)))):E.createElement("div",{className:eX("uii:relative",P),key:"".concat(u,"-expression-display")},E.createElement("div",{className:L("uii:flex uii:h-9 uii:w-full uii:min-w-0 uii:rounded-sm uii:border uii:border-input uii:bg-transparent uii:px-3 uii:py-1 uii:text-base uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px] uii:md:text-sm uii:cursor-pointer uii:hover:bg-muted/50","uii:mt-0.5 uii:bg-white uii:rounded-md uii:items-center"),onClick:function(){return eY("editor")},onMouseEnter:function(){return ez(true)},onMouseLeave:function(){return ez(false)}},E.createElement("span",{className:"uii:flex-1 uii:truncate uii:text-foreground uii:items-center"},eO?E.createElement("div",{className:"uii:flex uii:items-center uii:gap-2"},ed?E.createElement(e7,{key:"".concat(u,"-ast"),ast:ed,tokens:ef,variant:"inline",showTokens:false,className:"uii:text-xs"}):E.createElement("div",{className:"uii:text-xs uii:text-gray-500"},em?"Parsing...":eg?"Error: ".concat(eg):"No AST available"),ep.length>0&&E.createElement("div",{className:"uii:flex uii:gap-1"},ep.map(function(e,r){return E.createElement("span",{key:r,className:"uii:px-1 uii:py-0.5 uii:bg-blue-100 uii:text-blue-800 uii:text-xs uii:rounded"},e)}))):E.createElement("span",{className:"uii:font-mono uii:text-sm"},ea||"No expression"))));default:return m(e4)}};return E.createElement(E.Fragment,null,E.createElement("div",{className:"uii:flex uii:items-center uii:gap-2 uii:mt-2"},E.createElement("label",{className:"uii:text-xs uii:text-muted-foreground uii:font-bold",htmlFor:u},r,":"),E.createElement("span",{className:"uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"},n),ek||eE==="error"?E.createElement(E.Fragment,null,el.current==="expression"?E.createElement(E.Fragment,null,E.createElement("span",{className:"uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"},el.expression.trim()!==""?eE:"empty"),E.createElement("span",{className:"uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:font-light uii:text-orange-600 "},"⚠️ Expected: ",n||U)):E.createElement(E.Fragment,null)):E.createElement(E.Fragment,null)),re())}function rr(e){var r=e.className,t=e.expectedType,n=m(e,["className","expectedType"]);var i;return w.createElement(re,{label:(i=n.label)!==null&&i!==void 0?i:"Test Entry",key:n.name,type:t!==null&&t!==void 0?t:"string",valuesLoading:false,value:n.value,onValueChange:function(e,r){n.onChange&&n.onChange(e)},expectedType:t,fieldName:n.name,children:function(e){var r=e.onExpressionClick,t=e.onChange,i=e.value,o=e.localInput,a=e.setLocalInput;var s;return w.createElement("div",{className:"uii:relative uii:text-xs uii:mt-0.5"},w.createElement(eZ,{type:"text",value:o,onChange:function(e){a(e.target.value),t(e.target.value)},placeholder:(s=n.placeholder)!==null&&s!==void 0?s:"Enter value..."}),w.createElement("div",{className:"uii:flex uii:bg-white uii:border-white/40 uii:border-l-8 uii:items-center uii:gap-1 uii:absolute uii:right-1.5 uii:top-2.5 uii:cursor-pointer uii:truncate",onClick:function(){return r()}},w.createElement("span",{className:"uii:border-l uii:border-gray-200 uii:px-2"},"Custom Expression 3")))}})}var rt=function(e){return typeof e=="boolean"?"".concat(e):e===0?"0":e},rn=D,ri=function(e,r){return function(t){var n;if((r===null||r===void 0?void 0:r.variants)==null)return rn(e,t===null||t===void 0?void 0:t.class,t===null||t===void 0?void 0:t.className);var i=r.variants,o=r.defaultVariants,a=Object.keys(i).map(function(e){var r=t===null||t===void 0?void 0:t[e],n=o===null||o===void 0?void 0:o[e];if(r===null)return null;var a=rt(r)||rt(n);return i[e][a]}),s=t&&Object.entries(t).reduce(function(e,r){var t=v(r,2),n=t[0],i=t[1];return i===void 0||(e[n]=i),e},{}),u=r==null||(n=r.compoundVariants)===null||n===void 0?void 0:n.reduce(function(e,r){var t=r.class,n=r.className,i=m(r,["class","className"]);return Object.entries(i).every(function(e){var r=v(e,2),t=r[0],n=r[1];return Array.isArray(n)?n.includes(d({},o,s)[t]):d({},o,s)[t]===n})?b(e).concat([t,n]):e},[]);return rn(e,a,u,t===null||t===void 0?void 0:t.class,t===null||t===void 0?void 0:t.className)}};var ro=ri("ui:inline-flex ui:items-center ui:justify-center ui:gap-2 ui:whitespace-nowrap ui:rounded-sm ui:text-sm ui:font-medium ui:transition-[color,box-shadow] ui:disabled:pointer-events-none ui:disabled:opacity-50 ui:[&_svg]:pointer-events-none ui:[&_svg:not([class*=size-])]:size-4 ui:shrink-0 ui:[&_svg]:shrink-0 ui:outline-none ui:focus-visible:border-ring ui:focus-visible:ring-ring/50 ui:focus-visible:ring-[3px] ui:aria-invalid:ring-destructive/20 ui:dark:aria-invalid:ring-destructive/40 ui:aria-invalid:border-destructive ui:cursor-pointer",{variants:{variant:{default:"ui:bg-primary ui:text-primary-foreground ui:shadow-xs ui:hover:bg-primary/90 ui:select-none",destructive:"ui:bg-destructive ui:text-white ui:shadow-xs ui:hover:bg-destructive/90 ui:focus-visible:ring-destructive/20 ui:dark:focus-visible:ring-destructive/40",outline:"ui:border ui:border-input ui:bg-background ui:shadow-xs ui:hover:bg-accent ui:hover:text-accent-foreground",secondary:"ui:bg-secondary ui:text-secondary-foreground ui:shadow-xs ui:hover:bg-secondary/80",ghost:"ui:hover:bg-accent ui:hover:text-accent-foreground",link:"ui:text-primary ui:underline-offset-4 ui:hover:underline"},size:{default:"ui:h-9 ui:px-4 ui:py-2 ui:has-[>svg]:px-3",sm:"ui:h-8 ui:rounded-sm ui:gap-1.5 ui:px-3 ui:has-[>svg]:px-2.5",lg:"ui:h-10 ui:rounded-sm ui:px-6 ui:has-[>svg]:px-4",icon:"ui:size-9"}},defaultVariants:{variant:"default",size:"default"}});function ra(e){var r=e.className,t=e.variant,n=e.size,i=e.asChild,o=i===void 0?false:i,a=m(e,["className","variant","size","asChild"]);return w.createElement(o?I:"button",d({"data-slot":"button",className:eX(ro({variant:t,size:n,className:r}))},a))}export{ra as Button,rr as Input,ro as buttonVariants};//# sourceMappingURL=index.js.map
+function _array_like_to_array(arr, len) {
+    if (len == null || len > arr.length) len = arr.length;
+    for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
+    return arr2;
+}
+function _array_with_holes(arr) {
+    if (Array.isArray(arr)) return arr;
+}
+function _array_without_holes(arr) {
+    if (Array.isArray(arr)) return _array_like_to_array(arr);
+}
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
+    try {
+        var info = gen[key](arg);
+        var value = info.value;
+    } catch (error) {
+        reject(error);
+        return;
+    }
+    if (info.done) {
+        resolve(value);
+    } else {
+        Promise.resolve(value).then(_next, _throw);
+    }
+}
+function _async_to_generator(fn) {
+    return function() {
+        var self = this, args = arguments;
+        return new Promise(function(resolve, reject) {
+            var gen = fn.apply(self, args);
+            function _next(value) {
+                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
+            }
+            function _throw(err) {
+                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
+            }
+            _next(undefined);
+        });
+    };
+}
+function _define_property(obj, key, value) {
+    if (key in obj) {
+        Object.defineProperty(obj, key, {
+            value: value,
+            enumerable: true,
+            configurable: true,
+            writable: true
+        });
+    } else {
+        obj[key] = value;
+    }
+    return obj;
+}
+function _instanceof(left, right) {
+    if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
+        return !!right[Symbol.hasInstance](left);
+    } else {
+        return left instanceof right;
+    }
+}
+function _iterable_to_array(iter) {
+    if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+function _iterable_to_array_limit(arr, i) {
+    var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+    if (_i == null) return;
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _s, _e;
+    try {
+        for(_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true){
+            _arr.push(_s.value);
+            if (i && _arr.length === i) break;
+        }
+    } catch (err) {
+        _d = true;
+        _e = err;
+    } finally{
+        try {
+            if (!_n && _i["return"] != null) _i["return"]();
+        } finally{
+            if (_d) throw _e;
+        }
+    }
+    return _arr;
+}
+function _non_iterable_rest() {
+    throw new TypeError("Invalid attempt to destructure non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _non_iterable_spread() {
+    throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _object_spread(target) {
+    for(var i = 1; i < arguments.length; i++){
+        var source = arguments[i] != null ? arguments[i] : {};
+        var ownKeys = Object.keys(source);
+        if (typeof Object.getOwnPropertySymbols === "function") {
+            ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function(sym) {
+                return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+            }));
+        }
+        ownKeys.forEach(function(key) {
+            _define_property(target, key, source[key]);
+        });
+    }
+    return target;
+}
+function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+    if (Object.getOwnPropertySymbols) {
+        var symbols = Object.getOwnPropertySymbols(object);
+        if (enumerableOnly) {
+            symbols = symbols.filter(function(sym) {
+                return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+            });
+        }
+        keys.push.apply(keys, symbols);
+    }
+    return keys;
+}
+function _object_spread_props(target, source) {
+    source = source != null ? source : {};
+    if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+        ownKeys(Object(source)).forEach(function(key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+        });
+    }
+    return target;
+}
+function _object_without_properties(source, excluded) {
+    if (source == null) return {};
+    var target = _object_without_properties_loose(source, excluded);
+    var key, i;
+    if (Object.getOwnPropertySymbols) {
+        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+        for(i = 0; i < sourceSymbolKeys.length; i++){
+            key = sourceSymbolKeys[i];
+            if (excluded.indexOf(key) >= 0) continue;
+            if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+            target[key] = source[key];
+        }
+    }
+    return target;
+}
+function _object_without_properties_loose(source, excluded) {
+    if (source == null) return {};
+    var target = {};
+    var sourceKeys = Object.keys(source);
+    var key, i;
+    for(i = 0; i < sourceKeys.length; i++){
+        key = sourceKeys[i];
+        if (excluded.indexOf(key) >= 0) continue;
+        target[key] = source[key];
+    }
+    return target;
+}
+function _sliced_to_array(arr, i) {
+    return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
+}
+function _to_consumable_array(arr) {
+    return _array_without_holes(arr) || _iterable_to_array(arr) || _unsupported_iterable_to_array(arr) || _non_iterable_spread();
+}
+function _type_of(obj) {
+    "@swc/helpers - typeof";
+    return obj && typeof Symbol !== "undefined" && obj.constructor === Symbol ? "symbol" : typeof obj;
+}
+function _unsupported_iterable_to_array(o, minLen) {
+    if (!o) return;
+    if (typeof o === "string") return _array_like_to_array(o, minLen);
+    var n = Object.prototype.toString.call(o).slice(8, -1);
+    if (n === "Object" && o.constructor) n = o.constructor.name;
+    if (n === "Map" || n === "Set") return Array.from(n);
+    if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
+}
+function _ts_generator(thisArg, body) {
+    var f, y, t, _ = {
+        label: 0,
+        sent: function() {
+            if (t[0] & 1) throw t[1];
+            return t[1];
+        },
+        trys: [],
+        ops: []
+    }, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() {
+        return this;
+    }), g;
+    function verb(n) {
+        return function(v) {
+            return step([
+                n,
+                v
+            ]);
+        };
+    }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while(g && (g = 0, op[0] && (_ = 0)), _)try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [
+                op[0] & 2,
+                t.value
+            ];
+            switch(op[0]){
+                case 0:
+                case 1:
+                    t = op;
+                    break;
+                case 4:
+                    _.label++;
+                    return {
+                        value: op[1],
+                        done: false
+                    };
+                case 5:
+                    _.label++;
+                    y = op[1];
+                    op = [
+                        0
+                    ];
+                    continue;
+                case 7:
+                    op = _.ops.pop();
+                    _.trys.pop();
+                    continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
+                        _ = 0;
+                        continue;
+                    }
+                    if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
+                        _.label = op[1];
+                        break;
+                    }
+                    if (op[0] === 6 && _.label < t[1]) {
+                        _.label = t[1];
+                        t = op;
+                        break;
+                    }
+                    if (t && _.label < t[2]) {
+                        _.label = t[2];
+                        _.ops.push(op);
+                        break;
+                    }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop();
+                    continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) {
+            op = [
+                6,
+                e
+            ];
+            y = 0;
+        } finally{
+            f = t = 0;
+        }
+        if (op[0] & 5) throw op[1];
+        return {
+            value: op[0] ? op[1] : void 0,
+            done: true
+        };
+    }
+}
+import * as React4 from 'react';
+import React4__default, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
+import { create } from 'zustand';
+import { Editor } from '@monaco-editor/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExpand, faSpinner } from '@fortawesome/pro-regular-svg-icons';
+import { Slot } from '@radix-ui/react-slot';
+// src/components/input.tsx
+// ../../node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
+function r(e) {
+    var t, f, n = "";
+    if ("string" == typeof e || "number" == typeof e) n += e;
+    else if ("object" == (typeof e === "undefined" ? "undefined" : _type_of(e))) if (Array.isArray(e)) {
+        var o = e.length;
+        for(t = 0; t < o; t++)e[t] && (f = r(e[t])) && (n && (n += " "), n += f);
+    } else for(f in e)e[f] && (n && (n += " "), n += f);
+    return n;
+}
+function clsx() {
+    for(var e, t, f = 0, n = "", o = arguments.length; f < o; f++)(e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
+    return n;
+}
+var clsx_default = clsx;
+// ../../node_modules/.pnpm/tailwind-merge@3.1.0/node_modules/tailwind-merge/dist/bundle-mjs.mjs
+var CLASS_PART_SEPARATOR = "-";
+var createClassGroupUtils = function(config) {
+    var classMap = createClassMap(config);
+    var conflictingClassGroups = config.conflictingClassGroups, conflictingClassGroupModifiers = config.conflictingClassGroupModifiers;
+    var getClassGroupId = function(className) {
+        var classParts = className.split(CLASS_PART_SEPARATOR);
+        if (classParts[0] === "" && classParts.length !== 1) {
+            classParts.shift();
+        }
+        return getGroupRecursive(classParts, classMap) || getGroupIdForArbitraryProperty(className);
+    };
+    var getConflictingClassGroupIds = function(classGroupId, hasPostfixModifier) {
+        var conflicts = conflictingClassGroups[classGroupId] || [];
+        if (hasPostfixModifier && conflictingClassGroupModifiers[classGroupId]) {
+            return _to_consumable_array(conflicts).concat(_to_consumable_array(conflictingClassGroupModifiers[classGroupId]));
+        }
+        return conflicts;
+    };
+    return {
+        getClassGroupId: getClassGroupId,
+        getConflictingClassGroupIds: getConflictingClassGroupIds
+    };
+};
+var getGroupRecursive = function(classParts, classPartObject) {
+    var _classPartObject_validators_find;
+    if (classParts.length === 0) {
+        return classPartObject.classGroupId;
+    }
+    var currentClassPart = classParts[0];
+    var nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
+    var classGroupFromNextClassPart = nextClassPartObject ? getGroupRecursive(classParts.slice(1), nextClassPartObject) : void 0;
+    if (classGroupFromNextClassPart) {
+        return classGroupFromNextClassPart;
+    }
+    if (classPartObject.validators.length === 0) {
+        return void 0;
+    }
+    var classRest = classParts.join(CLASS_PART_SEPARATOR);
+    return (_classPartObject_validators_find = classPartObject.validators.find(function(param) {
+        var validator = param.validator;
+        return validator(classRest);
+    })) === null || _classPartObject_validators_find === void 0 ? void 0 : _classPartObject_validators_find.classGroupId;
+};
+var arbitraryPropertyRegex = /^\[(.+)\]$/;
+var getGroupIdForArbitraryProperty = function(className) {
+    if (arbitraryPropertyRegex.test(className)) {
+        var arbitraryPropertyClassName = arbitraryPropertyRegex.exec(className)[1];
+        var property = arbitraryPropertyClassName === null || arbitraryPropertyClassName === void 0 ? void 0 : arbitraryPropertyClassName.substring(0, arbitraryPropertyClassName.indexOf(":"));
+        if (property) {
+            return "arbitrary.." + property;
+        }
+    }
+};
+var createClassMap = function(config) {
+    var theme = config.theme, classGroups = config.classGroups;
+    var classMap = {
+        nextPart: /* @__PURE__ */ new Map(),
+        validators: []
+    };
+    for(var classGroupId in classGroups){
+        processClassesRecursively(classGroups[classGroupId], classMap, classGroupId, theme);
+    }
+    return classMap;
+};
+var processClassesRecursively = function(classGroup, classPartObject, classGroupId, theme) {
+    classGroup.forEach(function(classDefinition) {
+        if (typeof classDefinition === "string") {
+            var classPartObjectToEdit = classDefinition === "" ? classPartObject : getPart(classPartObject, classDefinition);
+            classPartObjectToEdit.classGroupId = classGroupId;
+            return;
+        }
+        if (typeof classDefinition === "function") {
+            if (isThemeGetter(classDefinition)) {
+                processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
+                return;
+            }
+            classPartObject.validators.push({
+                validator: classDefinition,
+                classGroupId: classGroupId
+            });
+            return;
+        }
+        Object.entries(classDefinition).forEach(function(param) {
+            var _param = _sliced_to_array(param, 2), key = _param[0], classGroup2 = _param[1];
+            processClassesRecursively(classGroup2, getPart(classPartObject, key), classGroupId, theme);
+        });
+    });
+};
+var getPart = function(classPartObject, path) {
+    var currentClassPartObject = classPartObject;
+    path.split(CLASS_PART_SEPARATOR).forEach(function(pathPart) {
+        if (!currentClassPartObject.nextPart.has(pathPart)) {
+            currentClassPartObject.nextPart.set(pathPart, {
+                nextPart: /* @__PURE__ */ new Map(),
+                validators: []
+            });
+        }
+        currentClassPartObject = currentClassPartObject.nextPart.get(pathPart);
+    });
+    return currentClassPartObject;
+};
+var isThemeGetter = function(func) {
+    return func.isThemeGetter;
+};
+var createLruCache = function(maxCacheSize) {
+    if (maxCacheSize < 1) {
+        return {
+            get: function() {
+                return void 0;
+            },
+            set: function() {}
+        };
+    }
+    var cacheSize = 0;
+    var cache = /* @__PURE__ */ new Map();
+    var previousCache = /* @__PURE__ */ new Map();
+    var update = function(key, value) {
+        cache.set(key, value);
+        cacheSize++;
+        if (cacheSize > maxCacheSize) {
+            cacheSize = 0;
+            previousCache = cache;
+            cache = /* @__PURE__ */ new Map();
+        }
+    };
+    return {
+        get: function get(key) {
+            var value = cache.get(key);
+            if (value !== void 0) {
+                return value;
+            }
+            if ((value = previousCache.get(key)) !== void 0) {
+                update(key, value);
+                return value;
+            }
+        },
+        set: function set(key, value) {
+            if (cache.has(key)) {
+                cache.set(key, value);
+            } else {
+                update(key, value);
+            }
+        }
+    };
+};
+var IMPORTANT_MODIFIER = "!";
+var MODIFIER_SEPARATOR = ":";
+var MODIFIER_SEPARATOR_LENGTH = MODIFIER_SEPARATOR.length;
+var createParseClassName = function(config) {
+    var prefix = config.prefix, experimentalParseClassName = config.experimentalParseClassName;
+    var parseClassName = function(className) {
+        var modifiers = [];
+        var bracketDepth = 0;
+        var parenDepth = 0;
+        var modifierStart = 0;
+        var postfixModifierPosition;
+        for(var index = 0; index < className.length; index++){
+            var currentCharacter = className[index];
+            if (bracketDepth === 0 && parenDepth === 0) {
+                if (currentCharacter === MODIFIER_SEPARATOR) {
+                    modifiers.push(className.slice(modifierStart, index));
+                    modifierStart = index + MODIFIER_SEPARATOR_LENGTH;
+                    continue;
+                }
+                if (currentCharacter === "/") {
+                    postfixModifierPosition = index;
+                    continue;
+                }
+            }
+            if (currentCharacter === "[") {
+                bracketDepth++;
+            } else if (currentCharacter === "]") {
+                bracketDepth--;
+            } else if (currentCharacter === "(") {
+                parenDepth++;
+            } else if (currentCharacter === ")") {
+                parenDepth--;
+            }
+        }
+        var baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.substring(modifierStart);
+        var baseClassName = stripImportantModifier(baseClassNameWithImportantModifier);
+        var hasImportantModifier = baseClassName !== baseClassNameWithImportantModifier;
+        var maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : void 0;
+        return {
+            modifiers: modifiers,
+            hasImportantModifier: hasImportantModifier,
+            baseClassName: baseClassName,
+            maybePostfixModifierPosition: maybePostfixModifierPosition
+        };
+    };
+    if (prefix) {
+        var fullPrefix = prefix + MODIFIER_SEPARATOR;
+        var parseClassNameOriginal = parseClassName;
+        parseClassName = function(className) {
+            return className.startsWith(fullPrefix) ? parseClassNameOriginal(className.substring(fullPrefix.length)) : {
+                isExternal: true,
+                modifiers: [],
+                hasImportantModifier: false,
+                baseClassName: className,
+                maybePostfixModifierPosition: void 0
+            };
+        };
+    }
+    if (experimentalParseClassName) {
+        var parseClassNameOriginal1 = parseClassName;
+        parseClassName = function(className) {
+            return experimentalParseClassName({
+                className: className,
+                parseClassName: parseClassNameOriginal1
+            });
+        };
+    }
+    return parseClassName;
+};
+var stripImportantModifier = function(baseClassName) {
+    if (baseClassName.endsWith(IMPORTANT_MODIFIER)) {
+        return baseClassName.substring(0, baseClassName.length - 1);
+    }
+    if (baseClassName.startsWith(IMPORTANT_MODIFIER)) {
+        return baseClassName.substring(1);
+    }
+    return baseClassName;
+};
+var createSortModifiers = function(config) {
+    var orderSensitiveModifiers = Object.fromEntries(config.orderSensitiveModifiers.map(function(modifier) {
+        return [
+            modifier,
+            true
+        ];
+    }));
+    var sortModifiers = function(modifiers) {
+        var _sortedModifiers;
+        if (modifiers.length <= 1) {
+            return modifiers;
+        }
+        var sortedModifiers = [];
+        var unsortedModifiers = [];
+        modifiers.forEach(function(modifier) {
+            var isPositionSensitive = modifier[0] === "[" || orderSensitiveModifiers[modifier];
+            if (isPositionSensitive) {
+                var _sortedModifiers;
+                (_sortedModifiers = sortedModifiers).push.apply(_sortedModifiers, _to_consumable_array(unsortedModifiers.sort()).concat([
+                    modifier
+                ]));
+                unsortedModifiers = [];
+            } else {
+                unsortedModifiers.push(modifier);
+            }
+        });
+        (_sortedModifiers = sortedModifiers).push.apply(_sortedModifiers, _to_consumable_array(unsortedModifiers.sort()));
+        return sortedModifiers;
+    };
+    return sortModifiers;
+};
+var createConfigUtils = function(config) {
+    return _object_spread({
+        cache: createLruCache(config.cacheSize),
+        parseClassName: createParseClassName(config),
+        sortModifiers: createSortModifiers(config)
+    }, createClassGroupUtils(config));
+};
+var SPLIT_CLASSES_REGEX = /\s+/;
+var mergeClassList = function(classList, configUtils) {
+    var parseClassName = configUtils.parseClassName, getClassGroupId = configUtils.getClassGroupId, getConflictingClassGroupIds = configUtils.getConflictingClassGroupIds, sortModifiers = configUtils.sortModifiers;
+    var classGroupsInConflict = [];
+    var classNames = classList.trim().split(SPLIT_CLASSES_REGEX);
+    var result = "";
+    for(var index = classNames.length - 1; index >= 0; index -= 1){
+        var originalClassName = classNames[index];
+        var _parseClassName = parseClassName(originalClassName), isExternal = _parseClassName.isExternal, modifiers = _parseClassName.modifiers, hasImportantModifier = _parseClassName.hasImportantModifier, baseClassName = _parseClassName.baseClassName, maybePostfixModifierPosition = _parseClassName.maybePostfixModifierPosition;
+        if (isExternal) {
+            result = originalClassName + (result.length > 0 ? " " + result : result);
+            continue;
+        }
+        var hasPostfixModifier = !!maybePostfixModifierPosition;
+        var classGroupId = getClassGroupId(hasPostfixModifier ? baseClassName.substring(0, maybePostfixModifierPosition) : baseClassName);
+        if (!classGroupId) {
+            if (!hasPostfixModifier) {
+                result = originalClassName + (result.length > 0 ? " " + result : result);
+                continue;
+            }
+            classGroupId = getClassGroupId(baseClassName);
+            if (!classGroupId) {
+                result = originalClassName + (result.length > 0 ? " " + result : result);
+                continue;
+            }
+            hasPostfixModifier = false;
+        }
+        var variantModifier = sortModifiers(modifiers).join(":");
+        var modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
+        var classId = modifierId + classGroupId;
+        if (classGroupsInConflict.includes(classId)) {
+            continue;
+        }
+        classGroupsInConflict.push(classId);
+        var conflictGroups = getConflictingClassGroupIds(classGroupId, hasPostfixModifier);
+        for(var i = 0; i < conflictGroups.length; ++i){
+            var group = conflictGroups[i];
+            classGroupsInConflict.push(modifierId + group);
+        }
+        result = originalClassName + (result.length > 0 ? " " + result : result);
+    }
+    return result;
+};
+function twJoin() {
+    var index = 0;
+    var argument;
+    var resolvedValue;
+    var string = "";
+    while(index < arguments.length){
+        if (argument = arguments[index++]) {
+            if (resolvedValue = toValue(argument)) {
+                string && (string += " ");
+                string += resolvedValue;
+            }
+        }
+    }
+    return string;
+}
+var toValue = function(mix) {
+    if (typeof mix === "string") {
+        return mix;
+    }
+    var resolvedValue;
+    var string = "";
+    for(var k = 0; k < mix.length; k++){
+        if (mix[k]) {
+            if (resolvedValue = toValue(mix[k])) {
+                string && (string += " ");
+                string += resolvedValue;
+            }
+        }
+    }
+    return string;
+};
+function createTailwindMerge(createConfigFirst) {
+    for(var _len = arguments.length, createConfigRest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
+        createConfigRest[_key - 1] = arguments[_key];
+    }
+    var configUtils;
+    var cacheGet;
+    var cacheSet;
+    var functionToCall = initTailwindMerge;
+    function initTailwindMerge(classList) {
+        var config = createConfigRest.reduce(function(previousConfig, createConfigCurrent) {
+            return createConfigCurrent(previousConfig);
+        }, createConfigFirst());
+        configUtils = createConfigUtils(config);
+        cacheGet = configUtils.cache.get;
+        cacheSet = configUtils.cache.set;
+        functionToCall = tailwindMerge;
+        return tailwindMerge(classList);
+    }
+    function tailwindMerge(classList) {
+        var cachedResult = cacheGet(classList);
+        if (cachedResult) {
+            return cachedResult;
+        }
+        var result = mergeClassList(classList, configUtils);
+        cacheSet(classList, result);
+        return result;
+    }
+    return function callTailwindMerge() {
+        return functionToCall(twJoin.apply(null, arguments));
+    };
+}
+var fromTheme = function(key) {
+    var themeGetter = function(theme) {
+        return theme[key] || [];
+    };
+    themeGetter.isThemeGetter = true;
+    return themeGetter;
+};
+var arbitraryValueRegex = /^\[(?:(\w[\w-]*):)?(.+)\]$/i;
+var arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
+var fractionRegex = /^\d+\/\d+$/;
+var tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
+var lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
+var colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/;
+var shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
+var imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+var isFraction = function(value) {
+    return fractionRegex.test(value);
+};
+var isNumber = function(value) {
+    return Boolean(value) && !Number.isNaN(Number(value));
+};
+var isInteger = function(value) {
+    return Boolean(value) && Number.isInteger(Number(value));
+};
+var isPercent = function(value) {
+    return value.endsWith("%") && isNumber(value.slice(0, -1));
+};
+var isTshirtSize = function(value) {
+    return tshirtUnitRegex.test(value);
+};
+var isAny = function() {
+    return true;
+};
+var isLengthOnly = function(value) {
+    return(// `colorFunctionRegex` check is necessary because color functions can have percentages in them which which would be incorrectly classified as lengths.
+    // For example, `hsl(0 0% 0%)` would be classified as a length without this check.
+    // I could also use lookbehind assertion in `lengthUnitRegex` but that isn't supported widely enough.
+    lengthUnitRegex.test(value) && !colorFunctionRegex.test(value));
+};
+var isNever = function() {
+    return false;
+};
+var isShadow = function(value) {
+    return shadowRegex.test(value);
+};
+var isImage = function(value) {
+    return imageRegex.test(value);
+};
+var isAnyNonArbitrary = function(value) {
+    return !isArbitraryValue(value) && !isArbitraryVariable(value);
+};
+var isArbitrarySize = function(value) {
+    return getIsArbitraryValue(value, isLabelSize, isNever);
+};
+var isArbitraryValue = function(value) {
+    return arbitraryValueRegex.test(value);
+};
+var isArbitraryLength = function(value) {
+    return getIsArbitraryValue(value, isLabelLength, isLengthOnly);
+};
+var isArbitraryNumber = function(value) {
+    return getIsArbitraryValue(value, isLabelNumber, isNumber);
+};
+var isArbitraryPosition = function(value) {
+    return getIsArbitraryValue(value, isLabelPosition, isNever);
+};
+var isArbitraryImage = function(value) {
+    return getIsArbitraryValue(value, isLabelImage, isImage);
+};
+var isArbitraryShadow = function(value) {
+    return getIsArbitraryValue(value, isNever, isShadow);
+};
+var isArbitraryVariable = function(value) {
+    return arbitraryVariableRegex.test(value);
+};
+var isArbitraryVariableLength = function(value) {
+    return getIsArbitraryVariable(value, isLabelLength);
+};
+var isArbitraryVariableFamilyName = function(value) {
+    return getIsArbitraryVariable(value, isLabelFamilyName);
+};
+var isArbitraryVariablePosition = function(value) {
+    return getIsArbitraryVariable(value, isLabelPosition);
+};
+var isArbitraryVariableSize = function(value) {
+    return getIsArbitraryVariable(value, isLabelSize);
+};
+var isArbitraryVariableImage = function(value) {
+    return getIsArbitraryVariable(value, isLabelImage);
+};
+var isArbitraryVariableShadow = function(value) {
+    return getIsArbitraryVariable(value, isLabelShadow, true);
+};
+var getIsArbitraryValue = function(value, testLabel, testValue) {
+    var result = arbitraryValueRegex.exec(value);
+    if (result) {
+        if (result[1]) {
+            return testLabel(result[1]);
+        }
+        return testValue(result[2]);
+    }
+    return false;
+};
+var getIsArbitraryVariable = function(value, testLabel) {
+    var shouldMatchNoLabel = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : false;
+    var result = arbitraryVariableRegex.exec(value);
+    if (result) {
+        if (result[1]) {
+            return testLabel(result[1]);
+        }
+        return shouldMatchNoLabel;
+    }
+    return false;
+};
+var isLabelPosition = function(label) {
+    return label === "position";
+};
+var imageLabels = /* @__PURE__ */ new Set([
+    "image",
+    "url"
+]);
+var isLabelImage = function(label) {
+    return imageLabels.has(label);
+};
+var sizeLabels = /* @__PURE__ */ new Set([
+    "length",
+    "size",
+    "percentage"
+]);
+var isLabelSize = function(label) {
+    return sizeLabels.has(label);
+};
+var isLabelLength = function(label) {
+    return label === "length";
+};
+var isLabelNumber = function(label) {
+    return label === "number";
+};
+var isLabelFamilyName = function(label) {
+    return label === "family-name";
+};
+var isLabelShadow = function(label) {
+    return label === "shadow";
+};
+var getDefaultConfig = function() {
+    var themeColor = fromTheme("color");
+    var themeFont = fromTheme("font");
+    var themeText = fromTheme("text");
+    var themeFontWeight = fromTheme("font-weight");
+    var themeTracking = fromTheme("tracking");
+    var themeLeading = fromTheme("leading");
+    var themeBreakpoint = fromTheme("breakpoint");
+    var themeContainer = fromTheme("container");
+    var themeSpacing = fromTheme("spacing");
+    var themeRadius = fromTheme("radius");
+    var themeShadow = fromTheme("shadow");
+    var themeInsetShadow = fromTheme("inset-shadow");
+    var themeDropShadow = fromTheme("drop-shadow");
+    var themeBlur = fromTheme("blur");
+    var themePerspective = fromTheme("perspective");
+    var themeAspect = fromTheme("aspect");
+    var themeEase = fromTheme("ease");
+    var themeAnimate = fromTheme("animate");
+    var scaleBreak = function() {
+        return [
+            "auto",
+            "avoid",
+            "all",
+            "avoid-page",
+            "page",
+            "left",
+            "right",
+            "column"
+        ];
+    };
+    var scalePosition = function() {
+        return [
+            "bottom",
+            "center",
+            "left",
+            "left-bottom",
+            "left-top",
+            "right",
+            "right-bottom",
+            "right-top",
+            "top"
+        ];
+    };
+    var scaleOverflow = function() {
+        return [
+            "auto",
+            "hidden",
+            "clip",
+            "visible",
+            "scroll"
+        ];
+    };
+    var scaleOverscroll = function() {
+        return [
+            "auto",
+            "contain",
+            "none"
+        ];
+    };
+    var scaleUnambiguousSpacing = function() {
+        return [
+            isArbitraryVariable,
+            isArbitraryValue,
+            themeSpacing
+        ];
+    };
+    var scaleInset = function() {
+        return [
+            isFraction,
+            "full",
+            "auto"
+        ].concat(_to_consumable_array(scaleUnambiguousSpacing()));
+    };
+    var scaleGridTemplateColsRows = function() {
+        return [
+            isInteger,
+            "none",
+            "subgrid",
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleGridColRowStartAndEnd = function() {
+        return [
+            "auto",
+            {
+                span: [
+                    "full",
+                    isInteger,
+                    isArbitraryVariable,
+                    isArbitraryValue
+                ]
+            },
+            isInteger,
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleGridColRowStartOrEnd = function() {
+        return [
+            isInteger,
+            "auto",
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleGridAutoColsRows = function() {
+        return [
+            "auto",
+            "min",
+            "max",
+            "fr",
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleAlignPrimaryAxis = function() {
+        return [
+            "start",
+            "end",
+            "center",
+            "between",
+            "around",
+            "evenly",
+            "stretch",
+            "baseline"
+        ];
+    };
+    var scaleAlignSecondaryAxis = function() {
+        return [
+            "start",
+            "end",
+            "center",
+            "stretch"
+        ];
+    };
+    var scaleMargin = function() {
+        return [
+            "auto"
+        ].concat(_to_consumable_array(scaleUnambiguousSpacing()));
+    };
+    var scaleSizing = function() {
+        return [
+            isFraction,
+            "auto",
+            "full",
+            "dvw",
+            "dvh",
+            "lvw",
+            "lvh",
+            "svw",
+            "svh",
+            "min",
+            "max",
+            "fit"
+        ].concat(_to_consumable_array(scaleUnambiguousSpacing()));
+    };
+    var scaleColor = function() {
+        return [
+            themeColor,
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleGradientStopPosition = function() {
+        return [
+            isPercent,
+            isArbitraryVariableLength,
+            isArbitraryLength
+        ];
+    };
+    var scaleRadius = function() {
+        return [
+            // Deprecated since Tailwind CSS v4.0.0
+            "",
+            "none",
+            "full",
+            themeRadius,
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleBorderWidth = function() {
+        return [
+            "",
+            isNumber,
+            isArbitraryVariableLength,
+            isArbitraryLength
+        ];
+    };
+    var scaleLineStyle = function() {
+        return [
+            "solid",
+            "dashed",
+            "dotted",
+            "double"
+        ];
+    };
+    var scaleBlendMode = function() {
+        return [
+            "normal",
+            "multiply",
+            "screen",
+            "overlay",
+            "darken",
+            "lighten",
+            "color-dodge",
+            "color-burn",
+            "hard-light",
+            "soft-light",
+            "difference",
+            "exclusion",
+            "hue",
+            "saturation",
+            "color",
+            "luminosity"
+        ];
+    };
+    var scaleBlur = function() {
+        return [
+            // Deprecated since Tailwind CSS v4.0.0
+            "",
+            "none",
+            themeBlur,
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleOrigin = function() {
+        return [
+            "center",
+            "top",
+            "top-right",
+            "right",
+            "bottom-right",
+            "bottom",
+            "bottom-left",
+            "left",
+            "top-left",
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleRotate = function() {
+        return [
+            "none",
+            isNumber,
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleScale = function() {
+        return [
+            "none",
+            isNumber,
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleSkew = function() {
+        return [
+            isNumber,
+            isArbitraryVariable,
+            isArbitraryValue
+        ];
+    };
+    var scaleTranslate = function() {
+        return [
+            isFraction,
+            "full"
+        ].concat(_to_consumable_array(scaleUnambiguousSpacing()));
+    };
+    return {
+        cacheSize: 500,
+        theme: {
+            animate: [
+                "spin",
+                "ping",
+                "pulse",
+                "bounce"
+            ],
+            aspect: [
+                "video"
+            ],
+            blur: [
+                isTshirtSize
+            ],
+            breakpoint: [
+                isTshirtSize
+            ],
+            color: [
+                isAny
+            ],
+            container: [
+                isTshirtSize
+            ],
+            "drop-shadow": [
+                isTshirtSize
+            ],
+            ease: [
+                "in",
+                "out",
+                "in-out"
+            ],
+            font: [
+                isAnyNonArbitrary
+            ],
+            "font-weight": [
+                "thin",
+                "extralight",
+                "light",
+                "normal",
+                "medium",
+                "semibold",
+                "bold",
+                "extrabold",
+                "black"
+            ],
+            "inset-shadow": [
+                isTshirtSize
+            ],
+            leading: [
+                "none",
+                "tight",
+                "snug",
+                "normal",
+                "relaxed",
+                "loose"
+            ],
+            perspective: [
+                "dramatic",
+                "near",
+                "normal",
+                "midrange",
+                "distant",
+                "none"
+            ],
+            radius: [
+                isTshirtSize
+            ],
+            shadow: [
+                isTshirtSize
+            ],
+            spacing: [
+                "px",
+                isNumber
+            ],
+            text: [
+                isTshirtSize
+            ],
+            tracking: [
+                "tighter",
+                "tight",
+                "normal",
+                "wide",
+                "wider",
+                "widest"
+            ]
+        },
+        classGroups: {
+            // --------------
+            // --- Layout ---
+            // --------------
+            /**
+       * Aspect Ratio
+       * @see https://tailwindcss.com/docs/aspect-ratio
+       */ aspect: [
+                {
+                    aspect: [
+                        "auto",
+                        "square",
+                        isFraction,
+                        isArbitraryValue,
+                        isArbitraryVariable,
+                        themeAspect
+                    ]
+                }
+            ],
+            /**
+       * Container
+       * @see https://tailwindcss.com/docs/container
+       * @deprecated since Tailwind CSS v4.0.0
+       */ container: [
+                "container"
+            ],
+            /**
+       * Columns
+       * @see https://tailwindcss.com/docs/columns
+       */ columns: [
+                {
+                    columns: [
+                        isNumber,
+                        isArbitraryValue,
+                        isArbitraryVariable,
+                        themeContainer
+                    ]
+                }
+            ],
+            /**
+       * Break After
+       * @see https://tailwindcss.com/docs/break-after
+       */ "break-after": [
+                {
+                    "break-after": scaleBreak()
+                }
+            ],
+            /**
+       * Break Before
+       * @see https://tailwindcss.com/docs/break-before
+       */ "break-before": [
+                {
+                    "break-before": scaleBreak()
+                }
+            ],
+            /**
+       * Break Inside
+       * @see https://tailwindcss.com/docs/break-inside
+       */ "break-inside": [
+                {
+                    "break-inside": [
+                        "auto",
+                        "avoid",
+                        "avoid-page",
+                        "avoid-column"
+                    ]
+                }
+            ],
+            /**
+       * Box Decoration Break
+       * @see https://tailwindcss.com/docs/box-decoration-break
+       */ "box-decoration": [
+                {
+                    "box-decoration": [
+                        "slice",
+                        "clone"
+                    ]
+                }
+            ],
+            /**
+       * Box Sizing
+       * @see https://tailwindcss.com/docs/box-sizing
+       */ box: [
+                {
+                    box: [
+                        "border",
+                        "content"
+                    ]
+                }
+            ],
+            /**
+       * Display
+       * @see https://tailwindcss.com/docs/display
+       */ display: [
+                "block",
+                "inline-block",
+                "inline",
+                "flex",
+                "inline-flex",
+                "table",
+                "inline-table",
+                "table-caption",
+                "table-cell",
+                "table-column",
+                "table-column-group",
+                "table-footer-group",
+                "table-header-group",
+                "table-row-group",
+                "table-row",
+                "flow-root",
+                "grid",
+                "inline-grid",
+                "contents",
+                "list-item",
+                "hidden"
+            ],
+            /**
+       * Screen Reader Only
+       * @see https://tailwindcss.com/docs/display#screen-reader-only
+       */ sr: [
+                "sr-only",
+                "not-sr-only"
+            ],
+            /**
+       * Floats
+       * @see https://tailwindcss.com/docs/float
+       */ float: [
+                {
+                    float: [
+                        "right",
+                        "left",
+                        "none",
+                        "start",
+                        "end"
+                    ]
+                }
+            ],
+            /**
+       * Clear
+       * @see https://tailwindcss.com/docs/clear
+       */ clear: [
+                {
+                    clear: [
+                        "left",
+                        "right",
+                        "both",
+                        "none",
+                        "start",
+                        "end"
+                    ]
+                }
+            ],
+            /**
+       * Isolation
+       * @see https://tailwindcss.com/docs/isolation
+       */ isolation: [
+                "isolate",
+                "isolation-auto"
+            ],
+            /**
+       * Object Fit
+       * @see https://tailwindcss.com/docs/object-fit
+       */ "object-fit": [
+                {
+                    object: [
+                        "contain",
+                        "cover",
+                        "fill",
+                        "none",
+                        "scale-down"
+                    ]
+                }
+            ],
+            /**
+       * Object Position
+       * @see https://tailwindcss.com/docs/object-position
+       */ "object-position": [
+                {
+                    object: _to_consumable_array(scalePosition()).concat([
+                        isArbitraryValue,
+                        isArbitraryVariable
+                    ])
+                }
+            ],
+            /**
+       * Overflow
+       * @see https://tailwindcss.com/docs/overflow
+       */ overflow: [
+                {
+                    overflow: scaleOverflow()
+                }
+            ],
+            /**
+       * Overflow X
+       * @see https://tailwindcss.com/docs/overflow
+       */ "overflow-x": [
+                {
+                    "overflow-x": scaleOverflow()
+                }
+            ],
+            /**
+       * Overflow Y
+       * @see https://tailwindcss.com/docs/overflow
+       */ "overflow-y": [
+                {
+                    "overflow-y": scaleOverflow()
+                }
+            ],
+            /**
+       * Overscroll Behavior
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */ overscroll: [
+                {
+                    overscroll: scaleOverscroll()
+                }
+            ],
+            /**
+       * Overscroll Behavior X
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */ "overscroll-x": [
+                {
+                    "overscroll-x": scaleOverscroll()
+                }
+            ],
+            /**
+       * Overscroll Behavior Y
+       * @see https://tailwindcss.com/docs/overscroll-behavior
+       */ "overscroll-y": [
+                {
+                    "overscroll-y": scaleOverscroll()
+                }
+            ],
+            /**
+       * Position
+       * @see https://tailwindcss.com/docs/position
+       */ position: [
+                "static",
+                "fixed",
+                "absolute",
+                "relative",
+                "sticky"
+            ],
+            /**
+       * Top / Right / Bottom / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ inset: [
+                {
+                    inset: scaleInset()
+                }
+            ],
+            /**
+       * Right / Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ "inset-x": [
+                {
+                    "inset-x": scaleInset()
+                }
+            ],
+            /**
+       * Top / Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ "inset-y": [
+                {
+                    "inset-y": scaleInset()
+                }
+            ],
+            /**
+       * Start
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ start: [
+                {
+                    start: scaleInset()
+                }
+            ],
+            /**
+       * End
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ end: [
+                {
+                    end: scaleInset()
+                }
+            ],
+            /**
+       * Top
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ top: [
+                {
+                    top: scaleInset()
+                }
+            ],
+            /**
+       * Right
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ right: [
+                {
+                    right: scaleInset()
+                }
+            ],
+            /**
+       * Bottom
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ bottom: [
+                {
+                    bottom: scaleInset()
+                }
+            ],
+            /**
+       * Left
+       * @see https://tailwindcss.com/docs/top-right-bottom-left
+       */ left: [
+                {
+                    left: scaleInset()
+                }
+            ],
+            /**
+       * Visibility
+       * @see https://tailwindcss.com/docs/visibility
+       */ visibility: [
+                "visible",
+                "invisible",
+                "collapse"
+            ],
+            /**
+       * Z-Index
+       * @see https://tailwindcss.com/docs/z-index
+       */ z: [
+                {
+                    z: [
+                        isInteger,
+                        "auto",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            // ------------------------
+            // --- Flexbox and Grid ---
+            // ------------------------
+            /**
+       * Flex Basis
+       * @see https://tailwindcss.com/docs/flex-basis
+       */ basis: [
+                {
+                    basis: [
+                        isFraction,
+                        "full",
+                        "auto",
+                        themeContainer
+                    ].concat(_to_consumable_array(scaleUnambiguousSpacing()))
+                }
+            ],
+            /**
+       * Flex Direction
+       * @see https://tailwindcss.com/docs/flex-direction
+       */ "flex-direction": [
+                {
+                    flex: [
+                        "row",
+                        "row-reverse",
+                        "col",
+                        "col-reverse"
+                    ]
+                }
+            ],
+            /**
+       * Flex Wrap
+       * @see https://tailwindcss.com/docs/flex-wrap
+       */ "flex-wrap": [
+                {
+                    flex: [
+                        "nowrap",
+                        "wrap",
+                        "wrap-reverse"
+                    ]
+                }
+            ],
+            /**
+       * Flex
+       * @see https://tailwindcss.com/docs/flex
+       */ flex: [
+                {
+                    flex: [
+                        isNumber,
+                        isFraction,
+                        "auto",
+                        "initial",
+                        "none",
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Flex Grow
+       * @see https://tailwindcss.com/docs/flex-grow
+       */ grow: [
+                {
+                    grow: [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Flex Shrink
+       * @see https://tailwindcss.com/docs/flex-shrink
+       */ shrink: [
+                {
+                    shrink: [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Order
+       * @see https://tailwindcss.com/docs/order
+       */ order: [
+                {
+                    order: [
+                        isInteger,
+                        "first",
+                        "last",
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Grid Template Columns
+       * @see https://tailwindcss.com/docs/grid-template-columns
+       */ "grid-cols": [
+                {
+                    "grid-cols": scaleGridTemplateColsRows()
+                }
+            ],
+            /**
+       * Grid Column Start / End
+       * @see https://tailwindcss.com/docs/grid-column
+       */ "col-start-end": [
+                {
+                    col: scaleGridColRowStartAndEnd()
+                }
+            ],
+            /**
+       * Grid Column Start
+       * @see https://tailwindcss.com/docs/grid-column
+       */ "col-start": [
+                {
+                    "col-start": scaleGridColRowStartOrEnd()
+                }
+            ],
+            /**
+       * Grid Column End
+       * @see https://tailwindcss.com/docs/grid-column
+       */ "col-end": [
+                {
+                    "col-end": scaleGridColRowStartOrEnd()
+                }
+            ],
+            /**
+       * Grid Template Rows
+       * @see https://tailwindcss.com/docs/grid-template-rows
+       */ "grid-rows": [
+                {
+                    "grid-rows": scaleGridTemplateColsRows()
+                }
+            ],
+            /**
+       * Grid Row Start / End
+       * @see https://tailwindcss.com/docs/grid-row
+       */ "row-start-end": [
+                {
+                    row: scaleGridColRowStartAndEnd()
+                }
+            ],
+            /**
+       * Grid Row Start
+       * @see https://tailwindcss.com/docs/grid-row
+       */ "row-start": [
+                {
+                    "row-start": scaleGridColRowStartOrEnd()
+                }
+            ],
+            /**
+       * Grid Row End
+       * @see https://tailwindcss.com/docs/grid-row
+       */ "row-end": [
+                {
+                    "row-end": scaleGridColRowStartOrEnd()
+                }
+            ],
+            /**
+       * Grid Auto Flow
+       * @see https://tailwindcss.com/docs/grid-auto-flow
+       */ "grid-flow": [
+                {
+                    "grid-flow": [
+                        "row",
+                        "col",
+                        "dense",
+                        "row-dense",
+                        "col-dense"
+                    ]
+                }
+            ],
+            /**
+       * Grid Auto Columns
+       * @see https://tailwindcss.com/docs/grid-auto-columns
+       */ "auto-cols": [
+                {
+                    "auto-cols": scaleGridAutoColsRows()
+                }
+            ],
+            /**
+       * Grid Auto Rows
+       * @see https://tailwindcss.com/docs/grid-auto-rows
+       */ "auto-rows": [
+                {
+                    "auto-rows": scaleGridAutoColsRows()
+                }
+            ],
+            /**
+       * Gap
+       * @see https://tailwindcss.com/docs/gap
+       */ gap: [
+                {
+                    gap: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Gap X
+       * @see https://tailwindcss.com/docs/gap
+       */ "gap-x": [
+                {
+                    "gap-x": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Gap Y
+       * @see https://tailwindcss.com/docs/gap
+       */ "gap-y": [
+                {
+                    "gap-y": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Justify Content
+       * @see https://tailwindcss.com/docs/justify-content
+       */ "justify-content": [
+                {
+                    justify: _to_consumable_array(scaleAlignPrimaryAxis()).concat([
+                        "normal"
+                    ])
+                }
+            ],
+            /**
+       * Justify Items
+       * @see https://tailwindcss.com/docs/justify-items
+       */ "justify-items": [
+                {
+                    "justify-items": _to_consumable_array(scaleAlignSecondaryAxis()).concat([
+                        "normal"
+                    ])
+                }
+            ],
+            /**
+       * Justify Self
+       * @see https://tailwindcss.com/docs/justify-self
+       */ "justify-self": [
+                {
+                    "justify-self": [
+                        "auto"
+                    ].concat(_to_consumable_array(scaleAlignSecondaryAxis()))
+                }
+            ],
+            /**
+       * Align Content
+       * @see https://tailwindcss.com/docs/align-content
+       */ "align-content": [
+                {
+                    content: [
+                        "normal"
+                    ].concat(_to_consumable_array(scaleAlignPrimaryAxis()))
+                }
+            ],
+            /**
+       * Align Items
+       * @see https://tailwindcss.com/docs/align-items
+       */ "align-items": [
+                {
+                    items: _to_consumable_array(scaleAlignSecondaryAxis()).concat([
+                        "baseline"
+                    ])
+                }
+            ],
+            /**
+       * Align Self
+       * @see https://tailwindcss.com/docs/align-self
+       */ "align-self": [
+                {
+                    self: [
+                        "auto"
+                    ].concat(_to_consumable_array(scaleAlignSecondaryAxis()), [
+                        "baseline"
+                    ])
+                }
+            ],
+            /**
+       * Place Content
+       * @see https://tailwindcss.com/docs/place-content
+       */ "place-content": [
+                {
+                    "place-content": scaleAlignPrimaryAxis()
+                }
+            ],
+            /**
+       * Place Items
+       * @see https://tailwindcss.com/docs/place-items
+       */ "place-items": [
+                {
+                    "place-items": _to_consumable_array(scaleAlignSecondaryAxis()).concat([
+                        "baseline"
+                    ])
+                }
+            ],
+            /**
+       * Place Self
+       * @see https://tailwindcss.com/docs/place-self
+       */ "place-self": [
+                {
+                    "place-self": [
+                        "auto"
+                    ].concat(_to_consumable_array(scaleAlignSecondaryAxis()))
+                }
+            ],
+            // Spacing
+            /**
+       * Padding
+       * @see https://tailwindcss.com/docs/padding
+       */ p: [
+                {
+                    p: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding X
+       * @see https://tailwindcss.com/docs/padding
+       */ px: [
+                {
+                    px: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding Y
+       * @see https://tailwindcss.com/docs/padding
+       */ py: [
+                {
+                    py: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding Start
+       * @see https://tailwindcss.com/docs/padding
+       */ ps: [
+                {
+                    ps: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding End
+       * @see https://tailwindcss.com/docs/padding
+       */ pe: [
+                {
+                    pe: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding Top
+       * @see https://tailwindcss.com/docs/padding
+       */ pt: [
+                {
+                    pt: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding Right
+       * @see https://tailwindcss.com/docs/padding
+       */ pr: [
+                {
+                    pr: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding Bottom
+       * @see https://tailwindcss.com/docs/padding
+       */ pb: [
+                {
+                    pb: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Padding Left
+       * @see https://tailwindcss.com/docs/padding
+       */ pl: [
+                {
+                    pl: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Margin
+       * @see https://tailwindcss.com/docs/margin
+       */ m: [
+                {
+                    m: scaleMargin()
+                }
+            ],
+            /**
+       * Margin X
+       * @see https://tailwindcss.com/docs/margin
+       */ mx: [
+                {
+                    mx: scaleMargin()
+                }
+            ],
+            /**
+       * Margin Y
+       * @see https://tailwindcss.com/docs/margin
+       */ my: [
+                {
+                    my: scaleMargin()
+                }
+            ],
+            /**
+       * Margin Start
+       * @see https://tailwindcss.com/docs/margin
+       */ ms: [
+                {
+                    ms: scaleMargin()
+                }
+            ],
+            /**
+       * Margin End
+       * @see https://tailwindcss.com/docs/margin
+       */ me: [
+                {
+                    me: scaleMargin()
+                }
+            ],
+            /**
+       * Margin Top
+       * @see https://tailwindcss.com/docs/margin
+       */ mt: [
+                {
+                    mt: scaleMargin()
+                }
+            ],
+            /**
+       * Margin Right
+       * @see https://tailwindcss.com/docs/margin
+       */ mr: [
+                {
+                    mr: scaleMargin()
+                }
+            ],
+            /**
+       * Margin Bottom
+       * @see https://tailwindcss.com/docs/margin
+       */ mb: [
+                {
+                    mb: scaleMargin()
+                }
+            ],
+            /**
+       * Margin Left
+       * @see https://tailwindcss.com/docs/margin
+       */ ml: [
+                {
+                    ml: scaleMargin()
+                }
+            ],
+            /**
+       * Space Between X
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */ "space-x": [
+                {
+                    "space-x": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Space Between X Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */ "space-x-reverse": [
+                "space-x-reverse"
+            ],
+            /**
+       * Space Between Y
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */ "space-y": [
+                {
+                    "space-y": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Space Between Y Reverse
+       * @see https://tailwindcss.com/docs/margin#adding-space-between-children
+       */ "space-y-reverse": [
+                "space-y-reverse"
+            ],
+            // --------------
+            // --- Sizing ---
+            // --------------
+            /**
+       * Size
+       * @see https://tailwindcss.com/docs/width#setting-both-width-and-height
+       */ size: [
+                {
+                    size: scaleSizing()
+                }
+            ],
+            /**
+       * Width
+       * @see https://tailwindcss.com/docs/width
+       */ w: [
+                {
+                    w: [
+                        themeContainer,
+                        "screen"
+                    ].concat(_to_consumable_array(scaleSizing()))
+                }
+            ],
+            /**
+       * Min-Width
+       * @see https://tailwindcss.com/docs/min-width
+       */ "min-w": [
+                {
+                    "min-w": [
+                        themeContainer,
+                        "screen",
+                        /** Deprecated. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */ "none"
+                    ].concat(_to_consumable_array(scaleSizing()))
+                }
+            ],
+            /**
+       * Max-Width
+       * @see https://tailwindcss.com/docs/max-width
+       */ "max-w": [
+                {
+                    "max-w": [
+                        themeContainer,
+                        "screen",
+                        "none",
+                        /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */ "prose",
+                        /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */ {
+                            screen: [
+                                themeBreakpoint
+                            ]
+                        }
+                    ].concat(_to_consumable_array(scaleSizing()))
+                }
+            ],
+            /**
+       * Height
+       * @see https://tailwindcss.com/docs/height
+       */ h: [
+                {
+                    h: [
+                        "screen"
+                    ].concat(_to_consumable_array(scaleSizing()))
+                }
+            ],
+            /**
+       * Min-Height
+       * @see https://tailwindcss.com/docs/min-height
+       */ "min-h": [
+                {
+                    "min-h": [
+                        "screen",
+                        "none"
+                    ].concat(_to_consumable_array(scaleSizing()))
+                }
+            ],
+            /**
+       * Max-Height
+       * @see https://tailwindcss.com/docs/max-height
+       */ "max-h": [
+                {
+                    "max-h": [
+                        "screen"
+                    ].concat(_to_consumable_array(scaleSizing()))
+                }
+            ],
+            // ------------------
+            // --- Typography ---
+            // ------------------
+            /**
+       * Font Size
+       * @see https://tailwindcss.com/docs/font-size
+       */ "font-size": [
+                {
+                    text: [
+                        "base",
+                        themeText,
+                        isArbitraryVariableLength,
+                        isArbitraryLength
+                    ]
+                }
+            ],
+            /**
+       * Font Smoothing
+       * @see https://tailwindcss.com/docs/font-smoothing
+       */ "font-smoothing": [
+                "antialiased",
+                "subpixel-antialiased"
+            ],
+            /**
+       * Font Style
+       * @see https://tailwindcss.com/docs/font-style
+       */ "font-style": [
+                "italic",
+                "not-italic"
+            ],
+            /**
+       * Font Weight
+       * @see https://tailwindcss.com/docs/font-weight
+       */ "font-weight": [
+                {
+                    font: [
+                        themeFontWeight,
+                        isArbitraryVariable,
+                        isArbitraryNumber
+                    ]
+                }
+            ],
+            /**
+       * Font Stretch
+       * @see https://tailwindcss.com/docs/font-stretch
+       */ "font-stretch": [
+                {
+                    "font-stretch": [
+                        "ultra-condensed",
+                        "extra-condensed",
+                        "condensed",
+                        "semi-condensed",
+                        "normal",
+                        "semi-expanded",
+                        "expanded",
+                        "extra-expanded",
+                        "ultra-expanded",
+                        isPercent,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Font Family
+       * @see https://tailwindcss.com/docs/font-family
+       */ "font-family": [
+                {
+                    font: [
+                        isArbitraryVariableFamilyName,
+                        isArbitraryValue,
+                        themeFont
+                    ]
+                }
+            ],
+            /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */ "fvn-normal": [
+                "normal-nums"
+            ],
+            /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */ "fvn-ordinal": [
+                "ordinal"
+            ],
+            /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */ "fvn-slashed-zero": [
+                "slashed-zero"
+            ],
+            /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */ "fvn-figure": [
+                "lining-nums",
+                "oldstyle-nums"
+            ],
+            /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */ "fvn-spacing": [
+                "proportional-nums",
+                "tabular-nums"
+            ],
+            /**
+       * Font Variant Numeric
+       * @see https://tailwindcss.com/docs/font-variant-numeric
+       */ "fvn-fraction": [
+                "diagonal-fractions",
+                "stacked-fractions"
+            ],
+            /**
+       * Letter Spacing
+       * @see https://tailwindcss.com/docs/letter-spacing
+       */ tracking: [
+                {
+                    tracking: [
+                        themeTracking,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Line Clamp
+       * @see https://tailwindcss.com/docs/line-clamp
+       */ "line-clamp": [
+                {
+                    "line-clamp": [
+                        isNumber,
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryNumber
+                    ]
+                }
+            ],
+            /**
+       * Line Height
+       * @see https://tailwindcss.com/docs/line-height
+       */ leading: [
+                {
+                    leading: [
+                        /** Deprecated since Tailwind CSS v4.0.0. @see https://github.com/tailwindlabs/tailwindcss.com/issues/2027#issuecomment-2620152757 */ themeLeading
+                    ].concat(_to_consumable_array(scaleUnambiguousSpacing()))
+                }
+            ],
+            /**
+       * List Style Image
+       * @see https://tailwindcss.com/docs/list-style-image
+       */ "list-image": [
+                {
+                    "list-image": [
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * List Style Position
+       * @see https://tailwindcss.com/docs/list-style-position
+       */ "list-style-position": [
+                {
+                    list: [
+                        "inside",
+                        "outside"
+                    ]
+                }
+            ],
+            /**
+       * List Style Type
+       * @see https://tailwindcss.com/docs/list-style-type
+       */ "list-style-type": [
+                {
+                    list: [
+                        "disc",
+                        "decimal",
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Text Alignment
+       * @see https://tailwindcss.com/docs/text-align
+       */ "text-alignment": [
+                {
+                    text: [
+                        "left",
+                        "center",
+                        "right",
+                        "justify",
+                        "start",
+                        "end"
+                    ]
+                }
+            ],
+            /**
+       * Placeholder Color
+       * @deprecated since Tailwind CSS v3.0.0
+       * @see https://v3.tailwindcss.com/docs/placeholder-color
+       */ "placeholder-color": [
+                {
+                    placeholder: scaleColor()
+                }
+            ],
+            /**
+       * Text Color
+       * @see https://tailwindcss.com/docs/text-color
+       */ "text-color": [
+                {
+                    text: scaleColor()
+                }
+            ],
+            /**
+       * Text Decoration
+       * @see https://tailwindcss.com/docs/text-decoration
+       */ "text-decoration": [
+                "underline",
+                "overline",
+                "line-through",
+                "no-underline"
+            ],
+            /**
+       * Text Decoration Style
+       * @see https://tailwindcss.com/docs/text-decoration-style
+       */ "text-decoration-style": [
+                {
+                    decoration: _to_consumable_array(scaleLineStyle()).concat([
+                        "wavy"
+                    ])
+                }
+            ],
+            /**
+       * Text Decoration Thickness
+       * @see https://tailwindcss.com/docs/text-decoration-thickness
+       */ "text-decoration-thickness": [
+                {
+                    decoration: [
+                        isNumber,
+                        "from-font",
+                        "auto",
+                        isArbitraryVariable,
+                        isArbitraryLength
+                    ]
+                }
+            ],
+            /**
+       * Text Decoration Color
+       * @see https://tailwindcss.com/docs/text-decoration-color
+       */ "text-decoration-color": [
+                {
+                    decoration: scaleColor()
+                }
+            ],
+            /**
+       * Text Underline Offset
+       * @see https://tailwindcss.com/docs/text-underline-offset
+       */ "underline-offset": [
+                {
+                    "underline-offset": [
+                        isNumber,
+                        "auto",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Text Transform
+       * @see https://tailwindcss.com/docs/text-transform
+       */ "text-transform": [
+                "uppercase",
+                "lowercase",
+                "capitalize",
+                "normal-case"
+            ],
+            /**
+       * Text Overflow
+       * @see https://tailwindcss.com/docs/text-overflow
+       */ "text-overflow": [
+                "truncate",
+                "text-ellipsis",
+                "text-clip"
+            ],
+            /**
+       * Text Wrap
+       * @see https://tailwindcss.com/docs/text-wrap
+       */ "text-wrap": [
+                {
+                    text: [
+                        "wrap",
+                        "nowrap",
+                        "balance",
+                        "pretty"
+                    ]
+                }
+            ],
+            /**
+       * Text Indent
+       * @see https://tailwindcss.com/docs/text-indent
+       */ indent: [
+                {
+                    indent: scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Vertical Alignment
+       * @see https://tailwindcss.com/docs/vertical-align
+       */ "vertical-align": [
+                {
+                    align: [
+                        "baseline",
+                        "top",
+                        "middle",
+                        "bottom",
+                        "text-top",
+                        "text-bottom",
+                        "sub",
+                        "super",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Whitespace
+       * @see https://tailwindcss.com/docs/whitespace
+       */ whitespace: [
+                {
+                    whitespace: [
+                        "normal",
+                        "nowrap",
+                        "pre",
+                        "pre-line",
+                        "pre-wrap",
+                        "break-spaces"
+                    ]
+                }
+            ],
+            /**
+       * Word Break
+       * @see https://tailwindcss.com/docs/word-break
+       */ break: [
+                {
+                    break: [
+                        "normal",
+                        "words",
+                        "all",
+                        "keep"
+                    ]
+                }
+            ],
+            /**
+       * Hyphens
+       * @see https://tailwindcss.com/docs/hyphens
+       */ hyphens: [
+                {
+                    hyphens: [
+                        "none",
+                        "manual",
+                        "auto"
+                    ]
+                }
+            ],
+            /**
+       * Content
+       * @see https://tailwindcss.com/docs/content
+       */ content: [
+                {
+                    content: [
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            // -------------------
+            // --- Backgrounds ---
+            // -------------------
+            /**
+       * Background Attachment
+       * @see https://tailwindcss.com/docs/background-attachment
+       */ "bg-attachment": [
+                {
+                    bg: [
+                        "fixed",
+                        "local",
+                        "scroll"
+                    ]
+                }
+            ],
+            /**
+       * Background Clip
+       * @see https://tailwindcss.com/docs/background-clip
+       */ "bg-clip": [
+                {
+                    "bg-clip": [
+                        "border",
+                        "padding",
+                        "content",
+                        "text"
+                    ]
+                }
+            ],
+            /**
+       * Background Origin
+       * @see https://tailwindcss.com/docs/background-origin
+       */ "bg-origin": [
+                {
+                    "bg-origin": [
+                        "border",
+                        "padding",
+                        "content"
+                    ]
+                }
+            ],
+            /**
+       * Background Position
+       * @see https://tailwindcss.com/docs/background-position
+       */ "bg-position": [
+                {
+                    bg: _to_consumable_array(scalePosition()).concat([
+                        isArbitraryVariablePosition,
+                        isArbitraryPosition
+                    ])
+                }
+            ],
+            /**
+       * Background Repeat
+       * @see https://tailwindcss.com/docs/background-repeat
+       */ "bg-repeat": [
+                {
+                    bg: [
+                        "no-repeat",
+                        {
+                            repeat: [
+                                "",
+                                "x",
+                                "y",
+                                "space",
+                                "round"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            /**
+       * Background Size
+       * @see https://tailwindcss.com/docs/background-size
+       */ "bg-size": [
+                {
+                    bg: [
+                        "auto",
+                        "cover",
+                        "contain",
+                        isArbitraryVariableSize,
+                        isArbitrarySize
+                    ]
+                }
+            ],
+            /**
+       * Background Image
+       * @see https://tailwindcss.com/docs/background-image
+       */ "bg-image": [
+                {
+                    bg: [
+                        "none",
+                        {
+                            linear: [
+                                {
+                                    to: [
+                                        "t",
+                                        "tr",
+                                        "r",
+                                        "br",
+                                        "b",
+                                        "bl",
+                                        "l",
+                                        "tl"
+                                    ]
+                                },
+                                isInteger,
+                                isArbitraryVariable,
+                                isArbitraryValue
+                            ],
+                            radial: [
+                                "",
+                                isArbitraryVariable,
+                                isArbitraryValue
+                            ],
+                            conic: [
+                                isInteger,
+                                isArbitraryVariable,
+                                isArbitraryValue
+                            ]
+                        },
+                        isArbitraryVariableImage,
+                        isArbitraryImage
+                    ]
+                }
+            ],
+            /**
+       * Background Color
+       * @see https://tailwindcss.com/docs/background-color
+       */ "bg-color": [
+                {
+                    bg: scaleColor()
+                }
+            ],
+            /**
+       * Gradient Color Stops From Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */ "gradient-from-pos": [
+                {
+                    from: scaleGradientStopPosition()
+                }
+            ],
+            /**
+       * Gradient Color Stops Via Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */ "gradient-via-pos": [
+                {
+                    via: scaleGradientStopPosition()
+                }
+            ],
+            /**
+       * Gradient Color Stops To Position
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */ "gradient-to-pos": [
+                {
+                    to: scaleGradientStopPosition()
+                }
+            ],
+            /**
+       * Gradient Color Stops From
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */ "gradient-from": [
+                {
+                    from: scaleColor()
+                }
+            ],
+            /**
+       * Gradient Color Stops Via
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */ "gradient-via": [
+                {
+                    via: scaleColor()
+                }
+            ],
+            /**
+       * Gradient Color Stops To
+       * @see https://tailwindcss.com/docs/gradient-color-stops
+       */ "gradient-to": [
+                {
+                    to: scaleColor()
+                }
+            ],
+            // ---------------
+            // --- Borders ---
+            // ---------------
+            /**
+       * Border Radius
+       * @see https://tailwindcss.com/docs/border-radius
+       */ rounded: [
+                {
+                    rounded: scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-s": [
+                {
+                    "rounded-s": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius End
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-e": [
+                {
+                    "rounded-e": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Top
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-t": [
+                {
+                    "rounded-t": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-r": [
+                {
+                    "rounded-r": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Bottom
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-b": [
+                {
+                    "rounded-b": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-l": [
+                {
+                    "rounded-l": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Start Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-ss": [
+                {
+                    "rounded-ss": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Start End
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-se": [
+                {
+                    "rounded-se": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius End End
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-ee": [
+                {
+                    "rounded-ee": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius End Start
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-es": [
+                {
+                    "rounded-es": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Top Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-tl": [
+                {
+                    "rounded-tl": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Top Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-tr": [
+                {
+                    "rounded-tr": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Bottom Right
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-br": [
+                {
+                    "rounded-br": scaleRadius()
+                }
+            ],
+            /**
+       * Border Radius Bottom Left
+       * @see https://tailwindcss.com/docs/border-radius
+       */ "rounded-bl": [
+                {
+                    "rounded-bl": scaleRadius()
+                }
+            ],
+            /**
+       * Border Width
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w": [
+                {
+                    border: scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width X
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-x": [
+                {
+                    "border-x": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width Y
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-y": [
+                {
+                    "border-y": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width Start
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-s": [
+                {
+                    "border-s": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width End
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-e": [
+                {
+                    "border-e": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width Top
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-t": [
+                {
+                    "border-t": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width Right
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-r": [
+                {
+                    "border-r": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width Bottom
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-b": [
+                {
+                    "border-b": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Border Width Left
+       * @see https://tailwindcss.com/docs/border-width
+       */ "border-w-l": [
+                {
+                    "border-l": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Divide Width X
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */ "divide-x": [
+                {
+                    "divide-x": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Divide Width X Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */ "divide-x-reverse": [
+                "divide-x-reverse"
+            ],
+            /**
+       * Divide Width Y
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */ "divide-y": [
+                {
+                    "divide-y": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Divide Width Y Reverse
+       * @see https://tailwindcss.com/docs/border-width#between-children
+       */ "divide-y-reverse": [
+                "divide-y-reverse"
+            ],
+            /**
+       * Border Style
+       * @see https://tailwindcss.com/docs/border-style
+       */ "border-style": [
+                {
+                    border: _to_consumable_array(scaleLineStyle()).concat([
+                        "hidden",
+                        "none"
+                    ])
+                }
+            ],
+            /**
+       * Divide Style
+       * @see https://tailwindcss.com/docs/border-style#setting-the-divider-style
+       */ "divide-style": [
+                {
+                    divide: _to_consumable_array(scaleLineStyle()).concat([
+                        "hidden",
+                        "none"
+                    ])
+                }
+            ],
+            /**
+       * Border Color
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color": [
+                {
+                    border: scaleColor()
+                }
+            ],
+            /**
+       * Border Color X
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-x": [
+                {
+                    "border-x": scaleColor()
+                }
+            ],
+            /**
+       * Border Color Y
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-y": [
+                {
+                    "border-y": scaleColor()
+                }
+            ],
+            /**
+       * Border Color S
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-s": [
+                {
+                    "border-s": scaleColor()
+                }
+            ],
+            /**
+       * Border Color E
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-e": [
+                {
+                    "border-e": scaleColor()
+                }
+            ],
+            /**
+       * Border Color Top
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-t": [
+                {
+                    "border-t": scaleColor()
+                }
+            ],
+            /**
+       * Border Color Right
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-r": [
+                {
+                    "border-r": scaleColor()
+                }
+            ],
+            /**
+       * Border Color Bottom
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-b": [
+                {
+                    "border-b": scaleColor()
+                }
+            ],
+            /**
+       * Border Color Left
+       * @see https://tailwindcss.com/docs/border-color
+       */ "border-color-l": [
+                {
+                    "border-l": scaleColor()
+                }
+            ],
+            /**
+       * Divide Color
+       * @see https://tailwindcss.com/docs/divide-color
+       */ "divide-color": [
+                {
+                    divide: scaleColor()
+                }
+            ],
+            /**
+       * Outline Style
+       * @see https://tailwindcss.com/docs/outline-style
+       */ "outline-style": [
+                {
+                    outline: _to_consumable_array(scaleLineStyle()).concat([
+                        "none",
+                        "hidden"
+                    ])
+                }
+            ],
+            /**
+       * Outline Offset
+       * @see https://tailwindcss.com/docs/outline-offset
+       */ "outline-offset": [
+                {
+                    "outline-offset": [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Outline Width
+       * @see https://tailwindcss.com/docs/outline-width
+       */ "outline-w": [
+                {
+                    outline: [
+                        "",
+                        isNumber,
+                        isArbitraryVariableLength,
+                        isArbitraryLength
+                    ]
+                }
+            ],
+            /**
+       * Outline Color
+       * @see https://tailwindcss.com/docs/outline-color
+       */ "outline-color": [
+                {
+                    outline: [
+                        themeColor
+                    ]
+                }
+            ],
+            // ---------------
+            // --- Effects ---
+            // ---------------
+            /**
+       * Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow
+       */ shadow: [
+                {
+                    shadow: [
+                        // Deprecated since Tailwind CSS v4.0.0
+                        "",
+                        "none",
+                        themeShadow,
+                        isArbitraryVariableShadow,
+                        isArbitraryShadow
+                    ]
+                }
+            ],
+            /**
+       * Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-shadow-color
+       */ "shadow-color": [
+                {
+                    shadow: scaleColor()
+                }
+            ],
+            /**
+       * Inset Box Shadow
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-shadow
+       */ "inset-shadow": [
+                {
+                    "inset-shadow": [
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue,
+                        themeInsetShadow
+                    ]
+                }
+            ],
+            /**
+       * Inset Box Shadow Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-shadow-color
+       */ "inset-shadow-color": [
+                {
+                    "inset-shadow": scaleColor()
+                }
+            ],
+            /**
+       * Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-a-ring
+       */ "ring-w": [
+                {
+                    ring: scaleBorderWidth()
+                }
+            ],
+            /**
+       * Ring Width Inset
+       * @see https://v3.tailwindcss.com/docs/ring-width#inset-rings
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */ "ring-w-inset": [
+                "ring-inset"
+            ],
+            /**
+       * Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-ring-color
+       */ "ring-color": [
+                {
+                    ring: scaleColor()
+                }
+            ],
+            /**
+       * Ring Offset Width
+       * @see https://v3.tailwindcss.com/docs/ring-offset-width
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */ "ring-offset-w": [
+                {
+                    "ring-offset": [
+                        isNumber,
+                        isArbitraryLength
+                    ]
+                }
+            ],
+            /**
+       * Ring Offset Color
+       * @see https://v3.tailwindcss.com/docs/ring-offset-color
+       * @deprecated since Tailwind CSS v4.0.0
+       * @see https://github.com/tailwindlabs/tailwindcss/blob/v4.0.0/packages/tailwindcss/src/utilities.ts#L4158
+       */ "ring-offset-color": [
+                {
+                    "ring-offset": scaleColor()
+                }
+            ],
+            /**
+       * Inset Ring Width
+       * @see https://tailwindcss.com/docs/box-shadow#adding-an-inset-ring
+       */ "inset-ring-w": [
+                {
+                    "inset-ring": scaleBorderWidth()
+                }
+            ],
+            /**
+       * Inset Ring Color
+       * @see https://tailwindcss.com/docs/box-shadow#setting-the-inset-ring-color
+       */ "inset-ring-color": [
+                {
+                    "inset-ring": scaleColor()
+                }
+            ],
+            /**
+       * Opacity
+       * @see https://tailwindcss.com/docs/opacity
+       */ opacity: [
+                {
+                    opacity: [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Mix Blend Mode
+       * @see https://tailwindcss.com/docs/mix-blend-mode
+       */ "mix-blend": [
+                {
+                    "mix-blend": _to_consumable_array(scaleBlendMode()).concat([
+                        "plus-darker",
+                        "plus-lighter"
+                    ])
+                }
+            ],
+            /**
+       * Background Blend Mode
+       * @see https://tailwindcss.com/docs/background-blend-mode
+       */ "bg-blend": [
+                {
+                    "bg-blend": scaleBlendMode()
+                }
+            ],
+            // ---------------
+            // --- Filters ---
+            // ---------------
+            /**
+       * Filter
+       * @see https://tailwindcss.com/docs/filter
+       */ filter: [
+                {
+                    filter: [
+                        // Deprecated since Tailwind CSS v3.0.0
+                        "",
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Blur
+       * @see https://tailwindcss.com/docs/blur
+       */ blur: [
+                {
+                    blur: scaleBlur()
+                }
+            ],
+            /**
+       * Brightness
+       * @see https://tailwindcss.com/docs/brightness
+       */ brightness: [
+                {
+                    brightness: [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Contrast
+       * @see https://tailwindcss.com/docs/contrast
+       */ contrast: [
+                {
+                    contrast: [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Drop Shadow
+       * @see https://tailwindcss.com/docs/drop-shadow
+       */ "drop-shadow": [
+                {
+                    "drop-shadow": [
+                        // Deprecated since Tailwind CSS v4.0.0
+                        "",
+                        "none",
+                        themeDropShadow,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Grayscale
+       * @see https://tailwindcss.com/docs/grayscale
+       */ grayscale: [
+                {
+                    grayscale: [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Hue Rotate
+       * @see https://tailwindcss.com/docs/hue-rotate
+       */ "hue-rotate": [
+                {
+                    "hue-rotate": [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Invert
+       * @see https://tailwindcss.com/docs/invert
+       */ invert: [
+                {
+                    invert: [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Saturate
+       * @see https://tailwindcss.com/docs/saturate
+       */ saturate: [
+                {
+                    saturate: [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Sepia
+       * @see https://tailwindcss.com/docs/sepia
+       */ sepia: [
+                {
+                    sepia: [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Filter
+       * @see https://tailwindcss.com/docs/backdrop-filter
+       */ "backdrop-filter": [
+                {
+                    "backdrop-filter": [
+                        // Deprecated since Tailwind CSS v3.0.0
+                        "",
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Blur
+       * @see https://tailwindcss.com/docs/backdrop-blur
+       */ "backdrop-blur": [
+                {
+                    "backdrop-blur": scaleBlur()
+                }
+            ],
+            /**
+       * Backdrop Brightness
+       * @see https://tailwindcss.com/docs/backdrop-brightness
+       */ "backdrop-brightness": [
+                {
+                    "backdrop-brightness": [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Contrast
+       * @see https://tailwindcss.com/docs/backdrop-contrast
+       */ "backdrop-contrast": [
+                {
+                    "backdrop-contrast": [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Grayscale
+       * @see https://tailwindcss.com/docs/backdrop-grayscale
+       */ "backdrop-grayscale": [
+                {
+                    "backdrop-grayscale": [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Hue Rotate
+       * @see https://tailwindcss.com/docs/backdrop-hue-rotate
+       */ "backdrop-hue-rotate": [
+                {
+                    "backdrop-hue-rotate": [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Invert
+       * @see https://tailwindcss.com/docs/backdrop-invert
+       */ "backdrop-invert": [
+                {
+                    "backdrop-invert": [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Opacity
+       * @see https://tailwindcss.com/docs/backdrop-opacity
+       */ "backdrop-opacity": [
+                {
+                    "backdrop-opacity": [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Saturate
+       * @see https://tailwindcss.com/docs/backdrop-saturate
+       */ "backdrop-saturate": [
+                {
+                    "backdrop-saturate": [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Backdrop Sepia
+       * @see https://tailwindcss.com/docs/backdrop-sepia
+       */ "backdrop-sepia": [
+                {
+                    "backdrop-sepia": [
+                        "",
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            // --------------
+            // --- Tables ---
+            // --------------
+            /**
+       * Border Collapse
+       * @see https://tailwindcss.com/docs/border-collapse
+       */ "border-collapse": [
+                {
+                    border: [
+                        "collapse",
+                        "separate"
+                    ]
+                }
+            ],
+            /**
+       * Border Spacing
+       * @see https://tailwindcss.com/docs/border-spacing
+       */ "border-spacing": [
+                {
+                    "border-spacing": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Border Spacing X
+       * @see https://tailwindcss.com/docs/border-spacing
+       */ "border-spacing-x": [
+                {
+                    "border-spacing-x": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Border Spacing Y
+       * @see https://tailwindcss.com/docs/border-spacing
+       */ "border-spacing-y": [
+                {
+                    "border-spacing-y": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Table Layout
+       * @see https://tailwindcss.com/docs/table-layout
+       */ "table-layout": [
+                {
+                    table: [
+                        "auto",
+                        "fixed"
+                    ]
+                }
+            ],
+            /**
+       * Caption Side
+       * @see https://tailwindcss.com/docs/caption-side
+       */ caption: [
+                {
+                    caption: [
+                        "top",
+                        "bottom"
+                    ]
+                }
+            ],
+            // ---------------------------------
+            // --- Transitions and Animation ---
+            // ---------------------------------
+            /**
+       * Transition Property
+       * @see https://tailwindcss.com/docs/transition-property
+       */ transition: [
+                {
+                    transition: [
+                        "",
+                        "all",
+                        "colors",
+                        "opacity",
+                        "shadow",
+                        "transform",
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Transition Behavior
+       * @see https://tailwindcss.com/docs/transition-behavior
+       */ "transition-behavior": [
+                {
+                    transition: [
+                        "normal",
+                        "discrete"
+                    ]
+                }
+            ],
+            /**
+       * Transition Duration
+       * @see https://tailwindcss.com/docs/transition-duration
+       */ duration: [
+                {
+                    duration: [
+                        isNumber,
+                        "initial",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Transition Timing Function
+       * @see https://tailwindcss.com/docs/transition-timing-function
+       */ ease: [
+                {
+                    ease: [
+                        "linear",
+                        "initial",
+                        themeEase,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Transition Delay
+       * @see https://tailwindcss.com/docs/transition-delay
+       */ delay: [
+                {
+                    delay: [
+                        isNumber,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Animation
+       * @see https://tailwindcss.com/docs/animation
+       */ animate: [
+                {
+                    animate: [
+                        "none",
+                        themeAnimate,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            // ------------------
+            // --- Transforms ---
+            // ------------------
+            /**
+       * Backface Visibility
+       * @see https://tailwindcss.com/docs/backface-visibility
+       */ backface: [
+                {
+                    backface: [
+                        "hidden",
+                        "visible"
+                    ]
+                }
+            ],
+            /**
+       * Perspective
+       * @see https://tailwindcss.com/docs/perspective
+       */ perspective: [
+                {
+                    perspective: [
+                        themePerspective,
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Perspective Origin
+       * @see https://tailwindcss.com/docs/perspective-origin
+       */ "perspective-origin": [
+                {
+                    "perspective-origin": scaleOrigin()
+                }
+            ],
+            /**
+       * Rotate
+       * @see https://tailwindcss.com/docs/rotate
+       */ rotate: [
+                {
+                    rotate: scaleRotate()
+                }
+            ],
+            /**
+       * Rotate X
+       * @see https://tailwindcss.com/docs/rotate
+       */ "rotate-x": [
+                {
+                    "rotate-x": scaleRotate()
+                }
+            ],
+            /**
+       * Rotate Y
+       * @see https://tailwindcss.com/docs/rotate
+       */ "rotate-y": [
+                {
+                    "rotate-y": scaleRotate()
+                }
+            ],
+            /**
+       * Rotate Z
+       * @see https://tailwindcss.com/docs/rotate
+       */ "rotate-z": [
+                {
+                    "rotate-z": scaleRotate()
+                }
+            ],
+            /**
+       * Scale
+       * @see https://tailwindcss.com/docs/scale
+       */ scale: [
+                {
+                    scale: scaleScale()
+                }
+            ],
+            /**
+       * Scale X
+       * @see https://tailwindcss.com/docs/scale
+       */ "scale-x": [
+                {
+                    "scale-x": scaleScale()
+                }
+            ],
+            /**
+       * Scale Y
+       * @see https://tailwindcss.com/docs/scale
+       */ "scale-y": [
+                {
+                    "scale-y": scaleScale()
+                }
+            ],
+            /**
+       * Scale Z
+       * @see https://tailwindcss.com/docs/scale
+       */ "scale-z": [
+                {
+                    "scale-z": scaleScale()
+                }
+            ],
+            /**
+       * Scale 3D
+       * @see https://tailwindcss.com/docs/scale
+       */ "scale-3d": [
+                "scale-3d"
+            ],
+            /**
+       * Skew
+       * @see https://tailwindcss.com/docs/skew
+       */ skew: [
+                {
+                    skew: scaleSkew()
+                }
+            ],
+            /**
+       * Skew X
+       * @see https://tailwindcss.com/docs/skew
+       */ "skew-x": [
+                {
+                    "skew-x": scaleSkew()
+                }
+            ],
+            /**
+       * Skew Y
+       * @see https://tailwindcss.com/docs/skew
+       */ "skew-y": [
+                {
+                    "skew-y": scaleSkew()
+                }
+            ],
+            /**
+       * Transform
+       * @see https://tailwindcss.com/docs/transform
+       */ transform: [
+                {
+                    transform: [
+                        isArbitraryVariable,
+                        isArbitraryValue,
+                        "",
+                        "none",
+                        "gpu",
+                        "cpu"
+                    ]
+                }
+            ],
+            /**
+       * Transform Origin
+       * @see https://tailwindcss.com/docs/transform-origin
+       */ "transform-origin": [
+                {
+                    origin: scaleOrigin()
+                }
+            ],
+            /**
+       * Transform Style
+       * @see https://tailwindcss.com/docs/transform-style
+       */ "transform-style": [
+                {
+                    transform: [
+                        "3d",
+                        "flat"
+                    ]
+                }
+            ],
+            /**
+       * Translate
+       * @see https://tailwindcss.com/docs/translate
+       */ translate: [
+                {
+                    translate: scaleTranslate()
+                }
+            ],
+            /**
+       * Translate X
+       * @see https://tailwindcss.com/docs/translate
+       */ "translate-x": [
+                {
+                    "translate-x": scaleTranslate()
+                }
+            ],
+            /**
+       * Translate Y
+       * @see https://tailwindcss.com/docs/translate
+       */ "translate-y": [
+                {
+                    "translate-y": scaleTranslate()
+                }
+            ],
+            /**
+       * Translate Z
+       * @see https://tailwindcss.com/docs/translate
+       */ "translate-z": [
+                {
+                    "translate-z": scaleTranslate()
+                }
+            ],
+            /**
+       * Translate None
+       * @see https://tailwindcss.com/docs/translate
+       */ "translate-none": [
+                "translate-none"
+            ],
+            // ---------------------
+            // --- Interactivity ---
+            // ---------------------
+            /**
+       * Accent Color
+       * @see https://tailwindcss.com/docs/accent-color
+       */ accent: [
+                {
+                    accent: scaleColor()
+                }
+            ],
+            /**
+       * Appearance
+       * @see https://tailwindcss.com/docs/appearance
+       */ appearance: [
+                {
+                    appearance: [
+                        "none",
+                        "auto"
+                    ]
+                }
+            ],
+            /**
+       * Caret Color
+       * @see https://tailwindcss.com/docs/just-in-time-mode#caret-color-utilities
+       */ "caret-color": [
+                {
+                    caret: scaleColor()
+                }
+            ],
+            /**
+       * Color Scheme
+       * @see https://tailwindcss.com/docs/color-scheme
+       */ "color-scheme": [
+                {
+                    scheme: [
+                        "normal",
+                        "dark",
+                        "light",
+                        "light-dark",
+                        "only-dark",
+                        "only-light"
+                    ]
+                }
+            ],
+            /**
+       * Cursor
+       * @see https://tailwindcss.com/docs/cursor
+       */ cursor: [
+                {
+                    cursor: [
+                        "auto",
+                        "default",
+                        "pointer",
+                        "wait",
+                        "text",
+                        "move",
+                        "help",
+                        "not-allowed",
+                        "none",
+                        "context-menu",
+                        "progress",
+                        "cell",
+                        "crosshair",
+                        "vertical-text",
+                        "alias",
+                        "copy",
+                        "no-drop",
+                        "grab",
+                        "grabbing",
+                        "all-scroll",
+                        "col-resize",
+                        "row-resize",
+                        "n-resize",
+                        "e-resize",
+                        "s-resize",
+                        "w-resize",
+                        "ne-resize",
+                        "nw-resize",
+                        "se-resize",
+                        "sw-resize",
+                        "ew-resize",
+                        "ns-resize",
+                        "nesw-resize",
+                        "nwse-resize",
+                        "zoom-in",
+                        "zoom-out",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            /**
+       * Field Sizing
+       * @see https://tailwindcss.com/docs/field-sizing
+       */ "field-sizing": [
+                {
+                    "field-sizing": [
+                        "fixed",
+                        "content"
+                    ]
+                }
+            ],
+            /**
+       * Pointer Events
+       * @see https://tailwindcss.com/docs/pointer-events
+       */ "pointer-events": [
+                {
+                    "pointer-events": [
+                        "auto",
+                        "none"
+                    ]
+                }
+            ],
+            /**
+       * Resize
+       * @see https://tailwindcss.com/docs/resize
+       */ resize: [
+                {
+                    resize: [
+                        "none",
+                        "",
+                        "y",
+                        "x"
+                    ]
+                }
+            ],
+            /**
+       * Scroll Behavior
+       * @see https://tailwindcss.com/docs/scroll-behavior
+       */ "scroll-behavior": [
+                {
+                    scroll: [
+                        "auto",
+                        "smooth"
+                    ]
+                }
+            ],
+            /**
+       * Scroll Margin
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-m": [
+                {
+                    "scroll-m": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin X
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-mx": [
+                {
+                    "scroll-mx": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin Y
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-my": [
+                {
+                    "scroll-my": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin Start
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-ms": [
+                {
+                    "scroll-ms": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin End
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-me": [
+                {
+                    "scroll-me": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin Top
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-mt": [
+                {
+                    "scroll-mt": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin Right
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-mr": [
+                {
+                    "scroll-mr": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin Bottom
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-mb": [
+                {
+                    "scroll-mb": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Margin Left
+       * @see https://tailwindcss.com/docs/scroll-margin
+       */ "scroll-ml": [
+                {
+                    "scroll-ml": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-p": [
+                {
+                    "scroll-p": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding X
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-px": [
+                {
+                    "scroll-px": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding Y
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-py": [
+                {
+                    "scroll-py": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding Start
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-ps": [
+                {
+                    "scroll-ps": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding End
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-pe": [
+                {
+                    "scroll-pe": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding Top
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-pt": [
+                {
+                    "scroll-pt": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding Right
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-pr": [
+                {
+                    "scroll-pr": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding Bottom
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-pb": [
+                {
+                    "scroll-pb": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Padding Left
+       * @see https://tailwindcss.com/docs/scroll-padding
+       */ "scroll-pl": [
+                {
+                    "scroll-pl": scaleUnambiguousSpacing()
+                }
+            ],
+            /**
+       * Scroll Snap Align
+       * @see https://tailwindcss.com/docs/scroll-snap-align
+       */ "snap-align": [
+                {
+                    snap: [
+                        "start",
+                        "end",
+                        "center",
+                        "align-none"
+                    ]
+                }
+            ],
+            /**
+       * Scroll Snap Stop
+       * @see https://tailwindcss.com/docs/scroll-snap-stop
+       */ "snap-stop": [
+                {
+                    snap: [
+                        "normal",
+                        "always"
+                    ]
+                }
+            ],
+            /**
+       * Scroll Snap Type
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */ "snap-type": [
+                {
+                    snap: [
+                        "none",
+                        "x",
+                        "y",
+                        "both"
+                    ]
+                }
+            ],
+            /**
+       * Scroll Snap Type Strictness
+       * @see https://tailwindcss.com/docs/scroll-snap-type
+       */ "snap-strictness": [
+                {
+                    snap: [
+                        "mandatory",
+                        "proximity"
+                    ]
+                }
+            ],
+            /**
+       * Touch Action
+       * @see https://tailwindcss.com/docs/touch-action
+       */ touch: [
+                {
+                    touch: [
+                        "auto",
+                        "none",
+                        "manipulation"
+                    ]
+                }
+            ],
+            /**
+       * Touch Action X
+       * @see https://tailwindcss.com/docs/touch-action
+       */ "touch-x": [
+                {
+                    "touch-pan": [
+                        "x",
+                        "left",
+                        "right"
+                    ]
+                }
+            ],
+            /**
+       * Touch Action Y
+       * @see https://tailwindcss.com/docs/touch-action
+       */ "touch-y": [
+                {
+                    "touch-pan": [
+                        "y",
+                        "up",
+                        "down"
+                    ]
+                }
+            ],
+            /**
+       * Touch Action Pinch Zoom
+       * @see https://tailwindcss.com/docs/touch-action
+       */ "touch-pz": [
+                "touch-pinch-zoom"
+            ],
+            /**
+       * User Select
+       * @see https://tailwindcss.com/docs/user-select
+       */ select: [
+                {
+                    select: [
+                        "none",
+                        "text",
+                        "all",
+                        "auto"
+                    ]
+                }
+            ],
+            /**
+       * Will Change
+       * @see https://tailwindcss.com/docs/will-change
+       */ "will-change": [
+                {
+                    "will-change": [
+                        "auto",
+                        "scroll",
+                        "contents",
+                        "transform",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            // -----------
+            // --- SVG ---
+            // -----------
+            /**
+       * Fill
+       * @see https://tailwindcss.com/docs/fill
+       */ fill: [
+                {
+                    fill: [
+                        "none"
+                    ].concat(_to_consumable_array(scaleColor()))
+                }
+            ],
+            /**
+       * Stroke Width
+       * @see https://tailwindcss.com/docs/stroke-width
+       */ "stroke-w": [
+                {
+                    stroke: [
+                        isNumber,
+                        isArbitraryVariableLength,
+                        isArbitraryLength,
+                        isArbitraryNumber
+                    ]
+                }
+            ],
+            /**
+       * Stroke
+       * @see https://tailwindcss.com/docs/stroke
+       */ stroke: [
+                {
+                    stroke: [
+                        "none"
+                    ].concat(_to_consumable_array(scaleColor()))
+                }
+            ],
+            // ---------------------
+            // --- Accessibility ---
+            // ---------------------
+            /**
+       * Forced Color Adjust
+       * @see https://tailwindcss.com/docs/forced-color-adjust
+       */ "forced-color-adjust": [
+                {
+                    "forced-color-adjust": [
+                        "auto",
+                        "none"
+                    ]
+                }
+            ]
+        },
+        conflictingClassGroups: {
+            overflow: [
+                "overflow-x",
+                "overflow-y"
+            ],
+            overscroll: [
+                "overscroll-x",
+                "overscroll-y"
+            ],
+            inset: [
+                "inset-x",
+                "inset-y",
+                "start",
+                "end",
+                "top",
+                "right",
+                "bottom",
+                "left"
+            ],
+            "inset-x": [
+                "right",
+                "left"
+            ],
+            "inset-y": [
+                "top",
+                "bottom"
+            ],
+            flex: [
+                "basis",
+                "grow",
+                "shrink"
+            ],
+            gap: [
+                "gap-x",
+                "gap-y"
+            ],
+            p: [
+                "px",
+                "py",
+                "ps",
+                "pe",
+                "pt",
+                "pr",
+                "pb",
+                "pl"
+            ],
+            px: [
+                "pr",
+                "pl"
+            ],
+            py: [
+                "pt",
+                "pb"
+            ],
+            m: [
+                "mx",
+                "my",
+                "ms",
+                "me",
+                "mt",
+                "mr",
+                "mb",
+                "ml"
+            ],
+            mx: [
+                "mr",
+                "ml"
+            ],
+            my: [
+                "mt",
+                "mb"
+            ],
+            size: [
+                "w",
+                "h"
+            ],
+            "font-size": [
+                "leading"
+            ],
+            "fvn-normal": [
+                "fvn-ordinal",
+                "fvn-slashed-zero",
+                "fvn-figure",
+                "fvn-spacing",
+                "fvn-fraction"
+            ],
+            "fvn-ordinal": [
+                "fvn-normal"
+            ],
+            "fvn-slashed-zero": [
+                "fvn-normal"
+            ],
+            "fvn-figure": [
+                "fvn-normal"
+            ],
+            "fvn-spacing": [
+                "fvn-normal"
+            ],
+            "fvn-fraction": [
+                "fvn-normal"
+            ],
+            "line-clamp": [
+                "display",
+                "overflow"
+            ],
+            rounded: [
+                "rounded-s",
+                "rounded-e",
+                "rounded-t",
+                "rounded-r",
+                "rounded-b",
+                "rounded-l",
+                "rounded-ss",
+                "rounded-se",
+                "rounded-ee",
+                "rounded-es",
+                "rounded-tl",
+                "rounded-tr",
+                "rounded-br",
+                "rounded-bl"
+            ],
+            "rounded-s": [
+                "rounded-ss",
+                "rounded-es"
+            ],
+            "rounded-e": [
+                "rounded-se",
+                "rounded-ee"
+            ],
+            "rounded-t": [
+                "rounded-tl",
+                "rounded-tr"
+            ],
+            "rounded-r": [
+                "rounded-tr",
+                "rounded-br"
+            ],
+            "rounded-b": [
+                "rounded-br",
+                "rounded-bl"
+            ],
+            "rounded-l": [
+                "rounded-tl",
+                "rounded-bl"
+            ],
+            "border-spacing": [
+                "border-spacing-x",
+                "border-spacing-y"
+            ],
+            "border-w": [
+                "border-w-s",
+                "border-w-e",
+                "border-w-t",
+                "border-w-r",
+                "border-w-b",
+                "border-w-l"
+            ],
+            "border-w-x": [
+                "border-w-r",
+                "border-w-l"
+            ],
+            "border-w-y": [
+                "border-w-t",
+                "border-w-b"
+            ],
+            "border-color": [
+                "border-color-s",
+                "border-color-e",
+                "border-color-t",
+                "border-color-r",
+                "border-color-b",
+                "border-color-l"
+            ],
+            "border-color-x": [
+                "border-color-r",
+                "border-color-l"
+            ],
+            "border-color-y": [
+                "border-color-t",
+                "border-color-b"
+            ],
+            translate: [
+                "translate-x",
+                "translate-y",
+                "translate-none"
+            ],
+            "translate-none": [
+                "translate",
+                "translate-x",
+                "translate-y",
+                "translate-z"
+            ],
+            "scroll-m": [
+                "scroll-mx",
+                "scroll-my",
+                "scroll-ms",
+                "scroll-me",
+                "scroll-mt",
+                "scroll-mr",
+                "scroll-mb",
+                "scroll-ml"
+            ],
+            "scroll-mx": [
+                "scroll-mr",
+                "scroll-ml"
+            ],
+            "scroll-my": [
+                "scroll-mt",
+                "scroll-mb"
+            ],
+            "scroll-p": [
+                "scroll-px",
+                "scroll-py",
+                "scroll-ps",
+                "scroll-pe",
+                "scroll-pt",
+                "scroll-pr",
+                "scroll-pb",
+                "scroll-pl"
+            ],
+            "scroll-px": [
+                "scroll-pr",
+                "scroll-pl"
+            ],
+            "scroll-py": [
+                "scroll-pt",
+                "scroll-pb"
+            ],
+            touch: [
+                "touch-x",
+                "touch-y",
+                "touch-pz"
+            ],
+            "touch-x": [
+                "touch"
+            ],
+            "touch-y": [
+                "touch"
+            ],
+            "touch-pz": [
+                "touch"
+            ]
+        },
+        conflictingClassGroupModifiers: {
+            "font-size": [
+                "leading"
+            ]
+        },
+        orderSensitiveModifiers: [
+            "before",
+            "after",
+            "placeholder",
+            "file",
+            "marker",
+            "selection",
+            "first-line",
+            "first-letter",
+            "backdrop",
+            "*",
+            "**"
+        ]
+    };
+};
+var twMerge = /* @__PURE__ */ createTailwindMerge(getDefaultConfig);
+// src/lib/utils.ts
+function cn() {
+    for(var _len = arguments.length, inputs = new Array(_len), _key = 0; _key < _len; _key++){
+        inputs[_key] = arguments[_key];
+    }
+    return twMerge(clsx(inputs));
+}
+// src/components/ui/input.tsx
+function Input(_param) {
+    var className = _param.className, wrapperClassName = _param.wrapperClassName, type = _param.type, required = _param.required, error = _param.error, props = _object_without_properties(_param, [
+        "className",
+        "wrapperClassName",
+        "type",
+        "required",
+        "error"
+    ]);
+    return /* @__PURE__ */ React4.createElement("div", {
+        className: cn("uii:relative", wrapperClassName)
+    }, /* @__PURE__ */ React4.createElement("input", _object_spread({
+        "aria-invalid": error,
+        type: type,
+        "data-slot": "input",
+        className: cn("uii:border-input uii:file:text-foreground uii:placeholder:text-muted-foreground uii:selection:bg-primary uii:selection:text-primary-foreground uii:flex uii:h-9 uii:w-full uii:min-w-0 uii:rounded-sm uii:border uii:bg-transparent uii:px-3 uii:py-1 uii:text-base uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:file:inline-flex uii:file:h-7 uii:file:border-0 uii:file:bg-transparent uii:file:text-sm uii:file:font-medium uii:disabled:pointer-events-none uii:disabled:cursor-not-allowed uii:disabled:opacity-50 uii:md:text-sm", "uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px]", "uii:aria-invalid:ring-destructive/20 uii:dark:aria-invalid:ring-destructive/40 uii:aria-invalid:border-destructive", {
+            "uii:pr-30": error
+        }, className)
+    }, props)), error && /* @__PURE__ */ React4.createElement("span", {
+        className: "uii:absolute uii:inset-y-0 uii:right-0 uii:flex uii:items-center uii:pr-2 uii:border-l-10 uii:border-l-background uii:my-[6px] uii:pointer-events-none "
+    }, /* @__PURE__ */ React4.createElement("span", {
+        className: "uii:bg-destructive uii:text-white uii:px-1.5 uii:py-1.5 uii:rounded-xs uii:uppercase uii:tracking-wide uii:font-medium uii:text-xs uii:leading-none uii:font-sans"
+    }, error && required ? "required" : "error")));
+}
+var defaultState = {
+    expression: "",
+    mode: "value",
+    isEditing: false,
+    currentValue: void 0,
+    isFullScreen: false
+};
+var useExpressionModeStore = create(function(set, get) {
+    return {
+        states: {},
+        setState: function(fieldName, state) {
+            set(function(store) {
+                return {
+                    states: _object_spread_props(_object_spread({}, store.states), _define_property({}, fieldName, state))
+                };
+            });
+        },
+        getState: function(fieldName) {
+            var store = get();
+            return store.states[fieldName] || defaultState;
+        },
+        clear: function(fieldName) {
+            set(function(store) {
+                return {
+                    states: _object_spread_props(_object_spread({}, store.states), _define_property({}, fieldName, defaultState))
+                };
+            });
+        },
+        switchToValue: function(fieldName) {
+            var currentState = get().getState(fieldName);
+            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
+                mode: "value",
+                isEditing: false
+            }));
+        },
+        switchToExpression: function(fieldName) {
+            var currentState = get().getState(fieldName);
+            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
+                mode: "expression",
+                isEditing: false
+            }));
+        },
+        switchToEditor: function(fieldName) {
+            var currentState = get().getState(fieldName);
+            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
+                mode: "expression",
+                isEditing: true
+            }));
+        },
+        setExpression: function(fieldName, expression) {
+            var currentState = get().getState(fieldName);
+            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
+                expression: expression
+            }));
+        },
+        setEditing: function(fieldName, isEditing) {
+            var currentState = get().getState(fieldName);
+            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
+                isEditing: isEditing
+            }));
+        },
+        setFullScreen: function(fieldName, isFullScreen) {
+            var currentState = get().getState(fieldName);
+            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
+                isFullScreen: isFullScreen
+            }));
+        },
+        setCurrentValue: function(fieldName, value) {
+            var currentState = get().getState(fieldName);
+            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
+                currentValue: value
+            }));
+        }
+    };
+});
+// src/hooks/useExpressionMode.ts
+function useExpressionMode(fieldName) {
+    var store = useExpressionModeStore();
+    var state = store.getState(fieldName);
+    var switchToValue = useCallback(function() {
+        store.switchToValue(fieldName);
+    }, [
+        store,
+        fieldName
+    ]);
+    var switchToExpression = useCallback(function() {
+        store.switchToExpression(fieldName);
+    }, [
+        store,
+        fieldName
+    ]);
+    var switchToEditor = useCallback(function() {
+        store.switchToEditor(fieldName);
+    }, [
+        store,
+        fieldName
+    ]);
+    var clear = useCallback(function() {
+        store.clear(fieldName);
+    }, [
+        store,
+        fieldName
+    ]);
+    var setExpression = useCallback(function(expr) {
+        store.setExpression(fieldName, expr);
+    }, [
+        store,
+        fieldName
+    ]);
+    var setEditing = useCallback(function(editing) {
+        store.setEditing(fieldName, editing);
+    }, [
+        store,
+        fieldName
+    ]);
+    var setCurrentValue = useCallback(function(value) {
+        store.setCurrentValue(fieldName, value);
+    }, [
+        store,
+        fieldName
+    ]);
+    var setFullScreen = useCallback(function(isFullScreen) {
+        store.setFullScreen(fieldName, isFullScreen);
+    }, [
+        store,
+        fieldName
+    ]);
+    return {
+        current: state.mode,
+        switchToValue: switchToValue,
+        switchToExpression: switchToExpression,
+        switchToEditor: switchToEditor,
+        clear: clear,
+        isExpressionMode: state.mode === "expression",
+        isEditorMode: state.isEditing,
+        expression: state.expression,
+        setExpression: setExpression,
+        isEditing: state.isEditing,
+        setEditing: setEditing,
+        currentValue: state.currentValue,
+        setCurrentValue: setCurrentValue,
+        isFullScreen: state.isFullScreen,
+        setFullScreen: setFullScreen
+    };
+}
+function inferTypeFromMonaco(editor, monaco, expression) {
+    var logPrefix = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : "\uD83D\uDD37";
+    return _async_to_generator(function() {
+        var currentModel, markers, hasErrors, wrappedCode, tempModel, worker, client, exprIndex, position, quickInfo, extractedType, foundColon, typeParts, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, part, prevPart, typeString, error;
+        return _ts_generator(this, function(_state) {
+            switch(_state.label){
+                case 0:
+                    if (!expression.trim()) {
+                        console.log("".concat(logPrefix, " Type inference skipped - no expression"));
+                        return [
+                            2,
+                            null
+                        ];
+                    }
+                    if (!editor.hasTextFocus()) {
+                        console.log("".concat(logPrefix, " Skipping type inference - editor does not have focus"));
+                        return [
+                            2,
+                            null
+                        ];
+                    }
+                    console.log("".concat(logPrefix, " Running type inference, expression:"), expression);
+                    _state.label = 1;
+                case 1:
+                    _state.trys.push([
+                        1,
+                        5,
+                        ,
+                        6
+                    ]);
+                    currentModel = editor.getModel();
+                    if (currentModel) {
+                        markers = monaco.editor.getModelMarkers({
+                            resource: currentModel.uri
+                        });
+                        hasErrors = markers.some(function(marker) {
+                            return marker.severity === monaco.MarkerSeverity.Error;
+                        });
+                        if (hasErrors) {
+                            console.log("".concat(logPrefix, " Type inference skipped - expression has validation errors"));
+                            return [
+                                2,
+                                "error"
+                            ];
+                        }
+                    }
+                    wrappedCode = "const __expr__ = (".concat(expression, ");");
+                    tempModel = monaco.editor.createModel(wrappedCode, "typescript");
+                    return [
+                        4,
+                        monaco.languages.typescript.getTypeScriptWorker()
+                    ];
+                case 2:
+                    worker = _state.sent();
+                    return [
+                        4,
+                        worker(tempModel.uri)
+                    ];
+                case 3:
+                    client = _state.sent();
+                    exprIndex = wrappedCode.indexOf("__expr__");
+                    position = tempModel.getPositionAt(exprIndex);
+                    return [
+                        4,
+                        client.getQuickInfoAtPosition(tempModel.uri.toString(), tempModel.getOffsetAt(position))
+                    ];
+                case 4:
+                    quickInfo = _state.sent();
+                    console.log("".concat(logPrefix, " QuickInfo response:"), quickInfo);
+                    extractedType = null;
+                    if (quickInfo && quickInfo.displayParts) {
+                        foundColon = false;
+                        typeParts = [];
+                        _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
+                        try {
+                            for(_iterator = quickInfo.displayParts[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+                                part = _step.value;
+                                if (foundColon) typeParts.push(part);
+                                if (part.kind === "punctuation" && part.text === ":" && !foundColon) {
+                                    prevPart = quickInfo.displayParts[quickInfo.displayParts.indexOf(part) - 1];
+                                    if (prevPart && (prevPart.kind === "localName" || prevPart.kind === "parameterName")) {
+                                        foundColon = true;
+                                    }
+                                }
+                            }
+                        } catch (err) {
+                            _didIteratorError = true;
+                            _iteratorError = err;
+                        } finally{
+                            try {
+                                if (!_iteratorNormalCompletion && _iterator.return != null) {
+                                    _iterator.return();
+                                }
+                            } finally{
+                                if (_didIteratorError) {
+                                    throw _iteratorError;
+                                }
+                            }
+                        }
+                        if (typeParts.length > 0) {
+                            typeString = typeParts.map(function(p) {
+                                return p.text;
+                            }).join("").trim();
+                            console.log("".concat(logPrefix, " Extracted type:"), typeString);
+                            if (typeString && typeString !== "any") {
+                                extractedType = typeString;
+                            }
+                        }
+                    }
+                    tempModel.dispose();
+                    return [
+                        2,
+                        extractedType
+                    ];
+                case 5:
+                    error = _state.sent();
+                    console.warn("".concat(logPrefix, " Type inference failed:"), error);
+                    return [
+                        2,
+                        null
+                    ];
+                case 6:
+                    return [
+                        2
+                    ];
+            }
+        });
+    })();
+}
+var InlineEditorOptions = {
+    fontSize: "14px",
+    // md:text-sm
+    fontWeight: "normal",
+    wordWrap: "off",
+    lineNumbers: "off",
+    lineNumbersMinChars: 0,
+    overviewRulerLanes: 0,
+    overviewRulerBorder: false,
+    hideCursorInOverviewRuler: true,
+    lineDecorationsWidth: 0,
+    glyphMargin: false,
+    folding: false,
+    scrollBeyondLastColumn: 0,
+    scrollbar: {
+        horizontal: "hidden",
+        vertical: "hidden",
+        alwaysConsumeMouseWheel: false
+    },
+    find: {
+        addExtraSpaceOnTop: false,
+        autoFindInSelection: "never",
+        seedSearchStringFromSelection: false
+    },
+    minimap: {
+        enabled: false
+    },
+    wordBasedSuggestions: true,
+    // Enable for better UX
+    links: false,
+    occurrencesHighlight: false,
+    cursorStyle: "line",
+    // Match input cursor
+    renderLineHighlight: "none",
+    contextmenu: false,
+    roundedSelection: false,
+    hover: {
+        delay: 300
+    },
+    acceptSuggestionOnEnter: "on",
+    automaticLayout: true,
+    fixedOverflowWidgets: true,
+    // Match Input component styling
+    padding: {
+        top: 4,
+        bottom: 4
+    },
+    // py-1 equivalent
+    fontFamily: "inherit",
+    // Use system font
+    letterSpacing: "normal",
+    lineHeight: "normal"
+};
+var FullPanelEditorOptions = {
+    fontSize: "14px",
+    fontWeight: "normal",
+    wordWrap: "on",
+    lineNumbers: "on",
+    lineNumbersMinChars: 3,
+    overviewRulerLanes: 3,
+    overviewRulerBorder: true,
+    hideCursorInOverviewRuler: false,
+    lineDecorationsWidth: 10,
+    glyphMargin: true,
+    folding: true,
+    scrollBeyondLastColumn: 5,
+    scrollbar: {
+        horizontal: "auto",
+        vertical: "auto",
+        alwaysConsumeMouseWheel: false
+    },
+    find: {
+        addExtraSpaceOnTop: false,
+        autoFindInSelection: "never",
+        seedSearchStringFromSelection: false
+    },
+    minimap: {
+        enabled: true
+    },
+    wordBasedSuggestions: true,
+    links: true,
+    occurrencesHighlight: true,
+    cursorStyle: "line",
+    renderLineHighlight: "line",
+    contextmenu: true,
+    roundedSelection: true,
+    hover: {
+        delay: 300
+    },
+    // IMPORTANT: Don't accept suggestions on Enter - let Enter create new lines
+    acceptSuggestionOnEnter: "off",
+    automaticLayout: true,
+    fixedOverflowWidgets: true,
+    readOnly: false,
+    // Explicitly allow editing
+    domReadOnly: false
+};
+function InlineExpressionEditor(param) {
+    var value = param.value, onChange = param.onChange, onBlur = param.onBlur, onEnter = param.onEnter, onTypeInferred = param.onTypeInferred, onValidationChange = param.onValidationChange, _param_context = param.context, context = _param_context === void 0 ? {} : _param_context, className = param.className, _param_placeholder = param.placeholder, placeholder = _param_placeholder === void 0 ? "Enter expression..." : _param_placeholder;
+    var editorRef = useRef(null);
+    var monacoRef = useRef(null);
+    var typeInferenceTimeoutRef = useRef(null);
+    var handleEditorWillMount = function(monaco) {
+        monacoRef.current = monaco;
+        var contextKeys = Object.keys(context);
+        if (contextKeys.length > 0) {
+            monaco.languages.typescript.javascriptDefaults.addExtraLib("\n        declare const ".concat(contextKeys.join(", "), ": any;\n      "), "context.d.ts");
+        }
+    };
+    var handleEditorDidMount = function(editor, monaco) {
+        editorRef.current = editor;
+        editor.updateOptions(InlineEditorOptions);
+        console.log("\uD83D\uDD37 Inline editor mounted!");
+        editor.getDomNode();
+        var findCommand = editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_F, function() {});
+        var enterKeyDisposable = editor.onKeyDown(function(e) {
+            if (e.keyCode === monaco.KeyCode.Enter) {
+                var _editor__contentWidgets, _contextKeyService_getContextKeyValue;
+                if (!editor.hasTextFocus()) {
+                    console.log("\uD83D\uDD37 Enter keydown but inline editor does NOT have focus - allowing default");
+                    return;
+                }
+                if (e.shiftKey) {
+                    console.log("\uD83D\uDD37 Shift+Enter in INLINE editor - switching to full-screen");
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (onEnter) {
+                        onEnter();
+                    }
+                    return;
+                }
+                var suggestWidget = (_editor__contentWidgets = editor._contentWidgets) === null || _editor__contentWidgets === void 0 ? void 0 : _editor__contentWidgets["editor.widget.suggestWidget"];
+                var isSuggestVisible = (suggestWidget === null || suggestWidget === void 0 ? void 0 : suggestWidget.widget) && !suggestWidget.widget._hidden && suggestWidget.widget.state !== void 0 && suggestWidget.widget.state !== 0;
+                var contextKeyService = editor._contextKeyService;
+                var suggestWidgetVisible = contextKeyService === null || contextKeyService === void 0 ? void 0 : (_contextKeyService_getContextKeyValue = contextKeyService.getContextKeyValue) === null || _contextKeyService_getContextKeyValue === void 0 ? void 0 : _contextKeyService_getContextKeyValue.call(contextKeyService, "suggestWidgetVisible");
+                if (isSuggestVisible || suggestWidgetVisible) {
+                    console.log("\uD83D\uDD37 Enter in INLINE editor - accepting autocomplete");
+                    e.preventDefault();
+                    e.stopPropagation();
+                    editor.trigger("", "acceptSelectedSuggestion");
+                } else {
+                    console.log("\uD83D\uDD37 Enter in INLINE editor - blurring (finishing edit)");
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onBlur === null || onBlur === void 0 ? void 0 : onBlur({});
+                }
+            }
+        });
+        editor.onDidPaste(function(e) {
+            if (e.endLineNumber <= 1) {
+                return;
+            }
+            var newContent = "";
+            var textModel = editor.getModel();
+            var lineCount = textModel.getLineCount();
+            for(var i = 0; i < lineCount; i += 1){
+                newContent += textModel.getLineContent(i + 1);
+            }
+            textModel.setValue(newContent);
+            editor.setPosition({
+                column: newContent.length + 1,
+                lineNumber: 1
+            });
+        });
+        editor.onDidBlurEditorText(function(e) {
+            var currentValue = editor.getValue();
+            onBlur === null || onBlur === void 0 ? void 0 : onBlur(_object_spread_props(_object_spread({}, e), {
+                currentValue: currentValue
+            }));
+        });
+        editor.onDidChangeModelContent(function() {
+            var model = editor.getModel();
+            if (model) {
+                if (onValidationChange) {
+                    var markers = monaco.editor.getModelMarkers({
+                        resource: model.uri
+                    });
+                    var hasErrors = markers.some(function(marker) {
+                        return marker.severity === monaco.MarkerSeverity.Error;
+                    });
+                    onValidationChange(!hasErrors, markers);
+                }
+                if (onTypeInferred) {
+                    if (typeInferenceTimeoutRef.current) {
+                        clearTimeout(typeInferenceTimeoutRef.current);
+                    }
+                    console.log("\uD83D\uDD37 Content changed - debouncing type inference");
+                    typeInferenceTimeoutRef.current = setTimeout(function() {
+                        return _async_to_generator(function() {
+                            var expressionToAnalyze, inferredType;
+                            return _ts_generator(this, function(_state) {
+                                switch(_state.label){
+                                    case 0:
+                                        expressionToAnalyze = model.getValue();
+                                        return [
+                                            4,
+                                            inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
+                                        ];
+                                    case 1:
+                                        inferredType = _state.sent();
+                                        if (inferredType) {
+                                            onTypeInferred(inferredType);
+                                        }
+                                        return [
+                                            2
+                                        ];
+                                }
+                            });
+                        })();
+                    }, 200);
+                }
+            }
+        });
+        var markerChangeDisposable = monaco.editor.onDidChangeMarkers(function(uris) {
+            var model = editor.getModel();
+            if (!model || !onTypeInferred) return;
+            var isOurModel = uris.some(function(uri) {
+                return uri.toString() === model.uri.toString();
+            });
+            if (!isOurModel) return;
+            var markers = monaco.editor.getModelMarkers({
+                resource: model.uri
+            });
+            var hasErrors = markers.some(function(marker) {
+                return marker.severity === monaco.MarkerSeverity.Error;
+            });
+            console.log("\uD83D\uDD37 Monaco markers changed - hasErrors:", hasErrors);
+            if (hasErrors) {
+                if (typeInferenceTimeoutRef.current) {
+                    clearTimeout(typeInferenceTimeoutRef.current);
+                    typeInferenceTimeoutRef.current = null;
+                }
+                console.log("\uD83D\uDD37 ERROR detected - immediately setting type to error");
+                onTypeInferred("error");
+            } else {
+                if (typeInferenceTimeoutRef.current) {
+                    clearTimeout(typeInferenceTimeoutRef.current);
+                }
+                console.log("\uD83D\uDD37 Errors cleared - triggering type inference");
+                typeInferenceTimeoutRef.current = setTimeout(function() {
+                    return _async_to_generator(function() {
+                        var expressionToAnalyze, inferredType;
+                        return _ts_generator(this, function(_state) {
+                            switch(_state.label){
+                                case 0:
+                                    expressionToAnalyze = model.getValue();
+                                    return [
+                                        4,
+                                        inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
+                                    ];
+                                case 1:
+                                    inferredType = _state.sent();
+                                    if (inferredType) {
+                                        onTypeInferred(inferredType);
+                                    }
+                                    return [
+                                        2
+                                    ];
+                            }
+                        });
+                    })();
+                }, 100);
+            }
+        });
+        editor.addCommand(monaco.KeyCode.F1, function() {});
+        var cursorDisposable = editor.onDidChangeCursorPosition(function() {
+            return _async_to_generator(function() {
+                var model, expressionToAnalyze, inferredType;
+                return _ts_generator(this, function(_state) {
+                    switch(_state.label){
+                        case 0:
+                            if (!(onTypeInferred && editor.hasTextFocus())) return [
+                                3,
+                                2
+                            ];
+                            model = editor.getModel();
+                            if (!(model && model.getValue().trim())) return [
+                                3,
+                                2
+                            ];
+                            if (typeInferenceTimeoutRef.current) {
+                                clearTimeout(typeInferenceTimeoutRef.current);
+                            }
+                            expressionToAnalyze = model.getValue();
+                            return [
+                                4,
+                                inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
+                            ];
+                        case 1:
+                            inferredType = _state.sent();
+                            if (inferredType) {
+                                onTypeInferred(inferredType);
+                            }
+                            _state.label = 2;
+                        case 2:
+                            return [
+                                2
+                            ];
+                    }
+                });
+            })();
+        });
+        editor.setPosition({
+            lineNumber: 1,
+            column: 999999
+        });
+        window.requestAnimationFrame(function() {
+            editor.focus();
+            setTimeout(function() {
+                return _async_to_generator(function() {
+                    var model, markers, hasErrors, expressionToAnalyze, inferredType;
+                    return _ts_generator(this, function(_state) {
+                        switch(_state.label){
+                            case 0:
+                                model = editor.getModel();
+                                if (!(onTypeInferred && model && model.getValue())) return [
+                                    3,
+                                    3
+                                ];
+                                console.log("\uD83D\uDD37 Triggering initial type inference for inline editor");
+                                markers = monaco.editor.getModelMarkers({
+                                    resource: model.uri
+                                });
+                                hasErrors = markers.some(function(marker) {
+                                    return marker.severity === monaco.MarkerSeverity.Error;
+                                });
+                                if (!hasErrors) return [
+                                    3,
+                                    1
+                                ];
+                                onTypeInferred("error");
+                                return [
+                                    3,
+                                    3
+                                ];
+                            case 1:
+                                expressionToAnalyze = model.getValue();
+                                return [
+                                    4,
+                                    inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
+                                ];
+                            case 2:
+                                inferredType = _state.sent();
+                                if (inferredType) {
+                                    onTypeInferred(inferredType);
+                                }
+                                _state.label = 3;
+                            case 3:
+                                return [
+                                    2
+                                ];
+                        }
+                    });
+                })();
+            }, 100);
+        });
+        editorRef.current._inlineDisposables = {
+            enterKeyDisposable: enterKeyDisposable,
+            findCommand: findCommand,
+            markerChangeDisposable: markerChangeDisposable,
+            cursorDisposable: cursorDisposable
+        };
+    };
+    useEffect(function() {
+        return function() {
+            if (editorRef.current) {
+                console.log("\uD83D\uDD37 Inline editor unmounting - cleaning up");
+                if (typeInferenceTimeoutRef.current) {
+                    clearTimeout(typeInferenceTimeoutRef.current);
+                }
+                if (editorRef.current._inlineDisposables) {
+                    var _disposables_enterKeyDisposable_dispose, _disposables_enterKeyDisposable, _disposables_findCommand_dispose, _disposables_findCommand, _disposables_markerChangeDisposable_dispose, _disposables_markerChangeDisposable, _disposables_cursorDisposable_dispose, _disposables_cursorDisposable;
+                    var disposables = editorRef.current._inlineDisposables;
+                    (_disposables_enterKeyDisposable = disposables.enterKeyDisposable) === null || _disposables_enterKeyDisposable === void 0 ? void 0 : (_disposables_enterKeyDisposable_dispose = _disposables_enterKeyDisposable.dispose) === null || _disposables_enterKeyDisposable_dispose === void 0 ? void 0 : _disposables_enterKeyDisposable_dispose.call(_disposables_enterKeyDisposable);
+                    (_disposables_findCommand = disposables.findCommand) === null || _disposables_findCommand === void 0 ? void 0 : (_disposables_findCommand_dispose = _disposables_findCommand.dispose) === null || _disposables_findCommand_dispose === void 0 ? void 0 : _disposables_findCommand_dispose.call(_disposables_findCommand);
+                    (_disposables_markerChangeDisposable = disposables.markerChangeDisposable) === null || _disposables_markerChangeDisposable === void 0 ? void 0 : (_disposables_markerChangeDisposable_dispose = _disposables_markerChangeDisposable.dispose) === null || _disposables_markerChangeDisposable_dispose === void 0 ? void 0 : _disposables_markerChangeDisposable_dispose.call(_disposables_markerChangeDisposable);
+                    (_disposables_cursorDisposable = disposables.cursorDisposable) === null || _disposables_cursorDisposable === void 0 ? void 0 : (_disposables_cursorDisposable_dispose = _disposables_cursorDisposable.dispose) === null || _disposables_cursorDisposable_dispose === void 0 ? void 0 : _disposables_cursorDisposable_dispose.call(_disposables_cursorDisposable);
+                }
+                editorRef.current = null;
+            }
+        };
+    }, []);
+    var handleEditorChange = function(newValue) {
+        onChange(newValue || "");
+    };
+    return /* @__PURE__ */ React4__default.createElement("div", {
+        className: cn("uii:relative uii:flex-1", className)
+    }, /* @__PURE__ */ React4__default.createElement(Editor, {
+        theme: "vs-dark",
+        height: "26px",
+        language: "typescript",
+        value: value,
+        onChange: handleEditorChange,
+        onMount: handleEditorDidMount,
+        beforeMount: handleEditorWillMount,
+        width: "100%",
+        loading: /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement(FontAwesomeIcon, {
+            icon: faSpinner,
+            className: "uii:animate-spin"
+        })),
+        options: InlineEditorOptions,
+        className: "uii:-ml-[4px] uii:-mt-[1px] inline-editor"
+    }), !value && /* @__PURE__ */ React4__default.createElement("div", {
+        className: "uii:absolute uii:inset-0 uii:flex uii:items-center uii:pointer-events-none uii:text-muted-foreground uii:text-sm"
+    }, placeholder));
+}
+function FullPanelExpressionEditor(param) {
+    var value = param.value, onChange = param.onChange, onClose = param.onClose, onBlur = param.onBlur, onTypeInferred = param.onTypeInferred, _param_context = param.context, context = _param_context === void 0 ? {} : _param_context, className = param.className, _param_placeholder = param.placeholder, placeholder = _param_placeholder === void 0 ? "Enter expression..." : _param_placeholder;
+    var editorRef = useRef(null);
+    var monacoRef = useRef(null);
+    var typeInferenceTimeoutRef = useRef(null);
+    var handleEditorWillMount = function(monaco) {
+        monacoRef.current = monaco;
+        var contextKeys = Object.keys(context);
+        if (contextKeys.length > 0) {
+            monaco.languages.typescript.javascriptDefaults.addExtraLib("\n        declare const ".concat(contextKeys.join(", "), ": any;\n      "), "context.d.ts");
+        }
+    };
+    var handleFPEditorDidMount = function(editor, monaco) {
+        editorRef.current = editor;
+        editor.updateOptions(FullPanelEditorOptions);
+        console.log("\uD83D\uDFE6 FULL-SCREEN panel editor mounted!");
+        console.log("Full-screen editor is read-only?", editor.getOption(monaco.editor.EditorOption.readOnly));
+        var escapeKeyDisposable = editor.onKeyDown(function(e) {
+            if (e.keyCode === monaco.KeyCode.Escape) {
+                console.log("\uD83D\uDFE6 Escape pressed in FULL-SCREEN editor - closing");
+                e.preventDefault();
+                e.stopPropagation();
+                onClose();
+            }
+            if (e.keyCode === monaco.KeyCode.Enter) {
+                var _editor__contentWidgets, _contextKeyService_getContextKeyValue;
+                var suggestWidget = (_editor__contentWidgets = editor._contentWidgets) === null || _editor__contentWidgets === void 0 ? void 0 : _editor__contentWidgets["editor.widget.suggestWidget"];
+                var isSuggestVisible = (suggestWidget === null || suggestWidget === void 0 ? void 0 : suggestWidget.widget) && !suggestWidget.widget._hidden && suggestWidget.widget.state !== void 0 && suggestWidget.widget.state !== 0;
+                var contextKeyService = editor._contextKeyService;
+                var suggestWidgetVisible = contextKeyService === null || contextKeyService === void 0 ? void 0 : (_contextKeyService_getContextKeyValue = contextKeyService.getContextKeyValue) === null || _contextKeyService_getContextKeyValue === void 0 ? void 0 : _contextKeyService_getContextKeyValue.call(contextKeyService, "suggestWidgetVisible");
+                if (isSuggestVisible || suggestWidgetVisible) {
+                    console.log("\uD83D\uDFE6 Enter in FULL-SCREEN - accepting autocomplete");
+                    e.preventDefault();
+                    e.stopPropagation();
+                    editor.trigger("", "acceptSelectedSuggestion");
+                } else {
+                    console.log("\uD83D\uDFE6 Enter in FULL-SCREEN - allowing newline (default behavior)");
+                }
+            }
+        });
+        var changeCount = 0;
+        var changeDisposable = editor.onDidChangeModelContent(function(e) {
+            var _editor_getModel;
+            changeCount++;
+            var newValue = editor.getValue();
+            console.log("\uD83D\uDFE6 FULL-SCREEN content changed (".concat(changeCount, "):"), newValue);
+            console.log("\uD83D\uDFE6 Line count: ".concat((_editor_getModel = editor.getModel()) === null || _editor_getModel === void 0 ? void 0 : _editor_getModel.getLineCount()));
+            if (onTypeInferred) {
+                if (typeInferenceTimeoutRef.current) {
+                    clearTimeout(typeInferenceTimeoutRef.current);
+                }
+                console.log("\uD83D\uDFE6 Content changed - debouncing type inference");
+                typeInferenceTimeoutRef.current = setTimeout(function() {
+                    return _async_to_generator(function() {
+                        var expressionToAnalyze, inferredType;
+                        return _ts_generator(this, function(_state) {
+                            switch(_state.label){
+                                case 0:
+                                    expressionToAnalyze = newValue;
+                                    return [
+                                        4,
+                                        inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
+                                    ];
+                                case 1:
+                                    inferredType = _state.sent();
+                                    if (inferredType) {
+                                        onTypeInferred(inferredType);
+                                    }
+                                    return [
+                                        2
+                                    ];
+                            }
+                        });
+                    })();
+                }, 200);
+            }
+        });
+        var markerChangeDisposable = monaco.editor.onDidChangeMarkers(function(uris) {
+            var model2 = editor.getModel();
+            if (!model2 || !onTypeInferred) return;
+            var isOurModel = uris.some(function(uri) {
+                return uri.toString() === model2.uri.toString();
+            });
+            if (!isOurModel) return;
+            var markers = monaco.editor.getModelMarkers({
+                resource: model2.uri
+            });
+            var hasErrors = markers.some(function(marker) {
+                return marker.severity === monaco.MarkerSeverity.Error;
+            });
+            console.log("\uD83D\uDFE6 Monaco markers changed - hasErrors:", hasErrors);
+            if (hasErrors) {
+                if (typeInferenceTimeoutRef.current) {
+                    clearTimeout(typeInferenceTimeoutRef.current);
+                    typeInferenceTimeoutRef.current = null;
+                }
+                console.log("\uD83D\uDFE6 ERROR detected - immediately setting type to error");
+                onTypeInferred("error");
+            } else {
+                if (typeInferenceTimeoutRef.current) {
+                    clearTimeout(typeInferenceTimeoutRef.current);
+                }
+                console.log("\uD83D\uDFE6 Errors cleared - triggering type inference");
+                typeInferenceTimeoutRef.current = setTimeout(function() {
+                    return _async_to_generator(function() {
+                        var expressionToAnalyze, inferredType;
+                        return _ts_generator(this, function(_state) {
+                            switch(_state.label){
+                                case 0:
+                                    expressionToAnalyze = model2.getValue();
+                                    return [
+                                        4,
+                                        inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
+                                    ];
+                                case 1:
+                                    inferredType = _state.sent();
+                                    if (inferredType) {
+                                        onTypeInferred(inferredType);
+                                    }
+                                    return [
+                                        2
+                                    ];
+                            }
+                        });
+                    })();
+                }, 100);
+            }
+        });
+        editor.onDidBlurEditorText(function(e) {
+            var currentValue = editor.getValue();
+            onBlur === null || onBlur === void 0 ? void 0 : onBlur(_object_spread_props(_object_spread({}, e), {
+                currentValue: currentValue
+            }));
+        });
+        var model = editor.getModel();
+        if (model) {
+            var lineCount = model.getLineCount();
+            var lastLineLength = model.getLineLength(lineCount);
+            editor.setPosition({
+                lineNumber: lineCount,
+                column: lastLineLength + 1
+            });
+        }
+        editor.focus();
+        setTimeout(function() {
+            return _async_to_generator(function() {
+                var markers, hasErrors, expressionToAnalyze, inferredType;
+                return _ts_generator(this, function(_state) {
+                    switch(_state.label){
+                        case 0:
+                            if (!(onTypeInferred && model)) return [
+                                3,
+                                3
+                            ];
+                            console.log("\uD83D\uDFE6 Triggering initial type inference for full-screen editor");
+                            markers = monaco.editor.getModelMarkers({
+                                resource: model.uri
+                            });
+                            hasErrors = markers.some(function(marker) {
+                                return marker.severity === monaco.MarkerSeverity.Error;
+                            });
+                            if (!hasErrors) return [
+                                3,
+                                1
+                            ];
+                            console.log("\uD83D\uDFE6 Initial load has error - setting type to error");
+                            onTypeInferred("error");
+                            return [
+                                3,
+                                3
+                            ];
+                        case 1:
+                            expressionToAnalyze = model.getValue();
+                            return [
+                                4,
+                                inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
+                            ];
+                        case 2:
+                            inferredType = _state.sent();
+                            if (inferredType) {
+                                onTypeInferred(inferredType);
+                            }
+                            _state.label = 3;
+                        case 3:
+                            return [
+                                2
+                            ];
+                    }
+                });
+            })();
+        }, 100);
+        var cursorDisposable = editor.onDidChangeCursorPosition(function() {
+            return _async_to_generator(function() {
+                var model2, expressionToAnalyze, inferredType;
+                return _ts_generator(this, function(_state) {
+                    switch(_state.label){
+                        case 0:
+                            if (!(onTypeInferred && editor.hasTextFocus())) return [
+                                3,
+                                2
+                            ];
+                            model2 = editor.getModel();
+                            if (!(model2 && model2.getValue().trim())) return [
+                                3,
+                                2
+                            ];
+                            if (typeInferenceTimeoutRef.current) {
+                                clearTimeout(typeInferenceTimeoutRef.current);
+                            }
+                            expressionToAnalyze = model2.getValue();
+                            return [
+                                4,
+                                inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
+                            ];
+                        case 1:
+                            inferredType = _state.sent();
+                            if (inferredType) {
+                                onTypeInferred(inferredType);
+                            }
+                            _state.label = 2;
+                        case 2:
+                            return [
+                                2
+                            ];
+                    }
+                });
+            })();
+        });
+        editorRef.current._fullScreenDisposables = {
+            escapeKeyDisposable: escapeKeyDisposable,
+            changeDisposable: changeDisposable,
+            markerChangeDisposable: markerChangeDisposable,
+            cursorDisposable: cursorDisposable
+        };
+    };
+    useEffect(function() {
+        return function() {
+            if (editorRef.current) {
+                console.log("\uD83D\uDFE6 Full-screen editor unmounting - cleaning up");
+                if (typeInferenceTimeoutRef.current) {
+                    clearTimeout(typeInferenceTimeoutRef.current);
+                }
+                if (editorRef.current._fullScreenDisposables) {
+                    var _disposables_escapeKeyDisposable_dispose, _disposables_escapeKeyDisposable, _disposables_changeDisposable_dispose, _disposables_changeDisposable, _disposables_markerChangeDisposable_dispose, _disposables_markerChangeDisposable, _disposables_cursorDisposable_dispose, _disposables_cursorDisposable;
+                    var disposables = editorRef.current._fullScreenDisposables;
+                    (_disposables_escapeKeyDisposable = disposables.escapeKeyDisposable) === null || _disposables_escapeKeyDisposable === void 0 ? void 0 : (_disposables_escapeKeyDisposable_dispose = _disposables_escapeKeyDisposable.dispose) === null || _disposables_escapeKeyDisposable_dispose === void 0 ? void 0 : _disposables_escapeKeyDisposable_dispose.call(_disposables_escapeKeyDisposable);
+                    (_disposables_changeDisposable = disposables.changeDisposable) === null || _disposables_changeDisposable === void 0 ? void 0 : (_disposables_changeDisposable_dispose = _disposables_changeDisposable.dispose) === null || _disposables_changeDisposable_dispose === void 0 ? void 0 : _disposables_changeDisposable_dispose.call(_disposables_changeDisposable);
+                    (_disposables_markerChangeDisposable = disposables.markerChangeDisposable) === null || _disposables_markerChangeDisposable === void 0 ? void 0 : (_disposables_markerChangeDisposable_dispose = _disposables_markerChangeDisposable.dispose) === null || _disposables_markerChangeDisposable_dispose === void 0 ? void 0 : _disposables_markerChangeDisposable_dispose.call(_disposables_markerChangeDisposable);
+                    (_disposables_cursorDisposable = disposables.cursorDisposable) === null || _disposables_cursorDisposable === void 0 ? void 0 : (_disposables_cursorDisposable_dispose = _disposables_cursorDisposable.dispose) === null || _disposables_cursorDisposable_dispose === void 0 ? void 0 : _disposables_cursorDisposable_dispose.call(_disposables_cursorDisposable);
+                }
+                editorRef.current = null;
+            }
+        };
+    }, []);
+    var handleEditorChange = function(newValue) {
+        onChange(newValue || "");
+    };
+    return /* @__PURE__ */ React4__default.createElement("div", {
+        className: cn("uii:relative uii:border uii:rounded-md uii:bg-background", className)
+    }, /* @__PURE__ */ React4__default.createElement("div", {
+        className: "uii:flex uii:items-center uii:justify-between uii:p-2 uii:border-b uii:bg-muted/50"
+    }, /* @__PURE__ */ React4__default.createElement("span", {
+        className: "uii:text-sm uii:font-medium"
+    }, "Expression Editor"), /* @__PURE__ */ React4__default.createElement("button", {
+        type: "button",
+        onClick: onClose,
+        className: "uii:text-muted-foreground hover:uii:text-foreground uii:p-1 uii:rounded uii:cursor-pointer uii:text-xs"
+    }, "\u2715")), /* @__PURE__ */ React4__default.createElement(Editor, {
+        height: "300px",
+        theme: "vs-dark",
+        language: "typescript",
+        value: value,
+        onChange: handleEditorChange,
+        onMount: handleFPEditorDidMount,
+        beforeMount: handleEditorWillMount,
+        options: FullPanelEditorOptions
+    }), !value && /* @__PURE__ */ React4__default.createElement("div", {
+        className: "uii:absolute uii:inset-0 uii:flex uii:items-center uii:justify-center uii:pointer-events-none uii:text-muted-foreground"
+    }, placeholder));
+}
+function useASTParser(expression, controlKey) {
+    var _useState = _sliced_to_array(useState(null), 2), ast = _useState[0], setAST = _useState[1];
+    var _useState1 = _sliced_to_array(useState([]), 2), tokens = _useState1[0], setTokens = _useState1[1];
+    var _useState2 = _sliced_to_array(useState([]), 2), dependencies = _useState2[0], setDependencies = _useState2[1];
+    var _useState3 = _sliced_to_array(useState(false), 2), isLoading = _useState3[0], setIsLoading = _useState3[1];
+    var _useState4 = _sliced_to_array(useState(null), 2), error = _useState4[0], setError = _useState4[1];
+    var requestIdRef = useRef(0);
+    var messageHandlerRef = useRef(null);
+    var controlKeyRef = useRef(controlKey || "default");
+    useEffect(function() {
+        controlKeyRef.current = controlKey || "default";
+    }, [
+        controlKey
+    ]);
+    useEffect(function() {
+        if (typeof window === "undefined" || !navigator.serviceWorker) {
+            setError("Service worker not available");
+            return;
+        }
+        var handleMessage = function(event) {
+            if (event.data.type === "AST_PARSE_RESULT") {
+                var _event_data_payload = event.data.payload, id = _event_data_payload.id, controlKey2 = _event_data_payload.controlKey, result = _event_data_payload.result;
+                if (id === requestIdRef.current && controlKey2 === controlKeyRef.current) {
+                    console.log("Service worker AST response:", {
+                        id: id,
+                        controlKey: controlKey2,
+                        result: result
+                    });
+                    setAST(result.ast);
+                    setTokens(result.tokens);
+                    setDependencies(result.dependencies || []);
+                    setError(result.error || null);
+                    setIsLoading(false);
+                } else {
+                    console.log("Ignoring AST response - wrong control:", {
+                        receivedId: id,
+                        expectedId: requestIdRef.current,
+                        receivedKey: controlKey2,
+                        expectedKey: controlKeyRef.current
+                    });
+                }
+            }
+        };
+        messageHandlerRef.current = handleMessage;
+        navigator.serviceWorker.addEventListener("message", handleMessage);
+        return function() {
+            if (messageHandlerRef.current) {
+                navigator.serviceWorker.removeEventListener("message", messageHandlerRef.current);
+            }
+        };
+    }, []);
+    useEffect(function() {
+        if (!expression.trim()) {
+            setAST(null);
+            setTokens([]);
+            setDependencies([]);
+            setError(null);
+            setIsLoading(false);
+            return;
+        }
+        if (!navigator.serviceWorker || !navigator.serviceWorker.controller) {
+            setError("Service worker not ready");
+            setIsLoading(false);
+            return;
+        }
+        setIsLoading(true);
+        setError(null);
+        requestIdRef.current++;
+        console.log("Sending expression to service worker:", {
+            expression: expression.trim(),
+            controlKey: controlKeyRef.current,
+            id: requestIdRef.current
+        });
+        navigator.serviceWorker.controller.postMessage({
+            type: "PARSE_AST",
+            payload: {
+                expression: expression.trim(),
+                id: requestIdRef.current,
+                controlKey: controlKeyRef.current
+            }
+        });
+    }, [
+        expression
+    ]);
+    return {
+        ast: ast,
+        tokens: tokens,
+        dependencies: dependencies,
+        isLoading: isLoading,
+        error: error
+    };
+}
+function ASTRenderer(param) {
+    var ast = param.ast, key = param.key, className = param.className, _param_variant = param.variant, variant = _param_variant === void 0 ? "inline" : _param_variant, _param_showTokens = param.showTokens, showTokens = _param_showTokens === void 0 ? false : _param_showTokens, _param_tokens = param.tokens, tokens = _param_tokens === void 0 ? [] : _param_tokens;
+    var getNodeColor = function(type) {
+        switch(type){
+            case "StringLiteral":
+                return "uii:text-green-600 uii:bg-green-100";
+            case "NumericLiteral":
+                return "uii:text-purple-600 uii:bg-purple-100";
+            case "Identifier":
+                return "uii:text-blue-600 uii:bg-blue-100";
+            case "Keyword":
+            case "Literal":
+                return "uii:text-orange-600 uii:bg-orange-100";
+            case "BinaryExpression":
+                return "uii:text-gray-700 uii:bg-gray-100";
+            case "CallExpression":
+                return "uii:text-indigo-600 uii:bg-indigo-100";
+            case "MemberExpression":
+                return "uii:text-cyan-600 uii:bg-cyan-100";
+            case "UnaryExpression":
+                return "uii:text-pink-600 uii:bg-pink-100";
+            case "ParenthesizedExpression":
+                return "uii:text-yellow-600 uii:bg-yellow-100";
+            default:
+                return "uii:text-gray-600 uii:bg-gray-100";
+        }
+    };
+    var renderInlineNode = function(node) {
+        var depth = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
+        if (depth > 2) return null;
+        if (node.type === "Identifier") {
+            return /* @__PURE__ */ React4__default.createElement("span", {
+                key: "".concat(node.start, "-").concat(node.end),
+                className: "uii:inline-flex uii:items-center uii:mr-1"
+            }, /* @__PURE__ */ React4__default.createElement("span", {
+                className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-blue-100 uii:text-blue-800 uii:font-mono"
+            }, node.name || node.value));
+        }
+        if (node.type === "StringLiteral" || node.type === "NumericLiteral") {
+            return /* @__PURE__ */ React4__default.createElement("span", {
+                key: "".concat(node.start, "-").concat(node.end),
+                className: "uii:inline-flex uii:items-center uii:mr-1"
+            }, /* @__PURE__ */ React4__default.createElement("span", {
+                className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-green-100 uii:text-green-800 uii:font-mono"
+            }, node.value));
+        }
+        if (node.type === "BinaryExpression") {
+            return /* @__PURE__ */ React4__default.createElement("span", {
+                key: "".concat(node.start, "-").concat(node.end),
+                className: "uii:inline-flex uii:items-center uii:mr-1"
+            }, node.left && renderInlineNode(node.left, depth + 1), /* @__PURE__ */ React4__default.createElement("span", {
+                className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-purple-100 uii:text-purple-800 uii:font-mono uii:mx-1"
+            }, node.operator), node.right && renderInlineNode(node.right, depth + 1));
+        }
+        if (node.type === "CallExpression") {
+            return /* @__PURE__ */ React4__default.createElement("span", {
+                key: "".concat(node.start, "-").concat(node.end),
+                className: "uii:inline-flex uii:items-center uii:mr-1"
+            }, node.callee && renderInlineNode(node.callee, depth + 1), /* @__PURE__ */ React4__default.createElement("span", {
+                className: "text-xs text-gray-600"
+            }, "()"));
+        }
+        if (node.type === "PropertyAccessExpression") {
+            return /* @__PURE__ */ React4__default.createElement("span", {
+                key: "".concat(node.start, "-").concat(node.end),
+                className: "uii:inline-flex uii:items-center uii:mr-1"
+            }, node.object && renderInlineNode(node.object, depth + 1), /* @__PURE__ */ React4__default.createElement("span", {
+                className: "text-xs text-gray-600"
+            }, "."), node.property && renderInlineNode(node.property, depth + 1));
+        }
+        return /* @__PURE__ */ React4__default.createElement("span", {
+            key: "".concat(node.start, "-").concat(node.end),
+            className: "uii:inline-flex uii:items-center uii:mr-1"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "px-1 py-0.5 rounded text-xs bg-gray-100 text-gray-600 font-mono"
+        }, node.type));
+    };
+    var renderTreeNode = function(node) {
+        var depth = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
+        if (depth > 4) return null;
+        var indent = "  ".repeat(depth);
+        return /* @__PURE__ */ React4__default.createElement("div", {
+            key: "".concat(node.start, "-").concat(node.end),
+            className: "font-mono text-xs"
+        }, /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:flex uii:items-start uii:gap-2"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-gray-400"
+        }, indent), /* @__PURE__ */ React4__default.createElement("span", {
+            className: cn("uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:font-semibold", getNodeColor(node.type))
+        }, node.type), node.value && /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-green-600"
+        }, '"', node.value, '"'), node.operator && /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-purple-600"
+        }, node.operator), node.name && /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-blue-600"
+        }, node.name)), node.left && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-gray-500 uii:text-xs"
+        }, "left: "), renderTreeNode(node.left, depth + 1)), node.right && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-gray-500 uii:text-xs"
+        }, "right: "), renderTreeNode(node.right, depth + 1)), node.argument && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-gray-500 uii:text-xs"
+        }, "arg: "), renderTreeNode(node.argument, depth + 1)), node.object && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-gray-500 uii:text-xs"
+        }, "obj: "), renderTreeNode(node.object, depth + 1)), node.property && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-gray-500 uii:text-xs"
+        }, "prop: "), renderTreeNode(node.property, depth + 1)), node.index && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2"
+        }, /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:text-gray-500 uii:text-xs"
+        }, "idx: "), renderTreeNode(node.index, depth + 1)), !node.left && !node.right && !node.argument && !node.object && !node.property && !node.index && node.children && node.children.length > 0 && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2"
+        }, node.children.slice(0, 3).map(function(child, index) {
+            return renderTreeNode(child, depth + 1);
+        }), node.children.length > 3 && /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:ml-2 uii:text-gray-500 uii:text-xs"
+        }, "... and ", node.children.length - 3, " more")));
+    };
+    var renderTokens = function() {
+        if (tokens.length === 0) return null;
+        var displayTokens = tokens.slice(0, 10);
+        return /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:space-y-2"
+        }, /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:text-sm uii:font-semibold uii:text-gray-700"
+        }, "Tokens ", tokens.length > 10 && "(".concat(tokens.length, " total)"), ":"), /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:flex uii:flex-wrap uii:gap-1"
+        }, displayTokens.map(function(token, index) {
+            return /* @__PURE__ */ React4__default.createElement("span", {
+                key: index,
+                className: cn("uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:font-mono", token.type.includes("Keyword") && "uii:bg-blue-100 uii:text-blue-800", token.type.includes("Identifier") && "uii:bg-green-100 uii:text-green-800", token.type.includes("String") && "uii:bg-yellow-100 uii:text-yellow-800", token.type.includes("Numeric") && "uii:bg-purple-100 uii:text-purple-800", token.type.includes("Punctuation") && "uii:bg-gray-100 uii:text-gray-800", "uii:bg-gray-100 uii:text-gray-600")
+            }, token.value);
+        }), tokens.length > 10 && /* @__PURE__ */ React4__default.createElement("span", {
+            className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-gray-200 uii:text-gray-600"
+        }, "+", tokens.length - 10, " more")));
+    };
+    if (!ast) {
+        return /* @__PURE__ */ React4__default.createElement("div", {
+            className: cn("uii:text-gray-500 uii:text-sm uii:italic", className)
+        }, "No AST available");
+    }
+    if (variant === "inline") {
+        return /* @__PURE__ */ React4__default.createElement("div", {
+            className: cn("uii:inline-flex uii:items-center uii:gap-2", className)
+        }, renderInlineNode(ast));
+    }
+    if (variant === "compact") {
+        return /* @__PURE__ */ React4__default.createElement("div", {
+            className: cn("uii:space-y-2", className)
+        }, /* @__PURE__ */ React4__default.createElement("div", {
+            className: "uii:flex uii:flex-wrap uii:gap-1"
+        }, renderInlineNode(ast)), showTokens && renderTokens());
+    }
+    return /* @__PURE__ */ React4__default.createElement("div", {
+        className: cn("uii:space-y-3", className)
+    }, /* @__PURE__ */ React4__default.createElement("div", {
+        className: "uii:space-y-2"
+    }, /* @__PURE__ */ React4__default.createElement("div", {
+        className: "uii:text-sm uii:font-semibold uii:text-gray-700"
+    }, "AST Tree:"), /* @__PURE__ */ React4__default.createElement("div", {
+        className: "uii:p-3 uii:border uii:rounded-md uii:bg-gray-50 uii:max-h-64 uii:overflow-auto"
+    }, renderTreeNode(ast))), showTokens && renderTokens());
+}
+function ExpressionWrapper(param) {
+    var label = param.label, value = param.value, type = param.type, _param_valuesLoading = param.valuesLoading, valuesLoading = _param_valuesLoading === void 0 ? false : _param_valuesLoading, key = param.key, onValueChange = param.onValueChange, onDependenciesChange = param.onDependenciesChange, metadata = param.metadata, children = param.children, fieldName = param.fieldName, _param_expressionContext = param.expressionContext, expressionContext = _param_expressionContext === void 0 ? {} : _param_expressionContext, availableNodes = param.availableNodes, myInterface = param.myInterface, contextTypeDefinitions = param.contextTypeDefinitions, _param_inlineEditor = param.inlineEditor, inlineEditor = _param_inlineEditor === void 0 ? true : _param_inlineEditor, className = param.className, editorClassName = param.editorClassName, _param_expressionPlaceholder = param.expressionPlaceholder, expressionPlaceholder = _param_expressionPlaceholder === void 0 ? "Enter expression..." : _param_expressionPlaceholder, evaluateExpression = param.evaluateExpression, expressionResult = param.expressionResult, _param_isEvaluating = param.isEvaluating, isEvaluating = _param_isEvaluating === void 0 ? false : _param_isEvaluating, _param_isExpressionValid = param.isExpressionValid, isExpressionValid = _param_isExpressionValid === void 0 ? true : _param_isExpressionValid, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "any" : _param_expectedType;
+    var _useState = _sliced_to_array(useState(function() {
+        var initialMetadata = metadata || {
+            expression: "",
+            mode: "value",
+            isEditing: false,
+            isFullScreen: false,
+            value: void 0
+        };
+        return _object_spread_props(_object_spread({}, initialMetadata), {
+            isEditing: false,
+            isFullScreen: false,
+            mode: "value"
+        });
+    }), 2), expressionMetadata = _useState[0], setExpressionMetadata = _useState[1];
+    var _useState1 = _sliced_to_array(useState(value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression" ? value.value : value), 2), originalValue = _useState1[0], setOriginalValue = _useState1[1];
+    var _useState2 = _sliced_to_array(useState(value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression" ? value.value : value), 2), currentValue = _useState2[0], setCurrentValue = _useState2[1];
+    var formatValue = useCallback(function(value2) {
+        switch(type){
+            case "float":
+                {
+                    return typeof value2 === "string" && !isNaN(parseFloat(value2)) ? parseFloat(value2) : value2;
+                }
+            case "integer":
+            case "number":
+                {
+                    return typeof value2 === "string" && !isNaN(parseInt(value2)) ? parseInt(value2) : value2;
+                }
+            case "string[]":
+                {
+                    return typeof value2 === "string" ? value2.split(",") : value2;
+                }
+            case "string":
+            default:
+                {
+                    return value2;
+                }
+        }
+    }, [
+        type
+    ]);
+    var _useState3 = _sliced_to_array(useState(), 2), currentEditorValue = _useState3[0], setCurrentEditorValue = _useState3[1];
+    var currentExpressionValueExt = useExpressionModeStore.getState().getState(fieldName).expression;
+    useEffect(function() {
+        if (metadata) {
+            setExpressionMetadata(_object_spread_props(_object_spread({}, metadata), {
+                // Don't restore editing/fullscreen state from metadata
+                // User needs to explicitly click to edit
+                isEditing: false,
+                isFullScreen: false
+            }));
+        }
+    }, [
+        metadata
+    ]);
+    var isExpressionValue = useMemo(function() {
+        return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression";
+    }, [
+        value
+    ]);
+    var isInitialMount = useRef(true);
+    useEffect(function() {
+        if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression") {
+            var exprValue = value.value;
+            var exprString = value.expression;
+            if (exprValue !== void 0) {
+                setCurrentValue(formatValue(exprValue));
+                setOriginalValue(formatValue(exprValue));
+            }
+            if (exprString && expressionMode.expression !== exprString) {
+                expressionMode.setExpression(exprString);
+                if (isInitialMount.current && !expressionMode.isEditing) {
+                    expressionMode.switchToExpression();
+                }
+            }
+            var isMetadataOutOfSync = !metadata || metadata.expression !== exprString || metadata.mode === "value" || // If value has expression but mode is 'value', it's out of sync
+            metadata.isEditing === true || // Should never start editing on load
+            metadata.isFullScreen === true;
+            if (isInitialMount.current && isMetadataOutOfSync) {
+                var syncedMetadata = {
+                    expression: exprString || "",
+                    value: formatValue(exprValue),
+                    mode: "expression",
+                    // Show expression display (not editing)
+                    isEditing: false,
+                    isFullScreen: false
+                };
+                setTimeout(function() {
+                    onValueChange(value, _object_spread_props(_object_spread({}, syncedMetadata), {
+                        value: formatValue(value)
+                    }));
+                }, 0);
+            }
+        } else {
+            if (!valuesLoading) {
+                setCurrentValue(formatValue(value));
+                setOriginalValue(formatValue(value));
+                if (isInitialMount.current && ((metadata === null || metadata === void 0 ? void 0 : metadata.expression) || (metadata === null || metadata === void 0 ? void 0 : metadata.mode) === "expression")) {
+                    var syncedMetadata1 = {
+                        expression: "",
+                        value: formatValue(value),
+                        mode: "value",
+                        isEditing: false,
+                        isFullScreen: false
+                    };
+                    setTimeout(function() {
+                        onValueChange(formatValue(value), _object_spread_props(_object_spread({}, syncedMetadata1), {
+                            value: formatValue(value)
+                        }));
+                    }, 0);
+                }
+            }
+        }
+        if (isInitialMount.current) {
+            setTimeout(function() {
+                isInitialMount.current = false;
+            }, 100);
+        }
+    }, [
+        value,
+        valuesLoading
+    ]);
+    var expressionMode = useExpressionMode(fieldName);
+    var _useASTParser = useASTParser(expressionMode.expression, fieldName), ast = _useASTParser.ast, tokens = _useASTParser.tokens, dependencies = _useASTParser.dependencies, isParsing = _useASTParser.isLoading, parseError = _useASTParser.error;
+    var dependencyList = useMemo(function() {
+        if (!ast || dependencies.length === 0) {
+            return [];
+        }
+        return dependencies.map(function(dep) {
+            return {
+                name: dep,
+                exists: expressionContext ? dep in expressionContext : false,
+                value: expressionContext ? expressionContext[dep] : void 0
+            };
+        });
+    }, [
+        dependencies,
+        expressionContext,
+        ast
+    ]);
+    var _useState4 = _sliced_to_array(useState(null), 2), typeScriptInferredType = _useState4[0], setTypeScriptInferredType = _useState4[1];
+    var handleTypeInferred = useCallback(function(type2) {
+        setTypeScriptInferredType(type2);
+    }, []);
+    var expressionHasNewlines = useMemo(function() {
+        return expressionMode.expression.includes("\n") || expressionMode.expression.includes("\r");
+    }, [
+        expressionMode.expression
+    ]);
+    var inferredReturnType = useMemo(function() {
+        return typeScriptInferredType || "unknown";
+    }, [
+        typeScriptInferredType
+    ]);
+    var hasTypeMismatch = useMemo(function() {
+        if (!inferredReturnType || inferredReturnType === "unknown" || inferredReturnType === "any" || inferredReturnType === "error") {
+            return false;
+        }
+        var normalizedInferred = inferredReturnType.toLowerCase().trim();
+        var normalizedExpected = (type || expectedType || "any").toLowerCase().trim();
+        if (normalizedExpected === "array" && normalizedInferred.endsWith("[]")) {
+            return false;
+        }
+        if (normalizedInferred === normalizedExpected) {
+            return false;
+        }
+        if (normalizedExpected === "any") {
+            return false;
+        }
+        if (normalizedExpected === "string" && (normalizedInferred.startsWith('"') || normalizedInferred.startsWith("'"))) {
+            return false;
+        }
+        if (normalizedExpected === "number" && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(normalizedInferred)) {
+            return false;
+        }
+        if (normalizedExpected === "integer" && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(normalizedInferred)) {
+            return false;
+        }
+        if (normalizedExpected === "integer" && normalizedInferred === "number") {
+            return false;
+        }
+        if (normalizedExpected === "float" && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(normalizedInferred)) {
+            return false;
+        }
+        if (normalizedExpected === "float" && normalizedInferred === "number") {
+            return false;
+        }
+        if (normalizedExpected === "boolean" && (normalizedInferred === "true" || normalizedInferred === "false")) {
+            return false;
+        }
+        return true;
+    }, [
+        inferredReturnType,
+        type,
+        expectedType
+    ]);
+    var _useState5 = _sliced_to_array(useState(null), 2), internalExpressionResult = _useState5[0], setInternalExpressionResult = _useState5[1];
+    var _useState6 = _sliced_to_array(useState(false), 2), internalIsEvaluating = _useState6[0], setInternalIsEvaluating = _useState6[1];
+    var _useState7 = _sliced_to_array(useState(false), 2), isHovering = _useState7[0], setIsHovering = _useState7[1];
+    var _useState8 = _sliced_to_array(useState(true), 2), internalIsExpressionValid = _useState8[0], setInternalIsExpressionValid = _useState8[1];
+    var _useState9 = _sliced_to_array(useState({
+        syntax: true,
+        expression: true,
+        context: true,
+        type: true,
+        security: true
+    }), 2), validationState = _useState9[0], setValidationState = _useState9[1];
+    var hasExpressionError = useMemo(function() {
+        if (!expressionMode.expression || !expressionMode.expression.trim()) {
+            return false;
+        }
+        if (!internalIsExpressionValid || !isExpressionValid) {
+            return true;
+        }
+        if (parseError) {
+            return true;
+        }
+        if (!validationState.syntax || !validationState.expression) {
+            return true;
+        }
+        if ((expressionResult === null || expressionResult === void 0 ? void 0 : expressionResult.error) || (internalExpressionResult === null || internalExpressionResult === void 0 ? void 0 : internalExpressionResult.error)) {
+            return true;
+        }
+        return false;
+    }, [
+        expressionMode.expression,
+        internalIsExpressionValid,
+        isExpressionValid,
+        parseError,
+        validationState,
+        expressionResult,
+        internalExpressionResult
+    ]);
+    var isProgrammaticallyClearing = useRef(false);
+    var isSwitchingToFullScreen = useRef(false);
+    var isBlur = useRef(false);
+    var handleValidationChange = useCallback(function(isValid, errors) {
+        setInternalIsExpressionValid(isValid);
+        setValidationState(function(prev) {
+            return _object_spread_props(_object_spread({}, prev), {
+                syntax: isValid
+            });
+        });
+    }, []);
+    var checkForMultiLine = useCallback(function(expression) {
+        var hasNewlines = expression.includes("\n");
+        var isLong = expression.length > 80;
+        if (!expressionMode.isFullScreen) {
+            expressionMode.setFullScreen(hasNewlines || isLong);
+        }
+    }, [
+        expressionMode.isFullScreen
+    ]);
+    var internalEvaluateExpression = useCallback(function(expression, context) {
+        return _async_to_generator(function() {
+            var result, error;
+            return _ts_generator(this, function(_state) {
+                switch(_state.label){
+                    case 0:
+                        if (!evaluateExpression || !expression.trim()) return [
+                            2
+                        ];
+                        setInternalIsEvaluating(true);
+                        _state.label = 1;
+                    case 1:
+                        _state.trys.push([
+                            1,
+                            3,
+                            4,
+                            5
+                        ]);
+                        return [
+                            4,
+                            evaluateExpression(expression, context)
+                        ];
+                    case 2:
+                        result = _state.sent();
+                        setInternalExpressionResult(result);
+                        return [
+                            3,
+                            5
+                        ];
+                    case 3:
+                        error = _state.sent();
+                        setInternalExpressionResult({
+                            value: null,
+                            ast: {
+                                kind: 0,
+                                text: "",
+                                color: "#ff0000"
+                            },
+                            error: _instanceof(error, Error) ? error.message : "Unknown error",
+                            isValid: false,
+                            validation: {
+                                syntax: false,
+                                expression: false,
+                                context: false,
+                                type: false,
+                                security: false
+                            }
+                        });
+                        return [
+                            3,
+                            5
+                        ];
+                    case 4:
+                        setInternalIsEvaluating(false);
+                        return [
+                            7
+                        ];
+                    case 5:
+                        return [
+                            2
+                        ];
+                }
+            });
+        })();
+    }, [
+        evaluateExpression
+    ]);
+    var currentMetadata = useMemo(function() {
+        return {
+            expression: expressionMode.expression,
+            value: currentValue,
+            mode: expressionMode.current,
+            isEditing: expressionMode.isEditing,
+            isFullScreen: expressionMode.isFullScreen
+        };
+    }, [
+        expressionMode.expression,
+        expressionMode.current,
+        expressionMode.isFullScreen,
+        expressionMode.isEditing,
+        currentValue
+    ]);
+    var currentExpressionValue = useMemo(function() {
+        return {
+            expression: expressionMode.expression,
+            type: "expression"
+        };
+    }, [
+        expressionMode.currentValue || expressionMode.expression
+    ]);
+    var handleValueChange = useCallback(function(newValue) {
+        onValueChange(formatValue(newValue), _object_spread_props(_object_spread({}, currentMetadata), {
+            value: formatValue(newValue)
+        }));
+    }, [
+        onValueChange,
+        expressionMode,
+        isExpressionValue,
+        currentValue
+    ]);
+    var handleExpressionChange = useCallback(function(newExpression) {
+        isProgrammaticallyClearing.current = false;
+        expressionMode.setExpression(newExpression);
+        setCurrentEditorValue(newExpression);
+        checkForMultiLine(newExpression);
+        onValueChange({
+            expression: newExpression,
+            type: "expression"
+        }, _object_spread_props(_object_spread({}, currentMetadata), {
+            expression: newExpression
+        }));
+    }, [
+        expressionMode,
+        expressionContext,
+        onValueChange,
+        evaluateExpression,
+        internalEvaluateExpression,
+        checkForMultiLine
+    ]);
+    var handleExpressionBlur = useCallback(function(e) {
+        var forceBlur = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
+        return _async_to_generator(function() {
+            return _ts_generator(this, function(_state) {
+                if (isProgrammaticallyClearing.current) {
+                    isProgrammaticallyClearing.current = false;
+                    return [
+                        2
+                    ];
+                }
+                if (isSwitchingToFullScreen.current) {
+                    isSwitchingToFullScreen.current = false;
+                    return [
+                        2
+                    ];
+                }
+                if (expressionMode.isFullScreen && !forceBlur) {
+                    return [
+                        2
+                    ];
+                }
+                if (expressionHasNewlines && !forceBlur) {
+                    return [
+                        2
+                    ];
+                }
+                isBlur.current = true;
+                expressionMode.setEditing(false);
+                expressionMode.setFullScreen(false);
+                return [
+                    2
+                ];
+            });
+        })();
+    }, [
+        expressionMode,
+        expressionResult,
+        internalExpressionResult,
+        expressionContext,
+        onValueChange,
+        currentValue,
+        isEvaluating,
+        internalIsEvaluating,
+        currentExpressionValue,
+        expressionHasNewlines
+    ]);
+    useEffect(function() {
+        onValueChange(currentValue, _object_spread_props(_object_spread({}, currentMetadata), {
+            isFullScreen: expressionMode.isFullScreen
+        }));
+    }, [
+        expressionMode.isFullScreen
+    ]);
+    useEffect(function() {
+        if (expressionMode.isEditing && expressionHasNewlines && !expressionMode.isFullScreen) {
+            expressionMode.setFullScreen(true);
+        }
+    }, [
+        expressionHasNewlines,
+        expressionMode.isEditing,
+        expressionMode.isFullScreen
+    ]);
+    var handleModeChange = useCallback(function(newMode) {
+        switch(newMode){
+            case "value":
+                expressionMode.switchToValue();
+                expressionMode.setFullScreen(false);
+                onValueChange(originalValue || value, void 0);
+                break;
+            case "editor":
+                expressionMode.switchToEditor();
+                var shouldBeFullScreen = expressionHasNewlines;
+                if (shouldBeFullScreen) {
+                    expressionMode.setFullScreen(true);
+                }
+                var editorMetadata = {
+                    expression: expressionMode.expression,
+                    value: currentValue,
+                    mode: "expression",
+                    isEditing: true,
+                    isFullScreen: shouldBeFullScreen
+                };
+                onValueChange(expressionMode.expression ? {
+                    expression: expressionMode.expression,
+                    type: "expression"
+                } : currentValue, editorMetadata);
+                break;
+            case "expression":
+                setOriginalValue(currentValue);
+                expressionMode.switchToExpression();
+                if (expressionHasNewlines) {
+                    expressionMode.setFullScreen(true);
+                }
+                break;
+        }
+    }, [
+        expressionMode,
+        currentValue,
+        onValueChange,
+        expressionHasNewlines,
+        originalValue,
+        value
+    ]);
+    useEffect(function() {
+        if (isBlur.current) {
+            if (!(expressionMode.expression && expressionMode.expression.trim())) {
+                expressionMode.switchToValue();
+                var _currentMetadata_value;
+                onValueChange((_currentMetadata_value = currentMetadata.value) !== null && _currentMetadata_value !== void 0 ? _currentMetadata_value : "", _object_spread_props(_object_spread({}, currentMetadata), {
+                    mode: "value",
+                    expression: "",
+                    isEditing: false,
+                    isFullScreen: false
+                }));
+            } else {
+                var _currentMetadata_value1;
+                onValueChange(currentMetadata.mode === "value" ? (_currentMetadata_value1 = currentMetadata.value) !== null && _currentMetadata_value1 !== void 0 ? _currentMetadata_value1 : "" : {
+                    expression: currentMetadata.expression.trim(),
+                    type: "expression"
+                }, _object_spread_props(_object_spread({}, currentMetadata), {
+                    isEditing: false,
+                    isFullScreen: false
+                }));
+            }
+            isBlur.current = false;
+        }
+    }, [
+        expressionMode.isEditing,
+        expressionMode.isFullScreen,
+        isBlur.current
+    ]);
+    useEffect(function() {
+        if (onDependenciesChange) {
+            onDependenciesChange(dependencies);
+        }
+    }, [
+        dependencies,
+        onDependenciesChange
+    ]);
+    var handleClear = useCallback(function() {
+        isProgrammaticallyClearing.current = true;
+        onValueChange(currentValue, currentMetadata);
+        handleModeChange("value");
+        expressionMode.setFullScreen(false);
+    }, [
+        onValueChange,
+        expressionMode,
+        originalValue
+    ]);
+    var _useState10 = _sliced_to_array(useState(currentValue), 2), localInput = _useState10[0], setLocalInput = _useState10[1];
+    useEffect(function() {
+        setLocalInput(currentValue);
+    }, [
+        currentValue
+    ]);
+    var controlProps = useMemo(function() {
+        return {
+            value: currentValue,
+            onChange: handleValueChange,
+            onExpressionClick: function() {
+                return handleModeChange("editor");
+            },
+            // Click handler to trigger expression mode
+            inferredType: inferredReturnType,
+            // Inferred TypeScript type
+            hasTypeMismatch: hasTypeMismatch,
+            // Whether inferred type matches expected
+            hasError: hasExpressionError,
+            // Whether expression has syntax/validation errors
+            localInput: localInput,
+            setLocalInput: setLocalInput,
+            expressionMode: {
+                current: expressionMode.current,
+                switchToValue: function() {
+                    return handleModeChange("value");
+                },
+                switchToExpression: function() {
+                    return handleModeChange("expression");
+                },
+                switchToEditor: function() {
+                    return handleModeChange("editor");
+                },
+                clear: handleClear,
+                isExpressionMode: expressionMode.isExpressionMode,
+                isEditorMode: expressionMode.isEditorMode,
+                expression: expressionMode.expression,
+                setExpression: handleExpressionChange,
+                isEditing: expressionMode.isEditing,
+                setEditing: expressionMode.setEditing,
+                isFullScreen: expressionMode.isFullScreen,
+                setFullScreen: expressionMode.setFullScreen
+            }
+        };
+    }, [
+        currentValue,
+        handleValueChange,
+        expressionMode,
+        handleModeChange,
+        handleClear,
+        handleExpressionChange,
+        inferredReturnType,
+        hasTypeMismatch,
+        hasExpressionError
+    ]);
+    var renderContent = function() {
+        switch(expressionMode.current){
+            // case 'value':
+            //   return children(controlProps);
+            case "expression":
+                var _this;
+                expressionMode.expression && expressionMode.expression.trim();
+                (_this = expressionResult || internalExpressionResult) === null || _this === void 0 ? void 0 : _this.isValid;
+                return controlProps.expressionMode.isEditing ? /* @__PURE__ */ React4__default.createElement("div", {
+                    key: "".concat(key, "-expression"),
+                    className: cn("relative", className)
+                }, inlineEditor && !expressionMode.isFullScreen && !expressionHasNewlines ? /* @__PURE__ */ React4__default.createElement("div", {
+                    className: cn("uii:flex uii:h-9 uii:w-full \n              uii:min-w-0 uii:rounded-sm \n              uii:border uii:border-ring \n              uii:bg-background uii:px-3 uii:py-1 uii:text-base uii:shadow-xs \n              uii:ring-ring/50 uii:ring-[3px] uii:transition-[color,box-shadow] \n              uii:outline-none uii:md:text-sm uii:cursor-pointer\n              uii:mt-0.5 ", editorClassName)
+                }, /* @__PURE__ */ React4__default.createElement(InlineExpressionEditor, {
+                    value: expressionMode.expression,
+                    onChange: function(newValue) {
+                        handleExpressionChange(newValue);
+                    },
+                    onEnter: function() {
+                        isSwitchingToFullScreen.current = true;
+                        expressionMode.setFullScreen(true);
+                        setTimeout(function() {
+                            isSwitchingToFullScreen.current = false;
+                        }, 100);
+                    },
+                    onBlur: handleExpressionBlur,
+                    onTypeInferred: handleTypeInferred,
+                    onValidationChange: handleValidationChange,
+                    context: expressionContext,
+                    placeholder: expressionPlaceholder
+                }), /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:flex uii:items-center uii:gap-2 uii:mt-0.5"
+                }, /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:text-xs uii:font-mono uii:cursor-pointer uii:text-muted-foreground",
+                    onMouseDown: function(e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        isSwitchingToFullScreen.current = true;
+                        expressionMode.setFullScreen(true);
+                        setTimeout(function() {
+                            isSwitchingToFullScreen.current = false;
+                        }, 100);
+                    }
+                }, /* @__PURE__ */ React4__default.createElement(FontAwesomeIcon, {
+                    icon: faExpand
+                })), /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:text-xs uii:font-mono uii:cursor-pointer uii:text-muted-foreground",
+                    onMouseDown: function(e) {
+                        e.preventDefault();
+                        handleClear();
+                    }
+                }, "Clear"))) : /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:space-y-4"
+                }, /* @__PURE__ */ React4__default.createElement(FullPanelExpressionEditor, {
+                    value: expressionMode.expression,
+                    onChange: function(newValue) {
+                        handleExpressionChange(newValue);
+                    },
+                    onClose: function() {
+                        handleExpressionBlur(void 0, true);
+                        expressionMode.setFullScreen(false);
+                    },
+                    onBlur: handleExpressionBlur,
+                    onTypeInferred: handleTypeInferred,
+                    context: expressionContext,
+                    placeholder: expressionPlaceholder
+                }), (ast || dependencies.length > 0) && /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:space-y-3"
+                }, inferredReturnType && inferredReturnType !== "unknown" && /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:space-y-2"
+                }, /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:flex uii:items-center uii:gap-2"
+                }, /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:text-sm uii:font-semibold uii:text-gray-700"
+                }, "Inferred Return Type:"), typeScriptInferredType && inferredReturnType !== "error" && /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:px-1.5 uii:py-0.5 uii:text-xs uii:rounded uii:bg-blue-100 uii:text-blue-700 uii:border uii:border-blue-200"
+                }, "TypeScript")), /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:flex uii:items-center uii:gap-2"
+                }, inferredReturnType === "error" ? /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:px-3 uii:py-1.5 uii:text-sm uii:font-mono uii:rounded uii:border uii:bg-red-50 uii:text-red-800 uii:border-red-200"
+                }, "\u274C Syntax Error") : /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:px-3 uii:py-1.5 uii:text-sm uii:font-mono uii:rounded uii:border uii:bg-purple-50 uii:text-purple-800 uii:border-purple-200"
+                }, inferredReturnType), hasTypeMismatch && /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:text-xs uii:text-orange-600 uii:font-semibold"
+                }, "\u26A0\uFE0F Expected: ", type || expectedType)))), dependencyList.length > 0 && /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:space-y-2"
+                }, /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:text-sm uii:font-semibold uii:text-gray-700"
+                }, "Dependencies (", dependencyList.length, "):"), /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:flex uii:flex-wrap uii:gap-2"
+                }, dependencyList.map(function(dep, index) {
+                    return /* @__PURE__ */ React4__default.createElement("span", {
+                        key: index,
+                        className: cn("uii:px-2 uii:py-1 uii:text-sm uii:rounded uii:border", dep.exists ? "uii:bg-blue-100 uii:text-blue-800 uii:border-blue-200" : "uii:bg-red-100 uii:text-red-800 uii:border-red-200"),
+                        title: dep.exists ? "Value: ".concat(JSON.stringify(dep.value)) : "Not found in context"
+                    }, dep.name);
+                }))), ast && /* @__PURE__ */ React4__default.createElement(ASTRenderer, {
+                    ast: ast,
+                    tokens: tokens,
+                    variant: "tree",
+                    showTokens: true,
+                    className: "uii:w-full"
+                }), isParsing && /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:text-sm uii:text-gray-500 uii:italic"
+                }, "Parsing expression..."), parseError && /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:text-sm uii:text-red-600"
+                }, "Parse Error: ", parseError)))) : /* @__PURE__ */ React4__default.createElement("div", {
+                    className: cn("uii:relative", className),
+                    key: "".concat(key, "-expression-display")
+                }, /* @__PURE__ */ React4__default.createElement("div", {
+                    className: clsx_default("uii:flex uii:h-9 uii:w-full uii:min-w-0 uii:rounded-sm uii:border uii:border-input uii:bg-transparent uii:px-3 uii:py-1 uii:text-base uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px] uii:md:text-sm uii:cursor-pointer uii:hover:bg-muted/50", "uii:mt-0.5 uii:bg-white uii:rounded-md uii:items-center"),
+                    onClick: function() {
+                        return handleModeChange("editor");
+                    },
+                    onMouseEnter: function() {
+                        return setIsHovering(true);
+                    },
+                    onMouseLeave: function() {
+                        return setIsHovering(false);
+                    }
+                }, /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:flex-1 uii:truncate uii:text-foreground uii:items-center"
+                }, isHovering ? // Hover state: show AST preview with dependencies
+                /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:flex uii:items-center uii:gap-2"
+                }, ast ? /* @__PURE__ */ React4__default.createElement(ASTRenderer, {
+                    key: "".concat(key, "-ast"),
+                    ast: ast,
+                    tokens: tokens,
+                    variant: "inline",
+                    showTokens: false,
+                    className: "uii:text-xs"
+                }) : /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:text-xs uii:text-gray-500"
+                }, isParsing ? "Parsing..." : parseError ? "Error: ".concat(parseError) : "No AST available"), dependencies.length > 0 && /* @__PURE__ */ React4__default.createElement("div", {
+                    className: "uii:flex uii:gap-1"
+                }, dependencies.map(function(dep, index) {
+                    return /* @__PURE__ */ React4__default.createElement("span", {
+                        key: index,
+                        className: "uii:px-1 uii:py-0.5 uii:bg-blue-100 uii:text-blue-800 uii:text-xs uii:rounded"
+                    }, dep);
+                }))) : // At rest: show the expression text
+                /* @__PURE__ */ React4__default.createElement("span", {
+                    className: "uii:font-mono uii:text-sm"
+                }, currentExpressionValueExt || "No expression"))));
+            default:
+                return children(controlProps);
+        }
+    };
+    return /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement("div", {
+        className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
+    }, /* @__PURE__ */ React4__default.createElement("label", {
+        className: "uii:text-xs uii:text-muted-foreground uii:font-bold",
+        htmlFor: key
+    }, label, ":"), /* @__PURE__ */ React4__default.createElement("span", {
+        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
+    }, type), hasTypeMismatch || inferredReturnType === "error" ? /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, expressionMode.current === "expression" ? /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement("span", {
+        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
+    }, expressionMode.expression.trim() !== "" ? inferredReturnType : "empty"), /* @__PURE__ */ React4__default.createElement("span", {
+        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:font-light uii:text-orange-600 "
+    }, "\u26A0\uFE0F Expected: ", type || expectedType)) : /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null)) : /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null)), renderContent());
+}
+// src/components/input.tsx
+function Input2(_param) {
+    var className = _param.className, expectedType = _param.expectedType, props = _object_without_properties(_param, [
+        "className",
+        "expectedType"
+    ]);
+    var _props_label, _props_key, _props_name;
+    return /* @__PURE__ */ React4.createElement(ExpressionWrapper, {
+        label: (_props_label = props.label) !== null && _props_label !== void 0 ? _props_label : "Test Entry",
+        key: (_props_key = props.key) !== null && _props_key !== void 0 ? _props_key : props.name,
+        type: expectedType !== null && expectedType !== void 0 ? expectedType : "string",
+        valuesLoading: false,
+        value: props.value,
+        onValueChange: function(val, metadata) {
+            props.onChange && props.onChange(val);
+        },
+        expectedType: expectedType,
+        fieldName: (_props_name = props.name) !== null && _props_name !== void 0 ? _props_name : props.key,
+        children: function(param) {
+            var onExpressionClick = param.onExpressionClick, onChangeExpression = param.onChange, expressionValue = param.value, localInput = param.localInput, setLocalInput = param.setLocalInput;
+            var _props_placeholder;
+            return /* @__PURE__ */ React4.createElement("div", {
+                className: "uii:relative uii:text-xs uii:mt-0.5"
+            }, /* @__PURE__ */ React4.createElement(Input, {
+                type: "text",
+                value: localInput,
+                onChange: function(e) {
+                    setLocalInput(e.target.value);
+                    onChangeExpression(e.target.value);
+                },
+                placeholder: (_props_placeholder = props.placeholder) !== null && _props_placeholder !== void 0 ? _props_placeholder : "Enter value..."
+            }), /* @__PURE__ */ React4.createElement("div", {
+                className: "uii:flex uii:bg-white uii:border-white/40 uii:border-l-8 uii:items-center uii:gap-1 uii:absolute uii:right-1.5 uii:top-2.5 uii:cursor-pointer uii:truncate",
+                onClick: function() {
+                    return onExpressionClick();
+                }
+            }, /* @__PURE__ */ React4.createElement("span", {
+                className: "uii:border-l uii:border-gray-200 uii:px-2"
+            }, "Custom Expression")));
+        }
+    });
+}
+// ../../node_modules/.pnpm/class-variance-authority@0.7.1/node_modules/class-variance-authority/dist/index.mjs
+var falsyToString = function(value) {
+    return typeof value === "boolean" ? "".concat(value) : value === 0 ? "0" : value;
+};
+var cx = clsx;
+var cva = function(base, config) {
+    return function(props) {
+        var _config_compoundVariants;
+        if ((config === null || config === void 0 ? void 0 : config.variants) == null) return cx(base, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+        var variants = config.variants, defaultVariants = config.defaultVariants;
+        var getVariantClassNames = Object.keys(variants).map(function(variant) {
+            var variantProp = props === null || props === void 0 ? void 0 : props[variant];
+            var defaultVariantProp = defaultVariants === null || defaultVariants === void 0 ? void 0 : defaultVariants[variant];
+            if (variantProp === null) return null;
+            var variantKey = falsyToString(variantProp) || falsyToString(defaultVariantProp);
+            return variants[variant][variantKey];
+        });
+        var propsWithoutUndefined = props && Object.entries(props).reduce(function(acc, param) {
+            var _param = _sliced_to_array(param, 2), key = _param[0], value = _param[1];
+            if (value === void 0) {
+                return acc;
+            }
+            acc[key] = value;
+            return acc;
+        }, {});
+        var getCompoundVariantClassNames = config === null || config === void 0 ? void 0 : (_config_compoundVariants = config.compoundVariants) === null || _config_compoundVariants === void 0 ? void 0 : _config_compoundVariants.reduce(function(acc, param) {
+            var cvClass = param.class, cvClassName = param.className, compoundVariantOptions = _object_without_properties(param, [
+                "class",
+                "className"
+            ]);
+            return Object.entries(compoundVariantOptions).every(function(param2) {
+                var _param2 = _sliced_to_array(param2, 2), key = _param2[0], value = _param2[1];
+                return Array.isArray(value) ? value.includes(_object_spread({}, defaultVariants, propsWithoutUndefined)[key]) : _object_spread({}, defaultVariants, propsWithoutUndefined)[key] === value;
+            }) ? _to_consumable_array(acc).concat([
+                cvClass,
+                cvClassName
+            ]) : acc;
+        }, []);
+        return cx(base, getVariantClassNames, getCompoundVariantClassNames, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+    };
+};
+// src/components/ui/button.tsx
+var buttonVariants = cva("ui:inline-flex ui:items-center ui:justify-center ui:gap-2 ui:whitespace-nowrap ui:rounded-sm ui:text-sm ui:font-medium ui:transition-[color,box-shadow] ui:disabled:pointer-events-none ui:disabled:opacity-50 ui:[&_svg]:pointer-events-none ui:[&_svg:not([class*=size-])]:size-4 ui:shrink-0 ui:[&_svg]:shrink-0 ui:outline-none ui:focus-visible:border-ring ui:focus-visible:ring-ring/50 ui:focus-visible:ring-[3px] ui:aria-invalid:ring-destructive/20 ui:dark:aria-invalid:ring-destructive/40 ui:aria-invalid:border-destructive ui:cursor-pointer", {
+    variants: {
+        variant: {
+            default: "ui:bg-primary ui:text-primary-foreground ui:shadow-xs ui:hover:bg-primary/90 ui:select-none",
+            destructive: "ui:bg-destructive ui:text-white ui:shadow-xs ui:hover:bg-destructive/90 ui:focus-visible:ring-destructive/20 ui:dark:focus-visible:ring-destructive/40",
+            outline: "ui:border ui:border-input ui:bg-background ui:shadow-xs ui:hover:bg-accent ui:hover:text-accent-foreground",
+            secondary: "ui:bg-secondary ui:text-secondary-foreground ui:shadow-xs ui:hover:bg-secondary/80",
+            ghost: "ui:hover:bg-accent ui:hover:text-accent-foreground",
+            link: "ui:text-primary ui:underline-offset-4 ui:hover:underline"
+        },
+        size: {
+            default: "ui:h-9 ui:px-4 ui:py-2 ui:has-[>svg]:px-3",
+            sm: "ui:h-8 ui:rounded-sm ui:gap-1.5 ui:px-3 ui:has-[>svg]:px-2.5",
+            lg: "ui:h-10 ui:rounded-sm ui:px-6 ui:has-[>svg]:px-4",
+            icon: "ui:size-9"
+        }
+    },
+    defaultVariants: {
+        variant: "default",
+        size: "default"
+    }
+});
+function Button(_param) {
+    var className = _param.className, variant = _param.variant, size = _param.size, _param_asChild = _param.asChild, asChild = _param_asChild === void 0 ? false : _param_asChild, props = _object_without_properties(_param, [
+        "className",
+        "variant",
+        "size",
+        "asChild"
+    ]);
+    var Comp = asChild ? Slot : "button";
+    return /* @__PURE__ */ React4.createElement(Comp, _object_spread({
+        "data-slot": "button",
+        className: cn(buttonVariants({
+            variant: variant,
+            size: size,
+            className: className
+        }))
+    }, props));
+}
+export { Button, Input2 as Input, buttonVariants }; //# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.js.map
