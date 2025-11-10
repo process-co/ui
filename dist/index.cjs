@@ -309,110 +309,166 @@ function clsx() {
     return n;
 }
 var clsx_default = clsx;
-// ../../node_modules/.pnpm/tailwind-merge@3.1.0/node_modules/tailwind-merge/dist/bundle-mjs.mjs
+// ../../node_modules/.pnpm/tailwind-merge@3.4.0/node_modules/tailwind-merge/dist/bundle-mjs.mjs
+var concatArrays = function(array1, array2) {
+    var combinedArray = new Array(array1.length + array2.length);
+    for(var i = 0; i < array1.length; i++){
+        combinedArray[i] = array1[i];
+    }
+    for(var i1 = 0; i1 < array2.length; i1++){
+        combinedArray[array1.length + i1] = array2[i1];
+    }
+    return combinedArray;
+};
+var createClassValidatorObject = function(classGroupId, validator) {
+    return {
+        classGroupId: classGroupId,
+        validator: validator
+    };
+};
+var createClassPartObject = function() {
+    var nextPart = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : /* @__PURE__ */ new Map(), validators = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : null, classGroupId = arguments.length > 2 ? arguments[2] : void 0;
+    return {
+        nextPart: nextPart,
+        validators: validators,
+        classGroupId: classGroupId
+    };
+};
 var CLASS_PART_SEPARATOR = "-";
+var EMPTY_CONFLICTS = [];
+var ARBITRARY_PROPERTY_PREFIX = "arbitrary..";
 var createClassGroupUtils = function(config) {
     var classMap = createClassMap(config);
     var conflictingClassGroups = config.conflictingClassGroups, conflictingClassGroupModifiers = config.conflictingClassGroupModifiers;
     var getClassGroupId = function(className) {
-        var classParts = className.split(CLASS_PART_SEPARATOR);
-        if (classParts[0] === "" && classParts.length !== 1) {
-            classParts.shift();
+        if (className.startsWith("[") && className.endsWith("]")) {
+            return getGroupIdForArbitraryProperty(className);
         }
-        return getGroupRecursive(classParts, classMap) || getGroupIdForArbitraryProperty(className);
+        var classParts = className.split(CLASS_PART_SEPARATOR);
+        var startIndex = classParts[0] === "" && classParts.length > 1 ? 1 : 0;
+        return getGroupRecursive(classParts, startIndex, classMap);
     };
     var getConflictingClassGroupIds = function(classGroupId, hasPostfixModifier) {
-        var conflicts = conflictingClassGroups[classGroupId] || [];
-        if (hasPostfixModifier && conflictingClassGroupModifiers[classGroupId]) {
-            return _to_consumable_array(conflicts).concat(_to_consumable_array(conflictingClassGroupModifiers[classGroupId]));
+        if (hasPostfixModifier) {
+            var modifierConflicts = conflictingClassGroupModifiers[classGroupId];
+            var baseConflicts = conflictingClassGroups[classGroupId];
+            if (modifierConflicts) {
+                if (baseConflicts) {
+                    return concatArrays(baseConflicts, modifierConflicts);
+                }
+                return modifierConflicts;
+            }
+            return baseConflicts || EMPTY_CONFLICTS;
         }
-        return conflicts;
+        return conflictingClassGroups[classGroupId] || EMPTY_CONFLICTS;
     };
     return {
         getClassGroupId: getClassGroupId,
         getConflictingClassGroupIds: getConflictingClassGroupIds
     };
 };
-var getGroupRecursive = function(classParts, classPartObject) {
-    var _classPartObject_validators_find;
-    if (classParts.length === 0) {
+var getGroupRecursive = function(classParts, startIndex, classPartObject) {
+    var classPathsLength = classParts.length - startIndex;
+    if (classPathsLength === 0) {
         return classPartObject.classGroupId;
     }
-    var currentClassPart = classParts[0];
+    var currentClassPart = classParts[startIndex];
     var nextClassPartObject = classPartObject.nextPart.get(currentClassPart);
-    var classGroupFromNextClassPart = nextClassPartObject ? getGroupRecursive(classParts.slice(1), nextClassPartObject) : void 0;
-    if (classGroupFromNextClassPart) {
-        return classGroupFromNextClassPart;
+    if (nextClassPartObject) {
+        var result = getGroupRecursive(classParts, startIndex + 1, nextClassPartObject);
+        if (result) return result;
     }
-    if (classPartObject.validators.length === 0) {
+    var validators = classPartObject.validators;
+    if (validators === null) {
         return void 0;
     }
-    var classRest = classParts.join(CLASS_PART_SEPARATOR);
-    return (_classPartObject_validators_find = classPartObject.validators.find(function(param) {
-        var validator = param.validator;
-        return validator(classRest);
-    })) === null || _classPartObject_validators_find === void 0 ? void 0 : _classPartObject_validators_find.classGroupId;
-};
-var arbitraryPropertyRegex = /^\[(.+)\]$/;
-var getGroupIdForArbitraryProperty = function(className) {
-    if (arbitraryPropertyRegex.test(className)) {
-        var arbitraryPropertyClassName = arbitraryPropertyRegex.exec(className)[1];
-        var property = arbitraryPropertyClassName === null || arbitraryPropertyClassName === void 0 ? void 0 : arbitraryPropertyClassName.substring(0, arbitraryPropertyClassName.indexOf(":"));
-        if (property) {
-            return "arbitrary.." + property;
+    var classRest = startIndex === 0 ? classParts.join(CLASS_PART_SEPARATOR) : classParts.slice(startIndex).join(CLASS_PART_SEPARATOR);
+    var validatorsLength = validators.length;
+    for(var i = 0; i < validatorsLength; i++){
+        var validatorObj = validators[i];
+        if (validatorObj.validator(classRest)) {
+            return validatorObj.classGroupId;
         }
     }
+    return void 0;
+};
+var getGroupIdForArbitraryProperty = function(className) {
+    return className.slice(1, -1).indexOf(":") === -1 ? void 0 : function() {
+        var content = className.slice(1, -1);
+        var colonIndex = content.indexOf(":");
+        var property = content.slice(0, colonIndex);
+        return property ? ARBITRARY_PROPERTY_PREFIX + property : void 0;
+    }();
 };
 var createClassMap = function(config) {
     var theme = config.theme, classGroups = config.classGroups;
-    var classMap = {
-        nextPart: /* @__PURE__ */ new Map(),
-        validators: []
-    };
+    return processClassGroups(classGroups, theme);
+};
+var processClassGroups = function(classGroups, theme) {
+    var classMap = createClassPartObject();
     for(var classGroupId in classGroups){
-        processClassesRecursively(classGroups[classGroupId], classMap, classGroupId, theme);
+        var group = classGroups[classGroupId];
+        processClassesRecursively(group, classMap, classGroupId, theme);
     }
     return classMap;
 };
 var processClassesRecursively = function(classGroup, classPartObject, classGroupId, theme) {
-    classGroup.forEach(function(classDefinition) {
-        if (typeof classDefinition === "string") {
-            var classPartObjectToEdit = classDefinition === "" ? classPartObject : getPart(classPartObject, classDefinition);
-            classPartObjectToEdit.classGroupId = classGroupId;
-            return;
-        }
-        if (typeof classDefinition === "function") {
-            if (isThemeGetter(classDefinition)) {
-                processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
-                return;
-            }
-            classPartObject.validators.push({
-                validator: classDefinition,
-                classGroupId: classGroupId
-            });
-            return;
-        }
-        Object.entries(classDefinition).forEach(function(param) {
-            var _param = _sliced_to_array(param, 2), key = _param[0], classGroup2 = _param[1];
-            processClassesRecursively(classGroup2, getPart(classPartObject, key), classGroupId, theme);
-        });
-    });
+    var len = classGroup.length;
+    for(var i = 0; i < len; i++){
+        var classDefinition = classGroup[i];
+        processClassDefinition(classDefinition, classPartObject, classGroupId, theme);
+    }
+};
+var processClassDefinition = function(classDefinition, classPartObject, classGroupId, theme) {
+    if (typeof classDefinition === "string") {
+        processStringDefinition(classDefinition, classPartObject, classGroupId);
+        return;
+    }
+    if (typeof classDefinition === "function") {
+        processFunctionDefinition(classDefinition, classPartObject, classGroupId, theme);
+        return;
+    }
+    processObjectDefinition(classDefinition, classPartObject, classGroupId, theme);
+};
+var processStringDefinition = function(classDefinition, classPartObject, classGroupId) {
+    var classPartObjectToEdit = classDefinition === "" ? classPartObject : getPart(classPartObject, classDefinition);
+    classPartObjectToEdit.classGroupId = classGroupId;
+};
+var processFunctionDefinition = function(classDefinition, classPartObject, classGroupId, theme) {
+    if (isThemeGetter(classDefinition)) {
+        processClassesRecursively(classDefinition(theme), classPartObject, classGroupId, theme);
+        return;
+    }
+    if (classPartObject.validators === null) {
+        classPartObject.validators = [];
+    }
+    classPartObject.validators.push(createClassValidatorObject(classGroupId, classDefinition));
+};
+var processObjectDefinition = function(classDefinition, classPartObject, classGroupId, theme) {
+    var entries = Object.entries(classDefinition);
+    var len = entries.length;
+    for(var i = 0; i < len; i++){
+        var _entries_i = _sliced_to_array(entries[i], 2), key = _entries_i[0], value = _entries_i[1];
+        processClassesRecursively(value, getPart(classPartObject, key), classGroupId, theme);
+    }
 };
 var getPart = function(classPartObject, path) {
-    var currentClassPartObject = classPartObject;
-    path.split(CLASS_PART_SEPARATOR).forEach(function(pathPart) {
-        if (!currentClassPartObject.nextPart.has(pathPart)) {
-            currentClassPartObject.nextPart.set(pathPart, {
-                nextPart: /* @__PURE__ */ new Map(),
-                validators: []
-            });
+    var current = classPartObject;
+    var parts = path.split(CLASS_PART_SEPARATOR);
+    var len = parts.length;
+    for(var i = 0; i < len; i++){
+        var part = parts[i];
+        var next = current.nextPart.get(part);
+        if (!next) {
+            next = createClassPartObject();
+            current.nextPart.set(part, next);
         }
-        currentClassPartObject = currentClassPartObject.nextPart.get(pathPart);
-    });
-    return currentClassPartObject;
+        current = next;
+    }
+    return current;
 };
 var isThemeGetter = function(func) {
-    return func.isThemeGetter;
+    return "isThemeGetter" in func && func.isThemeGetter === true;
 };
 var createLruCache = function(maxCacheSize) {
     if (maxCacheSize < 1) {
@@ -424,31 +480,31 @@ var createLruCache = function(maxCacheSize) {
         };
     }
     var cacheSize = 0;
-    var cache = /* @__PURE__ */ new Map();
-    var previousCache = /* @__PURE__ */ new Map();
+    var cache = /* @__PURE__ */ Object.create(null);
+    var previousCache = /* @__PURE__ */ Object.create(null);
     var update = function(key, value) {
-        cache.set(key, value);
+        cache[key] = value;
         cacheSize++;
         if (cacheSize > maxCacheSize) {
             cacheSize = 0;
             previousCache = cache;
-            cache = /* @__PURE__ */ new Map();
+            cache = /* @__PURE__ */ Object.create(null);
         }
     };
     return {
         get: function get(key) {
-            var value = cache.get(key);
+            var value = cache[key];
             if (value !== void 0) {
                 return value;
             }
-            if ((value = previousCache.get(key)) !== void 0) {
+            if ((value = previousCache[key]) !== void 0) {
                 update(key, value);
                 return value;
             }
         },
         set: function set(key, value) {
-            if (cache.has(key)) {
-                cache.set(key, value);
+            if (key in cache) {
+                cache[key] = value;
             } else {
                 update(key, value);
             }
@@ -457,7 +513,16 @@ var createLruCache = function(maxCacheSize) {
 };
 var IMPORTANT_MODIFIER = "!";
 var MODIFIER_SEPARATOR = ":";
-var MODIFIER_SEPARATOR_LENGTH = MODIFIER_SEPARATOR.length;
+var EMPTY_MODIFIERS = [];
+var createResultObject = function(modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition, isExternal) {
+    return {
+        modifiers: modifiers,
+        hasImportantModifier: hasImportantModifier,
+        baseClassName: baseClassName,
+        maybePostfixModifierPosition: maybePostfixModifierPosition,
+        isExternal: isExternal
+    };
+};
 var createParseClassName = function(config) {
     var prefix = config.prefix, experimentalParseClassName = config.experimentalParseClassName;
     var parseClassName = function(className) {
@@ -466,12 +531,13 @@ var createParseClassName = function(config) {
         var parenDepth = 0;
         var modifierStart = 0;
         var postfixModifierPosition;
-        for(var index = 0; index < className.length; index++){
+        var len = className.length;
+        for(var index = 0; index < len; index++){
             var currentCharacter = className[index];
             if (bracketDepth === 0 && parenDepth === 0) {
                 if (currentCharacter === MODIFIER_SEPARATOR) {
                     modifiers.push(className.slice(modifierStart, index));
-                    modifierStart = index + MODIFIER_SEPARATOR_LENGTH;
+                    modifierStart = index + 1;
                     continue;
                 }
                 if (currentCharacter === "/") {
@@ -479,38 +545,32 @@ var createParseClassName = function(config) {
                     continue;
                 }
             }
-            if (currentCharacter === "[") {
-                bracketDepth++;
-            } else if (currentCharacter === "]") {
-                bracketDepth--;
-            } else if (currentCharacter === "(") {
-                parenDepth++;
-            } else if (currentCharacter === ")") {
-                parenDepth--;
-            }
+            if (currentCharacter === "[") bracketDepth++;
+            else if (currentCharacter === "]") bracketDepth--;
+            else if (currentCharacter === "(") parenDepth++;
+            else if (currentCharacter === ")") parenDepth--;
         }
-        var baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.substring(modifierStart);
-        var baseClassName = stripImportantModifier(baseClassNameWithImportantModifier);
-        var hasImportantModifier = baseClassName !== baseClassNameWithImportantModifier;
+        var baseClassNameWithImportantModifier = modifiers.length === 0 ? className : className.slice(modifierStart);
+        var baseClassName = baseClassNameWithImportantModifier;
+        var hasImportantModifier = false;
+        if (baseClassNameWithImportantModifier.endsWith(IMPORTANT_MODIFIER)) {
+            baseClassName = baseClassNameWithImportantModifier.slice(0, -1);
+            hasImportantModifier = true;
+        } else if (/**
+       * In Tailwind CSS v3 the important modifier was at the start of the base class name. This is still supported for legacy reasons.
+       * @see https://github.com/dcastil/tailwind-merge/issues/513#issuecomment-2614029864
+       */ baseClassNameWithImportantModifier.startsWith(IMPORTANT_MODIFIER)) {
+            baseClassName = baseClassNameWithImportantModifier.slice(1);
+            hasImportantModifier = true;
+        }
         var maybePostfixModifierPosition = postfixModifierPosition && postfixModifierPosition > modifierStart ? postfixModifierPosition - modifierStart : void 0;
-        return {
-            modifiers: modifiers,
-            hasImportantModifier: hasImportantModifier,
-            baseClassName: baseClassName,
-            maybePostfixModifierPosition: maybePostfixModifierPosition
-        };
+        return createResultObject(modifiers, hasImportantModifier, baseClassName, maybePostfixModifierPosition);
     };
     if (prefix) {
         var fullPrefix = prefix + MODIFIER_SEPARATOR;
         var parseClassNameOriginal = parseClassName;
         parseClassName = function(className) {
-            return className.startsWith(fullPrefix) ? parseClassNameOriginal(className.substring(fullPrefix.length)) : {
-                isExternal: true,
-                modifiers: [],
-                hasImportantModifier: false,
-                baseClassName: className,
-                maybePostfixModifierPosition: void 0
-            };
+            return className.startsWith(fullPrefix) ? parseClassNameOriginal(className.slice(fullPrefix.length)) : createResultObject(EMPTY_MODIFIERS, false, className, void 0, true);
         };
     }
     if (experimentalParseClassName) {
@@ -524,45 +584,37 @@ var createParseClassName = function(config) {
     }
     return parseClassName;
 };
-var stripImportantModifier = function(baseClassName) {
-    if (baseClassName.endsWith(IMPORTANT_MODIFIER)) {
-        return baseClassName.substring(0, baseClassName.length - 1);
-    }
-    if (baseClassName.startsWith(IMPORTANT_MODIFIER)) {
-        return baseClassName.substring(1);
-    }
-    return baseClassName;
-};
 var createSortModifiers = function(config) {
-    var orderSensitiveModifiers = Object.fromEntries(config.orderSensitiveModifiers.map(function(modifier) {
-        return [
-            modifier,
-            true
-        ];
-    }));
-    var sortModifiers = function(modifiers) {
-        var _sortedModifiers;
-        if (modifiers.length <= 1) {
-            return modifiers;
-        }
-        var sortedModifiers = [];
-        var unsortedModifiers = [];
-        modifiers.forEach(function(modifier) {
-            var isPositionSensitive = modifier[0] === "[" || orderSensitiveModifiers[modifier];
-            if (isPositionSensitive) {
-                var _sortedModifiers;
-                (_sortedModifiers = sortedModifiers).push.apply(_sortedModifiers, _to_consumable_array(unsortedModifiers.sort()).concat([
-                    modifier
-                ]));
-                unsortedModifiers = [];
+    var modifierWeights = /* @__PURE__ */ new Map();
+    config.orderSensitiveModifiers.forEach(function(mod, index) {
+        modifierWeights.set(mod, 1e6 + index);
+    });
+    return function(modifiers) {
+        var result = [];
+        var currentSegment = [];
+        for(var i = 0; i < modifiers.length; i++){
+            var modifier = modifiers[i];
+            var isArbitrary = modifier[0] === "[";
+            var isOrderSensitive = modifierWeights.has(modifier);
+            if (isArbitrary || isOrderSensitive) {
+                if (currentSegment.length > 0) {
+                    var _result;
+                    currentSegment.sort();
+                    (_result = result).push.apply(_result, _to_consumable_array(currentSegment));
+                    currentSegment = [];
+                }
+                result.push(modifier);
             } else {
-                unsortedModifiers.push(modifier);
+                currentSegment.push(modifier);
             }
-        });
-        (_sortedModifiers = sortedModifiers).push.apply(_sortedModifiers, _to_consumable_array(unsortedModifiers.sort()));
-        return sortedModifiers;
+        }
+        if (currentSegment.length > 0) {
+            var _result1;
+            currentSegment.sort();
+            (_result1 = result).push.apply(_result1, _to_consumable_array(currentSegment));
+        }
+        return result;
     };
-    return sortModifiers;
 };
 var createConfigUtils = function(config) {
     return _object_spread({
@@ -598,10 +650,10 @@ var mergeClassList = function(classList, configUtils) {
             }
             hasPostfixModifier = false;
         }
-        var variantModifier = sortModifiers(modifiers).join(":");
+        var variantModifier = modifiers.length === 0 ? "" : modifiers.length === 1 ? modifiers[0] : sortModifiers(modifiers).join(":");
         var modifierId = hasImportantModifier ? variantModifier + IMPORTANT_MODIFIER : variantModifier;
         var classId = modifierId + classGroupId;
-        if (classGroupsInConflict.includes(classId)) {
+        if (classGroupsInConflict.indexOf(classId) > -1) {
             continue;
         }
         classGroupsInConflict.push(classId);
@@ -614,13 +666,16 @@ var mergeClassList = function(classList, configUtils) {
     }
     return result;
 };
-function twJoin() {
+var twJoin = function() {
+    for(var _len = arguments.length, classLists = new Array(_len), _key = 0; _key < _len; _key++){
+        classLists[_key] = arguments[_key];
+    }
     var index = 0;
     var argument;
     var resolvedValue;
     var string = "";
-    while(index < arguments.length){
-        if (argument = arguments[index++]) {
+    while(index < classLists.length){
+        if (argument = classLists[index++]) {
             if (resolvedValue = toValue(argument)) {
                 string && (string += " ");
                 string += resolvedValue;
@@ -628,7 +683,7 @@ function twJoin() {
         }
     }
     return string;
-}
+};
 var toValue = function(mix) {
     if (typeof mix === "string") {
         return mix;
@@ -645,15 +700,15 @@ var toValue = function(mix) {
     }
     return string;
 };
-function createTailwindMerge(createConfigFirst) {
+var createTailwindMerge = function(createConfigFirst) {
     for(var _len = arguments.length, createConfigRest = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++){
         createConfigRest[_key - 1] = arguments[_key];
     }
     var configUtils;
     var cacheGet;
     var cacheSet;
-    var functionToCall = initTailwindMerge;
-    function initTailwindMerge(classList) {
+    var functionToCall;
+    var initTailwindMerge = function(classList) {
         var config = createConfigRest.reduce(function(previousConfig, createConfigCurrent) {
             return createConfigCurrent(previousConfig);
         }, createConfigFirst());
@@ -662,8 +717,8 @@ function createTailwindMerge(createConfigFirst) {
         cacheSet = configUtils.cache.set;
         functionToCall = tailwindMerge;
         return tailwindMerge(classList);
-    }
-    function tailwindMerge(classList) {
+    };
+    var tailwindMerge = function(classList) {
         var cachedResult = cacheGet(classList);
         if (cachedResult) {
             return cachedResult;
@@ -671,14 +726,19 @@ function createTailwindMerge(createConfigFirst) {
         var result = mergeClassList(classList, configUtils);
         cacheSet(classList, result);
         return result;
-    }
-    return function callTailwindMerge() {
-        return functionToCall(twJoin.apply(null, arguments));
     };
-}
+    functionToCall = initTailwindMerge;
+    return function() {
+        for(var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++){
+            args[_key] = arguments[_key];
+        }
+        return functionToCall(twJoin.apply(void 0, _to_consumable_array(args)));
+    };
+};
+var fallbackThemeArr = [];
 var fromTheme = function(key) {
     var themeGetter = function(theme) {
-        return theme[key] || [];
+        return theme[key] || fallbackThemeArr;
     };
     themeGetter.isThemeGetter = true;
     return themeGetter;
@@ -688,17 +748,17 @@ var arbitraryVariableRegex = /^\((?:(\w[\w-]*):)?(.+)\)$/i;
 var fractionRegex = /^\d+\/\d+$/;
 var tshirtUnitRegex = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/;
 var lengthUnitRegex = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/;
-var colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/;
+var colorFunctionRegex = /^(rgba?|hsla?|hwb|(ok)?(lab|lch)|color-mix)\(.+\)$/;
 var shadowRegex = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/;
 var imageRegex = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
 var isFraction = function(value) {
     return fractionRegex.test(value);
 };
 var isNumber = function(value) {
-    return Boolean(value) && !Number.isNaN(Number(value));
+    return !!value && !Number.isNaN(Number(value));
 };
 var isInteger = function(value) {
-    return Boolean(value) && Number.isInteger(Number(value));
+    return !!value && Number.isInteger(Number(value));
 };
 var isPercent = function(value) {
     return value.endsWith("%") && isNumber(value.slice(0, -1));
@@ -746,7 +806,7 @@ var isArbitraryImage = function(value) {
     return getIsArbitraryValue(value, isLabelImage, isImage);
 };
 var isArbitraryShadow = function(value) {
-    return getIsArbitraryValue(value, isNever, isShadow);
+    return getIsArbitraryValue(value, isLabelShadow, isShadow);
 };
 var isArbitraryVariable = function(value) {
     return arbitraryVariableRegex.test(value);
@@ -791,22 +851,13 @@ var getIsArbitraryVariable = function(value, testLabel) {
     return false;
 };
 var isLabelPosition = function(label) {
-    return label === "position";
+    return label === "position" || label === "percentage";
 };
-var imageLabels = /* @__PURE__ */ new Set([
-    "image",
-    "url"
-]);
 var isLabelImage = function(label) {
-    return imageLabels.has(label);
+    return label === "image" || label === "url";
 };
-var sizeLabels = /* @__PURE__ */ new Set([
-    "length",
-    "size",
-    "percentage"
-]);
 var isLabelSize = function(label) {
-    return sizeLabels.has(label);
+    return label === "length" || label === "size" || label === "bg-size";
 };
 var isLabelLength = function(label) {
     return label === "length";
@@ -833,6 +884,7 @@ var getDefaultConfig = function() {
     var themeRadius = fromTheme("radius");
     var themeShadow = fromTheme("shadow");
     var themeInsetShadow = fromTheme("inset-shadow");
+    var themeTextShadow = fromTheme("text-shadow");
     var themeDropShadow = fromTheme("drop-shadow");
     var themeBlur = fromTheme("blur");
     var themePerspective = fromTheme("perspective");
@@ -853,16 +905,30 @@ var getDefaultConfig = function() {
     };
     var scalePosition = function() {
         return [
-            "bottom",
             "center",
+            "top",
+            "bottom",
             "left",
-            "left-bottom",
-            "left-top",
             "right",
-            "right-bottom",
+            "top-left",
+            // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+            "left-top",
+            "top-right",
+            // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
             "right-top",
-            "top"
+            "bottom-right",
+            // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+            "right-bottom",
+            "bottom-left",
+            // Deprecated since Tailwind CSS v4.1.0, see https://github.com/tailwindlabs/tailwindcss/pull/17378
+            "left-bottom"
         ];
+    };
+    var scalePositionWithArbitrary = function() {
+        return _to_consumable_array(scalePosition()).concat([
+            isArbitraryVariable,
+            isArbitraryValue
+        ]);
     };
     var scaleOverflow = function() {
         return [
@@ -946,7 +1012,9 @@ var getDefaultConfig = function() {
             "around",
             "evenly",
             "stretch",
-            "baseline"
+            "baseline",
+            "center-safe",
+            "end-safe"
         ];
     };
     var scaleAlignSecondaryAxis = function() {
@@ -954,7 +1022,9 @@ var getDefaultConfig = function() {
             "start",
             "end",
             "center",
-            "stretch"
+            "stretch",
+            "center-safe",
+            "end-safe"
         ];
     };
     var scaleMargin = function() {
@@ -983,6 +1053,47 @@ var getDefaultConfig = function() {
             themeColor,
             isArbitraryVariable,
             isArbitraryValue
+        ];
+    };
+    var scaleBgPosition = function() {
+        return _to_consumable_array(scalePosition()).concat([
+            isArbitraryVariablePosition,
+            isArbitraryPosition,
+            {
+                position: [
+                    isArbitraryVariable,
+                    isArbitraryValue
+                ]
+            }
+        ]);
+    };
+    var scaleBgRepeat = function() {
+        return [
+            "no-repeat",
+            {
+                repeat: [
+                    "",
+                    "x",
+                    "y",
+                    "space",
+                    "round"
+                ]
+            }
+        ];
+    };
+    var scaleBgSize = function() {
+        return [
+            "auto",
+            "cover",
+            "contain",
+            isArbitraryVariableSize,
+            isArbitrarySize,
+            {
+                size: [
+                    isArbitraryVariable,
+                    isArbitraryValue
+                ]
+            }
         ];
     };
     var scaleGradientStopPosition = function() {
@@ -1039,27 +1150,20 @@ var getDefaultConfig = function() {
             "luminosity"
         ];
     };
+    var scaleMaskImagePosition = function() {
+        return [
+            isNumber,
+            isPercent,
+            isArbitraryVariablePosition,
+            isArbitraryPosition
+        ];
+    };
     var scaleBlur = function() {
         return [
             // Deprecated since Tailwind CSS v4.0.0
             "",
             "none",
             themeBlur,
-            isArbitraryVariable,
-            isArbitraryValue
-        ];
-    };
-    var scaleOrigin = function() {
-        return [
-            "center",
-            "top",
-            "top-right",
-            "right",
-            "bottom-right",
-            "bottom",
-            "bottom-left",
-            "left",
-            "top-left",
             isArbitraryVariable,
             isArbitraryValue
         ];
@@ -1169,6 +1273,9 @@ var getDefaultConfig = function() {
                 isNumber
             ],
             text: [
+                isTshirtSize
+            ],
+            "text-shadow": [
                 isTshirtSize
             ],
             tracking: [
@@ -1358,10 +1465,7 @@ var getDefaultConfig = function() {
        * @see https://tailwindcss.com/docs/object-position
        */ "object-position": [
                 {
-                    object: _to_consumable_array(scalePosition()).concat([
-                        isArbitraryValue,
-                        isArbitraryVariable
-                    ])
+                    object: scalePositionWithArbitrary()
                 }
             ],
             /**
@@ -1776,7 +1880,12 @@ var getDefaultConfig = function() {
        */ "align-items": [
                 {
                     items: _to_consumable_array(scaleAlignSecondaryAxis()).concat([
-                        "baseline"
+                        {
+                            baseline: [
+                                "",
+                                "last"
+                            ]
+                        }
                     ])
                 }
             ],
@@ -1788,7 +1897,12 @@ var getDefaultConfig = function() {
                     self: [
                         "auto"
                     ].concat(_to_consumable_array(scaleAlignSecondaryAxis()), [
-                        "baseline"
+                        {
+                            baseline: [
+                                "",
+                                "last"
+                            ]
+                        }
                     ])
                 }
             ],
@@ -2051,7 +2165,8 @@ var getDefaultConfig = function() {
        */ h: [
                 {
                     h: [
-                        "screen"
+                        "screen",
+                        "lh"
                     ].concat(_to_consumable_array(scaleSizing()))
                 }
             ],
@@ -2062,6 +2177,7 @@ var getDefaultConfig = function() {
                 {
                     "min-h": [
                         "screen",
+                        "lh",
                         "none"
                     ].concat(_to_consumable_array(scaleSizing()))
                 }
@@ -2072,7 +2188,8 @@ var getDefaultConfig = function() {
        */ "max-h": [
                 {
                     "max-h": [
-                        "screen"
+                        "screen",
+                        "lh"
                     ].concat(_to_consumable_array(scaleSizing()))
                 }
             ],
@@ -2433,6 +2550,18 @@ var getDefaultConfig = function() {
                 }
             ],
             /**
+       * Overflow Wrap
+       * @see https://tailwindcss.com/docs/overflow-wrap
+       */ wrap: [
+                {
+                    wrap: [
+                        "break-word",
+                        "anywhere",
+                        "normal"
+                    ]
+                }
+            ],
+            /**
        * Hyphens
        * @see https://tailwindcss.com/docs/hyphens
        */ hyphens: [
@@ -2501,10 +2630,7 @@ var getDefaultConfig = function() {
        * @see https://tailwindcss.com/docs/background-position
        */ "bg-position": [
                 {
-                    bg: _to_consumable_array(scalePosition()).concat([
-                        isArbitraryVariablePosition,
-                        isArbitraryPosition
-                    ])
+                    bg: scaleBgPosition()
                 }
             ],
             /**
@@ -2512,18 +2638,7 @@ var getDefaultConfig = function() {
        * @see https://tailwindcss.com/docs/background-repeat
        */ "bg-repeat": [
                 {
-                    bg: [
-                        "no-repeat",
-                        {
-                            repeat: [
-                                "",
-                                "x",
-                                "y",
-                                "space",
-                                "round"
-                            ]
-                        }
-                    ]
+                    bg: scaleBgRepeat()
                 }
             ],
             /**
@@ -2531,13 +2646,7 @@ var getDefaultConfig = function() {
        * @see https://tailwindcss.com/docs/background-size
        */ "bg-size": [
                 {
-                    bg: [
-                        "auto",
-                        "cover",
-                        "contain",
-                        isArbitraryVariableSize,
-                        isArbitrarySize
-                    ]
+                    bg: scaleBgSize()
                 }
             ],
             /**
@@ -3003,9 +3112,7 @@ var getDefaultConfig = function() {
        * @see https://tailwindcss.com/docs/outline-color
        */ "outline-color": [
                 {
-                    outline: [
-                        themeColor
-                    ]
+                    outline: scaleColor()
                 }
             ],
             // ---------------
@@ -3041,9 +3148,9 @@ var getDefaultConfig = function() {
                 {
                     "inset-shadow": [
                         "none",
-                        isArbitraryVariable,
-                        isArbitraryValue,
-                        themeInsetShadow
+                        themeInsetShadow,
+                        isArbitraryVariableShadow,
+                        isArbitraryShadow
                     ]
                 }
             ],
@@ -3119,6 +3226,27 @@ var getDefaultConfig = function() {
                 }
             ],
             /**
+       * Text Shadow
+       * @see https://tailwindcss.com/docs/text-shadow
+       */ "text-shadow": [
+                {
+                    "text-shadow": [
+                        "none",
+                        themeTextShadow,
+                        isArbitraryVariableShadow,
+                        isArbitraryShadow
+                    ]
+                }
+            ],
+            /**
+       * Text Shadow Color
+       * @see https://tailwindcss.com/docs/text-shadow#setting-the-shadow-color
+       */ "text-shadow-color": [
+                {
+                    "text-shadow": scaleColor()
+                }
+            ],
+            /**
        * Opacity
        * @see https://tailwindcss.com/docs/opacity
        */ opacity: [
@@ -3147,6 +3275,343 @@ var getDefaultConfig = function() {
        */ "bg-blend": [
                 {
                     "bg-blend": scaleBlendMode()
+                }
+            ],
+            /**
+       * Mask Clip
+       * @see https://tailwindcss.com/docs/mask-clip
+       */ "mask-clip": [
+                {
+                    "mask-clip": [
+                        "border",
+                        "padding",
+                        "content",
+                        "fill",
+                        "stroke",
+                        "view"
+                    ]
+                },
+                "mask-no-clip"
+            ],
+            /**
+       * Mask Composite
+       * @see https://tailwindcss.com/docs/mask-composite
+       */ "mask-composite": [
+                {
+                    mask: [
+                        "add",
+                        "subtract",
+                        "intersect",
+                        "exclude"
+                    ]
+                }
+            ],
+            /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */ "mask-image-linear-pos": [
+                {
+                    "mask-linear": [
+                        isNumber
+                    ]
+                }
+            ],
+            "mask-image-linear-from-pos": [
+                {
+                    "mask-linear-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-linear-to-pos": [
+                {
+                    "mask-linear-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-linear-from-color": [
+                {
+                    "mask-linear-from": scaleColor()
+                }
+            ],
+            "mask-image-linear-to-color": [
+                {
+                    "mask-linear-to": scaleColor()
+                }
+            ],
+            "mask-image-t-from-pos": [
+                {
+                    "mask-t-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-t-to-pos": [
+                {
+                    "mask-t-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-t-from-color": [
+                {
+                    "mask-t-from": scaleColor()
+                }
+            ],
+            "mask-image-t-to-color": [
+                {
+                    "mask-t-to": scaleColor()
+                }
+            ],
+            "mask-image-r-from-pos": [
+                {
+                    "mask-r-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-r-to-pos": [
+                {
+                    "mask-r-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-r-from-color": [
+                {
+                    "mask-r-from": scaleColor()
+                }
+            ],
+            "mask-image-r-to-color": [
+                {
+                    "mask-r-to": scaleColor()
+                }
+            ],
+            "mask-image-b-from-pos": [
+                {
+                    "mask-b-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-b-to-pos": [
+                {
+                    "mask-b-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-b-from-color": [
+                {
+                    "mask-b-from": scaleColor()
+                }
+            ],
+            "mask-image-b-to-color": [
+                {
+                    "mask-b-to": scaleColor()
+                }
+            ],
+            "mask-image-l-from-pos": [
+                {
+                    "mask-l-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-l-to-pos": [
+                {
+                    "mask-l-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-l-from-color": [
+                {
+                    "mask-l-from": scaleColor()
+                }
+            ],
+            "mask-image-l-to-color": [
+                {
+                    "mask-l-to": scaleColor()
+                }
+            ],
+            "mask-image-x-from-pos": [
+                {
+                    "mask-x-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-x-to-pos": [
+                {
+                    "mask-x-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-x-from-color": [
+                {
+                    "mask-x-from": scaleColor()
+                }
+            ],
+            "mask-image-x-to-color": [
+                {
+                    "mask-x-to": scaleColor()
+                }
+            ],
+            "mask-image-y-from-pos": [
+                {
+                    "mask-y-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-y-to-pos": [
+                {
+                    "mask-y-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-y-from-color": [
+                {
+                    "mask-y-from": scaleColor()
+                }
+            ],
+            "mask-image-y-to-color": [
+                {
+                    "mask-y-to": scaleColor()
+                }
+            ],
+            "mask-image-radial": [
+                {
+                    "mask-radial": [
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
+                }
+            ],
+            "mask-image-radial-from-pos": [
+                {
+                    "mask-radial-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-radial-to-pos": [
+                {
+                    "mask-radial-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-radial-from-color": [
+                {
+                    "mask-radial-from": scaleColor()
+                }
+            ],
+            "mask-image-radial-to-color": [
+                {
+                    "mask-radial-to": scaleColor()
+                }
+            ],
+            "mask-image-radial-shape": [
+                {
+                    "mask-radial": [
+                        "circle",
+                        "ellipse"
+                    ]
+                }
+            ],
+            "mask-image-radial-size": [
+                {
+                    "mask-radial": [
+                        {
+                            closest: [
+                                "side",
+                                "corner"
+                            ],
+                            farthest: [
+                                "side",
+                                "corner"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "mask-image-radial-pos": [
+                {
+                    "mask-radial-at": scalePosition()
+                }
+            ],
+            "mask-image-conic-pos": [
+                {
+                    "mask-conic": [
+                        isNumber
+                    ]
+                }
+            ],
+            "mask-image-conic-from-pos": [
+                {
+                    "mask-conic-from": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-conic-to-pos": [
+                {
+                    "mask-conic-to": scaleMaskImagePosition()
+                }
+            ],
+            "mask-image-conic-from-color": [
+                {
+                    "mask-conic-from": scaleColor()
+                }
+            ],
+            "mask-image-conic-to-color": [
+                {
+                    "mask-conic-to": scaleColor()
+                }
+            ],
+            /**
+       * Mask Mode
+       * @see https://tailwindcss.com/docs/mask-mode
+       */ "mask-mode": [
+                {
+                    mask: [
+                        "alpha",
+                        "luminance",
+                        "match"
+                    ]
+                }
+            ],
+            /**
+       * Mask Origin
+       * @see https://tailwindcss.com/docs/mask-origin
+       */ "mask-origin": [
+                {
+                    "mask-origin": [
+                        "border",
+                        "padding",
+                        "content",
+                        "fill",
+                        "stroke",
+                        "view"
+                    ]
+                }
+            ],
+            /**
+       * Mask Position
+       * @see https://tailwindcss.com/docs/mask-position
+       */ "mask-position": [
+                {
+                    mask: scaleBgPosition()
+                }
+            ],
+            /**
+       * Mask Repeat
+       * @see https://tailwindcss.com/docs/mask-repeat
+       */ "mask-repeat": [
+                {
+                    mask: scaleBgRepeat()
+                }
+            ],
+            /**
+       * Mask Size
+       * @see https://tailwindcss.com/docs/mask-size
+       */ "mask-size": [
+                {
+                    mask: scaleBgSize()
+                }
+            ],
+            /**
+       * Mask Type
+       * @see https://tailwindcss.com/docs/mask-type
+       */ "mask-type": [
+                {
+                    "mask-type": [
+                        "alpha",
+                        "luminance"
+                    ]
+                }
+            ],
+            /**
+       * Mask Image
+       * @see https://tailwindcss.com/docs/mask-image
+       */ "mask-image": [
+                {
+                    mask: [
+                        "none",
+                        isArbitraryVariable,
+                        isArbitraryValue
+                    ]
                 }
             ],
             // ---------------
@@ -3208,9 +3673,17 @@ var getDefaultConfig = function() {
                         "",
                         "none",
                         themeDropShadow,
-                        isArbitraryVariable,
-                        isArbitraryValue
+                        isArbitraryVariableShadow,
+                        isArbitraryShadow
                     ]
+                }
+            ],
+            /**
+       * Drop Shadow Color
+       * @see https://tailwindcss.com/docs/filter-drop-shadow#setting-the-shadow-color
+       */ "drop-shadow-color": [
+                {
+                    "drop-shadow": scaleColor()
                 }
             ],
             /**
@@ -3572,7 +4045,7 @@ var getDefaultConfig = function() {
        * @see https://tailwindcss.com/docs/perspective-origin
        */ "perspective-origin": [
                 {
-                    "perspective-origin": scaleOrigin()
+                    "perspective-origin": scalePositionWithArbitrary()
                 }
             ],
             /**
@@ -3689,7 +4162,7 @@ var getDefaultConfig = function() {
        * @see https://tailwindcss.com/docs/transform-origin
        */ "transform-origin": [
                 {
-                    origin: scaleOrigin()
+                    origin: scalePositionWithArbitrary()
                 }
             ],
             /**
@@ -4342,6 +4815,8 @@ var getDefaultConfig = function() {
                 "border-spacing-y"
             ],
             "border-w": [
+                "border-w-x",
+                "border-w-y",
                 "border-w-s",
                 "border-w-e",
                 "border-w-t",
@@ -4358,6 +4833,8 @@ var getDefaultConfig = function() {
                 "border-w-b"
             ],
             "border-color": [
+                "border-color-x",
+                "border-color-y",
                 "border-color-s",
                 "border-color-e",
                 "border-color-t",
@@ -4441,17 +4918,18 @@ var getDefaultConfig = function() {
             ]
         },
         orderSensitiveModifiers: [
-            "before",
-            "after",
-            "placeholder",
-            "file",
-            "marker",
-            "selection",
-            "first-line",
-            "first-letter",
-            "backdrop",
             "*",
-            "**"
+            "**",
+            "after",
+            "backdrop",
+            "before",
+            "details-content",
+            "file",
+            "first-letter",
+            "first-line",
+            "marker",
+            "placeholder",
+            "selection"
         ]
     };
 };
