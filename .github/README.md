@@ -107,7 +107,7 @@ When installed, the package includes:
 
 - `dist/` - Compiled JavaScript (ESM and CJS formats)
 - `dist/index.d.ts` - TypeScript type definitions
-- `dist/ui.css` - Pre-compiled Tailwind CSS styles
+- `css/ui.css` - Pre-compiled Tailwind CSS styles
 
 ## License
 
