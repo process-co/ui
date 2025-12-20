@@ -6776,7 +6776,7 @@ function ExpressionWrapper(param) {
                 expressionMode.expression && expressionMode.expression.trim();
                 (_this = expressionResult || internalExpressionResult) === null || _this === void 0 ? void 0 : _this.isValid;
                 return controlProps.expressionMode.isEditing ? /* @__PURE__ */ React4__namespace.default.createElement("div", {
-                    key: "".concat(key, "-expression"),
+                    key: "expression",
                     className: cn("relative", className)
                 }, inlineEditor && !expressionMode.isFullScreen && !expressionHasNewlines ? /* @__PURE__ */ React4__namespace.default.createElement("div", {
                     className: cn("uii:flex uii:h-9 uii:w-full \n              uii:min-w-0 uii:rounded-sm \n              uii:border uii:border-ring \n              uii:bg-background uii:px-3 uii:py-1 uii:text-base uii:shadow-xs \n              uii:ring-ring/50 uii:ring-[3px] uii:transition-[color,box-shadow] \n              uii:outline-none uii:md:text-sm uii:cursor-pointer\n              uii:mt-0.5 ", editorClassName)
@@ -6875,7 +6875,7 @@ function ExpressionWrapper(param) {
                     className: "uii:text-sm uii:text-red-600"
                 }, "Parse Error: ", parseError)))) : /* @__PURE__ */ React4__namespace.default.createElement("div", {
                     className: cn("uii:relative", className),
-                    key: "".concat(key, "-expression-display")
+                    key: "expression-display"
                 }, /* @__PURE__ */ React4__namespace.default.createElement("div", {
                     className: clsx_default("uii:flex uii:h-9 uii:w-full uii:min-w-0 uii:rounded-sm uii:border uii:border-input uii:bg-transparent uii:px-3 uii:py-1 uii:text-base uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px] uii:md:text-sm uii:cursor-pointer uii:hover:bg-muted/50", "uii:mt-0.5 uii:bg-white uii:rounded-md uii:items-center"),
                     onClick: function() {
@@ -6893,7 +6893,7 @@ function ExpressionWrapper(param) {
                 /* @__PURE__ */ React4__namespace.default.createElement("div", {
                     className: "uii:flex uii:items-center uii:gap-2"
                 }, ast ? /* @__PURE__ */ React4__namespace.default.createElement(ASTRenderer, {
-                    key: "".concat(key, "-ast"),
+                    key: "ast",
                     ast: ast,
                     tokens: tokens,
                     variant: "inline",
@@ -6920,7 +6920,7 @@ function ExpressionWrapper(param) {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
     }, /* @__PURE__ */ React4__namespace.default.createElement("label", {
         className: "uii:text-xs uii:text-muted-foreground uii:font-bold",
-        htmlFor: key
+        htmlFor: fieldName
     }, label, ":"), /* @__PURE__ */ React4__namespace.default.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
     }, type), hasTypeMismatch || inferredReturnType === "error" ? /* @__PURE__ */ React4__namespace.default.createElement(React4__namespace.default.Fragment, null, expressionMode.current === "expression" ? /* @__PURE__ */ React4__namespace.default.createElement(React4__namespace.default.Fragment, null, /* @__PURE__ */ React4__namespace.default.createElement("span", {
