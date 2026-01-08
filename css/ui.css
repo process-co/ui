@@ -1053,6 +1053,9 @@
   .uii\:mr-1 {
     margin-right: calc(var(--uii-spacing) * 1);
   }
+  .uii\:mb-2 {
+    margin-bottom: calc(var(--uii-spacing) * 2);
+  }
   .uii\:-ml-\[4px\] {
     margin-left: calc(4px * -1);
   }
@@ -1067,6 +1070,9 @@
   }
   .uii\:h-9 {
     height: calc(var(--uii-spacing) * 9);
+  }
+  .uii\:h-full {
+    height: 100%;
   }
   .uii\:max-h-64 {
     max-height: calc(var(--uii-spacing) * 64);
@@ -1088,6 +1094,9 @@
   }
   .uii\:animate-spin {
     animation: spin var(--default-animation-duration, 1s) var(--default-animation-timing-function, linear) var(--default-animation-delay, 0s) infinite;
+  }
+  .uii\:cursor-not-allowed {
+    cursor: not-allowed;
   }
   .uii\:cursor-pointer {
     cursor: pointer;
@@ -1174,6 +1183,16 @@
     border-left-style: var(--tw-border-style);
     border-left-width: 10px;
   }
+  .uii\:border-none {
+    --tw-border-style: none;
+    border-style: none;
+  }
+  .uii\:border-amber-500\/30 {
+    border-color: color-mix(in oklab, oklch(76.9% 0.188 70.08) 30%, transparent);
+  }
+  .uii\:border-amber-500\/50 {
+    border-color: color-mix(in oklab, oklch(76.9% 0.188 70.08) 50%, transparent);
+  }
   .uii\:border-blue-200 {
     border-color: oklch(88.2% 0.059 254.128);
   }
@@ -1189,6 +1208,9 @@
   .uii\:border-red-200 {
     border-color: oklch(88.5% 0.062 18.334);
   }
+  .uii\:border-red-500 {
+    border-color: oklch(63.7% 0.237 25.331);
+  }
   .uii\:border-ring {
     border-color: var(--ring);
   }
@@ -1197,6 +1219,9 @@
   }
   .uii\:border-l-background {
     border-left-color: var(--background);
+  }
+  .uii\:bg-amber-500\/5 {
+    background-color: color-mix(in oklab, oklch(76.9% 0.188 70.08) 5%, transparent);
   }
   .uii\:bg-background {
     background-color: var(--background);
@@ -1339,6 +1364,9 @@
     --tw-tracking: var(--uii-tracking-wide);
     letter-spacing: var(--uii-tracking-wide);
   }
+  .uii\:text-amber-600 {
+    color: oklch(66.6% 0.179 58.318);
+  }
   .uii\:text-blue-600 {
     color: oklch(54.6% 0.245 262.881);
   }
@@ -1414,6 +1442,9 @@
   .uii\:italic {
     font-style: italic;
   }
+  .uii\:opacity-50 {
+    opacity: 50%;
+  }
   .uii\:shadow-xs {
     --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -1430,6 +1461,11 @@
   }
   .uii\:transition-\[color\,box-shadow\] {
     transition-property: color,box-shadow;
+    transition-timing-function: var(--tw-ease, var(--uii-default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--uii-default-transition-duration));
+  }
+  .uii\:transition-all {
+    transition-property: all;
     transition-timing-function: var(--tw-ease, var(--uii-default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--uii-default-transition-duration));
   }

@@ -1,51 +1,7 @@
-import * as React from 'react';
 import * as class_variance_authority_types from 'class-variance-authority/types';
+import * as React from 'react';
 import { VariantProps } from 'class-variance-authority';
-
-interface ExpressionContext {
-    [key: string]: any;
-}
-interface ExpressionAST {
-    kind: number;
-    color?: string;
-    left?: ExpressionAST;
-    right?: ExpressionAST;
-    name?: ExpressionAST;
-    argumentExpression?: ExpressionAST;
-    arguments?: ExpressionAST[];
-    expression?: ExpressionAST;
-    escapedText?: string;
-    text?: string;
-    operator?: string;
-    type?: string;
-}
-
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-}
-interface ExpressionResult {
-    value: any;
-    ast: ExpressionAST;
-    error?: string;
-    isValid: boolean;
-    validation: {
-        syntax: boolean;
-        expression: boolean;
-        context: boolean;
-        type?: boolean;
-        security?: boolean;
-    };
-}
-declare function Input({ className, expectedType, ...props }: Omit<React.ComponentProps<'input'>, 'onChange'> & {
-    error?: boolean;
-    label?: string;
-    rapperClassName?: string;
-    expressionContext?: ExpressionContext;
-    expressionResult?: ExpressionResult;
-    isEvaluating?: boolean;
-    isExpressionValid?: boolean;
-    expectedType?: string;
-    onChange?: (value: any) => void;
-}): React.JSX.Element;
+export { i as fields } from './index-C1wa8N9L.cjs';
 
 declare const buttonVariants: (props?: ({
     variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | null | undefined;
@@ -55,4 +11,4 @@ declare function Button({ className, variant, size, asChild, ...props }: React.C
     asChild?: boolean;
 }): React.JSX.Element;
 
-export { Button, type ExpressionResult, Input, type InputProps, buttonVariants };
+export { Button, buttonVariants };

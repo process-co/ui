@@ -1,4 +1,3 @@
-'use strict';
 function _array_like_to_array(arr, len) {
     if (len == null || len > arr.length) len = arr.length;
     for(var i = 0, arr2 = new Array(len); i < len; i++)arr2[i] = arr[i];
@@ -71,33 +70,6 @@ function _object_spread(target) {
     }
     return target;
 }
-function _object_without_properties(source, excluded) {
-    if (source == null) return {};
-    var target = _object_without_properties_loose(source, excluded);
-    var key, i;
-    if (Object.getOwnPropertySymbols) {
-        var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-        for(i = 0; i < sourceSymbolKeys.length; i++){
-            key = sourceSymbolKeys[i];
-            if (excluded.indexOf(key) >= 0) continue;
-            if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-            target[key] = source[key];
-        }
-    }
-    return target;
-}
-function _object_without_properties_loose(source, excluded) {
-    if (source == null) return {};
-    var target = {};
-    var sourceKeys = Object.keys(source);
-    var key, i;
-    for(i = 0; i < sourceKeys.length; i++){
-        key = sourceKeys[i];
-        if (excluded.indexOf(key) >= 0) continue;
-        target[key] = source[key];
-    }
-    return target;
-}
 function _sliced_to_array(arr, i) {
     return _array_with_holes(arr) || _iterable_to_array_limit(arr, i) || _unsupported_iterable_to_array(arr, i) || _non_iterable_rest();
 }
@@ -116,35 +88,8 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
-var React4 = require('react');
-var reactSlot = require('@radix-ui/react-slot');
-function _interopNamespace(e) {
-    if (e && e.__esModule) return e;
-    var n = Object.create(null);
-    if (e) {
-        Object.keys(e).forEach(function(k) {
-            if (k !== 'default') {
-                var d = Object.getOwnPropertyDescriptor(e, k);
-                Object.defineProperty(n, k, d.get ? d : {
-                    enumerable: true,
-                    get: function get() {
-                        return e[k];
-                    }
-                });
-            }
-        });
-    }
-    n.default = e;
-    return Object.freeze(n);
-}
-var React4__namespace = /*#__PURE__*/ _interopNamespace(React4);
-var __defProp = Object.defineProperty;
-var __export = function(target, all) {
-    for(var name in all)__defProp(target, name, {
-        get: all[name],
-        enumerable: true
-    });
-};
+import * as React3 from 'react';
+// src/components/fields/Input.tsx
 // ../../node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
 function r(e) {
     var t, f, n = "";
@@ -159,47 +104,6 @@ function clsx() {
     for(var e, t, f = 0, n = "", o = arguments.length; f < o; f++)(e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
     return n;
 }
-// ../../node_modules/.pnpm/class-variance-authority@0.7.1/node_modules/class-variance-authority/dist/index.mjs
-var falsyToString = function(value) {
-    return typeof value === "boolean" ? "".concat(value) : value === 0 ? "0" : value;
-};
-var cx = clsx;
-var cva = function(base, config) {
-    return function(props) {
-        var _config_compoundVariants;
-        if ((config === null || config === void 0 ? void 0 : config.variants) == null) return cx(base, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
-        var variants = config.variants, defaultVariants = config.defaultVariants;
-        var getVariantClassNames = Object.keys(variants).map(function(variant) {
-            var variantProp = props === null || props === void 0 ? void 0 : props[variant];
-            var defaultVariantProp = defaultVariants === null || defaultVariants === void 0 ? void 0 : defaultVariants[variant];
-            if (variantProp === null) return null;
-            var variantKey = falsyToString(variantProp) || falsyToString(defaultVariantProp);
-            return variants[variant][variantKey];
-        });
-        var propsWithoutUndefined = props && Object.entries(props).reduce(function(acc, param) {
-            var _param = _sliced_to_array(param, 2), key = _param[0], value = _param[1];
-            if (value === void 0) {
-                return acc;
-            }
-            acc[key] = value;
-            return acc;
-        }, {});
-        var getCompoundVariantClassNames = config === null || config === void 0 ? void 0 : (_config_compoundVariants = config.compoundVariants) === null || _config_compoundVariants === void 0 ? void 0 : _config_compoundVariants.reduce(function(acc, param) {
-            var cvClass = param.class, cvClassName = param.className, compoundVariantOptions = _object_without_properties(param, [
-                "class",
-                "className"
-            ]);
-            return Object.entries(compoundVariantOptions).every(function(param2) {
-                var _param2 = _sliced_to_array(param2, 2), key = _param2[0], value = _param2[1];
-                return Array.isArray(value) ? value.includes(_object_spread({}, defaultVariants, propsWithoutUndefined)[key]) : _object_spread({}, defaultVariants, propsWithoutUndefined)[key] === value;
-            }) ? _to_consumable_array(acc).concat([
-                cvClass,
-                cvClassName
-            ]) : acc;
-        }, []);
-        return cx(base, getVariantClassNames, getCompoundVariantClassNames, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
-    };
-};
 // ../../node_modules/.pnpm/tailwind-merge@3.4.0/node_modules/tailwind-merge/dist/bundle-mjs.mjs
 var concatArrays = function(array1, array2) {
     var combinedArray = new Array(array1.length + array2.length);
@@ -4832,74 +4736,10 @@ function cn() {
     }
     return twMerge(clsx(inputs));
 }
-// src/components/ui/button.tsx
-var buttonVariants = cva("ui:inline-flex ui:items-center ui:justify-center ui:gap-2 ui:whitespace-nowrap ui:rounded-sm ui:text-sm ui:font-medium ui:transition-[color,box-shadow] ui:disabled:pointer-events-none ui:disabled:opacity-50 ui:[&_svg]:pointer-events-none ui:[&_svg:not([class*=size-])]:size-4 ui:shrink-0 ui:[&_svg]:shrink-0 ui:outline-none ui:focus-visible:border-ring ui:focus-visible:ring-ring/50 ui:focus-visible:ring-[3px] ui:aria-invalid:ring-destructive/20 ui:dark:aria-invalid:ring-destructive/40 ui:aria-invalid:border-destructive ui:cursor-pointer", {
-    variants: {
-        variant: {
-            default: "ui:bg-primary ui:text-primary-foreground ui:shadow-xs ui:hover:bg-primary/90 ui:select-none",
-            destructive: "ui:bg-destructive ui:text-white ui:shadow-xs ui:hover:bg-destructive/90 ui:focus-visible:ring-destructive/20 ui:dark:focus-visible:ring-destructive/40",
-            outline: "ui:border ui:border-input ui:bg-background ui:shadow-xs ui:hover:bg-accent ui:hover:text-accent-foreground",
-            secondary: "ui:bg-secondary ui:text-secondary-foreground ui:shadow-xs ui:hover:bg-secondary/80",
-            ghost: "ui:hover:bg-accent ui:hover:text-accent-foreground",
-            link: "ui:text-primary ui:underline-offset-4 ui:hover:underline"
-        },
-        size: {
-            default: "ui:h-9 ui:px-4 ui:py-2 ui:has-[>svg]:px-3",
-            sm: "ui:h-8 ui:rounded-sm ui:gap-1.5 ui:px-3 ui:has-[>svg]:px-2.5",
-            lg: "ui:h-10 ui:rounded-sm ui:px-6 ui:has-[>svg]:px-4",
-            icon: "ui:size-9"
-        }
-    },
-    defaultVariants: {
-        variant: "default",
-        size: "default"
-    }
-});
-function Button(_param) {
-    var className = _param.className, variant = _param.variant, size = _param.size, _param_asChild = _param.asChild, asChild = _param_asChild === void 0 ? false : _param_asChild, props = _object_without_properties(_param, [
-        "className",
-        "variant",
-        "size",
-        "asChild"
-    ]);
-    var Comp = asChild ? reactSlot.Slot : "button";
-    return /* @__PURE__ */ React4__namespace.createElement(Comp, _object_spread({
-        "data-slot": "button",
-        className: cn(buttonVariants({
-            variant: variant,
-            size: size,
-            className: className
-        }))
-    }, props));
-}
-// src/components/fields/index.tsx
-var fields_exports = {};
-__export(fields_exports, {
-    Input: function() {
-        return Input;
-    },
-    NestedFieldProvider: function() {
-        return NestedFieldProvider;
-    },
-    Select: function() {
-        return Select;
-    },
-    TemplateFieldProvider: function() {
-        return TemplateFieldProvider;
-    },
-    useFieldPath: function() {
-        return useFieldPath;
-    },
-    useIsInTemplateFieldProvider: function() {
-        return useIsInTemplateFieldProvider;
-    },
-    useTemplateFieldContext: function() {
-        return useTemplateFieldContext;
-    }
-});
+// src/components/fields/Input.tsx
 function Input(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, editorClassName = param.editorClassName;
-    var displayValue = React4__namespace.useMemo(function() {
+    var displayValue = React3.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4907,12 +4747,12 @@ function Input(param) {
     }, [
         value
     ]);
-    var isExpression = React4__namespace.useMemo(function() {
+    var isExpression = React3.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    var handleChange = React4__namespace.useCallback(function(e) {
+    var handleChange = React3.useCallback(function(e) {
         var newValue = e.target.value;
         if (newValue.includes("{{")) {
             onChange({
@@ -4926,20 +4766,20 @@ function Input(param) {
         onChange
     ]);
     var showError = hasRequiredError || required && !displayValue;
-    return /* @__PURE__ */ React4__namespace.createElement("div", {
+    return /* @__PURE__ */ React3.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React4__namespace.createElement("div", {
+    }, /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React4__namespace.createElement("label", {
+    }, /* @__PURE__ */ React3.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4__namespace.createElement("span", {
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React4__namespace.createElement("span", {
+    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React4__namespace.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
         className: "uii:mt-0.5"
-    }, /* @__PURE__ */ React4__namespace.createElement("input", {
+    }, /* @__PURE__ */ React3.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -4952,9 +4792,9 @@ function Input(param) {
 }
 function Select(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, rawOptions = param.options, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, children = param.children;
-    var _React4__namespace_useState = _sliced_to_array(React4__namespace.useState(false), 2), isExpressionMode = _React4__namespace_useState[0], setIsExpressionMode = _React4__namespace_useState[1];
-    var _React4__namespace_useState1 = _sliced_to_array(React4__namespace.useState(""), 2), expressionValue = _React4__namespace_useState1[0], setExpressionValue = _React4__namespace_useState1[1];
-    var options = React4__namespace.useMemo(function() {
+    var _React3_useState = _sliced_to_array(React3.useState(false), 2), isExpressionMode = _React3_useState[0], setIsExpressionMode = _React3_useState[1];
+    var _React3_useState1 = _sliced_to_array(React3.useState(""), 2), expressionValue = _React3_useState1[0], setExpressionValue = _React3_useState1[1];
+    var options = React3.useMemo(function() {
         return rawOptions.map(function(opt) {
             return typeof opt === "string" ? {
                 value: opt,
@@ -4964,7 +4804,7 @@ function Select(param) {
     }, [
         rawOptions
     ]);
-    var displayValue = React4__namespace.useMemo(function() {
+    var displayValue = React3.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4972,12 +4812,12 @@ function Select(param) {
     }, [
         value
     ]);
-    var isExpression = React4__namespace.useMemo(function() {
+    var isExpression = React3.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    React4__namespace.useEffect(function() {
+    React3.useEffect(function() {
         if (isExpression) {
             setIsExpressionMode(true);
             setExpressionValue(displayValue);
@@ -4986,7 +4826,7 @@ function Select(param) {
         isExpression,
         displayValue
     ]);
-    var handleSelectChange = React4__namespace.useCallback(function(newValue) {
+    var handleSelectChange = React3.useCallback(function(newValue) {
         if (newValue === "__expression__") {
             setIsExpressionMode(true);
             return;
@@ -4995,7 +4835,7 @@ function Select(param) {
     }, [
         onChange
     ]);
-    var handleExpressionChange = React4__namespace.useCallback(function(e) {
+    var handleExpressionChange = React3.useCallback(function(e) {
         var newValue = e.target.value;
         setExpressionValue(newValue);
         onChange({
@@ -5005,7 +4845,7 @@ function Select(param) {
     }, [
         onChange
     ]);
-    var handleSwitchToValue = React4__namespace.useCallback(function() {
+    var handleSwitchToValue = React3.useCallback(function() {
         setIsExpressionMode(false);
         setExpressionValue("");
         onChange("");
@@ -5040,24 +4880,24 @@ function Select(param) {
         },
         hasError: showError
     };
-    return /* @__PURE__ */ React4__namespace.createElement("div", {
+    return /* @__PURE__ */ React3.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React4__namespace.createElement("div", {
+    }, /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React4__namespace.createElement("label", {
+    }, /* @__PURE__ */ React3.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4__namespace.createElement("span", {
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React4__namespace.createElement("span", {
+    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React4__namespace.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
         className: "uii:mt-0.5"
     }, children ? // Use custom render function
     children(renderProps) : isExpressionMode ? // Expression mode - show input with clear button
-    /* @__PURE__ */ React4__namespace.createElement("div", {
+    /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5"
-    }, /* @__PURE__ */ React4__namespace.createElement("input", {
+    }, /* @__PURE__ */ React3.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -5066,13 +4906,13 @@ function Select(param) {
         disabled: disabled,
         placeholder: "Enter expression...",
         className: cn("uii:flex-1 uii:h-full uii:px-3 uii:bg-transparent uii:text-sm uii:font-mono uii:text-amber-600", "uii:outline-none uii:border-none", disabled && "uii:opacity-50 uii:cursor-not-allowed")
-    }), /* @__PURE__ */ React4__namespace.createElement("button", {
+    }), /* @__PURE__ */ React3.createElement("button", {
         type: "button",
         onClick: handleSwitchToValue,
         className: "uii:flex uii:items-center uii:justify-center uii:h-full uii:px-2 uii:text-amber-600 hover:uii:text-red-600 uii:border-l uii:border-amber-500/30",
         title: "Clear and return to value mode"
     }, "\xD7")) : // Value mode - show select
-    /* @__PURE__ */ React4__namespace.createElement("select", {
+    /* @__PURE__ */ React3.createElement("select", {
         id: fieldName,
         name: fieldName,
         value: displayValue,
@@ -5081,15 +4921,15 @@ function Select(param) {
         },
         disabled: disabled,
         className: cn("uii:w-full uii:h-9 uii:px-3 uii:rounded-sm uii:border uii:bg-background uii:text-sm", "uii:outline-none uii:transition-all uii:cursor-pointer", "focus:uii:border-ring focus:uii:ring-ring/50 focus:uii:ring-[3px]", showError ? "uii:border-red-500 hover:uii:border-red-600" : "uii:border-input hover:uii:border-ring/50", disabled && "uii:opacity-50 uii:cursor-not-allowed")
-    }, placeholder && /* @__PURE__ */ React4__namespace.createElement("option", {
+    }, placeholder && /* @__PURE__ */ React3.createElement("option", {
         value: "",
         disabled: true
     }, placeholder), options.map(function(opt) {
-        return /* @__PURE__ */ React4__namespace.createElement("option", {
+        return /* @__PURE__ */ React3.createElement("option", {
             key: opt.value,
             value: opt.value
         }, opt.label);
-    }), /* @__PURE__ */ React4__namespace.createElement("option", {
+    }), /* @__PURE__ */ React3.createElement("option", {
         value: "__expression__"
     }, "\uD83D\uDCDD Custom Expression"))));
 }
@@ -5126,7 +4966,5 @@ function NestedFieldProvider(param) {
     var children = param.children;
     return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
 }
-exports.Button = Button;
-exports.buttonVariants = buttonVariants;
-exports.fields = fields_exports; //# sourceMappingURL=index.cjs.map
-//# sourceMappingURL=index.cjs.map
+export { Input, NestedFieldProvider, Select, TemplateFieldProvider, useFieldPath, useIsInTemplateFieldProvider, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
+//# sourceMappingURL=index.js.map

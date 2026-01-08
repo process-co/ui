@@ -9,35 +9,6 @@ function _array_with_holes(arr) {
 function _array_without_holes(arr) {
     if (Array.isArray(arr)) return _array_like_to_array(arr);
 }
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {
-    try {
-        var info = gen[key](arg);
-        var value = info.value;
-    } catch (error) {
-        reject(error);
-        return;
-    }
-    if (info.done) {
-        resolve(value);
-    } else {
-        Promise.resolve(value).then(_next, _throw);
-    }
-}
-function _async_to_generator(fn) {
-    return function() {
-        var self = this, args = arguments;
-        return new Promise(function(resolve, reject) {
-            var gen = fn.apply(self, args);
-            function _next(value) {
-                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);
-            }
-            function _throw(err) {
-                asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);
-            }
-            _next(undefined);
-        });
-    };
-}
 function _define_property(obj, key, value) {
     if (key in obj) {
         Object.defineProperty(obj, key, {
@@ -50,13 +21,6 @@ function _define_property(obj, key, value) {
         obj[key] = value;
     }
     return obj;
-}
-function _instanceof(left, right) {
-    if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) {
-        return !!right[Symbol.hasInstance](left);
-    } else {
-        return left instanceof right;
-    }
 }
 function _iterable_to_array(iter) {
     if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
@@ -106,30 +70,6 @@ function _object_spread(target) {
     }
     return target;
 }
-function ownKeys(object, enumerableOnly) {
-    var keys = Object.keys(object);
-    if (Object.getOwnPropertySymbols) {
-        var symbols = Object.getOwnPropertySymbols(object);
-        if (enumerableOnly) {
-            symbols = symbols.filter(function(sym) {
-                return Object.getOwnPropertyDescriptor(object, sym).enumerable;
-            });
-        }
-        keys.push.apply(keys, symbols);
-    }
-    return keys;
-}
-function _object_spread_props(target, source) {
-    source = source != null ? source : {};
-    if (Object.getOwnPropertyDescriptors) {
-        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
-    } else {
-        ownKeys(Object(source)).forEach(function(key) {
-            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
-        });
-    }
-    return target;
-}
 function _object_without_properties(source, excluded) {
     if (source == null) return {};
     var target = _object_without_properties_loose(source, excluded);
@@ -175,105 +115,15 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
-function _ts_generator(thisArg, body) {
-    var f, y, t, _ = {
-        label: 0,
-        sent: function() {
-            if (t[0] & 1) throw t[1];
-            return t[1];
-        },
-        trys: [],
-        ops: []
-    }, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
-    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() {
-        return this;
-    }), g;
-    function verb(n) {
-        return function(v) {
-            return step([
-                n,
-                v
-            ]);
-        };
-    }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while(g && (g = 0, op[0] && (_ = 0)), _)try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [
-                op[0] & 2,
-                t.value
-            ];
-            switch(op[0]){
-                case 0:
-                case 1:
-                    t = op;
-                    break;
-                case 4:
-                    _.label++;
-                    return {
-                        value: op[1],
-                        done: false
-                    };
-                case 5:
-                    _.label++;
-                    y = op[1];
-                    op = [
-                        0
-                    ];
-                    continue;
-                case 7:
-                    op = _.ops.pop();
-                    _.trys.pop();
-                    continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) {
-                        _ = 0;
-                        continue;
-                    }
-                    if (op[0] === 3 && (!t || op[1] > t[0] && op[1] < t[3])) {
-                        _.label = op[1];
-                        break;
-                    }
-                    if (op[0] === 6 && _.label < t[1]) {
-                        _.label = t[1];
-                        t = op;
-                        break;
-                    }
-                    if (t && _.label < t[2]) {
-                        _.label = t[2];
-                        _.ops.push(op);
-                        break;
-                    }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop();
-                    continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) {
-            op = [
-                6,
-                e
-            ];
-            y = 0;
-        } finally{
-            f = t = 0;
-        }
-        if (op[0] & 5) throw op[1];
-        return {
-            value: op[0] ? op[1] : void 0,
-            done: true
-        };
-    }
-}
 import * as React4 from 'react';
-import React4__default, { useState, useCallback, useEffect, useMemo, useRef } from 'react';
-import { create } from 'zustand';
-import { Editor } from '@monaco-editor/react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faExpand, faSpinner } from '@fortawesome/pro-regular-svg-icons';
 import { Slot } from '@radix-ui/react-slot';
-// src/components/input.tsx
+var __defProp = Object.defineProperty;
+var __export = function(target, all) {
+    for(var name in all)__defProp(target, name, {
+        get: all[name],
+        enumerable: true
+    });
+};
 // ../../node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
 function r(e) {
     var t, f, n = "";
@@ -288,7 +138,47 @@ function clsx() {
     for(var e, t, f = 0, n = "", o = arguments.length; f < o; f++)(e = arguments[f]) && (t = r(e)) && (n && (n += " "), n += t);
     return n;
 }
-var clsx_default = clsx;
+// ../../node_modules/.pnpm/class-variance-authority@0.7.1/node_modules/class-variance-authority/dist/index.mjs
+var falsyToString = function(value) {
+    return typeof value === "boolean" ? "".concat(value) : value === 0 ? "0" : value;
+};
+var cx = clsx;
+var cva = function(base, config) {
+    return function(props) {
+        var _config_compoundVariants;
+        if ((config === null || config === void 0 ? void 0 : config.variants) == null) return cx(base, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+        var variants = config.variants, defaultVariants = config.defaultVariants;
+        var getVariantClassNames = Object.keys(variants).map(function(variant) {
+            var variantProp = props === null || props === void 0 ? void 0 : props[variant];
+            var defaultVariantProp = defaultVariants === null || defaultVariants === void 0 ? void 0 : defaultVariants[variant];
+            if (variantProp === null) return null;
+            var variantKey = falsyToString(variantProp) || falsyToString(defaultVariantProp);
+            return variants[variant][variantKey];
+        });
+        var propsWithoutUndefined = props && Object.entries(props).reduce(function(acc, param) {
+            var _param = _sliced_to_array(param, 2), key = _param[0], value = _param[1];
+            if (value === void 0) {
+                return acc;
+            }
+            acc[key] = value;
+            return acc;
+        }, {});
+        var getCompoundVariantClassNames = config === null || config === void 0 ? void 0 : (_config_compoundVariants = config.compoundVariants) === null || _config_compoundVariants === void 0 ? void 0 : _config_compoundVariants.reduce(function(acc, param) {
+            var cvClass = param.class, cvClassName = param.className, compoundVariantOptions = _object_without_properties(param, [
+                "class",
+                "className"
+            ]);
+            return Object.entries(compoundVariantOptions).every(function(param2) {
+                var _param2 = _sliced_to_array(param2, 2), key = _param2[0], value = _param2[1];
+                return Array.isArray(value) ? value.includes(_object_spread({}, defaultVariants, propsWithoutUndefined)[key]) : _object_spread({}, defaultVariants, propsWithoutUndefined)[key] === value;
+            }) ? _to_consumable_array(acc).concat([
+                cvClass,
+                cvClassName
+            ]) : acc;
+        }, []);
+        return cx(base, getVariantClassNames, getCompoundVariantClassNames, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
+    };
+};
 // ../../node_modules/.pnpm/tailwind-merge@3.4.0/node_modules/tailwind-merge/dist/bundle-mjs.mjs
 var concatArrays = function(array1, array2) {
     var combinedArray = new Array(array1.length + array2.length);
@@ -4921,2077 +4811,6 @@ function cn() {
     }
     return twMerge(clsx(inputs));
 }
-// src/components/ui/input.tsx
-function Input(_param) {
-    var className = _param.className, wrapperClassName = _param.wrapperClassName, type = _param.type, required = _param.required, error = _param.error, props = _object_without_properties(_param, [
-        "className",
-        "wrapperClassName",
-        "type",
-        "required",
-        "error"
-    ]);
-    return /* @__PURE__ */ React4.createElement("div", {
-        className: cn("uii:relative", wrapperClassName)
-    }, /* @__PURE__ */ React4.createElement("input", _object_spread({
-        "aria-invalid": error,
-        type: type,
-        "data-slot": "input",
-        className: cn("uii:border-input uii:file:text-foreground uii:placeholder:text-muted-foreground uii:selection:bg-primary uii:selection:text-primary-foreground uii:flex uii:h-9 uii:w-full uii:min-w-0 uii:rounded-sm uii:border uii:bg-transparent uii:px-3 uii:py-1 uii:text-base uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:file:inline-flex uii:file:h-7 uii:file:border-0 uii:file:bg-transparent uii:file:text-sm uii:file:font-medium uii:disabled:pointer-events-none uii:disabled:cursor-not-allowed uii:disabled:opacity-50 uii:md:text-sm", "uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px]", "uii:aria-invalid:ring-destructive/20 uii:dark:aria-invalid:ring-destructive/40 uii:aria-invalid:border-destructive", {
-            "uii:pr-30": error
-        }, className)
-    }, props)), error && /* @__PURE__ */ React4.createElement("span", {
-        className: "uii:absolute uii:inset-y-0 uii:right-0 uii:flex uii:items-center uii:pr-2 uii:border-l-10 uii:border-l-background uii:my-[6px] uii:pointer-events-none "
-    }, /* @__PURE__ */ React4.createElement("span", {
-        className: "uii:bg-destructive uii:text-white uii:px-1.5 uii:py-1.5 uii:rounded-xs uii:uppercase uii:tracking-wide uii:font-medium uii:text-xs uii:leading-none uii:font-sans"
-    }, error && required ? "required" : "error")));
-}
-var defaultState = {
-    expression: "",
-    mode: "value",
-    isEditing: false,
-    currentValue: void 0,
-    isFullScreen: false
-};
-var useExpressionModeStore = create(function(set, get) {
-    return {
-        states: {},
-        setState: function(fieldName, state) {
-            set(function(store) {
-                return {
-                    states: _object_spread_props(_object_spread({}, store.states), _define_property({}, fieldName, state))
-                };
-            });
-        },
-        getState: function(fieldName) {
-            var store = get();
-            return store.states[fieldName] || defaultState;
-        },
-        clear: function(fieldName) {
-            set(function(store) {
-                return {
-                    states: _object_spread_props(_object_spread({}, store.states), _define_property({}, fieldName, defaultState))
-                };
-            });
-        },
-        switchToValue: function(fieldName) {
-            var currentState = get().getState(fieldName);
-            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
-                mode: "value",
-                isEditing: false
-            }));
-        },
-        switchToExpression: function(fieldName) {
-            var currentState = get().getState(fieldName);
-            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
-                mode: "expression",
-                isEditing: false
-            }));
-        },
-        switchToEditor: function(fieldName) {
-            var currentState = get().getState(fieldName);
-            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
-                mode: "expression",
-                isEditing: true
-            }));
-        },
-        setExpression: function(fieldName, expression) {
-            var currentState = get().getState(fieldName);
-            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
-                expression: expression
-            }));
-        },
-        setEditing: function(fieldName, isEditing) {
-            var currentState = get().getState(fieldName);
-            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
-                isEditing: isEditing
-            }));
-        },
-        setFullScreen: function(fieldName, isFullScreen) {
-            var currentState = get().getState(fieldName);
-            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
-                isFullScreen: isFullScreen
-            }));
-        },
-        setCurrentValue: function(fieldName, value) {
-            var currentState = get().getState(fieldName);
-            get().setState(fieldName, _object_spread_props(_object_spread({}, currentState), {
-                currentValue: value
-            }));
-        }
-    };
-});
-// src/hooks/useExpressionMode.ts
-function useExpressionMode(fieldName) {
-    var store = useExpressionModeStore();
-    var state = store.getState(fieldName);
-    var switchToValue = useCallback(function() {
-        store.switchToValue(fieldName);
-    }, [
-        store,
-        fieldName
-    ]);
-    var switchToExpression = useCallback(function() {
-        store.switchToExpression(fieldName);
-    }, [
-        store,
-        fieldName
-    ]);
-    var switchToEditor = useCallback(function() {
-        store.switchToEditor(fieldName);
-    }, [
-        store,
-        fieldName
-    ]);
-    var clear = useCallback(function() {
-        store.clear(fieldName);
-    }, [
-        store,
-        fieldName
-    ]);
-    var setExpression = useCallback(function(expr) {
-        store.setExpression(fieldName, expr);
-    }, [
-        store,
-        fieldName
-    ]);
-    var setEditing = useCallback(function(editing) {
-        store.setEditing(fieldName, editing);
-    }, [
-        store,
-        fieldName
-    ]);
-    var setCurrentValue = useCallback(function(value) {
-        store.setCurrentValue(fieldName, value);
-    }, [
-        store,
-        fieldName
-    ]);
-    var setFullScreen = useCallback(function(isFullScreen) {
-        store.setFullScreen(fieldName, isFullScreen);
-    }, [
-        store,
-        fieldName
-    ]);
-    return {
-        current: state.mode,
-        switchToValue: switchToValue,
-        switchToExpression: switchToExpression,
-        switchToEditor: switchToEditor,
-        clear: clear,
-        isExpressionMode: state.mode === "expression",
-        isEditorMode: state.isEditing,
-        expression: state.expression,
-        setExpression: setExpression,
-        isEditing: state.isEditing,
-        setEditing: setEditing,
-        currentValue: state.currentValue,
-        setCurrentValue: setCurrentValue,
-        isFullScreen: state.isFullScreen,
-        setFullScreen: setFullScreen
-    };
-}
-function inferTypeFromMonaco(editor, monaco, expression) {
-    var logPrefix = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : "\uD83D\uDD37";
-    return _async_to_generator(function() {
-        var currentModel, markers, hasErrors, wrappedCode, tempModel, worker, client, exprIndex, position, quickInfo, extractedType, foundColon, typeParts, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, part, prevPart, typeString, error;
-        return _ts_generator(this, function(_state) {
-            switch(_state.label){
-                case 0:
-                    if (!expression.trim()) {
-                        console.log("".concat(logPrefix, " Type inference skipped - no expression"));
-                        return [
-                            2,
-                            null
-                        ];
-                    }
-                    if (!editor.hasTextFocus()) {
-                        console.log("".concat(logPrefix, " Skipping type inference - editor does not have focus"));
-                        return [
-                            2,
-                            null
-                        ];
-                    }
-                    console.log("".concat(logPrefix, " Running type inference, expression:"), expression);
-                    _state.label = 1;
-                case 1:
-                    _state.trys.push([
-                        1,
-                        5,
-                        ,
-                        6
-                    ]);
-                    currentModel = editor.getModel();
-                    if (currentModel) {
-                        markers = monaco.editor.getModelMarkers({
-                            resource: currentModel.uri
-                        });
-                        hasErrors = markers.some(function(marker) {
-                            return marker.severity === monaco.MarkerSeverity.Error;
-                        });
-                        if (hasErrors) {
-                            console.log("".concat(logPrefix, " Type inference skipped - expression has validation errors"));
-                            return [
-                                2,
-                                "error"
-                            ];
-                        }
-                    }
-                    wrappedCode = "const __expr__ = (".concat(expression, ");");
-                    tempModel = monaco.editor.createModel(wrappedCode, "typescript");
-                    return [
-                        4,
-                        monaco.languages.typescript.getTypeScriptWorker()
-                    ];
-                case 2:
-                    worker = _state.sent();
-                    return [
-                        4,
-                        worker(tempModel.uri)
-                    ];
-                case 3:
-                    client = _state.sent();
-                    exprIndex = wrappedCode.indexOf("__expr__");
-                    position = tempModel.getPositionAt(exprIndex);
-                    return [
-                        4,
-                        client.getQuickInfoAtPosition(tempModel.uri.toString(), tempModel.getOffsetAt(position))
-                    ];
-                case 4:
-                    quickInfo = _state.sent();
-                    console.log("".concat(logPrefix, " QuickInfo response:"), quickInfo);
-                    extractedType = null;
-                    if (quickInfo && quickInfo.displayParts) {
-                        foundColon = false;
-                        typeParts = [];
-                        _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
-                        try {
-                            for(_iterator = quickInfo.displayParts[Symbol.iterator](); !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
-                                part = _step.value;
-                                if (foundColon) typeParts.push(part);
-                                if (part.kind === "punctuation" && part.text === ":" && !foundColon) {
-                                    prevPart = quickInfo.displayParts[quickInfo.displayParts.indexOf(part) - 1];
-                                    if (prevPart && (prevPart.kind === "localName" || prevPart.kind === "parameterName")) {
-                                        foundColon = true;
-                                    }
-                                }
-                            }
-                        } catch (err) {
-                            _didIteratorError = true;
-                            _iteratorError = err;
-                        } finally{
-                            try {
-                                if (!_iteratorNormalCompletion && _iterator.return != null) {
-                                    _iterator.return();
-                                }
-                            } finally{
-                                if (_didIteratorError) {
-                                    throw _iteratorError;
-                                }
-                            }
-                        }
-                        if (typeParts.length > 0) {
-                            typeString = typeParts.map(function(p) {
-                                return p.text;
-                            }).join("").trim();
-                            console.log("".concat(logPrefix, " Extracted type:"), typeString);
-                            if (typeString && typeString !== "any") {
-                                extractedType = typeString;
-                            }
-                        }
-                    }
-                    tempModel.dispose();
-                    return [
-                        2,
-                        extractedType
-                    ];
-                case 5:
-                    error = _state.sent();
-                    console.warn("".concat(logPrefix, " Type inference failed:"), error);
-                    return [
-                        2,
-                        null
-                    ];
-                case 6:
-                    return [
-                        2
-                    ];
-            }
-        });
-    })();
-}
-var InlineEditorOptions = {
-    fontSize: "14px",
-    // md:text-sm
-    fontWeight: "normal",
-    wordWrap: "off",
-    lineNumbers: "off",
-    lineNumbersMinChars: 0,
-    overviewRulerLanes: 0,
-    overviewRulerBorder: false,
-    hideCursorInOverviewRuler: true,
-    lineDecorationsWidth: 0,
-    glyphMargin: false,
-    folding: false,
-    scrollBeyondLastColumn: 0,
-    scrollbar: {
-        horizontal: "hidden",
-        vertical: "hidden",
-        alwaysConsumeMouseWheel: false
-    },
-    find: {
-        addExtraSpaceOnTop: false,
-        autoFindInSelection: "never",
-        seedSearchStringFromSelection: false
-    },
-    minimap: {
-        enabled: false
-    },
-    wordBasedSuggestions: true,
-    // Enable for better UX
-    links: false,
-    occurrencesHighlight: false,
-    cursorStyle: "line",
-    // Match input cursor
-    renderLineHighlight: "none",
-    contextmenu: false,
-    roundedSelection: false,
-    hover: {
-        delay: 300
-    },
-    acceptSuggestionOnEnter: "on",
-    automaticLayout: true,
-    fixedOverflowWidgets: true,
-    // Match Input component styling
-    padding: {
-        top: 4,
-        bottom: 4
-    },
-    // py-1 equivalent
-    fontFamily: "inherit",
-    // Use system font
-    letterSpacing: "normal",
-    lineHeight: "normal"
-};
-var FullPanelEditorOptions = {
-    fontSize: "14px",
-    fontWeight: "normal",
-    wordWrap: "on",
-    lineNumbers: "on",
-    lineNumbersMinChars: 3,
-    overviewRulerLanes: 3,
-    overviewRulerBorder: true,
-    hideCursorInOverviewRuler: false,
-    lineDecorationsWidth: 10,
-    glyphMargin: true,
-    folding: true,
-    scrollBeyondLastColumn: 5,
-    scrollbar: {
-        horizontal: "auto",
-        vertical: "auto",
-        alwaysConsumeMouseWheel: false
-    },
-    find: {
-        addExtraSpaceOnTop: false,
-        autoFindInSelection: "never",
-        seedSearchStringFromSelection: false
-    },
-    minimap: {
-        enabled: true
-    },
-    wordBasedSuggestions: true,
-    links: true,
-    occurrencesHighlight: true,
-    cursorStyle: "line",
-    renderLineHighlight: "line",
-    contextmenu: true,
-    roundedSelection: true,
-    hover: {
-        delay: 300
-    },
-    // IMPORTANT: Don't accept suggestions on Enter - let Enter create new lines
-    acceptSuggestionOnEnter: "off",
-    automaticLayout: true,
-    fixedOverflowWidgets: true,
-    readOnly: false,
-    // Explicitly allow editing
-    domReadOnly: false
-};
-function InlineExpressionEditor(param) {
-    var value = param.value, onChange = param.onChange, onBlur = param.onBlur, onEnter = param.onEnter, onTypeInferred = param.onTypeInferred, onValidationChange = param.onValidationChange, _param_context = param.context, context = _param_context === void 0 ? {} : _param_context, className = param.className, _param_placeholder = param.placeholder, placeholder = _param_placeholder === void 0 ? "Enter expression..." : _param_placeholder;
-    var editorRef = useRef(null);
-    var monacoRef = useRef(null);
-    var typeInferenceTimeoutRef = useRef(null);
-    var handleEditorWillMount = function(monaco) {
-        monacoRef.current = monaco;
-        var contextKeys = Object.keys(context);
-        if (contextKeys.length > 0) {
-            monaco.languages.typescript.javascriptDefaults.addExtraLib("\n        declare const ".concat(contextKeys.join(", "), ": any;\n      "), "context.d.ts");
-        }
-    };
-    var handleEditorDidMount = function(editor, monaco) {
-        editorRef.current = editor;
-        editor.updateOptions(InlineEditorOptions);
-        console.log("\uD83D\uDD37 Inline editor mounted!");
-        editor.getDomNode();
-        var findCommand = editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_F, function() {});
-        var enterKeyDisposable = editor.onKeyDown(function(e) {
-            if (e.keyCode === monaco.KeyCode.Enter) {
-                var _editor__contentWidgets, _contextKeyService_getContextKeyValue;
-                if (!editor.hasTextFocus()) {
-                    console.log("\uD83D\uDD37 Enter keydown but inline editor does NOT have focus - allowing default");
-                    return;
-                }
-                if (e.shiftKey) {
-                    console.log("\uD83D\uDD37 Shift+Enter in INLINE editor - switching to full-screen");
-                    e.preventDefault();
-                    e.stopPropagation();
-                    if (onEnter) {
-                        onEnter();
-                    }
-                    return;
-                }
-                var suggestWidget = (_editor__contentWidgets = editor._contentWidgets) === null || _editor__contentWidgets === void 0 ? void 0 : _editor__contentWidgets["editor.widget.suggestWidget"];
-                var isSuggestVisible = (suggestWidget === null || suggestWidget === void 0 ? void 0 : suggestWidget.widget) && !suggestWidget.widget._hidden && suggestWidget.widget.state !== void 0 && suggestWidget.widget.state !== 0;
-                var contextKeyService = editor._contextKeyService;
-                var suggestWidgetVisible = contextKeyService === null || contextKeyService === void 0 ? void 0 : (_contextKeyService_getContextKeyValue = contextKeyService.getContextKeyValue) === null || _contextKeyService_getContextKeyValue === void 0 ? void 0 : _contextKeyService_getContextKeyValue.call(contextKeyService, "suggestWidgetVisible");
-                if (isSuggestVisible || suggestWidgetVisible) {
-                    console.log("\uD83D\uDD37 Enter in INLINE editor - accepting autocomplete");
-                    e.preventDefault();
-                    e.stopPropagation();
-                    editor.trigger("", "acceptSelectedSuggestion");
-                } else {
-                    console.log("\uD83D\uDD37 Enter in INLINE editor - blurring (finishing edit)");
-                    e.preventDefault();
-                    e.stopPropagation();
-                    onBlur === null || onBlur === void 0 ? void 0 : onBlur({});
-                }
-            }
-        });
-        editor.onDidPaste(function(e) {
-            if (e.endLineNumber <= 1) {
-                return;
-            }
-            var newContent = "";
-            var textModel = editor.getModel();
-            var lineCount = textModel.getLineCount();
-            for(var i = 0; i < lineCount; i += 1){
-                newContent += textModel.getLineContent(i + 1);
-            }
-            textModel.setValue(newContent);
-            editor.setPosition({
-                column: newContent.length + 1,
-                lineNumber: 1
-            });
-        });
-        editor.onDidBlurEditorText(function(e) {
-            var currentValue = editor.getValue();
-            onBlur === null || onBlur === void 0 ? void 0 : onBlur(_object_spread_props(_object_spread({}, e), {
-                currentValue: currentValue
-            }));
-        });
-        editor.onDidChangeModelContent(function() {
-            var model = editor.getModel();
-            if (model) {
-                if (onValidationChange) {
-                    var markers = monaco.editor.getModelMarkers({
-                        resource: model.uri
-                    });
-                    var hasErrors = markers.some(function(marker) {
-                        return marker.severity === monaco.MarkerSeverity.Error;
-                    });
-                    onValidationChange(!hasErrors, markers);
-                }
-                if (onTypeInferred) {
-                    if (typeInferenceTimeoutRef.current) {
-                        clearTimeout(typeInferenceTimeoutRef.current);
-                    }
-                    console.log("\uD83D\uDD37 Content changed - debouncing type inference");
-                    typeInferenceTimeoutRef.current = setTimeout(function() {
-                        return _async_to_generator(function() {
-                            var expressionToAnalyze, inferredType;
-                            return _ts_generator(this, function(_state) {
-                                switch(_state.label){
-                                    case 0:
-                                        expressionToAnalyze = model.getValue();
-                                        return [
-                                            4,
-                                            inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
-                                        ];
-                                    case 1:
-                                        inferredType = _state.sent();
-                                        if (inferredType) {
-                                            onTypeInferred(inferredType);
-                                        }
-                                        return [
-                                            2
-                                        ];
-                                }
-                            });
-                        })();
-                    }, 200);
-                }
-            }
-        });
-        var markerChangeDisposable = monaco.editor.onDidChangeMarkers(function(uris) {
-            var model = editor.getModel();
-            if (!model || !onTypeInferred) return;
-            var isOurModel = uris.some(function(uri) {
-                return uri.toString() === model.uri.toString();
-            });
-            if (!isOurModel) return;
-            var markers = monaco.editor.getModelMarkers({
-                resource: model.uri
-            });
-            var hasErrors = markers.some(function(marker) {
-                return marker.severity === monaco.MarkerSeverity.Error;
-            });
-            console.log("\uD83D\uDD37 Monaco markers changed - hasErrors:", hasErrors);
-            if (hasErrors) {
-                if (typeInferenceTimeoutRef.current) {
-                    clearTimeout(typeInferenceTimeoutRef.current);
-                    typeInferenceTimeoutRef.current = null;
-                }
-                console.log("\uD83D\uDD37 ERROR detected - immediately setting type to error");
-                onTypeInferred("error");
-            } else {
-                if (typeInferenceTimeoutRef.current) {
-                    clearTimeout(typeInferenceTimeoutRef.current);
-                }
-                console.log("\uD83D\uDD37 Errors cleared - triggering type inference");
-                typeInferenceTimeoutRef.current = setTimeout(function() {
-                    return _async_to_generator(function() {
-                        var expressionToAnalyze, inferredType;
-                        return _ts_generator(this, function(_state) {
-                            switch(_state.label){
-                                case 0:
-                                    expressionToAnalyze = model.getValue();
-                                    return [
-                                        4,
-                                        inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
-                                    ];
-                                case 1:
-                                    inferredType = _state.sent();
-                                    if (inferredType) {
-                                        onTypeInferred(inferredType);
-                                    }
-                                    return [
-                                        2
-                                    ];
-                            }
-                        });
-                    })();
-                }, 100);
-            }
-        });
-        editor.addCommand(monaco.KeyCode.F1, function() {});
-        var cursorDisposable = editor.onDidChangeCursorPosition(function() {
-            return _async_to_generator(function() {
-                var model, expressionToAnalyze, inferredType;
-                return _ts_generator(this, function(_state) {
-                    switch(_state.label){
-                        case 0:
-                            if (!(onTypeInferred && editor.hasTextFocus())) return [
-                                3,
-                                2
-                            ];
-                            model = editor.getModel();
-                            if (!(model && model.getValue().trim())) return [
-                                3,
-                                2
-                            ];
-                            if (typeInferenceTimeoutRef.current) {
-                                clearTimeout(typeInferenceTimeoutRef.current);
-                            }
-                            expressionToAnalyze = model.getValue();
-                            return [
-                                4,
-                                inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
-                            ];
-                        case 1:
-                            inferredType = _state.sent();
-                            if (inferredType) {
-                                onTypeInferred(inferredType);
-                            }
-                            _state.label = 2;
-                        case 2:
-                            return [
-                                2
-                            ];
-                    }
-                });
-            })();
-        });
-        editor.setPosition({
-            lineNumber: 1,
-            column: 999999
-        });
-        window.requestAnimationFrame(function() {
-            editor.focus();
-            setTimeout(function() {
-                return _async_to_generator(function() {
-                    var model, markers, hasErrors, expressionToAnalyze, inferredType;
-                    return _ts_generator(this, function(_state) {
-                        switch(_state.label){
-                            case 0:
-                                model = editor.getModel();
-                                if (!(onTypeInferred && model && model.getValue())) return [
-                                    3,
-                                    3
-                                ];
-                                console.log("\uD83D\uDD37 Triggering initial type inference for inline editor");
-                                markers = monaco.editor.getModelMarkers({
-                                    resource: model.uri
-                                });
-                                hasErrors = markers.some(function(marker) {
-                                    return marker.severity === monaco.MarkerSeverity.Error;
-                                });
-                                if (!hasErrors) return [
-                                    3,
-                                    1
-                                ];
-                                onTypeInferred("error");
-                                return [
-                                    3,
-                                    3
-                                ];
-                            case 1:
-                                expressionToAnalyze = model.getValue();
-                                return [
-                                    4,
-                                    inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDD37")
-                                ];
-                            case 2:
-                                inferredType = _state.sent();
-                                if (inferredType) {
-                                    onTypeInferred(inferredType);
-                                }
-                                _state.label = 3;
-                            case 3:
-                                return [
-                                    2
-                                ];
-                        }
-                    });
-                })();
-            }, 100);
-        });
-        editorRef.current._inlineDisposables = {
-            enterKeyDisposable: enterKeyDisposable,
-            findCommand: findCommand,
-            markerChangeDisposable: markerChangeDisposable,
-            cursorDisposable: cursorDisposable
-        };
-    };
-    useEffect(function() {
-        return function() {
-            if (editorRef.current) {
-                console.log("\uD83D\uDD37 Inline editor unmounting - cleaning up");
-                if (typeInferenceTimeoutRef.current) {
-                    clearTimeout(typeInferenceTimeoutRef.current);
-                }
-                if (editorRef.current._inlineDisposables) {
-                    var _disposables_enterKeyDisposable_dispose, _disposables_enterKeyDisposable, _disposables_findCommand_dispose, _disposables_findCommand, _disposables_markerChangeDisposable_dispose, _disposables_markerChangeDisposable, _disposables_cursorDisposable_dispose, _disposables_cursorDisposable;
-                    var disposables = editorRef.current._inlineDisposables;
-                    (_disposables_enterKeyDisposable = disposables.enterKeyDisposable) === null || _disposables_enterKeyDisposable === void 0 ? void 0 : (_disposables_enterKeyDisposable_dispose = _disposables_enterKeyDisposable.dispose) === null || _disposables_enterKeyDisposable_dispose === void 0 ? void 0 : _disposables_enterKeyDisposable_dispose.call(_disposables_enterKeyDisposable);
-                    (_disposables_findCommand = disposables.findCommand) === null || _disposables_findCommand === void 0 ? void 0 : (_disposables_findCommand_dispose = _disposables_findCommand.dispose) === null || _disposables_findCommand_dispose === void 0 ? void 0 : _disposables_findCommand_dispose.call(_disposables_findCommand);
-                    (_disposables_markerChangeDisposable = disposables.markerChangeDisposable) === null || _disposables_markerChangeDisposable === void 0 ? void 0 : (_disposables_markerChangeDisposable_dispose = _disposables_markerChangeDisposable.dispose) === null || _disposables_markerChangeDisposable_dispose === void 0 ? void 0 : _disposables_markerChangeDisposable_dispose.call(_disposables_markerChangeDisposable);
-                    (_disposables_cursorDisposable = disposables.cursorDisposable) === null || _disposables_cursorDisposable === void 0 ? void 0 : (_disposables_cursorDisposable_dispose = _disposables_cursorDisposable.dispose) === null || _disposables_cursorDisposable_dispose === void 0 ? void 0 : _disposables_cursorDisposable_dispose.call(_disposables_cursorDisposable);
-                }
-                editorRef.current = null;
-            }
-        };
-    }, []);
-    var handleEditorChange = function(newValue) {
-        onChange(newValue || "");
-    };
-    return /* @__PURE__ */ React4__default.createElement("div", {
-        className: cn("uii:relative uii:flex-1", className)
-    }, /* @__PURE__ */ React4__default.createElement(Editor, {
-        theme: "vs-dark",
-        height: "26px",
-        language: "typescript",
-        value: value,
-        onChange: handleEditorChange,
-        onMount: handleEditorDidMount,
-        beforeMount: handleEditorWillMount,
-        width: "100%",
-        loading: /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement(FontAwesomeIcon, {
-            icon: faSpinner,
-            className: "uii:animate-spin"
-        })),
-        options: InlineEditorOptions,
-        className: "uii:-ml-[4px] uii:-mt-[1px] inline-editor"
-    }), !value && /* @__PURE__ */ React4__default.createElement("div", {
-        className: "uii:absolute uii:inset-0 uii:flex uii:items-center uii:pointer-events-none uii:text-muted-foreground uii:text-sm"
-    }, placeholder));
-}
-function FullPanelExpressionEditor(param) {
-    var value = param.value, onChange = param.onChange, onClose = param.onClose, onBlur = param.onBlur, onTypeInferred = param.onTypeInferred, _param_context = param.context, context = _param_context === void 0 ? {} : _param_context, className = param.className, _param_placeholder = param.placeholder, placeholder = _param_placeholder === void 0 ? "Enter expression..." : _param_placeholder;
-    var editorRef = useRef(null);
-    var monacoRef = useRef(null);
-    var typeInferenceTimeoutRef = useRef(null);
-    var handleEditorWillMount = function(monaco) {
-        monacoRef.current = monaco;
-        var contextKeys = Object.keys(context);
-        if (contextKeys.length > 0) {
-            monaco.languages.typescript.javascriptDefaults.addExtraLib("\n        declare const ".concat(contextKeys.join(", "), ": any;\n      "), "context.d.ts");
-        }
-    };
-    var handleFPEditorDidMount = function(editor, monaco) {
-        editorRef.current = editor;
-        editor.updateOptions(FullPanelEditorOptions);
-        console.log("\uD83D\uDFE6 FULL-SCREEN panel editor mounted!");
-        console.log("Full-screen editor is read-only?", editor.getOption(monaco.editor.EditorOption.readOnly));
-        var escapeKeyDisposable = editor.onKeyDown(function(e) {
-            if (e.keyCode === monaco.KeyCode.Escape) {
-                console.log("\uD83D\uDFE6 Escape pressed in FULL-SCREEN editor - closing");
-                e.preventDefault();
-                e.stopPropagation();
-                onClose();
-            }
-            if (e.keyCode === monaco.KeyCode.Enter) {
-                var _editor__contentWidgets, _contextKeyService_getContextKeyValue;
-                var suggestWidget = (_editor__contentWidgets = editor._contentWidgets) === null || _editor__contentWidgets === void 0 ? void 0 : _editor__contentWidgets["editor.widget.suggestWidget"];
-                var isSuggestVisible = (suggestWidget === null || suggestWidget === void 0 ? void 0 : suggestWidget.widget) && !suggestWidget.widget._hidden && suggestWidget.widget.state !== void 0 && suggestWidget.widget.state !== 0;
-                var contextKeyService = editor._contextKeyService;
-                var suggestWidgetVisible = contextKeyService === null || contextKeyService === void 0 ? void 0 : (_contextKeyService_getContextKeyValue = contextKeyService.getContextKeyValue) === null || _contextKeyService_getContextKeyValue === void 0 ? void 0 : _contextKeyService_getContextKeyValue.call(contextKeyService, "suggestWidgetVisible");
-                if (isSuggestVisible || suggestWidgetVisible) {
-                    console.log("\uD83D\uDFE6 Enter in FULL-SCREEN - accepting autocomplete");
-                    e.preventDefault();
-                    e.stopPropagation();
-                    editor.trigger("", "acceptSelectedSuggestion");
-                } else {
-                    console.log("\uD83D\uDFE6 Enter in FULL-SCREEN - allowing newline (default behavior)");
-                }
-            }
-        });
-        var changeCount = 0;
-        var changeDisposable = editor.onDidChangeModelContent(function(e) {
-            var _editor_getModel;
-            changeCount++;
-            var newValue = editor.getValue();
-            console.log("\uD83D\uDFE6 FULL-SCREEN content changed (".concat(changeCount, "):"), newValue);
-            console.log("\uD83D\uDFE6 Line count: ".concat((_editor_getModel = editor.getModel()) === null || _editor_getModel === void 0 ? void 0 : _editor_getModel.getLineCount()));
-            if (onTypeInferred) {
-                if (typeInferenceTimeoutRef.current) {
-                    clearTimeout(typeInferenceTimeoutRef.current);
-                }
-                console.log("\uD83D\uDFE6 Content changed - debouncing type inference");
-                typeInferenceTimeoutRef.current = setTimeout(function() {
-                    return _async_to_generator(function() {
-                        var expressionToAnalyze, inferredType;
-                        return _ts_generator(this, function(_state) {
-                            switch(_state.label){
-                                case 0:
-                                    expressionToAnalyze = newValue;
-                                    return [
-                                        4,
-                                        inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
-                                    ];
-                                case 1:
-                                    inferredType = _state.sent();
-                                    if (inferredType) {
-                                        onTypeInferred(inferredType);
-                                    }
-                                    return [
-                                        2
-                                    ];
-                            }
-                        });
-                    })();
-                }, 200);
-            }
-        });
-        var markerChangeDisposable = monaco.editor.onDidChangeMarkers(function(uris) {
-            var model2 = editor.getModel();
-            if (!model2 || !onTypeInferred) return;
-            var isOurModel = uris.some(function(uri) {
-                return uri.toString() === model2.uri.toString();
-            });
-            if (!isOurModel) return;
-            var markers = monaco.editor.getModelMarkers({
-                resource: model2.uri
-            });
-            var hasErrors = markers.some(function(marker) {
-                return marker.severity === monaco.MarkerSeverity.Error;
-            });
-            console.log("\uD83D\uDFE6 Monaco markers changed - hasErrors:", hasErrors);
-            if (hasErrors) {
-                if (typeInferenceTimeoutRef.current) {
-                    clearTimeout(typeInferenceTimeoutRef.current);
-                    typeInferenceTimeoutRef.current = null;
-                }
-                console.log("\uD83D\uDFE6 ERROR detected - immediately setting type to error");
-                onTypeInferred("error");
-            } else {
-                if (typeInferenceTimeoutRef.current) {
-                    clearTimeout(typeInferenceTimeoutRef.current);
-                }
-                console.log("\uD83D\uDFE6 Errors cleared - triggering type inference");
-                typeInferenceTimeoutRef.current = setTimeout(function() {
-                    return _async_to_generator(function() {
-                        var expressionToAnalyze, inferredType;
-                        return _ts_generator(this, function(_state) {
-                            switch(_state.label){
-                                case 0:
-                                    expressionToAnalyze = model2.getValue();
-                                    return [
-                                        4,
-                                        inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
-                                    ];
-                                case 1:
-                                    inferredType = _state.sent();
-                                    if (inferredType) {
-                                        onTypeInferred(inferredType);
-                                    }
-                                    return [
-                                        2
-                                    ];
-                            }
-                        });
-                    })();
-                }, 100);
-            }
-        });
-        editor.onDidBlurEditorText(function(e) {
-            var currentValue = editor.getValue();
-            onBlur === null || onBlur === void 0 ? void 0 : onBlur(_object_spread_props(_object_spread({}, e), {
-                currentValue: currentValue
-            }));
-        });
-        var model = editor.getModel();
-        if (model) {
-            var lineCount = model.getLineCount();
-            var lastLineLength = model.getLineLength(lineCount);
-            editor.setPosition({
-                lineNumber: lineCount,
-                column: lastLineLength + 1
-            });
-        }
-        editor.focus();
-        setTimeout(function() {
-            return _async_to_generator(function() {
-                var markers, hasErrors, expressionToAnalyze, inferredType;
-                return _ts_generator(this, function(_state) {
-                    switch(_state.label){
-                        case 0:
-                            if (!(onTypeInferred && model)) return [
-                                3,
-                                3
-                            ];
-                            console.log("\uD83D\uDFE6 Triggering initial type inference for full-screen editor");
-                            markers = monaco.editor.getModelMarkers({
-                                resource: model.uri
-                            });
-                            hasErrors = markers.some(function(marker) {
-                                return marker.severity === monaco.MarkerSeverity.Error;
-                            });
-                            if (!hasErrors) return [
-                                3,
-                                1
-                            ];
-                            console.log("\uD83D\uDFE6 Initial load has error - setting type to error");
-                            onTypeInferred("error");
-                            return [
-                                3,
-                                3
-                            ];
-                        case 1:
-                            expressionToAnalyze = model.getValue();
-                            return [
-                                4,
-                                inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
-                            ];
-                        case 2:
-                            inferredType = _state.sent();
-                            if (inferredType) {
-                                onTypeInferred(inferredType);
-                            }
-                            _state.label = 3;
-                        case 3:
-                            return [
-                                2
-                            ];
-                    }
-                });
-            })();
-        }, 100);
-        var cursorDisposable = editor.onDidChangeCursorPosition(function() {
-            return _async_to_generator(function() {
-                var model2, expressionToAnalyze, inferredType;
-                return _ts_generator(this, function(_state) {
-                    switch(_state.label){
-                        case 0:
-                            if (!(onTypeInferred && editor.hasTextFocus())) return [
-                                3,
-                                2
-                            ];
-                            model2 = editor.getModel();
-                            if (!(model2 && model2.getValue().trim())) return [
-                                3,
-                                2
-                            ];
-                            if (typeInferenceTimeoutRef.current) {
-                                clearTimeout(typeInferenceTimeoutRef.current);
-                            }
-                            expressionToAnalyze = model2.getValue();
-                            return [
-                                4,
-                                inferTypeFromMonaco(editor, monaco, expressionToAnalyze, "\uD83D\uDFE6")
-                            ];
-                        case 1:
-                            inferredType = _state.sent();
-                            if (inferredType) {
-                                onTypeInferred(inferredType);
-                            }
-                            _state.label = 2;
-                        case 2:
-                            return [
-                                2
-                            ];
-                    }
-                });
-            })();
-        });
-        editorRef.current._fullScreenDisposables = {
-            escapeKeyDisposable: escapeKeyDisposable,
-            changeDisposable: changeDisposable,
-            markerChangeDisposable: markerChangeDisposable,
-            cursorDisposable: cursorDisposable
-        };
-    };
-    useEffect(function() {
-        return function() {
-            if (editorRef.current) {
-                console.log("\uD83D\uDFE6 Full-screen editor unmounting - cleaning up");
-                if (typeInferenceTimeoutRef.current) {
-                    clearTimeout(typeInferenceTimeoutRef.current);
-                }
-                if (editorRef.current._fullScreenDisposables) {
-                    var _disposables_escapeKeyDisposable_dispose, _disposables_escapeKeyDisposable, _disposables_changeDisposable_dispose, _disposables_changeDisposable, _disposables_markerChangeDisposable_dispose, _disposables_markerChangeDisposable, _disposables_cursorDisposable_dispose, _disposables_cursorDisposable;
-                    var disposables = editorRef.current._fullScreenDisposables;
-                    (_disposables_escapeKeyDisposable = disposables.escapeKeyDisposable) === null || _disposables_escapeKeyDisposable === void 0 ? void 0 : (_disposables_escapeKeyDisposable_dispose = _disposables_escapeKeyDisposable.dispose) === null || _disposables_escapeKeyDisposable_dispose === void 0 ? void 0 : _disposables_escapeKeyDisposable_dispose.call(_disposables_escapeKeyDisposable);
-                    (_disposables_changeDisposable = disposables.changeDisposable) === null || _disposables_changeDisposable === void 0 ? void 0 : (_disposables_changeDisposable_dispose = _disposables_changeDisposable.dispose) === null || _disposables_changeDisposable_dispose === void 0 ? void 0 : _disposables_changeDisposable_dispose.call(_disposables_changeDisposable);
-                    (_disposables_markerChangeDisposable = disposables.markerChangeDisposable) === null || _disposables_markerChangeDisposable === void 0 ? void 0 : (_disposables_markerChangeDisposable_dispose = _disposables_markerChangeDisposable.dispose) === null || _disposables_markerChangeDisposable_dispose === void 0 ? void 0 : _disposables_markerChangeDisposable_dispose.call(_disposables_markerChangeDisposable);
-                    (_disposables_cursorDisposable = disposables.cursorDisposable) === null || _disposables_cursorDisposable === void 0 ? void 0 : (_disposables_cursorDisposable_dispose = _disposables_cursorDisposable.dispose) === null || _disposables_cursorDisposable_dispose === void 0 ? void 0 : _disposables_cursorDisposable_dispose.call(_disposables_cursorDisposable);
-                }
-                editorRef.current = null;
-            }
-        };
-    }, []);
-    var handleEditorChange = function(newValue) {
-        onChange(newValue || "");
-    };
-    return /* @__PURE__ */ React4__default.createElement("div", {
-        className: cn("uii:relative uii:border uii:rounded-md uii:bg-background", className)
-    }, /* @__PURE__ */ React4__default.createElement("div", {
-        className: "uii:flex uii:items-center uii:justify-between uii:p-2 uii:border-b uii:bg-muted/50"
-    }, /* @__PURE__ */ React4__default.createElement("span", {
-        className: "uii:text-sm uii:font-medium"
-    }, "Expression Editor"), /* @__PURE__ */ React4__default.createElement("button", {
-        type: "button",
-        onClick: onClose,
-        className: "uii:text-muted-foreground hover:uii:text-foreground uii:p-1 uii:rounded uii:cursor-pointer uii:text-xs"
-    }, "\u2715")), /* @__PURE__ */ React4__default.createElement(Editor, {
-        height: "300px",
-        theme: "vs-dark",
-        language: "typescript",
-        value: value,
-        onChange: handleEditorChange,
-        onMount: handleFPEditorDidMount,
-        beforeMount: handleEditorWillMount,
-        options: FullPanelEditorOptions
-    }), !value && /* @__PURE__ */ React4__default.createElement("div", {
-        className: "uii:absolute uii:inset-0 uii:flex uii:items-center uii:justify-center uii:pointer-events-none uii:text-muted-foreground"
-    }, placeholder));
-}
-function useASTParser(expression, controlKey) {
-    var _useState = _sliced_to_array(useState(null), 2), ast = _useState[0], setAST = _useState[1];
-    var _useState1 = _sliced_to_array(useState([]), 2), tokens = _useState1[0], setTokens = _useState1[1];
-    var _useState2 = _sliced_to_array(useState([]), 2), dependencies = _useState2[0], setDependencies = _useState2[1];
-    var _useState3 = _sliced_to_array(useState(false), 2), isLoading = _useState3[0], setIsLoading = _useState3[1];
-    var _useState4 = _sliced_to_array(useState(null), 2), error = _useState4[0], setError = _useState4[1];
-    var requestIdRef = useRef(0);
-    var messageHandlerRef = useRef(null);
-    var controlKeyRef = useRef(controlKey || "default");
-    useEffect(function() {
-        controlKeyRef.current = controlKey || "default";
-    }, [
-        controlKey
-    ]);
-    useEffect(function() {
-        if (typeof window === "undefined" || !navigator.serviceWorker) {
-            setError("Service worker not available");
-            return;
-        }
-        var handleMessage = function(event) {
-            if (event.data.type === "AST_PARSE_RESULT") {
-                var _event_data_payload = event.data.payload, id = _event_data_payload.id, controlKey2 = _event_data_payload.controlKey, result = _event_data_payload.result;
-                if (id === requestIdRef.current && controlKey2 === controlKeyRef.current) {
-                    console.log("Service worker AST response:", {
-                        id: id,
-                        controlKey: controlKey2,
-                        result: result
-                    });
-                    setAST(result.ast);
-                    setTokens(result.tokens);
-                    setDependencies(result.dependencies || []);
-                    setError(result.error || null);
-                    setIsLoading(false);
-                } else {
-                    console.log("Ignoring AST response - wrong control:", {
-                        receivedId: id,
-                        expectedId: requestIdRef.current,
-                        receivedKey: controlKey2,
-                        expectedKey: controlKeyRef.current
-                    });
-                }
-            }
-        };
-        messageHandlerRef.current = handleMessage;
-        navigator.serviceWorker.addEventListener("message", handleMessage);
-        return function() {
-            if (messageHandlerRef.current) {
-                navigator.serviceWorker.removeEventListener("message", messageHandlerRef.current);
-            }
-        };
-    }, []);
-    useEffect(function() {
-        if (!expression.trim()) {
-            setAST(null);
-            setTokens([]);
-            setDependencies([]);
-            setError(null);
-            setIsLoading(false);
-            return;
-        }
-        if (!navigator.serviceWorker || !navigator.serviceWorker.controller) {
-            setError("Service worker not ready");
-            setIsLoading(false);
-            return;
-        }
-        setIsLoading(true);
-        setError(null);
-        requestIdRef.current++;
-        console.log("Sending expression to service worker:", {
-            expression: expression.trim(),
-            controlKey: controlKeyRef.current,
-            id: requestIdRef.current
-        });
-        navigator.serviceWorker.controller.postMessage({
-            type: "PARSE_AST",
-            payload: {
-                expression: expression.trim(),
-                id: requestIdRef.current,
-                controlKey: controlKeyRef.current
-            }
-        });
-    }, [
-        expression
-    ]);
-    return {
-        ast: ast,
-        tokens: tokens,
-        dependencies: dependencies,
-        isLoading: isLoading,
-        error: error
-    };
-}
-function ASTRenderer(param) {
-    var ast = param.ast, key = param.key, className = param.className, _param_variant = param.variant, variant = _param_variant === void 0 ? "inline" : _param_variant, _param_showTokens = param.showTokens, showTokens = _param_showTokens === void 0 ? false : _param_showTokens, _param_tokens = param.tokens, tokens = _param_tokens === void 0 ? [] : _param_tokens;
-    var getNodeColor = function(type) {
-        switch(type){
-            case "StringLiteral":
-                return "uii:text-green-600 uii:bg-green-100";
-            case "NumericLiteral":
-                return "uii:text-purple-600 uii:bg-purple-100";
-            case "Identifier":
-                return "uii:text-blue-600 uii:bg-blue-100";
-            case "Keyword":
-            case "Literal":
-                return "uii:text-orange-600 uii:bg-orange-100";
-            case "BinaryExpression":
-                return "uii:text-gray-700 uii:bg-gray-100";
-            case "CallExpression":
-                return "uii:text-indigo-600 uii:bg-indigo-100";
-            case "MemberExpression":
-                return "uii:text-cyan-600 uii:bg-cyan-100";
-            case "UnaryExpression":
-                return "uii:text-pink-600 uii:bg-pink-100";
-            case "ParenthesizedExpression":
-                return "uii:text-yellow-600 uii:bg-yellow-100";
-            default:
-                return "uii:text-gray-600 uii:bg-gray-100";
-        }
-    };
-    var renderInlineNode = function(node) {
-        var depth = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
-        if (depth > 2) return null;
-        if (node.type === "Identifier") {
-            return /* @__PURE__ */ React4__default.createElement("span", {
-                key: "".concat(node.start, "-").concat(node.end),
-                className: "uii:inline-flex uii:items-center uii:mr-1"
-            }, /* @__PURE__ */ React4__default.createElement("span", {
-                className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-blue-100 uii:text-blue-800 uii:font-mono"
-            }, node.name || node.value));
-        }
-        if (node.type === "StringLiteral" || node.type === "NumericLiteral") {
-            return /* @__PURE__ */ React4__default.createElement("span", {
-                key: "".concat(node.start, "-").concat(node.end),
-                className: "uii:inline-flex uii:items-center uii:mr-1"
-            }, /* @__PURE__ */ React4__default.createElement("span", {
-                className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-green-100 uii:text-green-800 uii:font-mono"
-            }, node.value));
-        }
-        if (node.type === "BinaryExpression") {
-            return /* @__PURE__ */ React4__default.createElement("span", {
-                key: "".concat(node.start, "-").concat(node.end),
-                className: "uii:inline-flex uii:items-center uii:mr-1"
-            }, node.left && renderInlineNode(node.left, depth + 1), /* @__PURE__ */ React4__default.createElement("span", {
-                className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-purple-100 uii:text-purple-800 uii:font-mono uii:mx-1"
-            }, node.operator), node.right && renderInlineNode(node.right, depth + 1));
-        }
-        if (node.type === "CallExpression") {
-            return /* @__PURE__ */ React4__default.createElement("span", {
-                key: "".concat(node.start, "-").concat(node.end),
-                className: "uii:inline-flex uii:items-center uii:mr-1"
-            }, node.callee && renderInlineNode(node.callee, depth + 1), /* @__PURE__ */ React4__default.createElement("span", {
-                className: "text-xs text-gray-600"
-            }, "()"));
-        }
-        if (node.type === "PropertyAccessExpression") {
-            return /* @__PURE__ */ React4__default.createElement("span", {
-                key: "".concat(node.start, "-").concat(node.end),
-                className: "uii:inline-flex uii:items-center uii:mr-1"
-            }, node.object && renderInlineNode(node.object, depth + 1), /* @__PURE__ */ React4__default.createElement("span", {
-                className: "text-xs text-gray-600"
-            }, "."), node.property && renderInlineNode(node.property, depth + 1));
-        }
-        return /* @__PURE__ */ React4__default.createElement("span", {
-            key: "".concat(node.start, "-").concat(node.end),
-            className: "uii:inline-flex uii:items-center uii:mr-1"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "px-1 py-0.5 rounded text-xs bg-gray-100 text-gray-600 font-mono"
-        }, node.type));
-    };
-    var renderTreeNode = function(node) {
-        var depth = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0;
-        if (depth > 4) return null;
-        var indent = "  ".repeat(depth);
-        return /* @__PURE__ */ React4__default.createElement("div", {
-            key: "".concat(node.start, "-").concat(node.end),
-            className: "font-mono text-xs"
-        }, /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:flex uii:items-start uii:gap-2"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-gray-400"
-        }, indent), /* @__PURE__ */ React4__default.createElement("span", {
-            className: cn("uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:font-semibold", getNodeColor(node.type))
-        }, node.type), node.value && /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-green-600"
-        }, '"', node.value, '"'), node.operator && /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-purple-600"
-        }, node.operator), node.name && /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-blue-600"
-        }, node.name)), node.left && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-gray-500 uii:text-xs"
-        }, "left: "), renderTreeNode(node.left, depth + 1)), node.right && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-gray-500 uii:text-xs"
-        }, "right: "), renderTreeNode(node.right, depth + 1)), node.argument && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-gray-500 uii:text-xs"
-        }, "arg: "), renderTreeNode(node.argument, depth + 1)), node.object && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-gray-500 uii:text-xs"
-        }, "obj: "), renderTreeNode(node.object, depth + 1)), node.property && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-gray-500 uii:text-xs"
-        }, "prop: "), renderTreeNode(node.property, depth + 1)), node.index && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2"
-        }, /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:text-gray-500 uii:text-xs"
-        }, "idx: "), renderTreeNode(node.index, depth + 1)), !node.left && !node.right && !node.argument && !node.object && !node.property && !node.index && node.children && node.children.length > 0 && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2"
-        }, node.children.slice(0, 3).map(function(child, index) {
-            return renderTreeNode(child, depth + 1);
-        }), node.children.length > 3 && /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:ml-2 uii:text-gray-500 uii:text-xs"
-        }, "... and ", node.children.length - 3, " more")));
-    };
-    var renderTokens = function() {
-        if (tokens.length === 0) return null;
-        var displayTokens = tokens.slice(0, 10);
-        return /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:space-y-2"
-        }, /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:text-sm uii:font-semibold uii:text-gray-700"
-        }, "Tokens ", tokens.length > 10 && "(".concat(tokens.length, " total)"), ":"), /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:flex uii:flex-wrap uii:gap-1"
-        }, displayTokens.map(function(token, index) {
-            return /* @__PURE__ */ React4__default.createElement("span", {
-                key: index,
-                className: cn("uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:font-mono", token.type.includes("Keyword") && "uii:bg-blue-100 uii:text-blue-800", token.type.includes("Identifier") && "uii:bg-green-100 uii:text-green-800", token.type.includes("String") && "uii:bg-yellow-100 uii:text-yellow-800", token.type.includes("Numeric") && "uii:bg-purple-100 uii:text-purple-800", token.type.includes("Punctuation") && "uii:bg-gray-100 uii:text-gray-800", "uii:bg-gray-100 uii:text-gray-600")
-            }, token.value);
-        }), tokens.length > 10 && /* @__PURE__ */ React4__default.createElement("span", {
-            className: "uii:px-1 uii:py-0.5 uii:rounded uii:text-xs uii:bg-gray-200 uii:text-gray-600"
-        }, "+", tokens.length - 10, " more")));
-    };
-    if (!ast) {
-        return /* @__PURE__ */ React4__default.createElement("div", {
-            className: cn("uii:text-gray-500 uii:text-sm uii:italic", className)
-        }, "No AST available");
-    }
-    if (variant === "inline") {
-        return /* @__PURE__ */ React4__default.createElement("div", {
-            className: cn("uii:inline-flex uii:items-center uii:gap-2", className)
-        }, renderInlineNode(ast));
-    }
-    if (variant === "compact") {
-        return /* @__PURE__ */ React4__default.createElement("div", {
-            className: cn("uii:space-y-2", className)
-        }, /* @__PURE__ */ React4__default.createElement("div", {
-            className: "uii:flex uii:flex-wrap uii:gap-1"
-        }, renderInlineNode(ast)), showTokens && renderTokens());
-    }
-    return /* @__PURE__ */ React4__default.createElement("div", {
-        className: cn("uii:space-y-3", className)
-    }, /* @__PURE__ */ React4__default.createElement("div", {
-        className: "uii:space-y-2"
-    }, /* @__PURE__ */ React4__default.createElement("div", {
-        className: "uii:text-sm uii:font-semibold uii:text-gray-700"
-    }, "AST Tree:"), /* @__PURE__ */ React4__default.createElement("div", {
-        className: "uii:p-3 uii:border uii:rounded-md uii:bg-gray-50 uii:max-h-64 uii:overflow-auto"
-    }, renderTreeNode(ast))), showTokens && renderTokens());
-}
-function ExpressionWrapper(param) {
-    var label = param.label, value = param.value, type = param.type, _param_valuesLoading = param.valuesLoading, valuesLoading = _param_valuesLoading === void 0 ? false : _param_valuesLoading, key = param.key, onValueChange = param.onValueChange, onDependenciesChange = param.onDependenciesChange, metadata = param.metadata, children = param.children, fieldName = param.fieldName, _param_expressionContext = param.expressionContext, expressionContext = _param_expressionContext === void 0 ? {} : _param_expressionContext, availableNodes = param.availableNodes, myInterface = param.myInterface, contextTypeDefinitions = param.contextTypeDefinitions, _param_inlineEditor = param.inlineEditor, inlineEditor = _param_inlineEditor === void 0 ? true : _param_inlineEditor, className = param.className, editorClassName = param.editorClassName, _param_expressionPlaceholder = param.expressionPlaceholder, expressionPlaceholder = _param_expressionPlaceholder === void 0 ? "Enter expression..." : _param_expressionPlaceholder, evaluateExpression = param.evaluateExpression, expressionResult = param.expressionResult, _param_isEvaluating = param.isEvaluating, isEvaluating = _param_isEvaluating === void 0 ? false : _param_isEvaluating, _param_isExpressionValid = param.isExpressionValid, isExpressionValid = _param_isExpressionValid === void 0 ? true : _param_isExpressionValid, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "any" : _param_expectedType;
-    var _useState = _sliced_to_array(useState(function() {
-        var initialMetadata = metadata || {
-            expression: "",
-            mode: "value",
-            isEditing: false,
-            isFullScreen: false,
-            value: void 0
-        };
-        return _object_spread_props(_object_spread({}, initialMetadata), {
-            isEditing: false,
-            isFullScreen: false,
-            mode: "value"
-        });
-    }), 2), expressionMetadata = _useState[0], setExpressionMetadata = _useState[1];
-    var _useState1 = _sliced_to_array(useState(value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression" ? value.value : value), 2), originalValue = _useState1[0], setOriginalValue = _useState1[1];
-    var _useState2 = _sliced_to_array(useState(value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression" ? value.value : value), 2), currentValue = _useState2[0], setCurrentValue = _useState2[1];
-    var formatValue = useCallback(function(value2) {
-        switch(type){
-            case "float":
-                {
-                    return typeof value2 === "string" && !isNaN(parseFloat(value2)) ? parseFloat(value2) : value2;
-                }
-            case "integer":
-            case "number":
-                {
-                    return typeof value2 === "string" && !isNaN(parseInt(value2)) ? parseInt(value2) : value2;
-                }
-            case "string[]":
-                {
-                    return typeof value2 === "string" ? value2.split(",") : value2;
-                }
-            case "string":
-            default:
-                {
-                    return value2;
-                }
-        }
-    }, [
-        type
-    ]);
-    var _useState3 = _sliced_to_array(useState(), 2), currentEditorValue = _useState3[0], setCurrentEditorValue = _useState3[1];
-    var currentExpressionValueExt = useExpressionModeStore.getState().getState(fieldName).expression;
-    useEffect(function() {
-        if (metadata) {
-            setExpressionMetadata(_object_spread_props(_object_spread({}, metadata), {
-                // Don't restore editing/fullscreen state from metadata
-                // User needs to explicitly click to edit
-                isEditing: false,
-                isFullScreen: false
-            }));
-        }
-    }, [
-        metadata
-    ]);
-    var isExpressionValue = useMemo(function() {
-        return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression";
-    }, [
-        value
-    ]);
-    var isInitialMount = useRef(true);
-    useEffect(function() {
-        if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value && "type" in value && value.type === "expression") {
-            var exprValue = value.value;
-            var exprString = value.expression;
-            if (exprValue !== void 0) {
-                setCurrentValue(formatValue(exprValue));
-                setOriginalValue(formatValue(exprValue));
-            }
-            if (exprString && expressionMode.expression !== exprString) {
-                expressionMode.setExpression(exprString);
-                if (isInitialMount.current && !expressionMode.isEditing) {
-                    expressionMode.switchToExpression();
-                }
-            }
-            var isMetadataOutOfSync = !metadata || metadata.expression !== exprString || metadata.mode === "value" || // If value has expression but mode is 'value', it's out of sync
-            metadata.isEditing === true || // Should never start editing on load
-            metadata.isFullScreen === true;
-            if (isInitialMount.current && isMetadataOutOfSync) {
-                var syncedMetadata = {
-                    expression: exprString || "",
-                    value: formatValue(exprValue),
-                    mode: "expression",
-                    // Show expression display (not editing)
-                    isEditing: false,
-                    isFullScreen: false
-                };
-                setTimeout(function() {
-                    onValueChange(value, _object_spread_props(_object_spread({}, syncedMetadata), {
-                        value: formatValue(value)
-                    }));
-                }, 0);
-            }
-        } else {
-            if (!valuesLoading) {
-                setCurrentValue(formatValue(value));
-                setOriginalValue(formatValue(value));
-                if (isInitialMount.current && ((metadata === null || metadata === void 0 ? void 0 : metadata.expression) || (metadata === null || metadata === void 0 ? void 0 : metadata.mode) === "expression")) {
-                    var syncedMetadata1 = {
-                        expression: "",
-                        value: formatValue(value),
-                        mode: "value",
-                        isEditing: false,
-                        isFullScreen: false
-                    };
-                    setTimeout(function() {
-                        onValueChange(formatValue(value), _object_spread_props(_object_spread({}, syncedMetadata1), {
-                            value: formatValue(value)
-                        }));
-                    }, 0);
-                }
-            }
-        }
-        if (isInitialMount.current) {
-            setTimeout(function() {
-                isInitialMount.current = false;
-            }, 100);
-        }
-    }, [
-        value,
-        valuesLoading
-    ]);
-    var expressionMode = useExpressionMode(fieldName);
-    var _useASTParser = useASTParser(expressionMode.expression, fieldName), ast = _useASTParser.ast, tokens = _useASTParser.tokens, dependencies = _useASTParser.dependencies, isParsing = _useASTParser.isLoading, parseError = _useASTParser.error;
-    var dependencyList = useMemo(function() {
-        if (!ast || dependencies.length === 0) {
-            return [];
-        }
-        return dependencies.map(function(dep) {
-            return {
-                name: dep,
-                exists: expressionContext ? dep in expressionContext : false,
-                value: expressionContext ? expressionContext[dep] : void 0
-            };
-        });
-    }, [
-        dependencies,
-        expressionContext,
-        ast
-    ]);
-    var _useState4 = _sliced_to_array(useState(null), 2), typeScriptInferredType = _useState4[0], setTypeScriptInferredType = _useState4[1];
-    var handleTypeInferred = useCallback(function(type2) {
-        setTypeScriptInferredType(type2);
-    }, []);
-    var expressionHasNewlines = useMemo(function() {
-        return expressionMode.expression.includes("\n") || expressionMode.expression.includes("\r");
-    }, [
-        expressionMode.expression
-    ]);
-    var inferredReturnType = useMemo(function() {
-        return typeScriptInferredType || "unknown";
-    }, [
-        typeScriptInferredType
-    ]);
-    var hasTypeMismatch = useMemo(function() {
-        if (!inferredReturnType || inferredReturnType === "unknown" || inferredReturnType === "any" || inferredReturnType === "error") {
-            return false;
-        }
-        var normalizedInferred = inferredReturnType.toLowerCase().trim();
-        var normalizedExpected = (type || expectedType || "any").toLowerCase().trim();
-        if (normalizedExpected === "array" && normalizedInferred.endsWith("[]")) {
-            return false;
-        }
-        if (normalizedInferred === normalizedExpected) {
-            return false;
-        }
-        if (normalizedExpected === "any") {
-            return false;
-        }
-        if (normalizedExpected === "string" && (normalizedInferred.startsWith('"') || normalizedInferred.startsWith("'"))) {
-            return false;
-        }
-        if (normalizedExpected === "number" && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(normalizedInferred)) {
-            return false;
-        }
-        if (normalizedExpected === "integer" && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(normalizedInferred)) {
-            return false;
-        }
-        if (normalizedExpected === "integer" && normalizedInferred === "number") {
-            return false;
-        }
-        if (normalizedExpected === "float" && /^-?\d+(\.\d+)?([eE][+-]?\d+)?$/.test(normalizedInferred)) {
-            return false;
-        }
-        if (normalizedExpected === "float" && normalizedInferred === "number") {
-            return false;
-        }
-        if (normalizedExpected === "boolean" && (normalizedInferred === "true" || normalizedInferred === "false")) {
-            return false;
-        }
-        return true;
-    }, [
-        inferredReturnType,
-        type,
-        expectedType
-    ]);
-    var _useState5 = _sliced_to_array(useState(null), 2), internalExpressionResult = _useState5[0], setInternalExpressionResult = _useState5[1];
-    var _useState6 = _sliced_to_array(useState(false), 2), internalIsEvaluating = _useState6[0], setInternalIsEvaluating = _useState6[1];
-    var _useState7 = _sliced_to_array(useState(false), 2), isHovering = _useState7[0], setIsHovering = _useState7[1];
-    var _useState8 = _sliced_to_array(useState(true), 2), internalIsExpressionValid = _useState8[0], setInternalIsExpressionValid = _useState8[1];
-    var _useState9 = _sliced_to_array(useState({
-        syntax: true,
-        expression: true,
-        context: true,
-        type: true,
-        security: true
-    }), 2), validationState = _useState9[0], setValidationState = _useState9[1];
-    var hasExpressionError = useMemo(function() {
-        if (!expressionMode.expression || !expressionMode.expression.trim()) {
-            return false;
-        }
-        if (!internalIsExpressionValid || !isExpressionValid) {
-            return true;
-        }
-        if (parseError) {
-            return true;
-        }
-        if (!validationState.syntax || !validationState.expression) {
-            return true;
-        }
-        if ((expressionResult === null || expressionResult === void 0 ? void 0 : expressionResult.error) || (internalExpressionResult === null || internalExpressionResult === void 0 ? void 0 : internalExpressionResult.error)) {
-            return true;
-        }
-        return false;
-    }, [
-        expressionMode.expression,
-        internalIsExpressionValid,
-        isExpressionValid,
-        parseError,
-        validationState,
-        expressionResult,
-        internalExpressionResult
-    ]);
-    var isProgrammaticallyClearing = useRef(false);
-    var isSwitchingToFullScreen = useRef(false);
-    var isBlur = useRef(false);
-    var handleValidationChange = useCallback(function(isValid, errors) {
-        setInternalIsExpressionValid(isValid);
-        setValidationState(function(prev) {
-            return _object_spread_props(_object_spread({}, prev), {
-                syntax: isValid
-            });
-        });
-    }, []);
-    var checkForMultiLine = useCallback(function(expression) {
-        var hasNewlines = expression.includes("\n");
-        var isLong = expression.length > 80;
-        if (!expressionMode.isFullScreen) {
-            expressionMode.setFullScreen(hasNewlines || isLong);
-        }
-    }, [
-        expressionMode.isFullScreen
-    ]);
-    var internalEvaluateExpression = useCallback(function(expression, context) {
-        return _async_to_generator(function() {
-            var result, error;
-            return _ts_generator(this, function(_state) {
-                switch(_state.label){
-                    case 0:
-                        if (!evaluateExpression || !expression.trim()) return [
-                            2
-                        ];
-                        setInternalIsEvaluating(true);
-                        _state.label = 1;
-                    case 1:
-                        _state.trys.push([
-                            1,
-                            3,
-                            4,
-                            5
-                        ]);
-                        return [
-                            4,
-                            evaluateExpression(expression, context)
-                        ];
-                    case 2:
-                        result = _state.sent();
-                        setInternalExpressionResult(result);
-                        return [
-                            3,
-                            5
-                        ];
-                    case 3:
-                        error = _state.sent();
-                        setInternalExpressionResult({
-                            value: null,
-                            ast: {
-                                kind: 0,
-                                text: "",
-                                color: "#ff0000"
-                            },
-                            error: _instanceof(error, Error) ? error.message : "Unknown error",
-                            isValid: false,
-                            validation: {
-                                syntax: false,
-                                expression: false,
-                                context: false,
-                                type: false,
-                                security: false
-                            }
-                        });
-                        return [
-                            3,
-                            5
-                        ];
-                    case 4:
-                        setInternalIsEvaluating(false);
-                        return [
-                            7
-                        ];
-                    case 5:
-                        return [
-                            2
-                        ];
-                }
-            });
-        })();
-    }, [
-        evaluateExpression
-    ]);
-    var currentMetadata = useMemo(function() {
-        return {
-            expression: expressionMode.expression,
-            value: currentValue,
-            mode: expressionMode.current,
-            isEditing: expressionMode.isEditing,
-            isFullScreen: expressionMode.isFullScreen
-        };
-    }, [
-        expressionMode.expression,
-        expressionMode.current,
-        expressionMode.isFullScreen,
-        expressionMode.isEditing,
-        currentValue
-    ]);
-    var currentExpressionValue = useMemo(function() {
-        return {
-            expression: expressionMode.expression,
-            type: "expression"
-        };
-    }, [
-        expressionMode.currentValue || expressionMode.expression
-    ]);
-    var handleValueChange = useCallback(function(newValue) {
-        onValueChange(formatValue(newValue), _object_spread_props(_object_spread({}, currentMetadata), {
-            value: formatValue(newValue)
-        }));
-    }, [
-        onValueChange,
-        expressionMode,
-        isExpressionValue,
-        currentValue
-    ]);
-    var handleExpressionChange = useCallback(function(newExpression) {
-        isProgrammaticallyClearing.current = false;
-        expressionMode.setExpression(newExpression);
-        setCurrentEditorValue(newExpression);
-        checkForMultiLine(newExpression);
-        onValueChange({
-            expression: newExpression,
-            type: "expression"
-        }, _object_spread_props(_object_spread({}, currentMetadata), {
-            expression: newExpression
-        }));
-    }, [
-        expressionMode,
-        expressionContext,
-        onValueChange,
-        evaluateExpression,
-        internalEvaluateExpression,
-        checkForMultiLine
-    ]);
-    var handleExpressionBlur = useCallback(function(e) {
-        var forceBlur = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : false;
-        return _async_to_generator(function() {
-            return _ts_generator(this, function(_state) {
-                if (isProgrammaticallyClearing.current) {
-                    isProgrammaticallyClearing.current = false;
-                    return [
-                        2
-                    ];
-                }
-                if (isSwitchingToFullScreen.current) {
-                    isSwitchingToFullScreen.current = false;
-                    return [
-                        2
-                    ];
-                }
-                if (expressionMode.isFullScreen && !forceBlur) {
-                    return [
-                        2
-                    ];
-                }
-                if (expressionHasNewlines && !forceBlur) {
-                    return [
-                        2
-                    ];
-                }
-                isBlur.current = true;
-                expressionMode.setEditing(false);
-                expressionMode.setFullScreen(false);
-                return [
-                    2
-                ];
-            });
-        })();
-    }, [
-        expressionMode,
-        expressionResult,
-        internalExpressionResult,
-        expressionContext,
-        onValueChange,
-        currentValue,
-        isEvaluating,
-        internalIsEvaluating,
-        currentExpressionValue,
-        expressionHasNewlines
-    ]);
-    useEffect(function() {
-        onValueChange(currentValue, _object_spread_props(_object_spread({}, currentMetadata), {
-            isFullScreen: expressionMode.isFullScreen
-        }));
-    }, [
-        expressionMode.isFullScreen
-    ]);
-    useEffect(function() {
-        if (expressionMode.isEditing && expressionHasNewlines && !expressionMode.isFullScreen) {
-            expressionMode.setFullScreen(true);
-        }
-    }, [
-        expressionHasNewlines,
-        expressionMode.isEditing,
-        expressionMode.isFullScreen
-    ]);
-    var handleModeChange = useCallback(function(newMode) {
-        switch(newMode){
-            case "value":
-                expressionMode.switchToValue();
-                expressionMode.setFullScreen(false);
-                onValueChange(originalValue || value, void 0);
-                break;
-            case "editor":
-                expressionMode.switchToEditor();
-                var shouldBeFullScreen = expressionHasNewlines;
-                if (shouldBeFullScreen) {
-                    expressionMode.setFullScreen(true);
-                }
-                var editorMetadata = {
-                    expression: expressionMode.expression,
-                    value: currentValue,
-                    mode: "expression",
-                    isEditing: true,
-                    isFullScreen: shouldBeFullScreen
-                };
-                onValueChange(expressionMode.expression ? {
-                    expression: expressionMode.expression,
-                    type: "expression"
-                } : currentValue, editorMetadata);
-                break;
-            case "expression":
-                setOriginalValue(currentValue);
-                expressionMode.switchToExpression();
-                if (expressionHasNewlines) {
-                    expressionMode.setFullScreen(true);
-                }
-                break;
-        }
-    }, [
-        expressionMode,
-        currentValue,
-        onValueChange,
-        expressionHasNewlines,
-        originalValue,
-        value
-    ]);
-    useEffect(function() {
-        if (isBlur.current) {
-            if (!(expressionMode.expression && expressionMode.expression.trim())) {
-                expressionMode.switchToValue();
-                var _currentMetadata_value;
-                onValueChange((_currentMetadata_value = currentMetadata.value) !== null && _currentMetadata_value !== void 0 ? _currentMetadata_value : "", _object_spread_props(_object_spread({}, currentMetadata), {
-                    mode: "value",
-                    expression: "",
-                    isEditing: false,
-                    isFullScreen: false
-                }));
-            } else {
-                var _currentMetadata_value1;
-                onValueChange(currentMetadata.mode === "value" ? (_currentMetadata_value1 = currentMetadata.value) !== null && _currentMetadata_value1 !== void 0 ? _currentMetadata_value1 : "" : {
-                    expression: currentMetadata.expression.trim(),
-                    type: "expression"
-                }, _object_spread_props(_object_spread({}, currentMetadata), {
-                    isEditing: false,
-                    isFullScreen: false
-                }));
-            }
-            isBlur.current = false;
-        }
-    }, [
-        expressionMode.isEditing,
-        expressionMode.isFullScreen,
-        isBlur.current
-    ]);
-    useEffect(function() {
-        if (onDependenciesChange) {
-            onDependenciesChange(dependencies);
-        }
-    }, [
-        dependencies,
-        onDependenciesChange
-    ]);
-    var handleClear = useCallback(function() {
-        isProgrammaticallyClearing.current = true;
-        onValueChange(currentValue, currentMetadata);
-        handleModeChange("value");
-        expressionMode.setFullScreen(false);
-    }, [
-        onValueChange,
-        expressionMode,
-        originalValue
-    ]);
-    var _useState10 = _sliced_to_array(useState(currentValue), 2), localInput = _useState10[0], setLocalInput = _useState10[1];
-    useEffect(function() {
-        setLocalInput(currentValue);
-    }, [
-        currentValue
-    ]);
-    var controlProps = useMemo(function() {
-        return {
-            value: currentValue,
-            onChange: handleValueChange,
-            onExpressionClick: function() {
-                return handleModeChange("editor");
-            },
-            // Click handler to trigger expression mode
-            inferredType: inferredReturnType,
-            // Inferred TypeScript type
-            hasTypeMismatch: hasTypeMismatch,
-            // Whether inferred type matches expected
-            hasError: hasExpressionError,
-            // Whether expression has syntax/validation errors
-            localInput: localInput,
-            setLocalInput: setLocalInput,
-            expressionMode: {
-                current: expressionMode.current,
-                switchToValue: function() {
-                    return handleModeChange("value");
-                },
-                switchToExpression: function() {
-                    return handleModeChange("expression");
-                },
-                switchToEditor: function() {
-                    return handleModeChange("editor");
-                },
-                clear: handleClear,
-                isExpressionMode: expressionMode.isExpressionMode,
-                isEditorMode: expressionMode.isEditorMode,
-                expression: expressionMode.expression,
-                setExpression: handleExpressionChange,
-                isEditing: expressionMode.isEditing,
-                setEditing: expressionMode.setEditing,
-                isFullScreen: expressionMode.isFullScreen,
-                setFullScreen: expressionMode.setFullScreen
-            }
-        };
-    }, [
-        currentValue,
-        handleValueChange,
-        expressionMode,
-        handleModeChange,
-        handleClear,
-        handleExpressionChange,
-        inferredReturnType,
-        hasTypeMismatch,
-        hasExpressionError
-    ]);
-    var renderContent = function() {
-        switch(expressionMode.current){
-            // case 'value':
-            //   return children(controlProps);
-            case "expression":
-                var _this;
-                expressionMode.expression && expressionMode.expression.trim();
-                (_this = expressionResult || internalExpressionResult) === null || _this === void 0 ? void 0 : _this.isValid;
-                return controlProps.expressionMode.isEditing ? /* @__PURE__ */ React4__default.createElement("div", {
-                    key: "expression",
-                    className: cn("relative", className)
-                }, inlineEditor && !expressionMode.isFullScreen && !expressionHasNewlines ? /* @__PURE__ */ React4__default.createElement("div", {
-                    className: cn("uii:flex uii:h-9 uii:w-full \n              uii:min-w-0 uii:rounded-sm \n              uii:border uii:border-ring \n              uii:bg-background uii:px-3 uii:py-1 uii:text-base uii:shadow-xs \n              uii:ring-ring/50 uii:ring-[3px] uii:transition-[color,box-shadow] \n              uii:outline-none uii:md:text-sm uii:cursor-pointer\n              uii:mt-0.5 ", editorClassName)
-                }, /* @__PURE__ */ React4__default.createElement(InlineExpressionEditor, {
-                    value: expressionMode.expression,
-                    onChange: function(newValue) {
-                        handleExpressionChange(newValue);
-                    },
-                    onEnter: function() {
-                        isSwitchingToFullScreen.current = true;
-                        expressionMode.setFullScreen(true);
-                        setTimeout(function() {
-                            isSwitchingToFullScreen.current = false;
-                        }, 100);
-                    },
-                    onBlur: handleExpressionBlur,
-                    onTypeInferred: handleTypeInferred,
-                    onValidationChange: handleValidationChange,
-                    context: expressionContext,
-                    placeholder: expressionPlaceholder
-                }), /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:flex uii:items-center uii:gap-2 uii:mt-0.5"
-                }, /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:text-xs uii:font-mono uii:cursor-pointer uii:text-muted-foreground",
-                    onMouseDown: function(e) {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        isSwitchingToFullScreen.current = true;
-                        expressionMode.setFullScreen(true);
-                        setTimeout(function() {
-                            isSwitchingToFullScreen.current = false;
-                        }, 100);
-                    }
-                }, /* @__PURE__ */ React4__default.createElement(FontAwesomeIcon, {
-                    icon: faExpand
-                })), /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:text-xs uii:font-mono uii:cursor-pointer uii:text-muted-foreground",
-                    onMouseDown: function(e) {
-                        e.preventDefault();
-                        handleClear();
-                    }
-                }, "Clear"))) : /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:space-y-4"
-                }, /* @__PURE__ */ React4__default.createElement(FullPanelExpressionEditor, {
-                    value: expressionMode.expression,
-                    onChange: function(newValue) {
-                        handleExpressionChange(newValue);
-                    },
-                    onClose: function() {
-                        handleExpressionBlur(void 0, true);
-                        expressionMode.setFullScreen(false);
-                    },
-                    onBlur: handleExpressionBlur,
-                    onTypeInferred: handleTypeInferred,
-                    context: expressionContext,
-                    placeholder: expressionPlaceholder
-                }), (ast || dependencies.length > 0) && /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:space-y-3"
-                }, inferredReturnType && inferredReturnType !== "unknown" && /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:space-y-2"
-                }, /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:flex uii:items-center uii:gap-2"
-                }, /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:text-sm uii:font-semibold uii:text-gray-700"
-                }, "Inferred Return Type:"), typeScriptInferredType && inferredReturnType !== "error" && /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:px-1.5 uii:py-0.5 uii:text-xs uii:rounded uii:bg-blue-100 uii:text-blue-700 uii:border uii:border-blue-200"
-                }, "TypeScript")), /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:flex uii:items-center uii:gap-2"
-                }, inferredReturnType === "error" ? /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:px-3 uii:py-1.5 uii:text-sm uii:font-mono uii:rounded uii:border uii:bg-red-50 uii:text-red-800 uii:border-red-200"
-                }, "\u274C Syntax Error") : /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:px-3 uii:py-1.5 uii:text-sm uii:font-mono uii:rounded uii:border uii:bg-purple-50 uii:text-purple-800 uii:border-purple-200"
-                }, inferredReturnType), hasTypeMismatch && /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:text-xs uii:text-orange-600 uii:font-semibold"
-                }, "\u26A0\uFE0F Expected: ", type || expectedType)))), dependencyList.length > 0 && /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:space-y-2"
-                }, /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:text-sm uii:font-semibold uii:text-gray-700"
-                }, "Dependencies (", dependencyList.length, "):"), /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:flex uii:flex-wrap uii:gap-2"
-                }, dependencyList.map(function(dep, index) {
-                    return /* @__PURE__ */ React4__default.createElement("span", {
-                        key: index,
-                        className: cn("uii:px-2 uii:py-1 uii:text-sm uii:rounded uii:border", dep.exists ? "uii:bg-blue-100 uii:text-blue-800 uii:border-blue-200" : "uii:bg-red-100 uii:text-red-800 uii:border-red-200"),
-                        title: dep.exists ? "Value: ".concat(JSON.stringify(dep.value)) : "Not found in context"
-                    }, dep.name);
-                }))), ast && /* @__PURE__ */ React4__default.createElement(ASTRenderer, {
-                    ast: ast,
-                    tokens: tokens,
-                    variant: "tree",
-                    showTokens: true,
-                    className: "uii:w-full"
-                }), isParsing && /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:text-sm uii:text-gray-500 uii:italic"
-                }, "Parsing expression..."), parseError && /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:text-sm uii:text-red-600"
-                }, "Parse Error: ", parseError)))) : /* @__PURE__ */ React4__default.createElement("div", {
-                    className: cn("uii:relative", className),
-                    key: "expression-display"
-                }, /* @__PURE__ */ React4__default.createElement("div", {
-                    className: clsx_default("uii:flex uii:h-9 uii:w-full uii:min-w-0 uii:rounded-sm uii:border uii:border-input uii:bg-transparent uii:px-3 uii:py-1 uii:text-base uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px] uii:md:text-sm uii:cursor-pointer uii:hover:bg-muted/50", "uii:mt-0.5 uii:bg-white uii:rounded-md uii:items-center"),
-                    onClick: function() {
-                        return handleModeChange("editor");
-                    },
-                    onMouseEnter: function() {
-                        return setIsHovering(true);
-                    },
-                    onMouseLeave: function() {
-                        return setIsHovering(false);
-                    }
-                }, /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:flex-1 uii:truncate uii:text-foreground uii:items-center"
-                }, isHovering ? // Hover state: show AST preview with dependencies
-                /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:flex uii:items-center uii:gap-2"
-                }, ast ? /* @__PURE__ */ React4__default.createElement(ASTRenderer, {
-                    key: "ast",
-                    ast: ast,
-                    tokens: tokens,
-                    variant: "inline",
-                    showTokens: false,
-                    className: "uii:text-xs"
-                }) : /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:text-xs uii:text-gray-500"
-                }, isParsing ? "Parsing..." : parseError ? "Error: ".concat(parseError) : "No AST available"), dependencies.length > 0 && /* @__PURE__ */ React4__default.createElement("div", {
-                    className: "uii:flex uii:gap-1"
-                }, dependencies.map(function(dep, index) {
-                    return /* @__PURE__ */ React4__default.createElement("span", {
-                        key: index,
-                        className: "uii:px-1 uii:py-0.5 uii:bg-blue-100 uii:text-blue-800 uii:text-xs uii:rounded"
-                    }, dep);
-                }))) : // At rest: show the expression text
-                /* @__PURE__ */ React4__default.createElement("span", {
-                    className: "uii:font-mono uii:text-sm"
-                }, currentExpressionValueExt || "No expression"))));
-            default:
-                return children(controlProps);
-        }
-    };
-    return /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement("div", {
-        className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React4__default.createElement("label", {
-        className: "uii:text-xs uii:text-muted-foreground uii:font-bold",
-        htmlFor: fieldName
-    }, label, ":"), /* @__PURE__ */ React4__default.createElement("span", {
-        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, type), hasTypeMismatch || inferredReturnType === "error" ? /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, expressionMode.current === "expression" ? /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, /* @__PURE__ */ React4__default.createElement("span", {
-        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expressionMode.expression.trim() !== "" ? inferredReturnType : "empty"), /* @__PURE__ */ React4__default.createElement("span", {
-        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:font-light uii:text-orange-600 "
-    }, "\u26A0\uFE0F Expected: ", type || expectedType)) : /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null)) : /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null)), renderContent());
-}
-// src/components/input.tsx
-function Input2(_param) {
-    var className = _param.className, expectedType = _param.expectedType, props = _object_without_properties(_param, [
-        "className",
-        "expectedType"
-    ]);
-    var _props_label, _props_key, _props_name;
-    return /* @__PURE__ */ React4.createElement(ExpressionWrapper, {
-        label: (_props_label = props.label) !== null && _props_label !== void 0 ? _props_label : "Test Entry",
-        key: (_props_key = props.key) !== null && _props_key !== void 0 ? _props_key : props.name,
-        type: expectedType !== null && expectedType !== void 0 ? expectedType : "string",
-        valuesLoading: false,
-        value: props.value,
-        onValueChange: function(val, metadata) {
-            props.onChange && props.onChange(val);
-        },
-        expectedType: expectedType,
-        fieldName: (_props_name = props.name) !== null && _props_name !== void 0 ? _props_name : props.key,
-        children: function(param) {
-            var onExpressionClick = param.onExpressionClick, onChangeExpression = param.onChange, expressionValue = param.value, localInput = param.localInput, setLocalInput = param.setLocalInput;
-            var _props_placeholder;
-            return /* @__PURE__ */ React4.createElement("div", {
-                className: "uii:relative uii:text-xs uii:mt-0.5"
-            }, /* @__PURE__ */ React4.createElement(Input, {
-                type: "text",
-                value: localInput,
-                onChange: function(e) {
-                    setLocalInput(e.target.value);
-                    onChangeExpression(e.target.value);
-                },
-                placeholder: (_props_placeholder = props.placeholder) !== null && _props_placeholder !== void 0 ? _props_placeholder : "Enter value..."
-            }), /* @__PURE__ */ React4.createElement("div", {
-                className: "uii:flex uii:bg-white uii:border-white/40 uii:border-l-8 uii:items-center uii:gap-1 uii:absolute uii:right-1.5 uii:top-2.5 uii:cursor-pointer uii:truncate",
-                onClick: function() {
-                    return onExpressionClick();
-                }
-            }, /* @__PURE__ */ React4.createElement("span", {
-                className: "uii:border-l uii:border-gray-200 uii:px-2"
-            }, "Custom Expression")));
-        }
-    });
-}
-// ../../node_modules/.pnpm/class-variance-authority@0.7.1/node_modules/class-variance-authority/dist/index.mjs
-var falsyToString = function(value) {
-    return typeof value === "boolean" ? "".concat(value) : value === 0 ? "0" : value;
-};
-var cx = clsx;
-var cva = function(base, config) {
-    return function(props) {
-        var _config_compoundVariants;
-        if ((config === null || config === void 0 ? void 0 : config.variants) == null) return cx(base, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
-        var variants = config.variants, defaultVariants = config.defaultVariants;
-        var getVariantClassNames = Object.keys(variants).map(function(variant) {
-            var variantProp = props === null || props === void 0 ? void 0 : props[variant];
-            var defaultVariantProp = defaultVariants === null || defaultVariants === void 0 ? void 0 : defaultVariants[variant];
-            if (variantProp === null) return null;
-            var variantKey = falsyToString(variantProp) || falsyToString(defaultVariantProp);
-            return variants[variant][variantKey];
-        });
-        var propsWithoutUndefined = props && Object.entries(props).reduce(function(acc, param) {
-            var _param = _sliced_to_array(param, 2), key = _param[0], value = _param[1];
-            if (value === void 0) {
-                return acc;
-            }
-            acc[key] = value;
-            return acc;
-        }, {});
-        var getCompoundVariantClassNames = config === null || config === void 0 ? void 0 : (_config_compoundVariants = config.compoundVariants) === null || _config_compoundVariants === void 0 ? void 0 : _config_compoundVariants.reduce(function(acc, param) {
-            var cvClass = param.class, cvClassName = param.className, compoundVariantOptions = _object_without_properties(param, [
-                "class",
-                "className"
-            ]);
-            return Object.entries(compoundVariantOptions).every(function(param2) {
-                var _param2 = _sliced_to_array(param2, 2), key = _param2[0], value = _param2[1];
-                return Array.isArray(value) ? value.includes(_object_spread({}, defaultVariants, propsWithoutUndefined)[key]) : _object_spread({}, defaultVariants, propsWithoutUndefined)[key] === value;
-            }) ? _to_consumable_array(acc).concat([
-                cvClass,
-                cvClassName
-            ]) : acc;
-        }, []);
-        return cx(base, getVariantClassNames, getCompoundVariantClassNames, props === null || props === void 0 ? void 0 : props.class, props === null || props === void 0 ? void 0 : props.className);
-    };
-};
 // src/components/ui/button.tsx
 var buttonVariants = cva("ui:inline-flex ui:items-center ui:justify-center ui:gap-2 ui:whitespace-nowrap ui:rounded-sm ui:text-sm ui:font-medium ui:transition-[color,box-shadow] ui:disabled:pointer-events-none ui:disabled:opacity-50 ui:[&_svg]:pointer-events-none ui:[&_svg:not([class*=size-])]:size-4 ui:shrink-0 ui:[&_svg]:shrink-0 ui:outline-none ui:focus-visible:border-ring ui:focus-visible:ring-ring/50 ui:focus-visible:ring-[3px] ui:aria-invalid:ring-destructive/20 ui:dark:aria-invalid:ring-destructive/40 ui:aria-invalid:border-destructive ui:cursor-pointer", {
     variants: {
@@ -7032,5 +4851,259 @@ function Button(_param) {
         }))
     }, props));
 }
-export { Button, Input2 as Input, buttonVariants }; //# sourceMappingURL=index.js.map
+// src/components/fields/index.tsx
+var fields_exports = {};
+__export(fields_exports, {
+    Input: function() {
+        return Input;
+    },
+    NestedFieldProvider: function() {
+        return NestedFieldProvider;
+    },
+    Select: function() {
+        return Select;
+    },
+    TemplateFieldProvider: function() {
+        return TemplateFieldProvider;
+    },
+    useFieldPath: function() {
+        return useFieldPath;
+    },
+    useIsInTemplateFieldProvider: function() {
+        return useIsInTemplateFieldProvider;
+    },
+    useTemplateFieldContext: function() {
+        return useTemplateFieldContext;
+    }
+});
+function Input(param) {
+    var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, editorClassName = param.editorClassName;
+    var displayValue = React4.useMemo(function() {
+        if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
+            return value.expression || "";
+        }
+        return String(value !== null && value !== void 0 ? value : "");
+    }, [
+        value
+    ]);
+    var isExpression = React4.useMemo(function() {
+        return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
+    }, [
+        value
+    ]);
+    var handleChange = React4.useCallback(function(e) {
+        var newValue = e.target.value;
+        if (newValue.includes("{{")) {
+            onChange({
+                expression: newValue,
+                type: "expression"
+            });
+        } else {
+            onChange(newValue);
+        }
+    }, [
+        onChange
+    ]);
+    var showError = hasRequiredError || required && !displayValue;
+    return /* @__PURE__ */ React4.createElement("div", {
+        className: cn("uii:mb-2", className)
+    }, /* @__PURE__ */ React4.createElement("div", {
+        className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
+    }, /* @__PURE__ */ React4.createElement("label", {
+        htmlFor: fieldName,
+        className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
+    }, expectedType), showError && /* @__PURE__ */ React4.createElement("span", {
+        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
+    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
+        className: "uii:mt-0.5"
+    }, /* @__PURE__ */ React4.createElement("input", {
+        id: fieldName,
+        name: fieldName,
+        type: "text",
+        value: displayValue,
+        onChange: handleChange,
+        disabled: disabled,
+        placeholder: placeholder || "Enter value or {{ expression }}...",
+        className: cn("uii:w-full uii:h-9 uii:px-3 uii:rounded-sm uii:border uii:bg-background uii:text-sm", "uii:outline-none uii:transition-all", "focus:uii:border-ring focus:uii:ring-ring/50 focus:uii:ring-[3px]", showError ? "uii:border-red-500 hover:uii:border-red-600" : "uii:border-input hover:uii:border-ring/50", isExpression && "uii:font-mono uii:text-amber-600", disabled && "uii:opacity-50 uii:cursor-not-allowed", editorClassName)
+    })));
+}
+function Select(param) {
+    var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, rawOptions = param.options, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, children = param.children;
+    var _React4_useState = _sliced_to_array(React4.useState(false), 2), isExpressionMode = _React4_useState[0], setIsExpressionMode = _React4_useState[1];
+    var _React4_useState1 = _sliced_to_array(React4.useState(""), 2), expressionValue = _React4_useState1[0], setExpressionValue = _React4_useState1[1];
+    var options = React4.useMemo(function() {
+        return rawOptions.map(function(opt) {
+            return typeof opt === "string" ? {
+                value: opt,
+                label: opt
+            } : opt;
+        });
+    }, [
+        rawOptions
+    ]);
+    var displayValue = React4.useMemo(function() {
+        if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
+            return value.expression || "";
+        }
+        return String(value !== null && value !== void 0 ? value : "");
+    }, [
+        value
+    ]);
+    var isExpression = React4.useMemo(function() {
+        return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
+    }, [
+        value
+    ]);
+    React4.useEffect(function() {
+        if (isExpression) {
+            setIsExpressionMode(true);
+            setExpressionValue(displayValue);
+        }
+    }, [
+        isExpression,
+        displayValue
+    ]);
+    var handleSelectChange = React4.useCallback(function(newValue) {
+        if (newValue === "__expression__") {
+            setIsExpressionMode(true);
+            return;
+        }
+        onChange(newValue);
+    }, [
+        onChange
+    ]);
+    var handleExpressionChange = React4.useCallback(function(e) {
+        var newValue = e.target.value;
+        setExpressionValue(newValue);
+        onChange({
+            expression: newValue,
+            type: "expression"
+        });
+    }, [
+        onChange
+    ]);
+    var handleSwitchToValue = React4.useCallback(function() {
+        setIsExpressionMode(false);
+        setExpressionValue("");
+        onChange("");
+    }, [
+        onChange
+    ]);
+    var showError = hasRequiredError || required && !displayValue;
+    var renderProps = {
+        value: displayValue,
+        onChange: handleSelectChange,
+        onExpressionClick: function() {
+            return setIsExpressionMode(true);
+        },
+        options: options,
+        localInput: displayValue,
+        setLocalInput: function() {},
+        expressionMode: {
+            current: isExpressionMode ? "expression" : "value",
+            isExpressionMode: isExpressionMode,
+            isEditorMode: false,
+            isEditing: false,
+            isFullScreen: false,
+            expression: expressionValue,
+            switchToValue: handleSwitchToValue,
+            switchToExpression: function() {
+                return setIsExpressionMode(true);
+            },
+            switchToEditor: function() {
+                return setIsExpressionMode(true);
+            },
+            clear: handleSwitchToValue
+        },
+        hasError: showError
+    };
+    return /* @__PURE__ */ React4.createElement("div", {
+        className: cn("uii:mb-2", className)
+    }, /* @__PURE__ */ React4.createElement("div", {
+        className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
+    }, /* @__PURE__ */ React4.createElement("label", {
+        htmlFor: fieldName,
+        className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
+    }, expectedType), showError && /* @__PURE__ */ React4.createElement("span", {
+        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
+    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
+        className: "uii:mt-0.5"
+    }, children ? // Use custom render function
+    children(renderProps) : isExpressionMode ? // Expression mode - show input with clear button
+    /* @__PURE__ */ React4.createElement("div", {
+        className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5"
+    }, /* @__PURE__ */ React4.createElement("input", {
+        id: fieldName,
+        name: fieldName,
+        type: "text",
+        value: expressionValue,
+        onChange: handleExpressionChange,
+        disabled: disabled,
+        placeholder: "Enter expression...",
+        className: cn("uii:flex-1 uii:h-full uii:px-3 uii:bg-transparent uii:text-sm uii:font-mono uii:text-amber-600", "uii:outline-none uii:border-none", disabled && "uii:opacity-50 uii:cursor-not-allowed")
+    }), /* @__PURE__ */ React4.createElement("button", {
+        type: "button",
+        onClick: handleSwitchToValue,
+        className: "uii:flex uii:items-center uii:justify-center uii:h-full uii:px-2 uii:text-amber-600 hover:uii:text-red-600 uii:border-l uii:border-amber-500/30",
+        title: "Clear and return to value mode"
+    }, "\xD7")) : // Value mode - show select
+    /* @__PURE__ */ React4.createElement("select", {
+        id: fieldName,
+        name: fieldName,
+        value: displayValue,
+        onChange: function(e) {
+            return handleSelectChange(e.target.value);
+        },
+        disabled: disabled,
+        className: cn("uii:w-full uii:h-9 uii:px-3 uii:rounded-sm uii:border uii:bg-background uii:text-sm", "uii:outline-none uii:transition-all uii:cursor-pointer", "focus:uii:border-ring focus:uii:ring-ring/50 focus:uii:ring-[3px]", showError ? "uii:border-red-500 hover:uii:border-red-600" : "uii:border-input hover:uii:border-ring/50", disabled && "uii:opacity-50 uii:cursor-not-allowed")
+    }, placeholder && /* @__PURE__ */ React4.createElement("option", {
+        value: "",
+        disabled: true
+    }, placeholder), options.map(function(opt) {
+        return /* @__PURE__ */ React4.createElement("option", {
+            key: opt.value,
+            value: opt.value
+        }, opt.label);
+    }), /* @__PURE__ */ React4.createElement("option", {
+        value: "__expression__"
+    }, "\uD83D\uDCDD Custom Expression"))));
+}
+// src/components/fields/index.tsx
+function useTemplateFieldContext() {
+    return {
+        yDoc: null,
+        collabUser: null,
+        awareness: null,
+        availableNodes: null,
+        myInterface: null,
+        typeDeclarations: "",
+        element: null,
+        nodeId: "",
+        onControlFocus: function() {},
+        onControlBlur: function() {},
+        onRecordChange: function() {},
+        onValidationChange: function() {},
+        parentFieldPath: null,
+        disabled: false
+    };
+}
+function useIsInTemplateFieldProvider() {
+    return false;
+}
+function useFieldPath(fieldName) {
+    return fieldName;
+}
+function TemplateFieldProvider(param) {
+    var children = param.children;
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+}
+function NestedFieldProvider(param) {
+    var children = param.children;
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+}
+export { Button, buttonVariants, fields_exports as fields }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map
