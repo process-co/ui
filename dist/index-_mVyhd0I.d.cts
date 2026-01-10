@@ -255,11 +255,112 @@ type TemplateFieldChangeEvent = {
         inferredType?: string;
     };
 };
+/**
+ * Context value for sharing inferred types between fields within an element.
+ * This enables type propagation via the $infer<...> syntax.
+ *
+ * ## Usage
+ *
+ * Publishing field (e.g., switchExpression):
+ * - Set expectedType to `$infer<string | number | boolean>`
+ * - The field will broadcast its inferred type to the context
+ *
+ * Subscribing field (e.g., caseExpression):
+ * - Set expectedType to `$infer<switchExpression>`
+ * - The field will use the inferred type from switchExpression
+ *
+ * @example
+ * ```tsx
+ * // In a custom control that needs to filter operators:
+ * const ctx = useInferredTypes();
+ * const switchType = ctx?.getInferredType('switchExpression') || 'any';
+ * const operators = getOperatorsForType(switchType);
+ * ```
+ */
+interface InferredTypesContextValue {
+    /** Map of fieldName → inferred type */
+    inferredTypes: Record<string, string>;
+    /** Set the inferred type for a field (called by publisher fields) */
+    setInferredType: (fieldName: string, type: string) => void;
+    /** Get the inferred type for a field (called by subscriber fields) */
+    getInferredType: (fieldName: string) => string | undefined;
+}
+/**
+ * Context for inferred types.
+ * In production, this is provided by PropertiesRender.
+ */
+declare const InferredTypesContext: React$1.Context<InferredTypesContextValue | null>;
+/**
+ * Hook to access the inferred types context.
+ * Returns null when not inside an InferredTypesProvider (e.g., in mock/dev mode).
+ *
+ * @example
+ * ```tsx
+ * const ctx = useInferredTypes();
+ * const switchType = ctx?.getInferredType('switchExpression') || 'string';
+ * ```
+ */
+declare function useInferredTypes(): InferredTypesContextValue | null;
+/**
+ * Configuration parsed from the $infer<...> syntax.
+ */
+interface InferConfig {
+    /** The mode of the field: 'publish', 'subscribe', or 'normal' */
+    mode: 'publish' | 'subscribe' | 'normal';
+    /** For publish mode: the allowed types (e.g., ['string', 'number', 'boolean']) */
+    allowedTypes?: string[];
+    /** For subscribe mode: the field name to subscribe to */
+    subscribeToField?: string;
+}
+/**
+ * Parse the $infer<...> syntax from an expectedType string.
+ *
+ * @example
+ * ```tsx
+ * parseInferSyntax('$infer<string | number>')
+ * // → { mode: 'publish', allowedTypes: ['string', 'number'] }
+ *
+ * parseInferSyntax('$infer<switchExpression>')
+ * // → { mode: 'subscribe', subscribeToField: 'switchExpression' }
+ *
+ * parseInferSyntax('string')
+ * // → { mode: 'normal' }
+ * ```
+ */
+declare function parseInferSyntax(expectedType: string | undefined): InferConfig;
+/**
+ * Standard operators grouped by compatible types.
+ * Use getOperatorsForType() to retrieve operators for a specific type.
+ */
+declare const OPERATORS_BY_TYPE: Record<string, Array<{
+    value: string;
+    label: string;
+}>>;
+/**
+ * Get the appropriate operators for a given type.
+ * Falls back to 'any' operators for unrecognized types.
+ *
+ * @example
+ * ```tsx
+ * const ctx = useInferredTypes();
+ * const switchType = ctx?.getInferredType('switchExpression') || 'any';
+ * const operators = getOperatorsForType(switchType);
+ * // If switchType is 'number', returns numeric operators including <, >, etc.
+ * ```
+ */
+declare function getOperatorsForType(type: string): Array<{
+    value: string;
+    label: string;
+}>;
 
+type index_InferConfig = InferConfig;
+declare const index_InferredTypesContext: typeof InferredTypesContext;
+type index_InferredTypesContextValue = InferredTypesContextValue;
 declare const index_Input: typeof Input;
 type index_InputProps = InputProps;
 declare const index_NestedFieldProvider: typeof NestedFieldProvider;
 type index_NestedFieldProviderProps = NestedFieldProviderProps;
+declare const index_OPERATORS_BY_TYPE: typeof OPERATORS_BY_TYPE;
 declare const index_Select: typeof Select;
 type index_SelectOption = SelectOption;
 type index_SelectProps = SelectProps;
@@ -270,11 +371,14 @@ type index_TemplateFieldFocusContext = TemplateFieldFocusContext;
 declare const index_TemplateFieldProvider: typeof TemplateFieldProvider;
 type index_TemplateFieldProviderProps = TemplateFieldProviderProps;
 type index_TemplateFieldValidationError = TemplateFieldValidationError;
+declare const index_getOperatorsForType: typeof getOperatorsForType;
+declare const index_parseInferSyntax: typeof parseInferSyntax;
 declare const index_useFieldPath: typeof useFieldPath;
+declare const index_useInferredTypes: typeof useInferredTypes;
 declare const index_useIsInTemplateFieldProvider: typeof useIsInTemplateFieldProvider;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare namespace index {
-  export { index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_useFieldPath as useFieldPath, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useTemplateFieldContext as useTemplateFieldContext };
+  export { type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_getOperatorsForType as getOperatorsForType, index_parseInferSyntax as parseInferSyntax, index_useFieldPath as useFieldPath, index_useInferredTypes as useInferredTypes, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useTemplateFieldContext as useTemplateFieldContext };
 }
 
-export { Input as I, NestedFieldProvider as N, Select as S, type TemplateFieldContextValue as T, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, type InputProps as j, type SelectProps as k, type SelectOption as l, type SelectRenderProps as m, useTemplateFieldContext as u };
+export { type InferredTypesContextValue as I, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, Select as S, type TemplateFieldContextValue as T, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferConfig as l, getOperatorsForType as m, Input as n, type InputProps as o, parseInferSyntax as p, type SelectProps as q, type SelectOption as r, type SelectRenderProps as s, useTemplateFieldContext as u };

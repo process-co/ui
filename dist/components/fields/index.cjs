@@ -110,7 +110,7 @@ function _interopNamespace(e) {
     return Object.freeze(n);
 }
 var React3__namespace = /*#__PURE__*/ _interopNamespace(React3);
-// src/components/fields/Input.tsx
+// src/components/fields/index.tsx
 // ../../node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
 function r(e) {
     var t, f, n = "";
@@ -4987,11 +4987,131 @@ function NestedFieldProvider(param) {
     var children = param.children;
     return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
 }
+var InferredTypesContext = React3.createContext(null);
+function useInferredTypes() {
+    return React3.useContext(InferredTypesContext);
+}
+function parseInferSyntax(expectedType) {
+    var _match_;
+    if (!expectedType || !expectedType.startsWith("$infer<")) {
+        return {
+            mode: "normal"
+        };
+    }
+    var match = expectedType.match(/^\$infer<(.+)>$/);
+    if (!match) {
+        return {
+            mode: "normal"
+        };
+    }
+    var content = ((_match_ = match[1]) === null || _match_ === void 0 ? void 0 : _match_.trim()) || "";
+    if (!content.includes("|") && /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(content)) {
+        return {
+            mode: "subscribe",
+            subscribeToField: content
+        };
+    }
+    var allowedTypes = content.split("|").map(function(t) {
+        return t.trim();
+    }).filter(Boolean);
+    return {
+        mode: "publish",
+        allowedTypes: allowedTypes
+    };
+}
+var OPERATORS_BY_TYPE = {
+    string: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        },
+        {
+            value: "contains",
+            label: "contains"
+        },
+        {
+            value: "startsWith",
+            label: "starts with"
+        },
+        {
+            value: "endsWith",
+            label: "ends with"
+        }
+    ],
+    number: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        },
+        {
+            value: "<",
+            label: "less than (<)"
+        },
+        {
+            value: ">",
+            label: "greater than (>)"
+        },
+        {
+            value: "<=",
+            label: "less than or equal (<=)"
+        },
+        {
+            value: ">=",
+            label: "greater than or equal (>=)"
+        }
+    ],
+    boolean: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        }
+    ],
+    any: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        }
+    ]
+};
+function getOperatorsForType(type) {
+    var _OPERATORS_BY_TYPE_type, _ref;
+    return (_ref = (_OPERATORS_BY_TYPE_type = OPERATORS_BY_TYPE[type]) !== null && _OPERATORS_BY_TYPE_type !== void 0 ? _OPERATORS_BY_TYPE_type : OPERATORS_BY_TYPE.any) !== null && _ref !== void 0 ? _ref : [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        }
+    ];
+}
+exports.InferredTypesContext = InferredTypesContext;
 exports.Input = Input;
 exports.NestedFieldProvider = NestedFieldProvider;
+exports.OPERATORS_BY_TYPE = OPERATORS_BY_TYPE;
 exports.Select = Select;
 exports.TemplateFieldProvider = TemplateFieldProvider;
+exports.getOperatorsForType = getOperatorsForType;
+exports.parseInferSyntax = parseInferSyntax;
 exports.useFieldPath = useFieldPath;
+exports.useInferredTypes = useInferredTypes;
 exports.useIsInTemplateFieldProvider = useIsInTemplateFieldProvider;
 exports.useTemplateFieldContext = useTemplateFieldContext; //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

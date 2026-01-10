@@ -4875,11 +4875,17 @@ function Button(_param) {
 // src/components/fields/index.tsx
 var fields_exports = {};
 __export(fields_exports, {
+    InferredTypesContext: function() {
+        return InferredTypesContext;
+    },
     Input: function() {
         return Input;
     },
     NestedFieldProvider: function() {
         return NestedFieldProvider;
+    },
+    OPERATORS_BY_TYPE: function() {
+        return OPERATORS_BY_TYPE;
     },
     Select: function() {
         return Select;
@@ -4887,8 +4893,17 @@ __export(fields_exports, {
     TemplateFieldProvider: function() {
         return TemplateFieldProvider;
     },
+    getOperatorsForType: function() {
+        return getOperatorsForType;
+    },
+    parseInferSyntax: function() {
+        return parseInferSyntax;
+    },
     useFieldPath: function() {
         return useFieldPath;
+    },
+    useInferredTypes: function() {
+        return useInferredTypes;
     },
     useIsInTemplateFieldProvider: function() {
         return useIsInTemplateFieldProvider;
@@ -5131,25 +5146,32 @@ function useInferredTypes() {
     return React4.useContext(InferredTypesContext);
 }
 function parseInferSyntax(expectedType) {
-    if (!(expectedType === null || expectedType === void 0 ? void 0 : expectedType.startsWith("$infer<")) || !expectedType.endsWith(">")) {
-        return null;
+    var _match_;
+    if (!expectedType || !expectedType.startsWith("$infer<")) {
+        return {
+            mode: "normal"
+        };
     }
-    var inner = expectedType.slice(7, -1);
-    if (inner.startsWith("[") && inner.endsWith("]")) {
+    var match = expectedType.match(/^\$infer<(.+)>$/);
+    if (!match) {
+        return {
+            mode: "normal"
+        };
+    }
+    var content = ((_match_ = match[1]) === null || _match_ === void 0 ? void 0 : _match_.trim()) || "";
+    if (!content.includes("|") && /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(content)) {
         return {
             mode: "subscribe",
-            fieldName: inner.slice(1, -1).trim()
-        };
-    } else {
-        return {
-            mode: "publish",
-            allowedTypes: inner.split("|").map(function(t) {
-                return t.trim();
-            }).filter(function(t) {
-                return t.length > 0;
-            })
+            subscribeToField: content
         };
     }
+    var allowedTypes = content.split("|").map(function(t) {
+        return t.trim();
+    }).filter(Boolean);
+    return {
+        mode: "publish",
+        allowedTypes: allowedTypes
+    };
 }
 var OPERATORS_BY_TYPE = {
     string: [
@@ -5172,10 +5194,6 @@ var OPERATORS_BY_TYPE = {
         {
             value: "endsWith",
             label: "ends with"
-        },
-        {
-            value: "matches",
-            label: "matches (regex)"
         }
     ],
     number: [
@@ -5225,30 +5243,20 @@ var OPERATORS_BY_TYPE = {
         }
     ]
 };
-var DEFAULT_OPERATORS = [
-    {
-        value: "==",
-        label: "equals (==)"
-    },
-    {
-        value: "!=",
-        label: "not equals (!=)"
-    }
-];
 function getOperatorsForType(type) {
-    if (type.includes("|")) {
-        var _OPERATORS_BY_TYPE_any;
-        return (_OPERATORS_BY_TYPE_any = OPERATORS_BY_TYPE.any) !== null && _OPERATORS_BY_TYPE_any !== void 0 ? _OPERATORS_BY_TYPE_any : DEFAULT_OPERATORS;
-    }
     var _OPERATORS_BY_TYPE_type, _ref;
-    return (_ref = (_OPERATORS_BY_TYPE_type = OPERATORS_BY_TYPE[type]) !== null && _OPERATORS_BY_TYPE_type !== void 0 ? _OPERATORS_BY_TYPE_type : OPERATORS_BY_TYPE.any) !== null && _ref !== void 0 ? _ref : DEFAULT_OPERATORS;
+    return (_ref = (_OPERATORS_BY_TYPE_type = OPERATORS_BY_TYPE[type]) !== null && _OPERATORS_BY_TYPE_type !== void 0 ? _OPERATORS_BY_TYPE_type : OPERATORS_BY_TYPE.any) !== null && _ref !== void 0 ? _ref : [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        }
+    ];
 }
 exports.Button = Button;
-exports.InferredTypesContext = InferredTypesContext;
-exports.OPERATORS_BY_TYPE = OPERATORS_BY_TYPE;
 exports.buttonVariants = buttonVariants;
-exports.fields = fields_exports;
-exports.getOperatorsForType = getOperatorsForType;
-exports.parseInferSyntax = parseInferSyntax;
-exports.useInferredTypes = useInferredTypes; //# sourceMappingURL=index.cjs.map
+exports.fields = fields_exports; //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map
