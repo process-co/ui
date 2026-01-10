@@ -5126,7 +5126,129 @@ function NestedFieldProvider(param) {
     var children = param.children;
     return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
 }
+var InferredTypesContext = React4.createContext(null);
+function useInferredTypes() {
+    return React4.useContext(InferredTypesContext);
+}
+function parseInferSyntax(expectedType) {
+    if (!(expectedType === null || expectedType === void 0 ? void 0 : expectedType.startsWith("$infer<")) || !expectedType.endsWith(">")) {
+        return null;
+    }
+    var inner = expectedType.slice(7, -1);
+    if (inner.startsWith("[") && inner.endsWith("]")) {
+        return {
+            mode: "subscribe",
+            fieldName: inner.slice(1, -1).trim()
+        };
+    } else {
+        return {
+            mode: "publish",
+            allowedTypes: inner.split("|").map(function(t) {
+                return t.trim();
+            }).filter(function(t) {
+                return t.length > 0;
+            })
+        };
+    }
+}
+var OPERATORS_BY_TYPE = {
+    string: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        },
+        {
+            value: "contains",
+            label: "contains"
+        },
+        {
+            value: "startsWith",
+            label: "starts with"
+        },
+        {
+            value: "endsWith",
+            label: "ends with"
+        },
+        {
+            value: "matches",
+            label: "matches (regex)"
+        }
+    ],
+    number: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        },
+        {
+            value: "<",
+            label: "less than (<)"
+        },
+        {
+            value: ">",
+            label: "greater than (>)"
+        },
+        {
+            value: "<=",
+            label: "less than or equal (<=)"
+        },
+        {
+            value: ">=",
+            label: "greater than or equal (>=)"
+        }
+    ],
+    boolean: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        }
+    ],
+    any: [
+        {
+            value: "==",
+            label: "equals (==)"
+        },
+        {
+            value: "!=",
+            label: "not equals (!=)"
+        }
+    ]
+};
+var DEFAULT_OPERATORS = [
+    {
+        value: "==",
+        label: "equals (==)"
+    },
+    {
+        value: "!=",
+        label: "not equals (!=)"
+    }
+];
+function getOperatorsForType(type) {
+    if (type.includes("|")) {
+        var _OPERATORS_BY_TYPE_any;
+        return (_OPERATORS_BY_TYPE_any = OPERATORS_BY_TYPE.any) !== null && _OPERATORS_BY_TYPE_any !== void 0 ? _OPERATORS_BY_TYPE_any : DEFAULT_OPERATORS;
+    }
+    var _OPERATORS_BY_TYPE_type, _ref;
+    return (_ref = (_OPERATORS_BY_TYPE_type = OPERATORS_BY_TYPE[type]) !== null && _OPERATORS_BY_TYPE_type !== void 0 ? _OPERATORS_BY_TYPE_type : OPERATORS_BY_TYPE.any) !== null && _ref !== void 0 ? _ref : DEFAULT_OPERATORS;
+}
 exports.Button = Button;
+exports.InferredTypesContext = InferredTypesContext;
+exports.OPERATORS_BY_TYPE = OPERATORS_BY_TYPE;
 exports.buttonVariants = buttonVariants;
-exports.fields = fields_exports; //# sourceMappingURL=index.cjs.map
+exports.fields = fields_exports;
+exports.getOperatorsForType = getOperatorsForType;
+exports.parseInferSyntax = parseInferSyntax;
+exports.useInferredTypes = useInferredTypes; //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map
