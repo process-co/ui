@@ -4991,6 +4991,18 @@ var InferredTypesContext = React3.createContext(null);
 function useInferredTypes() {
     return React3.useContext(InferredTypesContext);
 }
+function InferredTypesProvider(param) {
+    var children = param.children;
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+}
+function intersectTypes(types) {
+    var validTypes = types.filter(function(t) {
+        return !!t && t.length > 0;
+    });
+    if (validTypes.length === 0) return "any";
+    if (validTypes.length === 1) return validTypes[0];
+    return validTypes[0];
+}
 function parseInferSyntax(expectedType) {
     var _match_;
     if (!expectedType || !expectedType.startsWith("$infer<")) {
@@ -5103,12 +5115,14 @@ function getOperatorsForType(type) {
     ];
 }
 exports.InferredTypesContext = InferredTypesContext;
+exports.InferredTypesProvider = InferredTypesProvider;
 exports.Input = Input;
 exports.NestedFieldProvider = NestedFieldProvider;
 exports.OPERATORS_BY_TYPE = OPERATORS_BY_TYPE;
 exports.Select = Select;
 exports.TemplateFieldProvider = TemplateFieldProvider;
 exports.getOperatorsForType = getOperatorsForType;
+exports.intersectTypes = intersectTypes;
 exports.parseInferSyntax = parseInferSyntax;
 exports.useFieldPath = useFieldPath;
 exports.useInferredTypes = useInferredTypes;

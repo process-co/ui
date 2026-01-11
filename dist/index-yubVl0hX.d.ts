@@ -57,6 +57,7 @@ interface InputProps {
 declare function Input({ fieldName, label, value, onChange, disabled, placeholder, expectedType, required, hasRequiredError, className, editorClassName, }: InputProps): React$1.JSX.Element;
 
 interface SelectOption {
+    node?: React$1.ReactNode;
     value: string;
     label: string;
 }
@@ -302,6 +303,22 @@ declare const InferredTypesContext: React$1.Context<InferredTypesContextValue | 
  */
 declare function useInferredTypes(): InferredTypesContextValue | null;
 /**
+ * Mock provider for inferred types context.
+ * In development mode, this is a no-op - just renders children.
+ * In production, the real implementation from @repo/ui provides actual type propagation.
+ */
+declare function InferredTypesProvider({ children }: {
+    children: React.ReactNode;
+}): React$1.JSX.Element;
+/**
+ * Compute the intersection of multiple types.
+ * Used when subscribing to multiple fields to narrow the expected type.
+ *
+ * @example
+ * intersectTypes(['string | number', 'number']) → 'number'
+ */
+declare function intersectTypes(types: (string | undefined)[]): string;
+/**
  * Configuration parsed from the $infer<...> syntax.
  */
 interface InferConfig {
@@ -356,6 +373,7 @@ declare function getOperatorsForType(type: string): Array<{
 type index_InferConfig = InferConfig;
 declare const index_InferredTypesContext: typeof InferredTypesContext;
 type index_InferredTypesContextValue = InferredTypesContextValue;
+declare const index_InferredTypesProvider: typeof InferredTypesProvider;
 declare const index_Input: typeof Input;
 type index_InputProps = InputProps;
 declare const index_NestedFieldProvider: typeof NestedFieldProvider;
@@ -372,13 +390,14 @@ declare const index_TemplateFieldProvider: typeof TemplateFieldProvider;
 type index_TemplateFieldProviderProps = TemplateFieldProviderProps;
 type index_TemplateFieldValidationError = TemplateFieldValidationError;
 declare const index_getOperatorsForType: typeof getOperatorsForType;
+declare const index_intersectTypes: typeof intersectTypes;
 declare const index_parseInferSyntax: typeof parseInferSyntax;
 declare const index_useFieldPath: typeof useFieldPath;
 declare const index_useInferredTypes: typeof useInferredTypes;
 declare const index_useIsInTemplateFieldProvider: typeof useIsInTemplateFieldProvider;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare namespace index {
-  export { type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_getOperatorsForType as getOperatorsForType, index_parseInferSyntax as parseInferSyntax, index_useFieldPath as useFieldPath, index_useInferredTypes as useInferredTypes, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useTemplateFieldContext as useTemplateFieldContext };
+  export { type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_getOperatorsForType as getOperatorsForType, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_useFieldPath as useFieldPath, index_useInferredTypes as useInferredTypes, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useTemplateFieldContext as useTemplateFieldContext };
 }
 
-export { type InferredTypesContextValue as I, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, Select as S, type TemplateFieldContextValue as T, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferConfig as l, getOperatorsForType as m, Input as n, type InputProps as o, parseInferSyntax as p, type SelectProps as q, type SelectOption as r, type SelectRenderProps as s, useTemplateFieldContext as u };
+export { type InferredTypesContextValue as I, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, Select as S, type TemplateFieldContextValue as T, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, InferredTypesProvider as l, intersectTypes as m, type InferConfig as n, getOperatorsForType as o, parseInferSyntax as p, Input as q, type InputProps as r, type SelectProps as s, type SelectOption as t, useTemplateFieldContext as u, type SelectRenderProps as v };

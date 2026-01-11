@@ -22,6 +22,20 @@ function _define_property(obj, key, value) {
     }
     return obj;
 }
+function _extends() {
+    _extends = Object.assign || function(target) {
+        for(var i = 1; i < arguments.length; i++){
+            var source = arguments[i];
+            for(var key in source){
+                if (Object.prototype.hasOwnProperty.call(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+        return target;
+    };
+    return _extends.apply(this, arguments);
+}
 function _iterable_to_array(iter) {
     if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
 }
@@ -55,6 +69,10 @@ function _non_iterable_rest() {
 function _non_iterable_spread() {
     throw new TypeError("Invalid attempt to spread non-iterable instance.\\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
+function _object_destructuring_empty(o) {
+    if (o === null || o === void 0) throw new TypeError("Cannot destructure " + o);
+    return o;
+}
 function _object_spread(target) {
     for(var i = 1; i < arguments.length; i++){
         var source = arguments[i] != null ? arguments[i] : {};
@@ -66,6 +84,30 @@ function _object_spread(target) {
         }
         ownKeys.forEach(function(key) {
             _define_property(target, key, source[key]);
+        });
+    }
+    return target;
+}
+function ownKeys(object, enumerableOnly) {
+    var keys = Object.keys(object);
+    if (Object.getOwnPropertySymbols) {
+        var symbols = Object.getOwnPropertySymbols(object);
+        if (enumerableOnly) {
+            symbols = symbols.filter(function(sym) {
+                return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+            });
+        }
+        keys.push.apply(keys, symbols);
+    }
+    return keys;
+}
+function _object_spread_props(target, source) {
+    source = source != null ? source : {};
+    if (Object.getOwnPropertyDescriptors) {
+        Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+        ownKeys(Object(source)).forEach(function(key) {
+            Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
         });
     }
     return target;
@@ -115,9 +157,11 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
-import * as React4 from 'react';
+import * as React3 from 'react';
 import { createContext, useContext } from 'react';
 import { Slot } from '@radix-ui/react-slot';
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
+import { CheckIcon, CircleIcon, ChevronRightIcon } from 'lucide-react';
 var __defProp = Object.defineProperty;
 var __export = function(target, all) {
     for(var name in all)__defProp(target, name, {
@@ -4843,7 +4887,7 @@ function Button(_param) {
         "asChild"
     ]);
     var Comp = asChild ? Slot : "button";
-    return /* @__PURE__ */ React4.createElement(Comp, _object_spread({
+    return /* @__PURE__ */ React3.createElement(Comp, _object_spread({
         "data-slot": "button",
         className: cn(buttonVariants({
             variant: variant,
@@ -4852,11 +4896,192 @@ function Button(_param) {
         }))
     }, props));
 }
+function DropdownMenu(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Root, _object_spread({
+        "data-slot": "dropdown-menu"
+    }, props));
+}
+function DropdownMenuPortal(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Portal, _object_spread({
+        "data-slot": "dropdown-menu-portal"
+    }, props));
+}
+function DropdownMenuTrigger(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Trigger, _object_spread({
+        "data-slot": "dropdown-menu-trigger"
+    }, props));
+}
+function DropdownMenuContent(_param) {
+    var className = _param.className, _param_sideOffset = _param.sideOffset, sideOffset = _param_sideOffset === void 0 ? 4 : _param_sideOffset, props = _object_without_properties(_param, [
+        "className",
+        "sideOffset"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Portal, null, /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Content, _object_spread({
+        "data-slot": "dropdown-menu-content",
+        sideOffset: sideOffset,
+        className: cn("uii:bg-popover uii:text-popover-foreground uii:data-[state=open]:animate-in uii:data-[state=closed]:animate-out uii:data-[state=closed]:fade-out-0 uii:data-[state=open]:fade-in-0 uii:data-[state=closed]:zoom-out-95 uii:data-[state=open]:zoom-in-95 uii:data-[side=bottom]:slide-in-from-top-2 uii:data-[side=left]:slide-in-from-right-2 uii:data-[side=right]:slide-in-from-left-2 uii:data-[side=top]:slide-in-from-bottom-2 uii:z-50 uii:min-w-[8rem] uii:overflow-hidden uii:rounded-md uii:border uii:p-1 uii:shadow-md", className)
+    }, props)));
+}
+function DropdownMenuClose(_param) {
+    var className = _param.className, props = _object_without_properties(_param, [
+        "className"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Item, _object_spread({
+        "data-slot": "dropdown-menu-close",
+        className: "hidden"
+    }, props));
+}
+function DropdownMenuGroup(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Group, _object_spread({
+        "data-slot": "dropdown-menu-group"
+    }, props));
+}
+function ConfirmationDropdownMenuItem(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    var originalOnClick = props.onClick, rest = _object_without_properties(props, [
+        "onClick"
+    ]);
+    var _React3_useState = _sliced_to_array(React3.useState(false), 2), isConfirming = _React3_useState[0], setIsConfirming = _React3_useState[1];
+    return !isConfirming ? /* @__PURE__ */ React3.createElement(DropdownMenuItem, _object_spread_props(_object_spread({}, rest), {
+        onClick: function(e) {
+            setIsConfirming(true);
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    })) : /* @__PURE__ */ React3.createElement(DropdownMenuItem, _object_spread_props(_object_spread({}, rest), {
+        onClick: function(e) {
+            if (originalOnClick) {
+                setIsConfirming(false);
+                originalOnClick(e);
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }
+    }), /* @__PURE__ */ React3.createElement("div", {
+        className: "flex flex-row gap-2 items-center"
+    }, /* @__PURE__ */ React3.createElement("div", {
+        className: "text-destructive"
+    }, "Are you sure ?")));
+}
+function DropdownMenuItem(_param) {
+    var className = _param.className, inset = _param.inset, _param_variant = _param.variant, variant = _param_variant === void 0 ? "default" : _param_variant, props = _object_without_properties(_param, [
+        "className",
+        "inset",
+        "variant"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Item, _object_spread({
+        "data-slot": "dropdown-menu-item",
+        "data-inset": inset,
+        "data-variant": variant,
+        className: cn("uii:cursor-pointer uii:focus:bg-accent uii:focus:text-accent-foreground uii:data-[variant=destructive]:text-destructive-foreground uii:data-[variant=destructive]:focus:bg-destructive/10 uii:dark:data-[variant=destructive]:focus:bg-destructive/40 uii:data-[variant=destructive]:focus:text-destructive-foreground uii:data-[variant=destructive]:*:[svg]:!text-destructive-foreground uii:[&_svg:not([class*=text-])]:text-muted-foreground uii:relative uii:flex uii:cursor-default uii:items-center uii:gap-2 uii:rounded-sm uii:px-2 uii:py-1.5 uii:text-sm uii:outline-hidden uii:select-none uii:data-[disabled]:pointer-events-none uii:data-[disabled]:opacity-50 uii:data-[inset]:pl-8 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4", className)
+    }, props));
+}
+function DropdownMenuCheckboxItem(_param) {
+    var className = _param.className, children = _param.children, checked = _param.checked, props = _object_without_properties(_param, [
+        "className",
+        "children",
+        "checked"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.CheckboxItem, _object_spread({
+        "data-slot": "dropdown-menu-checkbox-item",
+        className: cn("uii:focus:bg-accent uii:focus:text-accent-foreground uii:relative uii:flex uii:cursor-default uii:items-center uii:gap-2 uii:rounded-sm uii:py-1.5 uii:pr-2 uii:pl-8 uii:text-sm uii:outline-hidden uii:select-none uii:data-[disabled]:pointer-events-none uii:data-[disabled]:opacity-50 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4", className),
+        checked: checked
+    }, props), /* @__PURE__ */ React3.createElement("span", {
+        className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center"
+    }, /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.ItemIndicator, null, /* @__PURE__ */ React3.createElement(CheckIcon, {
+        className: "uii:size-4"
+    }))), children);
+}
+function DropdownMenuRadioGroup(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.RadioGroup, _object_spread({
+        "data-slot": "dropdown-menu-radio-group"
+    }, props));
+}
+function DropdownMenuRadioItem(_param) {
+    var className = _param.className, children = _param.children, props = _object_without_properties(_param, [
+        "className",
+        "children"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.RadioItem, _object_spread({
+        "data-slot": "dropdown-menu-radio-item",
+        className: cn("uii:focus:bg-accent uii:focus:text-accent-foreground uii:relative uii:flex uii:cursor-default uii:items-center uii:gap-2 uii:rounded-sm uii:py-1.5 uii:pr-2 uii:pl-8 uii:text-sm uii:outline-hidden uii:select-none uii:data-[disabled]:pointer-events-none uii:data-[disabled]:opacity-50 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4", className)
+    }, props), /* @__PURE__ */ React3.createElement("span", {
+        className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center"
+    }, /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.ItemIndicator, null, /* @__PURE__ */ React3.createElement(CircleIcon, {
+        className: "uii:size-2 uii:fill-current"
+    }))), children);
+}
+function DropdownMenuLabel(_param) {
+    var className = _param.className, inset = _param.inset, props = _object_without_properties(_param, [
+        "className",
+        "inset"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Label, _object_spread({
+        "data-slot": "dropdown-menu-label",
+        "data-inset": inset,
+        className: cn("uii:px-2 uii:py-1.5 uii:text-sm uii:font-medium uii:data-[inset]:pl-8", className)
+    }, props));
+}
+function DropdownMenuSeparator(_param) {
+    var className = _param.className, props = _object_without_properties(_param, [
+        "className"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Separator, _object_spread({
+        "data-slot": "dropdown-menu-separator",
+        className: cn("uii:bg-border uii:-mx-1 uii:my-1 uii:h-px", className)
+    }, props));
+}
+function DropdownMenuShortcut(_param) {
+    var className = _param.className, props = _object_without_properties(_param, [
+        "className"
+    ]);
+    return /* @__PURE__ */ React3.createElement("span", _object_spread({
+        "data-slot": "dropdown-menu-shortcut",
+        className: cn("uii:text-muted-foreground uii:ml-auto uii:text-xs uii:tracking-widest", className)
+    }, props));
+}
+function DropdownMenuSub(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.Sub, _object_spread({
+        "data-slot": "dropdown-menu-sub"
+    }, props));
+}
+function DropdownMenuSubTrigger(_param) {
+    var className = _param.className, inset = _param.inset, children = _param.children, props = _object_without_properties(_param, [
+        "className",
+        "inset",
+        "children"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.SubTrigger, _object_spread({
+        "data-slot": "dropdown-menu-sub-trigger",
+        "data-inset": inset,
+        className: cn("uii:focus:bg-accent uii:focus:text-accent-foreground uii:data-[state=open]:bg-accent uii:data-[state=open]:text-accent-foreground uii:flex uii:cursor-default uii:items-center uii:rounded-sm uii:px-2 uii:py-1.5 uii:text-sm uii:outline-hidden uii:select-none uii:data-[inset]:pl-8", className)
+    }, props), children, /* @__PURE__ */ React3.createElement(ChevronRightIcon, {
+        className: "uii:ml-auto uii:size-4"
+    }));
+}
+function DropdownMenuSubContent(_param) {
+    var className = _param.className, props = _object_without_properties(_param, [
+        "className"
+    ]);
+    return /* @__PURE__ */ React3.createElement(DropdownMenuPrimitive.SubContent, _object_spread({
+        "data-slot": "dropdown-menu-sub-content",
+        className: cn("uii:bg-popover uii:text-popover-foreground uii:data-[state=open]:animate-in uii:data-[state=closed]:animate-out uii:data-[state=closed]:fade-out-0 uii:data-[state=open]:fade-in-0 uii:data-[state=closed]:zoom-out-95 uii:data-[state=open]:zoom-in-95 uii:data-[side=bottom]:slide-in-from-top-2 uii:data-[side=left]:slide-in-from-right-2 uii:data-[side=right]:slide-in-from-left-2 uii:data-[side=top]:slide-in-from-bottom-2 uii:z-50 uii:min-w-[8rem] uii:overflow-hidden uii:rounded-md uii:border uii:p-1 uii:shadow-lg", className)
+    }, props));
+}
 // src/components/fields/index.tsx
 var fields_exports = {};
 __export(fields_exports, {
     InferredTypesContext: function() {
         return InferredTypesContext;
+    },
+    InferredTypesProvider: function() {
+        return InferredTypesProvider;
     },
     Input: function() {
         return Input;
@@ -4876,6 +5101,9 @@ __export(fields_exports, {
     getOperatorsForType: function() {
         return getOperatorsForType;
     },
+    intersectTypes: function() {
+        return intersectTypes;
+    },
     parseInferSyntax: function() {
         return parseInferSyntax;
     },
@@ -4894,7 +5122,7 @@ __export(fields_exports, {
 });
 function Input(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, editorClassName = param.editorClassName;
-    var displayValue = React4.useMemo(function() {
+    var displayValue = React3.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4902,12 +5130,12 @@ function Input(param) {
     }, [
         value
     ]);
-    var isExpression = React4.useMemo(function() {
+    var isExpression = React3.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    var handleChange = React4.useCallback(function(e) {
+    var handleChange = React3.useCallback(function(e) {
         var newValue = e.target.value;
         if (newValue.includes("{{")) {
             onChange({
@@ -4921,20 +5149,20 @@ function Input(param) {
         onChange
     ]);
     var showError = hasRequiredError || required && !displayValue;
-    return /* @__PURE__ */ React4.createElement("div", {
+    return /* @__PURE__ */ React3.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React4.createElement("div", {
+    }, /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React4.createElement("label", {
+    }, /* @__PURE__ */ React3.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React4.createElement("span", {
+    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
         className: "uii:mt-0.5"
-    }, /* @__PURE__ */ React4.createElement("input", {
+    }, /* @__PURE__ */ React3.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -4947,9 +5175,9 @@ function Input(param) {
 }
 function Select(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, rawOptions = param.options, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, children = param.children;
-    var _React4_useState = _sliced_to_array(React4.useState(false), 2), isExpressionMode = _React4_useState[0], setIsExpressionMode = _React4_useState[1];
-    var _React4_useState1 = _sliced_to_array(React4.useState(""), 2), expressionValue = _React4_useState1[0], setExpressionValue = _React4_useState1[1];
-    var options = React4.useMemo(function() {
+    var _React3_useState = _sliced_to_array(React3.useState(false), 2), isExpressionMode = _React3_useState[0], setIsExpressionMode = _React3_useState[1];
+    var _React3_useState1 = _sliced_to_array(React3.useState(""), 2), expressionValue = _React3_useState1[0], setExpressionValue = _React3_useState1[1];
+    var options = React3.useMemo(function() {
         return rawOptions.map(function(opt) {
             return typeof opt === "string" ? {
                 value: opt,
@@ -4959,7 +5187,7 @@ function Select(param) {
     }, [
         rawOptions
     ]);
-    var displayValue = React4.useMemo(function() {
+    var displayValue = React3.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4967,12 +5195,12 @@ function Select(param) {
     }, [
         value
     ]);
-    var isExpression = React4.useMemo(function() {
+    var isExpression = React3.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    React4.useEffect(function() {
+    React3.useEffect(function() {
         if (isExpression) {
             setIsExpressionMode(true);
             setExpressionValue(displayValue);
@@ -4981,7 +5209,7 @@ function Select(param) {
         isExpression,
         displayValue
     ]);
-    var handleSelectChange = React4.useCallback(function(newValue) {
+    var handleSelectChange = React3.useCallback(function(newValue) {
         if (newValue === "__expression__") {
             setIsExpressionMode(true);
             return;
@@ -4990,7 +5218,7 @@ function Select(param) {
     }, [
         onChange
     ]);
-    var handleExpressionChange = React4.useCallback(function(e) {
+    var handleExpressionChange = React3.useCallback(function(e) {
         var newValue = e.target.value;
         setExpressionValue(newValue);
         onChange({
@@ -5000,7 +5228,7 @@ function Select(param) {
     }, [
         onChange
     ]);
-    var handleSwitchToValue = React4.useCallback(function() {
+    var handleSwitchToValue = React3.useCallback(function() {
         setIsExpressionMode(false);
         setExpressionValue("");
         onChange("");
@@ -5035,24 +5263,24 @@ function Select(param) {
         },
         hasError: showError
     };
-    return /* @__PURE__ */ React4.createElement("div", {
+    return /* @__PURE__ */ React3.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React4.createElement("div", {
+    }, /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React4.createElement("label", {
+    }, /* @__PURE__ */ React3.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React4.createElement("span", {
+    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
         className: "uii:mt-0.5"
     }, children ? // Use custom render function
     children(renderProps) : isExpressionMode ? // Expression mode - show input with clear button
-    /* @__PURE__ */ React4.createElement("div", {
+    /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5"
-    }, /* @__PURE__ */ React4.createElement("input", {
+    }, /* @__PURE__ */ React3.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -5061,13 +5289,13 @@ function Select(param) {
         disabled: disabled,
         placeholder: "Enter expression...",
         className: cn("uii:flex-1 uii:h-full uii:px-3 uii:bg-transparent uii:text-sm uii:font-mono uii:text-amber-600", "uii:outline-none uii:border-none", disabled && "uii:opacity-50 uii:cursor-not-allowed")
-    }), /* @__PURE__ */ React4.createElement("button", {
+    }), /* @__PURE__ */ React3.createElement("button", {
         type: "button",
         onClick: handleSwitchToValue,
         className: "uii:flex uii:items-center uii:justify-center uii:h-full uii:px-2 uii:text-amber-600 hover:uii:text-red-600 uii:border-l uii:border-amber-500/30",
         title: "Clear and return to value mode"
     }, "\xD7")) : // Value mode - show select
-    /* @__PURE__ */ React4.createElement("select", {
+    /* @__PURE__ */ React3.createElement("select", {
         id: fieldName,
         name: fieldName,
         value: displayValue,
@@ -5076,15 +5304,15 @@ function Select(param) {
         },
         disabled: disabled,
         className: cn("uii:w-full uii:h-9 uii:px-3 uii:rounded-sm uii:border uii:bg-background uii:text-sm", "uii:outline-none uii:transition-all uii:cursor-pointer", "focus:uii:border-ring focus:uii:ring-ring/50 focus:uii:ring-[3px]", showError ? "uii:border-red-500 hover:uii:border-red-600" : "uii:border-input hover:uii:border-ring/50", disabled && "uii:opacity-50 uii:cursor-not-allowed")
-    }, placeholder && /* @__PURE__ */ React4.createElement("option", {
+    }, placeholder && /* @__PURE__ */ React3.createElement("option", {
         value: "",
         disabled: true
     }, placeholder), options.map(function(opt) {
-        return /* @__PURE__ */ React4.createElement("option", {
+        return /* @__PURE__ */ React3.createElement("option", {
             key: opt.value,
             value: opt.value
         }, opt.label);
-    }), /* @__PURE__ */ React4.createElement("option", {
+    }), /* @__PURE__ */ React3.createElement("option", {
         value: "__expression__"
     }, "\uD83D\uDCDD Custom Expression"))));
 }
@@ -5124,6 +5352,18 @@ function NestedFieldProvider(param) {
 var InferredTypesContext = createContext(null);
 function useInferredTypes() {
     return useContext(InferredTypesContext);
+}
+function InferredTypesProvider(param) {
+    var children = param.children;
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+}
+function intersectTypes(types) {
+    var validTypes = types.filter(function(t) {
+        return !!t && t.length > 0;
+    });
+    if (validTypes.length === 0) return "any";
+    if (validTypes.length === 1) return validTypes[0];
+    return validTypes[0];
 }
 function parseInferSyntax(expectedType) {
     var _match_;
@@ -5236,5 +5476,5 @@ function getOperatorsForType(type) {
         }
     ];
 }
-export { Button, buttonVariants, fields_exports as fields }; //# sourceMappingURL=index.js.map
+export { Button, ConfirmationDropdownMenuItem, DropdownMenu, DropdownMenuCheckboxItem, DropdownMenuClose, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger, buttonVariants, fields_exports as fields }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

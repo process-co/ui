@@ -4971,6 +4971,18 @@ var InferredTypesContext = createContext(null);
 function useInferredTypes() {
     return useContext(InferredTypesContext);
 }
+function InferredTypesProvider(param) {
+    var children = param.children;
+    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+}
+function intersectTypes(types) {
+    var validTypes = types.filter(function(t) {
+        return !!t && t.length > 0;
+    });
+    if (validTypes.length === 0) return "any";
+    if (validTypes.length === 1) return validTypes[0];
+    return validTypes[0];
+}
 function parseInferSyntax(expectedType) {
     var _match_;
     if (!expectedType || !expectedType.startsWith("$infer<")) {
@@ -5082,5 +5094,5 @@ function getOperatorsForType(type) {
         }
     ];
 }
-export { InferredTypesContext, Input, NestedFieldProvider, OPERATORS_BY_TYPE, Select, TemplateFieldProvider, getOperatorsForType, parseInferSyntax, useFieldPath, useInferredTypes, useIsInTemplateFieldProvider, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
+export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, OPERATORS_BY_TYPE, Select, TemplateFieldProvider, getOperatorsForType, intersectTypes, parseInferSyntax, useFieldPath, useInferredTypes, useIsInTemplateFieldProvider, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map
