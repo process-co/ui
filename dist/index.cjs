@@ -162,6 +162,7 @@ var React3 = require('react');
 var reactSlot = require('@radix-ui/react-slot');
 var DropdownMenuPrimitive = require('@radix-ui/react-dropdown-menu');
 var lucideReact = require('lucide-react');
+var SelectPrimitive = require('@radix-ui/react-select');
 function _interopNamespace(e) {
     if (e && e.__esModule) return e;
     var n = Object.create(null);
@@ -183,6 +184,7 @@ function _interopNamespace(e) {
 }
 var React3__namespace = /*#__PURE__*/ _interopNamespace(React3);
 var DropdownMenuPrimitive__namespace = /*#__PURE__*/ _interopNamespace(DropdownMenuPrimitive);
+var SelectPrimitive__namespace = /*#__PURE__*/ _interopNamespace(SelectPrimitive);
 var __defProp = Object.defineProperty;
 var __export = function(target, all) {
     for(var name in all)__defProp(target, name, {
@@ -5114,7 +5116,7 @@ __export(fields_exports, {
         return OPERATORS_BY_TYPE;
     },
     Select: function() {
-        return Select;
+        return Select2;
     },
     TemplateFieldProvider: function() {
         return TemplateFieldProvider;
@@ -5194,7 +5196,89 @@ function Input(param) {
         className: cn("uii:w-full uii:h-9 uii:px-3 uii:rounded-sm uii:border uii:bg-background uii:text-sm", "uii:outline-none uii:transition-all", "focus:uii:border-ring focus:uii:ring-ring/50 focus:uii:ring-[3px]", showError ? "uii:border-red-500 hover:uii:border-red-600" : "uii:border-input hover:uii:border-ring/50", isExpression && "uii:font-mono uii:text-amber-600", disabled && "uii:opacity-50 uii:cursor-not-allowed", editorClassName)
     })));
 }
-function Select(param) {
+function Select(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Root, _object_spread({
+        "data-slot": "select"
+    }, props));
+}
+function SelectValue(_param) {
+    var props = _extends({}, _object_destructuring_empty(_param));
+    return /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Value, _object_spread({
+        "data-slot": "select-value"
+    }, props));
+}
+function SelectTrigger(_param) {
+    var className = _param.className, children = _param.children, props = _object_without_properties(_param, [
+        "className",
+        "children"
+    ]);
+    return /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Trigger, _object_spread({
+        "data-slot": "select-trigger",
+        className: cn("uii:border-input uii:data-[placeholder]:text-muted-foreground uii:[&_svg:not([class*=text-])]:text-muted-foreground uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:aria-invalid:ring-destructive/20 uii:dark:aria-invalid:ring-destructive/40 uii:aria-invalid:border-destructive uii:flex uii:h-9 uii:w-full uii:items-center uii:justify-between uii:gap-2 uii:rounded-md uii:border uii:bg-transparent uii:px-3 uii:py-2 uii:text-sm uii:whitespace-nowrap uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:focus-visible:ring-[3px] uii:disabled:cursor-not-allowed uii:disabled:opacity-50 uii:*:data-[slot=select-value]:line-clamp-1 uii:*:data-[slot=select-value]:flex uii:*:data-[slot=select-value]:items-center uii:*:data-[slot=select-value]:gap-2 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4", className)
+    }, props), children, /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Icon, {
+        asChild: true
+    }, /* @__PURE__ */ React3__namespace.createElement(lucideReact.ChevronDownIcon, {
+        className: "uii:size-4 uii:opacity-50"
+    })));
+}
+function SelectContent(_param) {
+    var className = _param.className, children = _param.children, _param_position = _param.position, position = _param_position === void 0 ? "popper" : _param_position, footer = _param.footer, _param_hideScrollUpButton = _param.hideScrollUpButton, hideScrollUpButton = _param_hideScrollUpButton === void 0 ? false : _param_hideScrollUpButton, _param_hideScrollDownButton = _param.hideScrollDownButton, hideScrollDownButton = _param_hideScrollDownButton === void 0 ? false : _param_hideScrollDownButton, props = _object_without_properties(_param, [
+        "className",
+        "children",
+        "position",
+        "footer",
+        "hideScrollUpButton",
+        "hideScrollDownButton"
+    ]);
+    return /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Portal, null, /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Content, _object_spread({
+        "data-slot": "select-content",
+        className: cn("uii:bg-popover uii:text-popover-foreground uii:data-[state=open]:animate-in uii:data-[state=closed]:animate-out uii:data-[state=closed]:fade-out-0 uii:data-[state=open]:fade-in-0 uii:data-[state=closed]:zoom-out-95 uii:data-[state=open]:zoom-in-95 uii:data-[side=bottom]:slide-in-from-top-2 uii:data-[side=left]:slide-in-from-right-2 uii:data-[side=right]:slide-in-from-left-2 uii:data-[side=top]:slide-in-from-bottom-2 uii:relative uii:z-50 uii:max-h-96 uii:min-w-[8rem] uii:overflow-hidden uii:rounded-md uii:border uii:shadow-md", position === "popper" && "uii:data-[side=bottom]:translate-y-1 uii:data-[side=left]:-translate-x-1 uii:data-[side=right]:translate-x-1 uii:data-[side=top]:-translate-y-1", "uii:slide-in-from-right-6", className),
+        position: position
+    }, props), !hideScrollUpButton && /* @__PURE__ */ React3__namespace.createElement(SelectScrollUpButton, null), /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Viewport, {
+        className: cn("uii:p-1", position === "popper" && "uii:h-[var(--radix-select-trigger-height)] uii:w-full uii:min-w-[var(--radix-select-trigger-width)] uii:scroll-my-1")
+    }, children), footer ? /* @__PURE__ */ React3__namespace.createElement("div", {
+        className: "uii:border-t uii:p-2 uii:bg-popover"
+    }, footer) : null, !hideScrollDownButton && /* @__PURE__ */ React3__namespace.createElement(SelectScrollDownButton, null)));
+}
+function SelectItem(_param) {
+    var className = _param.className, children = _param.children, props = _object_without_properties(_param, [
+        "className",
+        "children"
+    ]);
+    return /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.Item, _object_spread({
+        "data-slot": "select-item",
+        className: cn("uii:focus:bg-accent uii:focus:text-accent-foreground uii:[&_svg:not([class*=text-])]:text-muted-foreground uii:relative uii:flex uii:w-full uii:cursor-default uii:items-center uii:gap-2 uii:rounded-sm uii:py-1.5 uii:pr-8 uii:pl-2 uii:text-sm uii:outline-hidden uii:select-none uii:data-[disabled]:pointer-events-none uii:data-[disabled]:opacity-50 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4 uii:*:[span]:last:flex uii:*:[span]:last:items-center uii:*:[span]:last:gap-2", className)
+    }, props), /* @__PURE__ */ React3__namespace.createElement("span", {
+        className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center"
+    }, /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.ItemIndicator, null, /* @__PURE__ */ React3__namespace.createElement(lucideReact.CheckIcon, {
+        className: "uii:size-4"
+    }))), /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.ItemText, null, children));
+}
+function SelectScrollUpButton(_param) {
+    var className = _param.className, props = _object_without_properties(_param, [
+        "className"
+    ]);
+    return /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.ScrollUpButton, _object_spread({
+        "data-slot": "select-scroll-up-button",
+        className: cn("uii:flex uii:cursor-default uii:items-center uii:justify-center uii:py-1", className)
+    }, props), /* @__PURE__ */ React3__namespace.createElement(lucideReact.ChevronUpIcon, {
+        className: "uii:size-4"
+    }));
+}
+function SelectScrollDownButton(_param) {
+    var className = _param.className, props = _object_without_properties(_param, [
+        "className"
+    ]);
+    return /* @__PURE__ */ React3__namespace.createElement(SelectPrimitive__namespace.ScrollDownButton, _object_spread({
+        "data-slot": "select-scroll-down-button",
+        className: cn("uii:flex uii:cursor-default uii:items-center uii:justify-center uii:py-1", className)
+    }, props), /* @__PURE__ */ React3__namespace.createElement(lucideReact.ChevronDownIcon, {
+        className: "uii:size-4"
+    }));
+}
+// src/components/fields/Select.tsx
+function Select2(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, rawOptions = param.options, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, children = param.children;
     var _React3__namespace_useState = _sliced_to_array(React3__namespace.useState(false), 2), isExpressionMode = _React3__namespace_useState[0], setIsExpressionMode = _React3__namespace_useState[1];
     var _React3__namespace_useState1 = _sliced_to_array(React3__namespace.useState(""), 2), expressionValue = _React3__namespace_useState1[0], setExpressionValue = _React3__namespace_useState1[1];
@@ -5316,26 +5400,52 @@ function Select(param) {
         className: "uii:flex uii:items-center uii:justify-center uii:h-full uii:px-2 uii:text-amber-600 hover:uii:text-red-600 uii:border-l uii:border-amber-500/30",
         title: "Clear and return to value mode"
     }, "\xD7")) : // Value mode - show select
-    /* @__PURE__ */ React3__namespace.createElement("select", {
-        id: fieldName,
-        name: fieldName,
+    // <select
+    //   id={fieldName}
+    //   name={fieldName}
+    //   value={displayValue}
+    //   onChange={(e) => handleSelectChange(e.target.value)}
+    //   disabled={disabled}
+    //   className={cn(
+    //     'uii:w-full uii:h-9 uii:px-3 uii:rounded-sm uii:border uii:bg-background uii:text-sm',
+    //     'uii:outline-none uii:transition-all uii:cursor-pointer',
+    //     'focus:uii:border-ring focus:uii:ring-ring/50 focus:uii:ring-[3px]',
+    //     showError
+    //       ? 'uii:border-red-500 hover:uii:border-red-600'
+    //       : 'uii:border-input hover:uii:border-ring/50',
+    //     disabled && 'uii:opacity-50 uii:cursor-not-allowed'
+    //   )}
+    // >
+    //   {placeholder && (
+    //     <option value="" disabled>
+    //       {placeholder}
+    //     </option>
+    //   )}
+    //   {options.map(opt => (
+    //     <option key={opt.value} value={opt.value}>
+    //       {opt.label}
+    //     </option>
+    //   ))}
+    //   <option value="__expression__">
+    //     📝 Custom Expression
+    //   </option>
+    // </select>
+    /* @__PURE__ */ React3__namespace.createElement(Select, {
         value: displayValue,
-        onChange: function(e) {
-            return handleSelectChange(e.target.value);
+        onValueChange: function(e) {
+            return handleSelectChange(e);
         },
-        disabled: disabled,
-        className: cn("uii:w-full uii:h-9 uii:px-3 uii:rounded-sm uii:border uii:bg-background uii:text-sm", "uii:outline-none uii:transition-all uii:cursor-pointer", "focus:uii:border-ring focus:uii:ring-ring/50 focus:uii:ring-[3px]", showError ? "uii:border-red-500 hover:uii:border-red-600" : "uii:border-input hover:uii:border-ring/50", disabled && "uii:opacity-50 uii:cursor-not-allowed")
-    }, placeholder && /* @__PURE__ */ React3__namespace.createElement("option", {
-        value: "",
-        disabled: true
-    }, placeholder), options.map(function(opt) {
-        return /* @__PURE__ */ React3__namespace.createElement("option", {
+        disabled: disabled !== null && disabled !== void 0 ? disabled : disabled
+    }, /* @__PURE__ */ React3__namespace.createElement(SelectTrigger, {
+        className: "ui:w-full ui:h-9 ui:px-3 ui:border ui:border-input ui:rounded-sm ui:bg-background"
+    }, /* @__PURE__ */ React3__namespace.createElement(SelectValue, {
+        placeholder: placeholder
+    })), /* @__PURE__ */ React3__namespace.createElement(SelectContent, null, options.map(function(opt) {
+        return /* @__PURE__ */ React3__namespace.createElement(SelectItem, {
             key: opt.value,
             value: opt.value
-        }, opt.label);
-    }), /* @__PURE__ */ React3__namespace.createElement("option", {
-        value: "__expression__"
-    }, "\uD83D\uDCDD Custom Expression"))));
+        }, opt.node ? opt.node : /* @__PURE__ */ React3__namespace.createElement(React3__namespace.Fragment, null, opt.label));
+    })))));
 }
 // src/components/fields/index.tsx
 function useTemplateFieldContext() {
