@@ -133,8 +133,8 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
-import * as React4 from 'react';
-import { createContext, useContext } from 'react';
+import * as React3 from 'react';
+import React3__default, { createContext, useContext, useCallback } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from 'lucide-react';
 // src/components/fields/index.tsx
@@ -4787,7 +4787,7 @@ function cn() {
 // src/components/fields/Input.tsx
 function Input(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, editorClassName = param.editorClassName;
-    var displayValue = React4.useMemo(function() {
+    var displayValue = React3.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4795,12 +4795,12 @@ function Input(param) {
     }, [
         value
     ]);
-    var isExpression = React4.useMemo(function() {
+    var isExpression = React3.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    var handleChange = React4.useCallback(function(e) {
+    var handleChange = React3.useCallback(function(e) {
         var newValue = e.target.value;
         if (newValue.includes("{{")) {
             onChange({
@@ -4814,20 +4814,20 @@ function Input(param) {
         onChange
     ]);
     var showError = hasRequiredError || required && !displayValue;
-    return /* @__PURE__ */ React4.createElement("div", {
+    return /* @__PURE__ */ React3.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React4.createElement("div", {
+    }, /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React4.createElement("label", {
+    }, /* @__PURE__ */ React3.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React4.createElement("span", {
+    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
         className: "uii:mt-0.5"
-    }, /* @__PURE__ */ React4.createElement("input", {
+    }, /* @__PURE__ */ React3.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -4840,13 +4840,13 @@ function Input(param) {
 }
 function Select(_param) {
     var props = _extends({}, _object_destructuring_empty(_param));
-    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Root, _object_spread({
+    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Root, _object_spread({
         "data-slot": "select"
     }, props));
 }
 function SelectValue(_param) {
     var props = _extends({}, _object_destructuring_empty(_param));
-    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Value, _object_spread({
+    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Value, _object_spread({
         "data-slot": "select-value"
     }, props));
 }
@@ -4855,12 +4855,12 @@ function SelectTrigger(_param) {
         "className",
         "children"
     ]);
-    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Trigger, _object_spread({
+    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Trigger, _object_spread({
         "data-slot": "select-trigger",
         className: cn("uii:border-input uii:data-[placeholder]:text-muted-foreground uii:[&_svg:not([class*=text-])]:text-muted-foreground uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:aria-invalid:ring-destructive/20 uii:dark:aria-invalid:ring-destructive/40 uii:aria-invalid:border-destructive uii:flex uii:h-9 uii:w-full uii:items-center uii:justify-between uii:gap-2 uii:rounded-md uii:border uii:bg-transparent uii:px-3 uii:py-2 uii:text-sm uii:whitespace-nowrap uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:focus-visible:ring-[3px] uii:disabled:cursor-not-allowed uii:disabled:opacity-50 uii:*:data-[slot=select-value]:line-clamp-1 uii:*:data-[slot=select-value]:flex uii:*:data-[slot=select-value]:items-center uii:*:data-[slot=select-value]:gap-2 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4", className)
-    }, props), children, /* @__PURE__ */ React4.createElement(SelectPrimitive.Icon, {
+    }, props), children, /* @__PURE__ */ React3.createElement(SelectPrimitive.Icon, {
         asChild: true
-    }, /* @__PURE__ */ React4.createElement(ChevronDownIcon, {
+    }, /* @__PURE__ */ React3.createElement(ChevronDownIcon, {
         className: "uii:size-4 uii:opacity-50"
     })));
 }
@@ -4873,38 +4873,38 @@ function SelectContent(_param) {
         "hideScrollUpButton",
         "hideScrollDownButton"
     ]);
-    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Portal, null, /* @__PURE__ */ React4.createElement(SelectPrimitive.Content, _object_spread({
+    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Portal, null, /* @__PURE__ */ React3.createElement(SelectPrimitive.Content, _object_spread({
         "data-slot": "select-content",
         className: cn("uii:bg-popover uii:text-popover-foreground uii:data-[state=open]:animate-in uii:data-[state=closed]:animate-out uii:data-[state=closed]:fade-out-0 uii:data-[state=open]:fade-in-0 uii:data-[state=closed]:zoom-out-95 uii:data-[state=open]:zoom-in-95 uii:data-[side=bottom]:slide-in-from-top-2 uii:data-[side=left]:slide-in-from-right-2 uii:data-[side=right]:slide-in-from-left-2 uii:data-[side=top]:slide-in-from-bottom-2 uii:relative uii:z-50 uii:max-h-96 uii:min-w-[8rem] uii:overflow-hidden uii:rounded-md uii:border uii:shadow-md", position === "popper" && "uii:data-[side=bottom]:translate-y-1 uii:data-[side=left]:-translate-x-1 uii:data-[side=right]:translate-x-1 uii:data-[side=top]:-translate-y-1", "uii:slide-in-from-right-6", className),
         position: position
-    }, props), !hideScrollUpButton && /* @__PURE__ */ React4.createElement(SelectScrollUpButton, null), /* @__PURE__ */ React4.createElement(SelectPrimitive.Viewport, {
+    }, props), !hideScrollUpButton && /* @__PURE__ */ React3.createElement(SelectScrollUpButton, null), /* @__PURE__ */ React3.createElement(SelectPrimitive.Viewport, {
         className: cn("uii:p-1", position === "popper" && "uii:h-[var(--radix-select-trigger-height)] uii:w-full uii:min-w-[var(--radix-select-trigger-width)] uii:scroll-my-1")
-    }, children), footer ? /* @__PURE__ */ React4.createElement("div", {
+    }, children), footer ? /* @__PURE__ */ React3.createElement("div", {
         className: "uii:border-t uii:p-2 uii:bg-popover"
-    }, footer) : null, !hideScrollDownButton && /* @__PURE__ */ React4.createElement(SelectScrollDownButton, null)));
+    }, footer) : null, !hideScrollDownButton && /* @__PURE__ */ React3.createElement(SelectScrollDownButton, null)));
 }
 function SelectItem(_param) {
     var className = _param.className, children = _param.children, props = _object_without_properties(_param, [
         "className",
         "children"
     ]);
-    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Item, _object_spread({
+    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Item, _object_spread({
         "data-slot": "select-item",
         className: cn("uii:focus:bg-accent uii:focus:text-accent-foreground uii:[&_svg:not([class*=text-])]:text-muted-foreground uii:relative uii:flex uii:w-full uii:cursor-default uii:items-center uii:gap-2 uii:rounded-sm uii:py-1.5 uii:pr-8 uii:pl-2 uii:text-sm uii:outline-hidden uii:select-none uii:data-[disabled]:pointer-events-none uii:data-[disabled]:opacity-50 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4 uii:*:[span]:last:flex uii:*:[span]:last:items-center uii:*:[span]:last:gap-2", className)
-    }, props), /* @__PURE__ */ React4.createElement("span", {
+    }, props), /* @__PURE__ */ React3.createElement("span", {
         className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center"
-    }, /* @__PURE__ */ React4.createElement(SelectPrimitive.ItemIndicator, null, /* @__PURE__ */ React4.createElement(CheckIcon, {
+    }, /* @__PURE__ */ React3.createElement(SelectPrimitive.ItemIndicator, null, /* @__PURE__ */ React3.createElement(CheckIcon, {
         className: "uii:size-4"
-    }))), /* @__PURE__ */ React4.createElement(SelectPrimitive.ItemText, null, children));
+    }))), /* @__PURE__ */ React3.createElement(SelectPrimitive.ItemText, null, children));
 }
 function SelectScrollUpButton(_param) {
     var className = _param.className, props = _object_without_properties(_param, [
         "className"
     ]);
-    return /* @__PURE__ */ React4.createElement(SelectPrimitive.ScrollUpButton, _object_spread({
+    return /* @__PURE__ */ React3.createElement(SelectPrimitive.ScrollUpButton, _object_spread({
         "data-slot": "select-scroll-up-button",
         className: cn("uii:flex uii:cursor-default uii:items-center uii:justify-center uii:py-1", className)
-    }, props), /* @__PURE__ */ React4.createElement(ChevronUpIcon, {
+    }, props), /* @__PURE__ */ React3.createElement(ChevronUpIcon, {
         className: "uii:size-4"
     }));
 }
@@ -4912,19 +4912,19 @@ function SelectScrollDownButton(_param) {
     var className = _param.className, props = _object_without_properties(_param, [
         "className"
     ]);
-    return /* @__PURE__ */ React4.createElement(SelectPrimitive.ScrollDownButton, _object_spread({
+    return /* @__PURE__ */ React3.createElement(SelectPrimitive.ScrollDownButton, _object_spread({
         "data-slot": "select-scroll-down-button",
         className: cn("uii:flex uii:cursor-default uii:items-center uii:justify-center uii:py-1", className)
-    }, props), /* @__PURE__ */ React4.createElement(ChevronDownIcon, {
+    }, props), /* @__PURE__ */ React3.createElement(ChevronDownIcon, {
         className: "uii:size-4"
     }));
 }
 // src/components/fields/Select.tsx
 function Select2(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, rawOptions = param.options, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, children = param.children;
-    var _React4_useState = _sliced_to_array(React4.useState(false), 2), isExpressionMode = _React4_useState[0], setIsExpressionMode = _React4_useState[1];
-    var _React4_useState1 = _sliced_to_array(React4.useState(""), 2), expressionValue = _React4_useState1[0], setExpressionValue = _React4_useState1[1];
-    var options = React4.useMemo(function() {
+    var _React3_useState = _sliced_to_array(React3.useState(false), 2), isExpressionMode = _React3_useState[0], setIsExpressionMode = _React3_useState[1];
+    var _React3_useState1 = _sliced_to_array(React3.useState(""), 2), expressionValue = _React3_useState1[0], setExpressionValue = _React3_useState1[1];
+    var options = React3.useMemo(function() {
         return rawOptions.map(function(opt) {
             return typeof opt === "string" ? {
                 value: opt,
@@ -4934,7 +4934,7 @@ function Select2(param) {
     }, [
         rawOptions
     ]);
-    var displayValue = React4.useMemo(function() {
+    var displayValue = React3.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4942,12 +4942,12 @@ function Select2(param) {
     }, [
         value
     ]);
-    var isExpression = React4.useMemo(function() {
+    var isExpression = React3.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    React4.useEffect(function() {
+    React3.useEffect(function() {
         if (isExpression) {
             setIsExpressionMode(true);
             setExpressionValue(displayValue);
@@ -4956,7 +4956,7 @@ function Select2(param) {
         isExpression,
         displayValue
     ]);
-    var handleSelectChange = React4.useCallback(function(newValue) {
+    var handleSelectChange = React3.useCallback(function(newValue) {
         if (newValue === "__expression__") {
             setIsExpressionMode(true);
             return;
@@ -4965,7 +4965,7 @@ function Select2(param) {
     }, [
         onChange
     ]);
-    var handleExpressionChange = React4.useCallback(function(e) {
+    var handleExpressionChange = React3.useCallback(function(e) {
         var newValue = e.target.value;
         setExpressionValue(newValue);
         onChange({
@@ -4975,7 +4975,7 @@ function Select2(param) {
     }, [
         onChange
     ]);
-    var handleSwitchToValue = React4.useCallback(function() {
+    var handleSwitchToValue = React3.useCallback(function() {
         setIsExpressionMode(false);
         setExpressionValue("");
         onChange("");
@@ -5010,24 +5010,24 @@ function Select2(param) {
         },
         hasError: showError
     };
-    return /* @__PURE__ */ React4.createElement("div", {
+    return /* @__PURE__ */ React3.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React4.createElement("div", {
+    }, /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React4.createElement("label", {
+    }, /* @__PURE__ */ React3.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React4.createElement("span", {
+    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
         className: "uii:mt-0.5"
     }, children ? // Use custom render function
     children(renderProps) : isExpressionMode ? // Expression mode - show input with clear button
-    /* @__PURE__ */ React4.createElement("div", {
+    /* @__PURE__ */ React3.createElement("div", {
         className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5"
-    }, /* @__PURE__ */ React4.createElement("input", {
+    }, /* @__PURE__ */ React3.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -5036,7 +5036,7 @@ function Select2(param) {
         disabled: disabled,
         placeholder: "Enter expression...",
         className: cn("uii:flex-1 uii:h-full uii:px-3 uii:bg-transparent uii:text-sm uii:font-mono uii:text-amber-600", "uii:outline-none uii:border-none", disabled && "uii:opacity-50 uii:cursor-not-allowed")
-    }), /* @__PURE__ */ React4.createElement("button", {
+    }), /* @__PURE__ */ React3.createElement("button", {
         type: "button",
         onClick: handleSwitchToValue,
         className: "uii:flex uii:items-center uii:justify-center uii:h-full uii:px-2 uii:text-amber-600 hover:uii:text-red-600 uii:border-l uii:border-amber-500/30",
@@ -5072,21 +5072,21 @@ function Select2(param) {
     //     📝 Custom Expression
     //   </option>
     // </select>
-    /* @__PURE__ */ React4.createElement(Select, {
+    /* @__PURE__ */ React3.createElement(Select, {
         value: displayValue,
         onValueChange: function(e) {
             return handleSelectChange(e);
         },
         disabled: disabled !== null && disabled !== void 0 ? disabled : disabled
-    }, /* @__PURE__ */ React4.createElement(SelectTrigger, {
+    }, /* @__PURE__ */ React3.createElement(SelectTrigger, {
         className: "ui:w-full ui:h-9 ui:px-3 ui:border ui:border-input ui:rounded-sm ui:bg-background"
-    }, /* @__PURE__ */ React4.createElement(SelectValue, {
+    }, /* @__PURE__ */ React3.createElement(SelectValue, {
         placeholder: placeholder
-    })), /* @__PURE__ */ React4.createElement(SelectContent, null, options.map(function(opt) {
-        return /* @__PURE__ */ React4.createElement(SelectItem, {
+    })), /* @__PURE__ */ React3.createElement(SelectContent, null, options.map(function(opt) {
+        return /* @__PURE__ */ React3.createElement(SelectItem, {
             key: opt.value,
             value: opt.value
-        }, opt.node ? opt.node : /* @__PURE__ */ React4.createElement(React4.Fragment, null, opt.label));
+        }, opt.node ? opt.node : /* @__PURE__ */ React3.createElement(React3.Fragment, null, opt.label));
     })))));
 }
 // src/components/fields/index.tsx
@@ -5116,11 +5116,11 @@ function useFieldPath(fieldName) {
 }
 function TemplateFieldProvider(param) {
     var children = param.children;
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
 }
 function NestedFieldProvider(param) {
     var children = param.children;
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
 }
 var InferredTypesContext = createContext(null);
 function useInferredTypes() {
@@ -5128,7 +5128,7 @@ function useInferredTypes() {
 }
 function InferredTypesProvider(param) {
     var children = param.children;
-    return /* @__PURE__ */ React.createElement(React.Fragment, null, children);
+    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
 }
 function intersectTypes(types) {
     var validTypes = types.filter(function(t) {
@@ -5249,5 +5249,76 @@ function getOperatorsForType(type) {
         }
     ];
 }
-export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, getOperatorsForType, intersectTypes, parseInferSyntax, useFieldPath, useInferredTypes, useIsInTemplateFieldProvider, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
+function NodePropertyProvider(param) {
+    var children = param.children;
+    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
+}
+function useIsInNodePropertyProvider() {
+    return false;
+}
+function useNodeProperty(key) {
+    var noopSetter = useCallback(function() {
+        console.warn('[useNodeProperty] Mock mode - cannot set "'.concat(key, '"'));
+    }, [
+        key
+    ]);
+    return [
+        void 0,
+        noopSetter
+    ];
+}
+function useNodeProperties() {
+    var noopSetter = useCallback(function() {
+        console.warn("[useNodeProperties] Mock mode - cannot set properties");
+    }, []);
+    return [
+        {},
+        noopSetter
+    ];
+}
+function useInferredType(fieldName) {
+    return void 0;
+}
+function useSetInferredType() {
+    return useCallback(function(fieldName, type) {
+        console.warn('[useSetInferredType] Mock mode - cannot set "'.concat(fieldName, '" to "').concat(type, '"'));
+    }, []);
+}
+function useAllInferredTypes() {
+    return {};
+}
+function useSetProperty() {
+    return useCallback(function(key, value) {
+        console.warn('[useSetProperty] Mock mode - cannot set "'.concat(key, '"'));
+    }, []);
+}
+function useFieldValidation() {
+    var setFieldRequired = useCallback(function(fieldName, required) {
+        console.warn('[useFieldValidation] Mock mode - cannot set required for "'.concat(fieldName, '"'));
+    }, []);
+    var setFieldRequiredIf = useCallback(function(fieldName, requiredIf) {
+        console.warn('[useFieldValidation] Mock mode - cannot set requiredIf for "'.concat(fieldName, '"'));
+    }, []);
+    var setFieldValidation = useCallback(function(fieldName, customValidation) {
+        console.warn('[useFieldValidation] Mock mode - cannot set validation for "'.concat(fieldName, '"'));
+    }, []);
+    var clearFieldValidation = useCallback(function(fieldName) {
+        console.warn('[useFieldValidation] Mock mode - cannot clear validation for "'.concat(fieldName, '"'));
+    }, []);
+    var isFieldRequired = useCallback(function(fieldName) {
+        return false;
+    }, []);
+    var validateField = useCallback(function(fieldName) {
+        return null;
+    }, []);
+    return {
+        setFieldRequired: setFieldRequired,
+        setFieldRequiredIf: setFieldRequiredIf,
+        setFieldValidation: setFieldValidation,
+        clearFieldValidation: clearFieldValidation,
+        isFieldRequired: isFieldRequired,
+        validateField: validateField
+    };
+}
+export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, getOperatorsForType, intersectTypes, parseInferSyntax, useAllInferredTypes, useFieldPath, useFieldValidation, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

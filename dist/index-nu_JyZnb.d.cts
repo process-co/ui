@@ -1,4 +1,5 @@
-import * as React$1 from 'react';
+import * as React from 'react';
+import React__default from 'react';
 
 interface InputProps {
     /**
@@ -54,10 +55,10 @@ interface InputProps {
  * />
  * ```
  */
-declare function Input({ fieldName, label, value, onChange, disabled, placeholder, expectedType, required, hasRequiredError, className, editorClassName, }: InputProps): React$1.JSX.Element;
+declare function Input({ fieldName, label, value, onChange, disabled, placeholder, expectedType, required, hasRequiredError, className, editorClassName, }: InputProps): React.JSX.Element;
 
 interface SelectOption {
-    node?: React$1.ReactNode;
+    node?: React.ReactNode;
     value: string;
     label: string;
 }
@@ -101,7 +102,7 @@ interface SelectProps {
      * Render prop for custom select UI.
      * If not provided, uses a basic HTML select.
      */
-    children?: (props: SelectRenderProps) => React$1.ReactNode;
+    children?: (props: SelectRenderProps) => React.ReactNode;
 }
 interface SelectRenderProps {
     value: string;
@@ -146,7 +147,47 @@ interface SelectRenderProps {
  * />
  * ```
  */
-declare function Select({ fieldName, label, value, onChange, options: rawOptions, disabled, placeholder, expectedType, required, hasRequiredError, className, children, }: SelectProps): React$1.JSX.Element;
+declare function Select({ fieldName, label, value, onChange, options: rawOptions, disabled, placeholder, expectedType, required, hasRequiredError, className, children, }: SelectProps): React.JSX.Element;
+
+/**
+ * Simplified Field Components (Mock/Development Version)
+ *
+ * These are mock implementations of the simplified field components
+ * for use during development and design. In production, these are
+ * replaced with the real implementations from packages/ui that include
+ * collaboration, type inference, and expression support.
+ *
+ * ## API
+ *
+ * The API matches the production components exactly, so developers
+ * can build and test their UIs without needing the full infrastructure.
+ *
+ * ## Example
+ *
+ * ```tsx
+ * import { Input, Select } from '@process.co/ui';
+ *
+ * function CustomUserForm({ value, onChange }) {
+ *   return (
+ *     <div>
+ *       <Input
+ *         fieldName="firstName"
+ *         label="First Name"
+ *         value={value.firstName}
+ *         onChange={(v) => onChange({ ...value, firstName: v })}
+ *       />
+ *       <Select
+ *         fieldName="role"
+ *         label="Role"
+ *         value={value.role}
+ *         onChange={(v) => onChange({ ...value, role: v })}
+ *         options={['admin', 'user', 'guest']}
+ *       />
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 
 /**
  * Mock context value (always returns defaults).
@@ -185,17 +226,17 @@ declare function useFieldPath(fieldName: string): string;
  * Mock provider - just renders children without context.
  */
 declare function TemplateFieldProvider({ children }: {
-    children: React.ReactNode;
-}): React$1.JSX.Element;
+    children: React__default.ReactNode;
+}): React__default.JSX.Element;
 /**
  * Mock provider - just renders children without nesting context.
  */
 declare function NestedFieldProvider({ children }: {
-    children: React.ReactNode;
+    children: React__default.ReactNode;
     fieldName: string;
-}): React$1.JSX.Element;
+}): React__default.JSX.Element;
 type TemplateFieldProviderProps = {
-    children: React.ReactNode;
+    children: React__default.ReactNode;
     nodeId?: string;
     yDoc?: any;
     collabUser?: any;
@@ -212,7 +253,7 @@ type TemplateFieldProviderProps = {
     disabled?: boolean;
 };
 type NestedFieldProviderProps = {
-    children: React.ReactNode;
+    children: React__default.ReactNode;
     fieldName: string;
 };
 type TemplateFieldValidationError = {
@@ -290,7 +331,7 @@ interface InferredTypesContextValue {
  * Context for inferred types.
  * In production, this is provided by PropertiesRender.
  */
-declare const InferredTypesContext: React$1.Context<InferredTypesContextValue | null>;
+declare const InferredTypesContext: React__default.Context<InferredTypesContextValue | null>;
 /**
  * Hook to access the inferred types context.
  * Returns null when not inside an InferredTypesProvider (e.g., in mock/dev mode).
@@ -306,7 +347,7 @@ declare function useInferredTypes(): InferredTypesContextValue | null;
  * Props for InferredTypesProvider
  */
 interface InferredTypesProviderProps {
-    children: React.ReactNode;
+    children: React__default.ReactNode;
     /**
      * Optional Yjs document for collaborative sync (ignored in mock mode).
      * When provided in production, inferred types are synced via Yjs.
@@ -322,7 +363,7 @@ interface InferredTypesProviderProps {
  * In development mode, this is a no-op - just renders children.
  * In production, the real implementation from @repo/ui provides actual type propagation.
  */
-declare function InferredTypesProvider({ children }: InferredTypesProviderProps): React$1.JSX.Element;
+declare function InferredTypesProvider({ children }: InferredTypesProviderProps): React__default.JSX.Element;
 /**
  * Compute the intersection of multiple types.
  * Used when subscribing to multiple fields to narrow the expected type.
@@ -382,7 +423,103 @@ declare function getOperatorsForType(type: string): Array<{
     value: string;
     label: string;
 }>;
+/**
+ * Props for NodePropertyProvider
+ */
+interface NodePropertyProviderProps {
+    children: React__default.ReactNode;
+    /** The node ID this provider manages */
+    nodeId: string;
+    /** Yjs document for collaborative sync (ignored in mock mode) */
+    yDoc?: unknown;
+    /** Initial property data from the node */
+    initialData?: Record<string, any>;
+    /** Callback when a single property changes */
+    onPropertyChange?: (key: string, value: any, metadata?: any) => void;
+    /** Callback when multiple properties change */
+    onPropertiesChange?: (updates: Record<string, any>, metadata?: Record<string, any>) => void;
+    /** Client ID for conflict resolution */
+    clientId?: string;
+}
+/**
+ * Mock provider for node properties.
+ * In development mode, this is a no-op - just renders children.
+ * In production, the real implementation from @repo/ui provides actual store.
+ */
+declare function NodePropertyProvider({ children }: NodePropertyProviderProps): React__default.ReactElement;
+/**
+ * Mock hook - always returns false in development mode.
+ * In production, returns true when inside a NodePropertyProvider.
+ */
+declare function useIsInNodePropertyProvider(): boolean;
+/**
+ * Mock hook - returns [undefined, no-op] in development mode.
+ * In production, subscribes to a single property from the store.
+ *
+ * @example
+ * ```tsx
+ * const [operator, setOperator] = useNodeProperty<string>('operator');
+ * // In mock mode: operator is undefined, setOperator is a no-op
+ * ```
+ */
+declare function useNodeProperty<T = any>(key: string): [T | undefined, (value: T, metadata?: any) => void];
+/**
+ * Mock hook - returns [{}, no-op] in development mode.
+ * In production, subscribes to all properties from the store.
+ */
+declare function useNodeProperties(): [
+    Record<string, any>,
+    (updates: Record<string, any>, metadata?: Record<string, any>) => void
+];
+/**
+ * Mock hook - returns undefined in development mode.
+ * In production, subscribes to an inferred type by field name.
+ */
+declare function useInferredType(fieldName: string): string | undefined;
+/**
+ * Mock hook - returns no-op in development mode.
+ * In production, returns a setter for inferred types.
+ */
+declare function useSetInferredType(): (fieldName: string, type: string) => void;
+/**
+ * Mock hook - returns {} in development mode.
+ * In production, subscribes to all inferred types.
+ */
+declare function useAllInferredTypes(): Record<string, string>;
+/**
+ * Mock hook - returns no-op in development mode.
+ * In production, returns a setter for individual properties.
+ */
+declare function useSetProperty(): <T = any>(key: string, value: T, metadata?: any) => void;
+/**
+ * Validation rule for a field.
+ */
+interface FieldValidationRule {
+    required?: boolean;
+    requiredIf?: (properties: Record<string, any>) => boolean;
+    customValidation?: (value: any, properties: Record<string, any>) => string | null;
+}
+/**
+ * Mock hook - returns no-ops in development mode.
+ * In production, allows custom controls to set validation rules.
+ *
+ * @example
+ * ```tsx
+ * const { setFieldRequired, setFieldRequiredIf } = useFieldValidation();
+ * setFieldRequired('expression', true);
+ * setFieldRequiredIf('expression', (props) => props.operator?.needsValue);
+ * ```
+ */
+declare function useFieldValidation(): {
+    setFieldRequired: (fieldName: string, required: boolean) => void;
+    setFieldRequiredIf: (fieldName: string, requiredIf: (properties: Record<string, any>) => boolean) => void;
+    setFieldValidation: (fieldName: string, customValidation: (value: any, properties: Record<string, any>) => string | null) => void;
+    clearFieldValidation: (fieldName: string) => void;
+    isFieldRequired: (fieldName: string) => boolean;
+    validateField: (fieldName: string) => string | null;
+};
 
+type index_FieldValidationRule = FieldValidationRule;
 type index_InferConfig = InferConfig;
 declare const index_InferredTypesContext: typeof InferredTypesContext;
 type index_InferredTypesContextValue = InferredTypesContextValue;
@@ -392,6 +529,8 @@ declare const index_Input: typeof Input;
 type index_InputProps = InputProps;
 declare const index_NestedFieldProvider: typeof NestedFieldProvider;
 type index_NestedFieldProviderProps = NestedFieldProviderProps;
+declare const index_NodePropertyProvider: typeof NodePropertyProvider;
+type index_NodePropertyProviderProps = NodePropertyProviderProps;
 declare const index_OPERATORS_BY_TYPE: typeof OPERATORS_BY_TYPE;
 declare const index_Select: typeof Select;
 type index_SelectOption = SelectOption;
@@ -406,12 +545,20 @@ type index_TemplateFieldValidationError = TemplateFieldValidationError;
 declare const index_getOperatorsForType: typeof getOperatorsForType;
 declare const index_intersectTypes: typeof intersectTypes;
 declare const index_parseInferSyntax: typeof parseInferSyntax;
+declare const index_useAllInferredTypes: typeof useAllInferredTypes;
 declare const index_useFieldPath: typeof useFieldPath;
+declare const index_useFieldValidation: typeof useFieldValidation;
+declare const index_useInferredType: typeof useInferredType;
 declare const index_useInferredTypes: typeof useInferredTypes;
+declare const index_useIsInNodePropertyProvider: typeof useIsInNodePropertyProvider;
 declare const index_useIsInTemplateFieldProvider: typeof useIsInTemplateFieldProvider;
+declare const index_useNodeProperties: typeof useNodeProperties;
+declare const index_useNodeProperty: typeof useNodeProperty;
+declare const index_useSetInferredType: typeof useSetInferredType;
+declare const index_useSetProperty: typeof useSetProperty;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare namespace index {
-  export { type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_getOperatorsForType as getOperatorsForType, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_useFieldPath as useFieldPath, index_useInferredTypes as useInferredTypes, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useTemplateFieldContext as useTemplateFieldContext };
+  export { type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_getOperatorsForType as getOperatorsForType, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_useAllInferredTypes as useAllInferredTypes, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext };
 }
 
-export { type InferredTypesContextValue as I, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, Select as S, type TemplateFieldContextValue as T, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, Input as r, type InputProps as s, type SelectProps as t, useTemplateFieldContext as u, type SelectOption as v, type SelectRenderProps as w };
+export { useSetProperty as A, useFieldValidation as B, Input as C, type InputProps as D, type SelectProps as E, type FieldValidationRule as F, type SelectOption as G, type SelectRenderProps as H, type InferredTypesContextValue as I, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, Select as S, type TemplateFieldContextValue as T, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useIsInNodePropertyProvider as t, useTemplateFieldContext as u, useNodeProperty as v, useNodeProperties as w, useInferredType as x, useSetInferredType as y, useAllInferredTypes as z };
