@@ -19,7 +19,7 @@ npm install @process.co/ui
 
 ### Pinned Version
 ```bash
-npm install git+https://github.com/process-co/ui.git#v0.0.1
+npm install git+https://github.com/process-co/ui.git#v0.0.11
 ```
 
 ### Latest Development Version
