@@ -5124,14 +5124,29 @@ __export(fields_exports, {
     TemplateFieldProvider: function() {
         return TemplateFieldProvider;
     },
+    computeExtendedType: function() {
+        return computeExtendedType;
+    },
+    filterOperatorsByType: function() {
+        return filterOperatorsByType;
+    },
+    getNumberConstants: function() {
+        return getNumberConstants;
+    },
     getOperatorsForType: function() {
         return getOperatorsForType;
+    },
+    getStringConstants: function() {
+        return getStringConstants;
     },
     intersectTypes: function() {
         return intersectTypes;
     },
     parseInferSyntax: function() {
         return parseInferSyntax;
+    },
+    parseInferredTypes: function() {
+        return parseInferredTypes;
     },
     useAllInferredTypes: function() {
         return useAllInferredTypes;
@@ -5473,6 +5488,131 @@ function Select2(param) {
             value: opt.value
         }, opt.node ? opt.node : /* @__PURE__ */ React2__namespace.createElement(React2__namespace.Fragment, null, opt.label));
     })))));
+}
+// src/components/template-editor/operatorTypes.ts
+function parseInferredTypes(typeStr) {
+    var result = {
+        baseTypes: [],
+        stringConstants: [],
+        numberConstants: [],
+        hasConstants: false,
+        rawTypes: []
+    };
+    if (!typeStr || typeStr === "any" || typeStr === "unknown") {
+        result.baseTypes = [
+            "any"
+        ];
+        result.rawTypes = [
+            "any"
+        ];
+        return result;
+    }
+    var types = typeStr.split("|").map(function(t) {
+        return t.trim();
+    }).filter(Boolean);
+    var baseTypesSet = /* @__PURE__ */ new Set();
+    var rawTypesSet = /* @__PURE__ */ new Set();
+    var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
+    try {
+        for(var _iterator = types[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            var t = _step.value;
+            rawTypesSet.add(t);
+            var stringLiteralMatch = t.match(/^["'](.*)["']$/);
+            if (stringLiteralMatch && stringLiteralMatch[1] !== void 0) {
+                result.stringConstants.push(stringLiteralMatch[1]);
+                baseTypesSet.add("string");
+                result.hasConstants = true;
+                continue;
+            }
+            if (/^-?\d+(\.\d+)?$/.test(t)) {
+                result.numberConstants.push(parseFloat(t));
+                baseTypesSet.add("number");
+                result.hasConstants = true;
+                continue;
+            }
+            if (t === "true" || t === "false") {
+                baseTypesSet.add("boolean");
+                result.hasConstants = true;
+                continue;
+            }
+            baseTypesSet.add(t);
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally{
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+                _iterator.return();
+            }
+        } finally{
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+    result.baseTypes = Array.from(baseTypesSet);
+    result.rawTypes = Array.from(rawTypesSet);
+    return result;
+}
+function computeExtendedType(inferredType, opDef) {
+    if (!opDef.extendsWithBase || opDef.narrowsTo === "never") {
+        return opDef.narrowsTo;
+    }
+    var parsed = parseInferredTypes(inferredType);
+    var matchingTypes = [];
+    var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
+    try {
+        for(var _iterator = parsed.rawTypes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
+            var t = _step.value;
+            if (opDef.narrowsTo === "string") {
+                if (t === "string" || /^["'].*["']$/.test(t)) {
+                    matchingTypes.push(t);
+                }
+            } else if (opDef.narrowsTo === "number") {
+                if (t === "number" || /^-?\d+(\.\d+)?$/.test(t)) {
+                    matchingTypes.push(t);
+                }
+            } else if (opDef.narrowsTo === "boolean") {
+                if (t === "boolean" || t === "true" || t === "false") {
+                    matchingTypes.push(t);
+                }
+            }
+        }
+    } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+    } finally{
+        try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+                _iterator.return();
+            }
+        } finally{
+            if (_didIteratorError) {
+                throw _iteratorError;
+            }
+        }
+    }
+    if (opDef.extendsWithBase && !matchingTypes.includes(opDef.narrowsTo)) {
+        matchingTypes.push(opDef.narrowsTo);
+    }
+    return matchingTypes.length > 0 ? matchingTypes.join(" | ") : opDef.narrowsTo;
+}
+function filterOperatorsByType(operators, inferredType) {
+    var parsed = parseInferredTypes(inferredType);
+    var baseTypes = parsed.baseTypes;
+    return operators.filter(function(op) {
+        if (op.types.includes("any")) return true;
+        return op.types.some(function(t) {
+            return baseTypes.includes(t) || baseTypes.includes("any");
+        });
+    });
+}
+function getStringConstants(inferredType) {
+    return parseInferredTypes(inferredType).stringConstants;
+}
+function getNumberConstants(inferredType) {
+    return parseInferredTypes(inferredType).numberConstants;
 }
 // src/components/fields/index.tsx
 function useTemplateFieldContext() {

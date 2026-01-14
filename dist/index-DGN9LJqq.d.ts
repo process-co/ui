@@ -150,6 +150,140 @@ interface SelectRenderProps {
 declare function Select({ fieldName, label, value, onChange, options: rawOptions, disabled, placeholder, expectedType, required, hasRequiredError, className, children, }: SelectProps): React.JSX.Element;
 
 /**
+ * Shared Operator Type Definitions and Utilities
+ *
+ * This module provides reusable types and utilities for building
+ * query builders with type-aware operators (Switch, IfThenElse, etc.)
+ */
+/**
+ * Standard operator types for condition builders.
+ * Custom UIs can extend this with their own operators.
+ */
+type BaseOperatorType = 'exists' | 'not_exists' | 'string_equals' | 'string_not_equals' | 'string_is_blank' | 'string_is_not_blank' | 'string_starts_with' | 'string_contains' | 'string_not_contains' | 'string_ends_with' | 'number_equals' | 'number_not_equals' | 'number_gt' | 'number_gte' | 'number_lt' | 'number_lte' | 'boolean_equals' | 'is_null' | 'is_not_null' | 'is_string' | 'is_not_string' | 'is_number' | 'is_not_number' | 'is_true' | 'is_false' | 'is_boolean' | 'is_not_boolean';
+/**
+ * Generic operator definition that can be extended with custom operators.
+ *
+ * @template T - Additional operator types to include (defaults to never)
+ *
+ * @example
+ * // Using base operators only
+ * const operators: OperatorDef[] = [...];
+ *
+ * // Extending with custom operators
+ * type MyOperator = 'expression' | 'custom_op';
+ * const operators: OperatorDef<MyOperator>[] = [...];
+ */
+type OperatorDef<T = never> = {
+    /** The operator value/key */
+    value: BaseOperatorType | T;
+    /** Which inferred types this applies to ('any' = always shown) */
+    types: string[];
+    /** Human-readable label for the operator */
+    label: string;
+    /** Short label for compact display (optional) */
+    shortLabel?: string;
+    /** Whether to show the value Input */
+    needsValue: boolean;
+    /** Type to register for narrowing ('never' = no narrowing) */
+    narrowsTo: string;
+    /** If true, union narrowed type with base type (e.g., narrowed | string) */
+    extendsWithBase?: boolean;
+};
+/**
+ * Result of parsing an inferred type string.
+ */
+type ParsedTypes = {
+    /** Deduplicated base types (string, number, boolean, any, etc.) */
+    baseTypes: string[];
+    /** Extracted string literal constants */
+    stringConstants: string[];
+    /** Extracted number literal constants */
+    numberConstants: number[];
+    /** Whether any literal constants were found */
+    hasConstants: boolean;
+    /** Original type strings for union building */
+    rawTypes: string[];
+};
+/**
+ * Parse an inferred type string into base types and extract any literal constants.
+ *
+ * Handles:
+ * - Base types: string, number, boolean
+ * - Union types: string | number
+ * - String literals: "Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" -> treated as string type
+ * - Number literals: 1 | 2 | 3 -> treated as number type
+ * - Boolean literals: true | false -> treated as boolean type
+ *
+ * @param typeStr - The inferred type string to parse
+ * @returns Parsed type information
+ *
+ * @example
+ * parseInferredTypes('"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string')
+ * // Returns:
+ * // {
+ * //   baseTypes: ['string'],
+ * //   stringConstants: ['Hans', 'Karl', 'Eddie', 'Theo', 'Fritz'],
+ * //   numberConstants: [],
+ * //   hasConstants: true,
+ * //   rawTypes: ['"Hans"', '"Karl"', '"Eddie"', '"Theo"', '"Fritz"', 'string']
+ * // }
+ */
+declare function parseInferredTypes(typeStr: string): ParsedTypes;
+/**
+ * Compute the expected type for a value input based on the operator.
+ *
+ * If `extendsWithBase` is true, the result includes both:
+ * - The matching literal types from the inferred type
+ * - The base type (to allow arbitrary input)
+ *
+ * This enables scenarios like:
+ * - `string_equals` on `"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string"` → expects `"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string"` (exact match)
+ * - `string_starts_with` on `"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string"` → expects `"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string"` (allows partial match)
+ *
+ * @param inferredType - The inferred type string from the statement
+ * @param opDef - The operator definition
+ * @returns The computed expected type string
+ *
+ * @example
+ * const opDef = { narrowsTo: 'string', extendsWithBase: true, ... };
+ * computeExtendedType('"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string', opDef);
+ * // Returns: '"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string'
+ */
+declare function computeExtendedType<T = never>(inferredType: string, opDef: OperatorDef<T>): string;
+/**
+ * Filter operators based on an inferred type.
+ * Returns only operators whose `types` include a matching base type.
+ *
+ * @param operators - Array of operator definitions
+ * @param inferredType - The inferred type string to filter by
+ * @returns Filtered array of operators
+ *
+ * @example
+ * const filtered = filterOperatorsByType(OPERATORS, '"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string');
+ * // Returns operators with types: ['any'] or types: ['string']
+ */
+declare function filterOperatorsByType<T = never>(operators: OperatorDef<T>[], inferredType: string): OperatorDef<T>[];
+/**
+ * Get string constants from an inferred type.
+ * Useful for showing constant-based autocomplete options.
+ *
+ * @param inferredType - The inferred type string
+ * @returns Array of string constants
+ *
+ * @example
+ * getStringConstants('"Hans" | "Karl" | "Eddie" | "Theo" | "Fritz" | string');
+ * // Returns: ['Hans', 'Karl', 'Eddie', 'Theo', 'Fritz']
+ */
+declare function getStringConstants(inferredType: string): string[];
+/**
+ * Get number constants from an inferred type.
+ *
+ * @param inferredType - The inferred type string
+ * @returns Array of number constants
+ */
+declare function getNumberConstants(inferredType: string): number[];
+
+/**
  * Simplified Field Components (Mock/Development Version)
  *
  * These are mock implementations of the simplified field components
@@ -399,9 +533,12 @@ interface InferConfig {
  * ```
  */
 declare function parseInferSyntax(expectedType: string | undefined): InferConfig;
+
 /**
  * Standard operators grouped by compatible types.
  * Use getOperatorsForType() to retrieve operators for a specific type.
+ *
+ * @deprecated Use OperatorDef<T> and filterOperatorsByType() for more flexibility
  */
 declare const OPERATORS_BY_TYPE: Record<string, Array<{
     value: string;
@@ -410,6 +547,8 @@ declare const OPERATORS_BY_TYPE: Record<string, Array<{
 /**
  * Get the appropriate operators for a given type.
  * Falls back to 'any' operators for unrecognized types.
+ *
+ * @deprecated Use OperatorDef<T> and filterOperatorsByType() for more flexibility
  *
  * @example
  * ```tsx
@@ -519,6 +658,7 @@ declare function useFieldValidation(): {
     validateField: (fieldName: string) => string | null;
 };
 
+type index_BaseOperatorType = BaseOperatorType;
 type index_FieldValidationRule = FieldValidationRule;
 type index_InferConfig = InferConfig;
 declare const index_InferredTypesContext: typeof InferredTypesContext;
@@ -532,6 +672,8 @@ type index_NestedFieldProviderProps = NestedFieldProviderProps;
 declare const index_NodePropertyProvider: typeof NodePropertyProvider;
 type index_NodePropertyProviderProps = NodePropertyProviderProps;
 declare const index_OPERATORS_BY_TYPE: typeof OPERATORS_BY_TYPE;
+type index_OperatorDef<T = never> = OperatorDef<T>;
+type index_ParsedTypes = ParsedTypes;
 declare const index_Select: typeof Select;
 type index_SelectOption = SelectOption;
 type index_SelectProps = SelectProps;
@@ -542,9 +684,14 @@ type index_TemplateFieldFocusContext = TemplateFieldFocusContext;
 declare const index_TemplateFieldProvider: typeof TemplateFieldProvider;
 type index_TemplateFieldProviderProps = TemplateFieldProviderProps;
 type index_TemplateFieldValidationError = TemplateFieldValidationError;
+declare const index_computeExtendedType: typeof computeExtendedType;
+declare const index_filterOperatorsByType: typeof filterOperatorsByType;
+declare const index_getNumberConstants: typeof getNumberConstants;
 declare const index_getOperatorsForType: typeof getOperatorsForType;
+declare const index_getStringConstants: typeof getStringConstants;
 declare const index_intersectTypes: typeof intersectTypes;
 declare const index_parseInferSyntax: typeof parseInferSyntax;
+declare const index_parseInferredTypes: typeof parseInferredTypes;
 declare const index_useAllInferredTypes: typeof useAllInferredTypes;
 declare const index_useFieldPath: typeof useFieldPath;
 declare const index_useFieldValidation: typeof useFieldValidation;
@@ -558,7 +705,7 @@ declare const index_useSetInferredType: typeof useSetInferredType;
 declare const index_useSetProperty: typeof useSetProperty;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare namespace index {
-  export { type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_getOperatorsForType as getOperatorsForType, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_useAllInferredTypes as useAllInferredTypes, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext };
+  export { type index_BaseOperatorType as BaseOperatorType, type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_useAllInferredTypes as useAllInferredTypes, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext };
 }
 
-export { useSetProperty as A, useFieldValidation as B, Input as C, type InputProps as D, type SelectProps as E, type FieldValidationRule as F, type SelectOption as G, type SelectRenderProps as H, type InferredTypesContextValue as I, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, Select as S, type TemplateFieldContextValue as T, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useIsInNodePropertyProvider as t, useTemplateFieldContext as u, useNodeProperty as v, useNodeProperties as w, useInferredType as x, useSetInferredType as y, useAllInferredTypes as z };
+export { useSetProperty as A, useFieldValidation as B, Input as C, type InputProps as D, type SelectProps as E, type FieldValidationRule as F, type SelectOption as G, type SelectRenderProps as H, type InferredTypesContextValue as I, parseInferredTypes as J, computeExtendedType as K, filterOperatorsByType as L, getStringConstants as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, getNumberConstants as P, type BaseOperatorType as Q, type OperatorDef as R, Select as S, type TemplateFieldContextValue as T, type ParsedTypes as U, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useIsInNodePropertyProvider as t, useTemplateFieldContext as u, useNodeProperty as v, useNodeProperties as w, useInferredType as x, useSetInferredType as y, useAllInferredTypes as z };
