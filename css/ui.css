@@ -1059,8 +1059,14 @@
   .uii\:mt-2 {
     margin-top: calc(var(--uii-spacing) * 2);
   }
+  .uii\:mt-3 {
+    margin-top: calc(var(--uii-spacing) * 3);
+  }
   .uii\:mr-1 {
     margin-right: calc(var(--uii-spacing) * 1);
+  }
+  .uii\:mb-1 {
+    margin-bottom: calc(var(--uii-spacing) * 1);
   }
   .uii\:mb-2 {
     margin-bottom: calc(var(--uii-spacing) * 2);
@@ -1092,8 +1098,18 @@
     width: calc(var(--uii-spacing) * 4);
     height: calc(var(--uii-spacing) * 4);
   }
+  .uii\:size-9 {
+    width: calc(var(--uii-spacing) * 9);
+    height: calc(var(--uii-spacing) * 9);
+  }
+  .uii\:h-8 {
+    height: calc(var(--uii-spacing) * 8);
+  }
   .uii\:h-9 {
     height: calc(var(--uii-spacing) * 9);
+  }
+  .uii\:h-10 {
+    height: calc(var(--uii-spacing) * 10);
   }
   .uii\:h-\[var\(--radix-select-trigger-height\)\] {
     height: var(--radix-select-trigger-height);
@@ -1103,6 +1119,12 @@
   }
   .uii\:h-px {
     height: 1px;
+  }
+  .uii\:max-h-24 {
+    max-height: calc(var(--uii-spacing) * 24);
+  }
+  .uii\:max-h-48 {
+    max-height: calc(var(--uii-spacing) * 48);
   }
   .uii\:max-h-64 {
     max-height: calc(var(--uii-spacing) * 64);
@@ -1119,17 +1141,29 @@
   .uii\:w-full {
     width: 100%;
   }
+  .uii\:max-w-\[300px\] {
+    max-width: 300px;
+  }
   .uii\:min-w-0 {
     min-width: calc(var(--uii-spacing) * 0);
   }
   .uii\:min-w-\[8rem\] {
     min-width: 8rem;
   }
+  .uii\:min-w-\[150px\] {
+    min-width: 150px;
+  }
+  .uii\:min-w-\[200px\] {
+    min-width: 200px;
+  }
   .uii\:min-w-\[var\(--radix-select-trigger-width\)\] {
     min-width: var(--radix-select-trigger-width);
   }
   .uii\:flex-1 {
     flex: 1;
+  }
+  .uii\:shrink-0 {
+    flex-shrink: 0;
   }
   .uii\:animate-spin {
     animation: spin var(--default-animation-duration, 1s) var(--default-animation-timing-function, linear) var(--default-animation-delay, 0s) infinite;
@@ -1164,8 +1198,21 @@
   .uii\:gap-1 {
     gap: calc(var(--uii-spacing) * 1);
   }
+  .uii\:gap-1\.5 {
+    gap: calc(var(--uii-spacing) * 1.5);
+  }
   .uii\:gap-2 {
     gap: calc(var(--uii-spacing) * 2);
+  }
+  .uii\:gap-4 {
+    gap: calc(var(--uii-spacing) * 4);
+  }
+  .uii\:space-y-1 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--uii-spacing) * 1) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--uii-spacing) * 1) * calc(1 - var(--tw-space-y-reverse)));
+    }
   }
   .uii\:space-y-2 {
     :where(& > :not(:last-child)) {
@@ -1201,6 +1248,9 @@
   }
   .uii\:rounded {
     border-radius: 0.25rem;
+  }
+  .uii\:rounded-lg {
+    border-radius: var(--radius);
   }
   .uii\:rounded-md {
     border-radius: calc(var(--radius) - 2px);
@@ -1320,17 +1370,26 @@
   .uii\:bg-popover {
     background-color: var(--popover);
   }
+  .uii\:bg-primary {
+    background-color: var(--primary);
+  }
   .uii\:bg-purple-50 {
     background-color: oklch(97.7% 0.014 308.299);
   }
   .uii\:bg-purple-100 {
     background-color: oklch(94.6% 0.033 307.174);
   }
+  .uii\:bg-purple-500 {
+    background-color: oklch(62.7% 0.265 303.9);
+  }
   .uii\:bg-red-50 {
     background-color: oklch(97.1% 0.013 17.38);
   }
   .uii\:bg-red-100 {
     background-color: oklch(93.6% 0.032 17.717);
+  }
+  .uii\:bg-secondary {
+    background-color: var(--secondary);
   }
   .uii\:bg-transparent {
     background-color: transparent;
@@ -1353,6 +1412,9 @@
   .uii\:p-3 {
     padding: calc(var(--uii-spacing) * 3);
   }
+  .uii\:p-4 {
+    padding: calc(var(--uii-spacing) * 4);
+  }
   .uii\:px-1 {
     padding-inline: calc(var(--uii-spacing) * 1);
   }
@@ -1364,6 +1426,12 @@
   }
   .uii\:px-3 {
     padding-inline: calc(var(--uii-spacing) * 3);
+  }
+  .uii\:px-4 {
+    padding-inline: calc(var(--uii-spacing) * 4);
+  }
+  .uii\:px-6 {
+    padding-inline: calc(var(--uii-spacing) * 6);
   }
   .uii\:py-0\.5 {
     padding-block: calc(var(--uii-spacing) * 0.5);
@@ -1498,23 +1566,44 @@
   .uii\:text-popover-foreground {
     color: var(--popover-foreground);
   }
+  .uii\:text-primary {
+    color: var(--primary);
+  }
+  .uii\:text-primary-foreground {
+    color: var(--primary-foreground);
+  }
   .uii\:text-purple-600 {
     color: oklch(55.8% 0.288 302.321);
+  }
+  .uii\:text-purple-700 {
+    color: oklch(49.6% 0.265 301.924);
   }
   .uii\:text-purple-800 {
     color: oklch(43.8% 0.218 303.724);
   }
+  .uii\:text-red-500 {
+    color: oklch(63.7% 0.237 25.331);
+  }
   .uii\:text-red-600 {
     color: oklch(57.7% 0.245 27.325);
   }
+  .uii\:text-red-700 {
+    color: oklch(50.5% 0.213 27.518);
+  }
   .uii\:text-red-800 {
     color: oklch(44.4% 0.177 26.899);
+  }
+  .uii\:text-secondary-foreground {
+    color: var(--secondary-foreground);
   }
   .uii\:text-white {
     color: #fff;
   }
   .uii\:text-yellow-600 {
     color: oklch(68.1% 0.162 75.834);
+  }
+  .uii\:text-yellow-700 {
+    color: oklch(55.4% 0.135 66.442);
   }
   .uii\:text-yellow-800 {
     color: oklch(47.6% 0.114 61.907);
@@ -1524,6 +1613,9 @@
   }
   .uii\:italic {
     font-style: italic;
+  }
+  .uii\:underline-offset-4 {
+    text-underline-offset: 4px;
   }
   .uii\:opacity-50 {
     opacity: 50%;
@@ -1641,6 +1733,23 @@
       color: var(--muted-foreground);
     }
   }
+  .uii\:hover\:bg-accent {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--accent);
+      }
+    }
+  }
+  .uii\:hover\:bg-destructive\/90 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--destructive);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--destructive) 90%, transparent);
+        }
+      }
+    }
+  }
   .uii\:hover\:bg-muted\/50 {
     &:hover {
       @media (hover: hover) {
@@ -1648,6 +1757,40 @@
         @supports (color: color-mix(in lab, red, red)) {
           background-color: color-mix(in oklab, var(--muted) 50%, transparent);
         }
+      }
+    }
+  }
+  .uii\:hover\:bg-primary\/90 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--primary);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--primary) 90%, transparent);
+        }
+      }
+    }
+  }
+  .uii\:hover\:bg-secondary\/80 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--secondary);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--secondary) 80%, transparent);
+        }
+      }
+    }
+  }
+  .uii\:hover\:text-accent-foreground {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--accent-foreground);
+      }
+    }
+  }
+  .uii\:hover\:underline {
+    &:hover {
+      @media (hover: hover) {
+        text-decoration-line: underline;
       }
     }
   }
@@ -1672,6 +1815,14 @@
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
+  .uii\:focus-visible\:ring-destructive\/20 {
+    &:focus-visible {
+      --tw-ring-color: var(--destructive);
+      @supports (color: color-mix(in lab, red, red)) {
+        --tw-ring-color: color-mix(in oklab, var(--destructive) 20%, transparent);
+      }
+    }
+  }
   .uii\:focus-visible\:ring-ring\/50 {
     &:focus-visible {
       --tw-ring-color: var(--ring);
@@ -1693,6 +1844,21 @@
   .uii\:disabled\:opacity-50 {
     &:disabled {
       opacity: 50%;
+    }
+  }
+  .uii\:has-\[\>svg\]\:px-2\.5 {
+    &:has(>svg) {
+      padding-inline: calc(var(--uii-spacing) * 2.5);
+    }
+  }
+  .uii\:has-\[\>svg\]\:px-3 {
+    &:has(>svg) {
+      padding-inline: calc(var(--uii-spacing) * 3);
+    }
+  }
+  .uii\:has-\[\>svg\]\:px-4 {
+    &:has(>svg) {
+      padding-inline: calc(var(--uii-spacing) * 4);
     }
   }
   .uii\:aria-invalid\:border-destructive {
@@ -1943,6 +2109,16 @@
     @media (width >= 48rem) {
       font-size: var(--uii-text-sm);
       line-height: var(--tw-leading, var(--uii-text-sm--line-height));
+    }
+  }
+  .uii\:dark\:focus-visible\:ring-destructive\/40 {
+    &:is(.dark *) {
+      &:focus-visible {
+        --tw-ring-color: var(--destructive);
+        @supports (color: color-mix(in lab, red, red)) {
+          --tw-ring-color: color-mix(in oklab, var(--destructive) 40%, transparent);
+        }
+      }
     }
   }
   .uii\:dark\:aria-invalid\:ring-destructive\/40 {

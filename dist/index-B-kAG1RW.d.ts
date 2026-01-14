@@ -460,6 +460,10 @@ interface InferredTypesContextValue {
     setInferredType: (fieldName: string, type: string) => void;
     /** Get the inferred type for a field (called by subscriber fields) */
     getInferredType: (fieldName: string) => string | undefined;
+    /** Remove an inferred type by field name */
+    clearInferredType: (fieldName: string) => void;
+    /** Remove all inferred types */
+    clearAllInferredTypes: () => void;
 }
 /**
  * Context for inferred types.
@@ -468,7 +472,10 @@ interface InferredTypesContextValue {
 declare const InferredTypesContext: React__default.Context<InferredTypesContextValue | null>;
 /**
  * Hook to access the inferred types context.
- * Returns null when not inside an InferredTypesProvider (e.g., in mock/dev mode).
+ *
+ * When used within a DevProvider, uses the dev context's inferred types storage.
+ * When used within a production InferredTypesProvider, uses the real context.
+ * Returns null when not inside any provider.
  *
  * @example
  * ```tsx
@@ -587,47 +594,77 @@ interface NodePropertyProviderProps {
  */
 declare function NodePropertyProvider({ children }: NodePropertyProviderProps): React__default.ReactElement;
 /**
- * Mock hook - always returns false in development mode.
- * In production, returns true when inside a NodePropertyProvider.
+ * Hook to check if we're inside a property provider.
+ *
+ * Returns true when inside a DevProvider or a production NodePropertyProvider.
+ * Returns false otherwise.
  */
 declare function useIsInNodePropertyProvider(): boolean;
 /**
- * Mock hook - returns [undefined, no-op] in development mode.
- * In production, subscribes to a single property from the store.
+ * Hook to access and update a single property from the node store.
+ *
+ * When used within a DevProvider, uses the dev context's storage.
+ * When used within a production NodePropertyProvider, uses the real store.
+ * Otherwise, returns [undefined, no-op] as a fallback.
  *
  * @example
  * ```tsx
  * const [operator, setOperator] = useNodeProperty<string>('operator');
- * // In mock mode: operator is undefined, setOperator is a no-op
  * ```
  */
 declare function useNodeProperty<T = any>(key: string): [T | undefined, (value: T, metadata?: any) => void];
 /**
- * Mock hook - returns [{}, no-op] in development mode.
- * In production, subscribes to all properties from the store.
+ * Hook to access and update all properties from the node store.
+ *
+ * When used within a DevProvider, uses the dev context's storage.
+ * When used within a production NodePropertyProvider, uses the real store.
+ * Otherwise, returns [{}, no-op] as a fallback.
  */
 declare function useNodeProperties(): [
     Record<string, any>,
     (updates: Record<string, any>, metadata?: Record<string, any>) => void
 ];
 /**
- * Mock hook - returns undefined in development mode.
- * In production, subscribes to an inferred type by field name.
+ * Hook to subscribe to an inferred type by field name.
+ *
+ * When used within a DevProvider, uses the dev context's inferred types.
+ * When used within a production provider, uses the real store.
+ * Returns undefined when not inside any provider.
  */
 declare function useInferredType(fieldName: string): string | undefined;
 /**
- * Mock hook - returns no-op in development mode.
- * In production, returns a setter for inferred types.
+ * Hook to get a setter for inferred types.
+ *
+ * When used within a DevProvider, uses the dev context's setInferredType.
+ * Returns a no-op when not inside any provider.
  */
 declare function useSetInferredType(): (fieldName: string, type: string) => void;
 /**
- * Mock hook - returns {} in development mode.
- * In production, subscribes to all inferred types.
+ * Hook to get a clearer for inferred types.
+ *
+ * When used within a DevProvider, uses the dev context's clearInferredType.
+ * Returns a no-op when not inside any provider.
+ */
+declare function useClearInferredType(): (fieldName: string) => void;
+/**
+ * Hook to get a function that clears all inferred types.
+ *
+ * When used within a DevProvider, uses the dev context's clearAllInferredTypes.
+ * Returns a no-op when not inside any provider.
+ */
+declare function useClearAllInferredTypes(): () => void;
+/**
+ * Hook to subscribe to all inferred types.
+ *
+ * When used within a DevProvider, uses the dev context's inferred types.
+ * Returns {} when not inside any provider.
  */
 declare function useAllInferredTypes(): Record<string, string>;
 /**
- * Mock hook - returns no-op in development mode.
- * In production, returns a setter for individual properties.
+ * Hook to get a setter for individual properties.
+ *
+ * When used within a DevProvider, uses the dev context's setProperty.
+ * Returns a no-op when not inside any provider.
  */
 declare function useSetProperty(): <T = any>(key: string, value: T, metadata?: any) => void;
 /**
@@ -693,6 +730,8 @@ declare const index_intersectTypes: typeof intersectTypes;
 declare const index_parseInferSyntax: typeof parseInferSyntax;
 declare const index_parseInferredTypes: typeof parseInferredTypes;
 declare const index_useAllInferredTypes: typeof useAllInferredTypes;
+declare const index_useClearAllInferredTypes: typeof useClearAllInferredTypes;
+declare const index_useClearInferredType: typeof useClearInferredType;
 declare const index_useFieldPath: typeof useFieldPath;
 declare const index_useFieldValidation: typeof useFieldValidation;
 declare const index_useInferredType: typeof useInferredType;
@@ -705,7 +744,7 @@ declare const index_useSetInferredType: typeof useSetInferredType;
 declare const index_useSetProperty: typeof useSetProperty;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare namespace index {
-  export { type index_BaseOperatorType as BaseOperatorType, type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_useAllInferredTypes as useAllInferredTypes, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext };
+  export { type index_BaseOperatorType as BaseOperatorType, type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_useAllInferredTypes as useAllInferredTypes, index_useClearAllInferredTypes as useClearAllInferredTypes, index_useClearInferredType as useClearInferredType, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext };
 }
 
-export { useSetProperty as A, useFieldValidation as B, Input as C, type InputProps as D, type SelectProps as E, type FieldValidationRule as F, type SelectOption as G, type SelectRenderProps as H, type InferredTypesContextValue as I, parseInferredTypes as J, computeExtendedType as K, filterOperatorsByType as L, getStringConstants as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, getNumberConstants as P, type BaseOperatorType as Q, type OperatorDef as R, Select as S, type TemplateFieldContextValue as T, type ParsedTypes as U, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useIsInNodePropertyProvider as t, useTemplateFieldContext as u, useNodeProperty as v, useNodeProperties as w, useInferredType as x, useSetInferredType as y, useAllInferredTypes as z };
+export { useClearAllInferredTypes as A, useAllInferredTypes as B, useSetProperty as C, useFieldValidation as D, Input as E, type FieldValidationRule as F, type InputProps as G, type SelectProps as H, type InferredTypesContextValue as I, type SelectOption as J, type SelectRenderProps as K, parseInferredTypes as L, computeExtendedType as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, filterOperatorsByType as P, getStringConstants as Q, getNumberConstants as R, Select as S, type TemplateFieldContextValue as T, type BaseOperatorType as U, type OperatorDef as V, type ParsedTypes as W, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useIsInNodePropertyProvider as t, useTemplateFieldContext as u, useNodeProperty as v, useNodeProperties as w, useInferredType as x, useSetInferredType as y, useClearInferredType as z };

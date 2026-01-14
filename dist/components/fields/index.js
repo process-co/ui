@@ -133,11 +133,12 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Map" || n === "Set") return Array.from(n);
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
-import * as React3 from 'react';
-import React3__default, { createContext, useContext, useCallback } from 'react';
+import * as React4 from 'react';
+import React4__default, { createContext, useContext, useState, useCallback } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from 'lucide-react';
 // src/components/fields/index.tsx
+var DevContext = createContext(null);
 // ../../node_modules/.pnpm/clsx@2.1.1/node_modules/clsx/dist/clsx.mjs
 function r(e) {
     var t, f, n = "";
@@ -4785,9 +4786,53 @@ function cn() {
     return twMerge(clsx(inputs));
 }
 // src/components/fields/Input.tsx
+function useResolvedExpectedType(expectedType, devCtx) {
+    var inferredTypes = devCtx === null || devCtx === void 0 ? void 0 : devCtx.inferredTypes;
+    return React4.useMemo(function() {
+        var _match_;
+        if (!expectedType) return "any";
+        if (!expectedType.startsWith("$infer<")) {
+            return expectedType;
+        }
+        var match = expectedType.match(/^\$infer<(.+)>$/);
+        if (!match) return expectedType;
+        var content = ((_match_ = match[1]) === null || _match_ === void 0 ? void 0 : _match_.trim()) || "";
+        if (content.startsWith("[") && content.endsWith("]")) {
+            var arrayContent = content.slice(1, -1);
+            var fieldNames = arrayContent.split(",").map(function(s) {
+                return s.trim().replace(/^["']|["']$/g, "");
+            }).filter(Boolean);
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(fieldNames.join(", "));
+            }
+            var types = fieldNames.map(function(name) {
+                return inferredTypes[name];
+            }).filter(function(t) {
+                return !!t && t.length > 0;
+            });
+            if (types.length === 0) {
+                return "Waiting for: ".concat(fieldNames.join(", "));
+            }
+            return types.length === 1 ? types[0] : types.join(" & ");
+        }
+        if (!content.includes("|") && /^[a-zA-Z_][a-zA-Z0-9_\-]*$/.test(content)) {
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(content);
+            }
+            var resolvedType = inferredTypes[content];
+            return resolvedType || "Waiting for: ".concat(content);
+        }
+        return content;
+    }, [
+        expectedType,
+        inferredTypes
+    ]);
+}
 function Input(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, editorClassName = param.editorClassName;
-    var displayValue = React3.useMemo(function() {
+    var devCtx = useContext(DevContext);
+    var resolvedExpectedType = useResolvedExpectedType(expectedType, devCtx);
+    var displayValue = React4.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4795,12 +4840,12 @@ function Input(param) {
     }, [
         value
     ]);
-    var isExpression = React3.useMemo(function() {
+    var isExpression = React4.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    var handleChange = React3.useCallback(function(e) {
+    var handleChange = React4.useCallback(function(e) {
         var newValue = e.target.value;
         if (newValue.includes("{{")) {
             onChange({
@@ -4814,20 +4859,22 @@ function Input(param) {
         onChange
     ]);
     var showError = hasRequiredError || required && !displayValue;
-    return /* @__PURE__ */ React3.createElement("div", {
+    var isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
+    return /* @__PURE__ */ React4.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React3.createElement("div", {
+    }, /* @__PURE__ */ React4.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React3.createElement("label", {
+    }, /* @__PURE__ */ React4.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
-        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
+    }, label, ":"), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+        className: cn("uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:rounded-sm uii:text-[10px] uii:font-mono uii:font-light uii:max-w-[300px] uii:truncate", isWaiting ? "uii:bg-yellow-100 uii:text-yellow-700" : "uii:bg-gray-200 uii:text-muted-foreground"),
+        title: resolvedExpectedType
+    }, resolvedExpectedType), showError && /* @__PURE__ */ React4.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
         className: "uii:mt-0.5"
-    }, /* @__PURE__ */ React3.createElement("input", {
+    }, /* @__PURE__ */ React4.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -4840,13 +4887,13 @@ function Input(param) {
 }
 function Select(_param) {
     var props = _extends({}, _object_destructuring_empty(_param));
-    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Root, _object_spread({
+    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Root, _object_spread({
         "data-slot": "select"
     }, props));
 }
 function SelectValue(_param) {
     var props = _extends({}, _object_destructuring_empty(_param));
-    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Value, _object_spread({
+    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Value, _object_spread({
         "data-slot": "select-value"
     }, props));
 }
@@ -4855,12 +4902,12 @@ function SelectTrigger(_param) {
         "className",
         "children"
     ]);
-    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Trigger, _object_spread({
+    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Trigger, _object_spread({
         "data-slot": "select-trigger",
         className: cn("uii:border-input uii:data-[placeholder]:text-muted-foreground uii:[&_svg:not([class*=text-])]:text-muted-foreground uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:aria-invalid:ring-destructive/20 uii:dark:aria-invalid:ring-destructive/40 uii:aria-invalid:border-destructive uii:flex uii:h-9 uii:w-full uii:items-center uii:justify-between uii:gap-2 uii:rounded-md uii:border uii:bg-transparent uii:px-3 uii:py-2 uii:text-sm uii:whitespace-nowrap uii:shadow-xs uii:transition-[color,box-shadow] uii:outline-none uii:focus-visible:ring-[3px] uii:disabled:cursor-not-allowed uii:disabled:opacity-50 uii:*:data-[slot=select-value]:line-clamp-1 uii:*:data-[slot=select-value]:flex uii:*:data-[slot=select-value]:items-center uii:*:data-[slot=select-value]:gap-2 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4", className)
-    }, props), children, /* @__PURE__ */ React3.createElement(SelectPrimitive.Icon, {
+    }, props), children, /* @__PURE__ */ React4.createElement(SelectPrimitive.Icon, {
         asChild: true
-    }, /* @__PURE__ */ React3.createElement(ChevronDownIcon, {
+    }, /* @__PURE__ */ React4.createElement(ChevronDownIcon, {
         className: "uii:size-4 uii:opacity-50"
     })));
 }
@@ -4873,38 +4920,38 @@ function SelectContent(_param) {
         "hideScrollUpButton",
         "hideScrollDownButton"
     ]);
-    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Portal, null, /* @__PURE__ */ React3.createElement(SelectPrimitive.Content, _object_spread({
+    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Portal, null, /* @__PURE__ */ React4.createElement(SelectPrimitive.Content, _object_spread({
         "data-slot": "select-content",
         className: cn("uii:bg-popover uii:text-popover-foreground uii:data-[state=open]:animate-in uii:data-[state=closed]:animate-out uii:data-[state=closed]:fade-out-0 uii:data-[state=open]:fade-in-0 uii:data-[state=closed]:zoom-out-95 uii:data-[state=open]:zoom-in-95 uii:data-[side=bottom]:slide-in-from-top-2 uii:data-[side=left]:slide-in-from-right-2 uii:data-[side=right]:slide-in-from-left-2 uii:data-[side=top]:slide-in-from-bottom-2 uii:relative uii:z-50 uii:max-h-96 uii:min-w-[8rem] uii:overflow-hidden uii:rounded-md uii:border uii:shadow-md", position === "popper" && "uii:data-[side=bottom]:translate-y-1 uii:data-[side=left]:-translate-x-1 uii:data-[side=right]:translate-x-1 uii:data-[side=top]:-translate-y-1", "uii:slide-in-from-right-6", className),
         position: position
-    }, props), !hideScrollUpButton && /* @__PURE__ */ React3.createElement(SelectScrollUpButton, null), /* @__PURE__ */ React3.createElement(SelectPrimitive.Viewport, {
+    }, props), !hideScrollUpButton && /* @__PURE__ */ React4.createElement(SelectScrollUpButton, null), /* @__PURE__ */ React4.createElement(SelectPrimitive.Viewport, {
         className: cn("uii:p-1", position === "popper" && "uii:h-[var(--radix-select-trigger-height)] uii:w-full uii:min-w-[var(--radix-select-trigger-width)] uii:scroll-my-1")
-    }, children), footer ? /* @__PURE__ */ React3.createElement("div", {
+    }, children), footer ? /* @__PURE__ */ React4.createElement("div", {
         className: "uii:border-t uii:p-2 uii:bg-popover"
-    }, footer) : null, !hideScrollDownButton && /* @__PURE__ */ React3.createElement(SelectScrollDownButton, null)));
+    }, footer) : null, !hideScrollDownButton && /* @__PURE__ */ React4.createElement(SelectScrollDownButton, null)));
 }
 function SelectItem(_param) {
     var className = _param.className, children = _param.children, props = _object_without_properties(_param, [
         "className",
         "children"
     ]);
-    return /* @__PURE__ */ React3.createElement(SelectPrimitive.Item, _object_spread({
+    return /* @__PURE__ */ React4.createElement(SelectPrimitive.Item, _object_spread({
         "data-slot": "select-item",
         className: cn("uii:focus:bg-accent uii:focus:text-accent-foreground uii:[&_svg:not([class*=text-])]:text-muted-foreground uii:relative uii:flex uii:w-full uii:cursor-default uii:items-center uii:gap-2 uii:rounded-sm uii:py-1.5 uii:pr-8 uii:pl-2 uii:text-sm uii:outline-hidden uii:select-none uii:data-[disabled]:pointer-events-none uii:data-[disabled]:opacity-50 uii:[&_svg]:pointer-events-none uii:[&_svg]:shrink-0 uii:[&_svg:not([class*=size-])]:size-4 uii:*:[span]:last:flex uii:*:[span]:last:items-center uii:*:[span]:last:gap-2", className)
-    }, props), /* @__PURE__ */ React3.createElement("span", {
+    }, props), /* @__PURE__ */ React4.createElement("span", {
         className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center"
-    }, /* @__PURE__ */ React3.createElement(SelectPrimitive.ItemIndicator, null, /* @__PURE__ */ React3.createElement(CheckIcon, {
+    }, /* @__PURE__ */ React4.createElement(SelectPrimitive.ItemIndicator, null, /* @__PURE__ */ React4.createElement(CheckIcon, {
         className: "uii:size-4"
-    }))), /* @__PURE__ */ React3.createElement(SelectPrimitive.ItemText, null, children));
+    }))), /* @__PURE__ */ React4.createElement(SelectPrimitive.ItemText, null, children));
 }
 function SelectScrollUpButton(_param) {
     var className = _param.className, props = _object_without_properties(_param, [
         "className"
     ]);
-    return /* @__PURE__ */ React3.createElement(SelectPrimitive.ScrollUpButton, _object_spread({
+    return /* @__PURE__ */ React4.createElement(SelectPrimitive.ScrollUpButton, _object_spread({
         "data-slot": "select-scroll-up-button",
         className: cn("uii:flex uii:cursor-default uii:items-center uii:justify-center uii:py-1", className)
-    }, props), /* @__PURE__ */ React3.createElement(ChevronUpIcon, {
+    }, props), /* @__PURE__ */ React4.createElement(ChevronUpIcon, {
         className: "uii:size-4"
     }));
 }
@@ -4912,19 +4959,63 @@ function SelectScrollDownButton(_param) {
     var className = _param.className, props = _object_without_properties(_param, [
         "className"
     ]);
-    return /* @__PURE__ */ React3.createElement(SelectPrimitive.ScrollDownButton, _object_spread({
+    return /* @__PURE__ */ React4.createElement(SelectPrimitive.ScrollDownButton, _object_spread({
         "data-slot": "select-scroll-down-button",
         className: cn("uii:flex uii:cursor-default uii:items-center uii:justify-center uii:py-1", className)
-    }, props), /* @__PURE__ */ React3.createElement(ChevronDownIcon, {
+    }, props), /* @__PURE__ */ React4.createElement(ChevronDownIcon, {
         className: "uii:size-4"
     }));
 }
 // src/components/fields/Select.tsx
+function useResolvedExpectedType2(expectedType, devCtx) {
+    var inferredTypes = devCtx === null || devCtx === void 0 ? void 0 : devCtx.inferredTypes;
+    return React4.useMemo(function() {
+        var _match_;
+        if (!expectedType) return "any";
+        if (!expectedType.startsWith("$infer<")) {
+            return expectedType;
+        }
+        var match = expectedType.match(/^\$infer<(.+)>$/);
+        if (!match) return expectedType;
+        var content = ((_match_ = match[1]) === null || _match_ === void 0 ? void 0 : _match_.trim()) || "";
+        if (content.startsWith("[") && content.endsWith("]")) {
+            var arrayContent = content.slice(1, -1);
+            var fieldNames = arrayContent.split(",").map(function(s) {
+                return s.trim().replace(/^["']|["']$/g, "");
+            }).filter(Boolean);
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(fieldNames.join(", "));
+            }
+            var types = fieldNames.map(function(name) {
+                return inferredTypes[name];
+            }).filter(function(t) {
+                return !!t && t.length > 0;
+            });
+            if (types.length === 0) {
+                return "Waiting for: ".concat(fieldNames.join(", "));
+            }
+            return types.length === 1 ? types[0] : types.join(" & ");
+        }
+        if (!content.includes("|") && /^[a-zA-Z_][a-zA-Z0-9_\-]*$/.test(content)) {
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(content);
+            }
+            var resolvedType = inferredTypes[content];
+            return resolvedType || "Waiting for: ".concat(content);
+        }
+        return content;
+    }, [
+        expectedType,
+        inferredTypes
+    ]);
+}
 function Select2(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, rawOptions = param.options, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, children = param.children;
-    var _React3_useState = _sliced_to_array(React3.useState(false), 2), isExpressionMode = _React3_useState[0], setIsExpressionMode = _React3_useState[1];
-    var _React3_useState1 = _sliced_to_array(React3.useState(""), 2), expressionValue = _React3_useState1[0], setExpressionValue = _React3_useState1[1];
-    var options = React3.useMemo(function() {
+    var devCtx = useContext(DevContext);
+    var resolvedExpectedType = useResolvedExpectedType2(expectedType, devCtx);
+    var _React4_useState = _sliced_to_array(React4.useState(false), 2), isExpressionMode = _React4_useState[0], setIsExpressionMode = _React4_useState[1];
+    var _React4_useState1 = _sliced_to_array(React4.useState(""), 2), expressionValue = _React4_useState1[0], setExpressionValue = _React4_useState1[1];
+    var options = React4.useMemo(function() {
         return rawOptions.map(function(opt) {
             return typeof opt === "string" ? {
                 value: opt,
@@ -4934,7 +5025,7 @@ function Select2(param) {
     }, [
         rawOptions
     ]);
-    var displayValue = React3.useMemo(function() {
+    var displayValue = React4.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
         }
@@ -4942,12 +5033,12 @@ function Select2(param) {
     }, [
         value
     ]);
-    var isExpression = React3.useMemo(function() {
+    var isExpression = React4.useMemo(function() {
         return value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value;
     }, [
         value
     ]);
-    React3.useEffect(function() {
+    React4.useEffect(function() {
         if (isExpression) {
             setIsExpressionMode(true);
             setExpressionValue(displayValue);
@@ -4956,7 +5047,7 @@ function Select2(param) {
         isExpression,
         displayValue
     ]);
-    var handleSelectChange = React3.useCallback(function(newValue) {
+    var handleSelectChange = React4.useCallback(function(newValue) {
         if (newValue === "__expression__") {
             setIsExpressionMode(true);
             return;
@@ -4965,7 +5056,7 @@ function Select2(param) {
     }, [
         onChange
     ]);
-    var handleExpressionChange = React3.useCallback(function(e) {
+    var handleExpressionChange = React4.useCallback(function(e) {
         var newValue = e.target.value;
         setExpressionValue(newValue);
         onChange({
@@ -4975,7 +5066,7 @@ function Select2(param) {
     }, [
         onChange
     ]);
-    var handleSwitchToValue = React3.useCallback(function() {
+    var handleSwitchToValue = React4.useCallback(function() {
         setIsExpressionMode(false);
         setExpressionValue("");
         onChange("");
@@ -5010,24 +5101,26 @@ function Select2(param) {
         },
         hasError: showError
     };
-    return /* @__PURE__ */ React3.createElement("div", {
+    var isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
+    return /* @__PURE__ */ React4.createElement("div", {
         className: cn("uii:mb-2", className)
-    }, /* @__PURE__ */ React3.createElement("div", {
+    }, /* @__PURE__ */ React4.createElement("div", {
         className: "uii:flex uii:items-center uii:gap-2 uii:mt-2"
-    }, /* @__PURE__ */ React3.createElement("label", {
+    }, /* @__PURE__ */ React4.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React3.createElement("span", {
-        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React3.createElement("span", {
+    }, label, ":"), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React4.createElement("span", {
+        className: cn("uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:rounded-sm uii:text-[10px] uii:font-mono uii:font-light uii:max-w-[300px] uii:truncate", isWaiting ? "uii:bg-yellow-100 uii:text-yellow-700" : "uii:bg-gray-200 uii:text-muted-foreground"),
+        title: resolvedExpectedType
+    }, resolvedExpectedType), showError && /* @__PURE__ */ React4.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
-    }, "Required")), /* @__PURE__ */ React3.createElement("div", {
+    }, "Required")), /* @__PURE__ */ React4.createElement("div", {
         className: "uii:mt-0.5"
     }, children ? // Use custom render function
     children(renderProps) : isExpressionMode ? // Expression mode - show input with clear button
-    /* @__PURE__ */ React3.createElement("div", {
+    /* @__PURE__ */ React4.createElement("div", {
         className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5"
-    }, /* @__PURE__ */ React3.createElement("input", {
+    }, /* @__PURE__ */ React4.createElement("input", {
         id: fieldName,
         name: fieldName,
         type: "text",
@@ -5036,7 +5129,7 @@ function Select2(param) {
         disabled: disabled,
         placeholder: "Enter expression...",
         className: cn("uii:flex-1 uii:h-full uii:px-3 uii:bg-transparent uii:text-sm uii:font-mono uii:text-amber-600", "uii:outline-none uii:border-none", disabled && "uii:opacity-50 uii:cursor-not-allowed")
-    }), /* @__PURE__ */ React3.createElement("button", {
+    }), /* @__PURE__ */ React4.createElement("button", {
         type: "button",
         onClick: handleSwitchToValue,
         className: "uii:flex uii:items-center uii:justify-center uii:h-full uii:px-2 uii:text-amber-600 hover:uii:text-red-600 uii:border-l uii:border-amber-500/30",
@@ -5072,21 +5165,21 @@ function Select2(param) {
     //     📝 Custom Expression
     //   </option>
     // </select>
-    /* @__PURE__ */ React3.createElement(Select, {
+    /* @__PURE__ */ React4.createElement(Select, {
         value: displayValue,
         onValueChange: function(e) {
             return handleSelectChange(e);
         },
         disabled: disabled !== null && disabled !== void 0 ? disabled : disabled
-    }, /* @__PURE__ */ React3.createElement(SelectTrigger, {
+    }, /* @__PURE__ */ React4.createElement(SelectTrigger, {
         className: "ui:w-full ui:h-9 ui:px-3 ui:border ui:border-input ui:rounded-sm ui:bg-background"
-    }, /* @__PURE__ */ React3.createElement(SelectValue, {
+    }, /* @__PURE__ */ React4.createElement(SelectValue, {
         placeholder: placeholder
-    })), /* @__PURE__ */ React3.createElement(SelectContent, null, options.map(function(opt) {
-        return /* @__PURE__ */ React3.createElement(SelectItem, {
+    })), /* @__PURE__ */ React4.createElement(SelectContent, null, options.map(function(opt) {
+        return /* @__PURE__ */ React4.createElement(SelectItem, {
             key: opt.value,
             value: opt.value
-        }, opt.node ? opt.node : /* @__PURE__ */ React3.createElement(React3.Fragment, null, opt.label));
+        }, opt.node ? opt.node : /* @__PURE__ */ React4.createElement(React4.Fragment, null, opt.label));
     })))));
 }
 // src/components/template-editor/operatorTypes.ts
@@ -5156,26 +5249,29 @@ function parseInferredTypes(typeStr) {
     return result;
 }
 function computeExtendedType(inferredType, opDef) {
-    if (!opDef.extendsWithBase || opDef.narrowsTo === "never") {
-        return opDef.narrowsTo;
+    if (opDef.narrowsTo === "never") {
+        return "never";
     }
     var parsed = parseInferredTypes(inferredType);
-    var matchingTypes = [];
+    var matchingLiterals = [];
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
         for(var _iterator = parsed.rawTypes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
             var t = _step.value;
             if (opDef.narrowsTo === "string") {
-                if (t === "string" || /^["'].*["']$/.test(t)) {
-                    matchingTypes.push(t);
+                if (t === "string") ;
+                else if (/^["'].*["']$/.test(t)) {
+                    matchingLiterals.push(t);
                 }
             } else if (opDef.narrowsTo === "number") {
-                if (t === "number" || /^-?\d+(\.\d+)?$/.test(t)) {
-                    matchingTypes.push(t);
+                if (t === "number") ;
+                else if (/^-?\d+(\.\d+)?$/.test(t)) {
+                    matchingLiterals.push(t);
                 }
             } else if (opDef.narrowsTo === "boolean") {
-                if (t === "boolean" || t === "true" || t === "false") {
-                    matchingTypes.push(t);
+                if (t === "boolean") ;
+                else if (t === "true" || t === "false") {
+                    matchingLiterals.push(t);
                 }
             }
         }
@@ -5193,10 +5289,13 @@ function computeExtendedType(inferredType, opDef) {
             }
         }
     }
-    if (opDef.extendsWithBase && !matchingTypes.includes(opDef.narrowsTo)) {
-        matchingTypes.push(opDef.narrowsTo);
+    var result = _to_consumable_array(matchingLiterals);
+    if (opDef.extendsWithBase || matchingLiterals.length === 0) {
+        if (!result.includes(opDef.narrowsTo)) {
+            result.push(opDef.narrowsTo);
+        }
     }
-    return matchingTypes.length > 0 ? matchingTypes.join(" | ") : opDef.narrowsTo;
+    return result.length > 0 ? result.join(" | ") : opDef.narrowsTo;
 }
 function filterOperatorsByType(operators, inferredType) {
     var parsed = parseInferredTypes(inferredType);
@@ -5241,19 +5340,30 @@ function useFieldPath(fieldName) {
 }
 function TemplateFieldProvider(param) {
     var children = param.children;
-    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
+    return /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, children);
 }
 function NestedFieldProvider(param) {
     var children = param.children;
-    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
+    return /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, children);
 }
 var InferredTypesContext = createContext(null);
 function useInferredTypes() {
-    return useContext(InferredTypesContext);
+    var devContext = useContext(DevContext);
+    var realContext = useContext(InferredTypesContext);
+    if (devContext) {
+        return {
+            inferredTypes: devContext.inferredTypes,
+            setInferredType: devContext.setInferredType,
+            getInferredType: devContext.getInferredType,
+            clearInferredType: devContext.clearInferredType,
+            clearAllInferredTypes: devContext.clearAllInferredTypes
+        };
+    }
+    return realContext;
 }
 function InferredTypesProvider(param) {
     var children = param.children;
-    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
+    return /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, children);
 }
 function intersectTypes(types) {
     var validTypes = types.filter(function(t) {
@@ -5376,46 +5486,178 @@ function getOperatorsForType(type) {
 }
 function NodePropertyProvider(param) {
     var children = param.children;
-    return /* @__PURE__ */ React3__default.createElement(React3__default.Fragment, null, children);
+    return /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, children);
 }
 function useIsInNodePropertyProvider() {
-    return false;
+    var devContext = useContext(DevContext);
+    return devContext !== null;
 }
 function useNodeProperty(key) {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_data;
+        return devContext === null || devContext === void 0 ? void 0 : (_devContext_data = devContext.data) === null || _devContext_data === void 0 ? void 0 : _devContext_data[key];
+    }), 2), devValue = _useState[0], setDevValue = _useState[1];
+    React4__default.useEffect(function() {
+        if (devContext) {
+            setDevValue(devContext.data[key]);
+        }
+    }, [
+        devContext,
+        key
+    ]);
+    var devSetter = useCallback(function(value) {
+        if (devContext) {
+            devContext.setProperty(key, value);
+            setDevValue(value);
+        }
+    }, [
+        devContext,
+        key
+    ]);
     var noopSetter = useCallback(function() {
-        console.warn('[useNodeProperty] Mock mode - cannot set "'.concat(key, '"'));
+        console.warn('[useNodeProperty] No provider - cannot set "'.concat(key, '"'));
     }, [
         key
     ]);
+    if (devContext) {
+        return [
+            devValue,
+            devSetter
+        ];
+    }
     return [
         void 0,
         noopSetter
     ];
 }
 function useNodeProperties() {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_data;
+        return (_devContext_data = devContext === null || devContext === void 0 ? void 0 : devContext.data) !== null && _devContext_data !== void 0 ? _devContext_data : {};
+    }), 2), devData = _useState[0], setDevData = _useState[1];
+    React4__default.useEffect(function() {
+        if (devContext) {
+            setDevData(_object_spread({}, devContext.data));
+        }
+    }, [
+        devContext,
+        devContext === null || devContext === void 0 ? void 0 : devContext.data
+    ]);
+    var devSetter = useCallback(function(updates) {
+        if (devContext) {
+            Object.entries(updates).forEach(function(param) {
+                var _param = _sliced_to_array(param, 2), key = _param[0], value = _param[1];
+                devContext.setProperty(key, value);
+            });
+            setDevData(function(prev) {
+                return _object_spread({}, prev, updates);
+            });
+        }
+    }, [
+        devContext
+    ]);
     var noopSetter = useCallback(function() {
-        console.warn("[useNodeProperties] Mock mode - cannot set properties");
+        console.warn("[useNodeProperties] No provider - cannot set properties");
     }, []);
+    if (devContext) {
+        return [
+            devData,
+            devSetter
+        ];
+    }
     return [
         {},
         noopSetter
     ];
 }
 function useInferredType(fieldName) {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_inferredTypes;
+        return devContext === null || devContext === void 0 ? void 0 : (_devContext_inferredTypes = devContext.inferredTypes) === null || _devContext_inferredTypes === void 0 ? void 0 : _devContext_inferredTypes[fieldName];
+    }), 2), devInferredType = _useState[0], setDevInferredType = _useState[1];
+    React4__default.useEffect(function() {
+        if (devContext) {
+            setDevInferredType(devContext.inferredTypes[fieldName]);
+        }
+    }, [
+        devContext,
+        fieldName,
+        devContext === null || devContext === void 0 ? void 0 : devContext.inferredTypes
+    ]);
+    if (devContext) {
+        return devInferredType;
+    }
     return void 0;
 }
 function useSetInferredType() {
+    var devContext = useContext(DevContext);
     return useCallback(function(fieldName, type) {
-        console.warn('[useSetInferredType] Mock mode - cannot set "'.concat(fieldName, '" to "').concat(type, '"'));
-    }, []);
+        if (devContext) {
+            devContext.setInferredType(fieldName, type);
+        } else {
+            console.warn('[useSetInferredType] No provider - cannot set "'.concat(fieldName, '" to "').concat(type, '"'));
+        }
+    }, [
+        devContext
+    ]);
+}
+function useClearInferredType() {
+    var devContext = useContext(DevContext);
+    return useCallback(function(fieldName) {
+        if (devContext) {
+            devContext.clearInferredType(fieldName);
+        } else {
+            console.warn('[useClearInferredType] No provider - cannot clear "'.concat(fieldName, '"'));
+        }
+    }, [
+        devContext
+    ]);
+}
+function useClearAllInferredTypes() {
+    var devContext = useContext(DevContext);
+    return useCallback(function() {
+        if (devContext) {
+            devContext.clearAllInferredTypes();
+        } else {
+            console.warn("[useClearAllInferredTypes] No provider - cannot clear all types");
+        }
+    }, [
+        devContext
+    ]);
 }
 function useAllInferredTypes() {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_inferredTypes;
+        return (_devContext_inferredTypes = devContext === null || devContext === void 0 ? void 0 : devContext.inferredTypes) !== null && _devContext_inferredTypes !== void 0 ? _devContext_inferredTypes : {};
+    }), 2), devTypes = _useState[0], setDevTypes = _useState[1];
+    React4__default.useEffect(function() {
+        if (devContext) {
+            setDevTypes(_object_spread({}, devContext.inferredTypes));
+        }
+    }, [
+        devContext,
+        devContext === null || devContext === void 0 ? void 0 : devContext.inferredTypes
+    ]);
+    if (devContext) {
+        return devTypes;
+    }
     return {};
 }
 function useSetProperty() {
+    var devContext = useContext(DevContext);
     return useCallback(function(key, value) {
-        console.warn('[useSetProperty] Mock mode - cannot set "'.concat(key, '"'));
-    }, []);
+        if (devContext) {
+            devContext.setProperty(key, value);
+        } else {
+            console.warn('[useSetProperty] No provider - cannot set "'.concat(key, '"'));
+        }
+    }, [
+        devContext
+    ]);
 }
 function useFieldValidation() {
     var setFieldRequired = useCallback(function(fieldName, required) {
@@ -5445,5 +5687,5 @@ function useFieldValidation() {
         validateField: validateField
     };
 }
-export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useFieldPath, useFieldValidation, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
+export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useFieldPath, useFieldValidation, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

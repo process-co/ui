@@ -258,7 +258,25 @@ function OperatorSelect() {
 |--------|-------------|
 | `getInferredType(fieldName)` | Get the published type for a field |
 | `setInferredType(fieldName, type)` | Manually publish a type for a field |
+| `clearInferredType(fieldName)` | Remove a published type for a field |
+| `clearAllInferredTypes()` | Remove all published types |
 | `inferredTypes` | Record of all fieldName → type mappings |
+
+### Cleanup on Unmount
+
+When building controls that publish inferred types, clean up on unmount to avoid stale types:
+
+```tsx
+useEffect(() => {
+  // Set the inferred type
+  ctx?.setInferredType(myFieldName, computedType);
+  
+  // Cleanup on unmount
+  return () => {
+    ctx?.clearInferredType?.(myFieldName);
+  };
+}, [myFieldName, computedType]);
+```
 
 ---
 

@@ -158,7 +158,7 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
 import * as React2 from 'react';
-import React2__default, { createContext, useContext, useCallback } from 'react';
+import React2__default, { createContext, useContext, useState, useCallback } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { CheckIcon, CircleIcon, ChevronRightIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
@@ -4858,21 +4858,21 @@ function cn() {
     return twMerge(clsx(inputs));
 }
 // src/components/ui/button.tsx
-var buttonVariants = cva("ui:inline-flex ui:items-center ui:justify-center ui:gap-2 ui:whitespace-nowrap ui:rounded-sm ui:text-sm ui:font-medium ui:transition-[color,box-shadow] ui:disabled:pointer-events-none ui:disabled:opacity-50 ui:[&_svg]:pointer-events-none ui:[&_svg:not([class*=size-])]:size-4 ui:shrink-0 ui:[&_svg]:shrink-0 ui:outline-none ui:focus-visible:border-ring ui:focus-visible:ring-ring/50 ui:focus-visible:ring-[3px] ui:aria-invalid:ring-destructive/20 ui:dark:aria-invalid:ring-destructive/40 ui:aria-invalid:border-destructive ui:cursor-pointer", {
+var buttonVariants = cva("uii:inline-flex uii:items-center uii:justify-center uii:gap-2 uii:whitespace-nowrap uii:rounded-sm uii:text-sm uii:font-medium uii:transition-[color,box-shadow] uii:disabled:pointer-events-none uii:disabled:opacity-50 uii:[&_svg]:pointer-events-none uii:[&_svg:not([class*=size-])]:size-4 uii:shrink-0 uii:[&_svg]:shrink-0 uii:outline-none uii:focus-visible:border-ring uii:focus-visible:ring-ring/50 uii:focus-visible:ring-[3px] uii:aria-invalid:ring-destructive/20 uii:dark:aria-invalid:ring-destructive/40 uii:aria-invalid:border-destructive uii:cursor-pointer", {
     variants: {
         variant: {
-            default: "ui:bg-primary ui:text-primary-foreground ui:shadow-xs ui:hover:bg-primary/90 ui:select-none",
-            destructive: "ui:bg-destructive ui:text-white ui:shadow-xs ui:hover:bg-destructive/90 ui:focus-visible:ring-destructive/20 ui:dark:focus-visible:ring-destructive/40",
-            outline: "ui:border ui:border-input ui:bg-background ui:shadow-xs ui:hover:bg-accent ui:hover:text-accent-foreground",
-            secondary: "ui:bg-secondary ui:text-secondary-foreground ui:shadow-xs ui:hover:bg-secondary/80",
-            ghost: "ui:hover:bg-accent ui:hover:text-accent-foreground",
-            link: "ui:text-primary ui:underline-offset-4 ui:hover:underline"
+            default: "uii:bg-primary uii:text-primary-foreground uii:shadow-xs uii:hover:bg-primary/90 uii:select-none",
+            destructive: "uii:bg-destructive uii:text-white uii:shadow-xs uii:hover:bg-destructive/90 uii:focus-visible:ring-destructive/20 uii:dark:focus-visible:ring-destructive/40",
+            outline: "uii:border uii:border-input uii:bg-background uii:shadow-xs uii:hover:bg-accent uii:hover:text-accent-foreground",
+            secondary: "uii:bg-secondary uii:text-secondary-foreground uii:shadow-xs uii:hover:bg-secondary/80",
+            ghost: "uii:hover:bg-accent uii:hover:text-accent-foreground",
+            link: "uii:text-primary uii:underline-offset-4 uii:hover:underline"
         },
         size: {
-            default: "ui:h-9 ui:px-4 ui:py-2 ui:has-[>svg]:px-3",
-            sm: "ui:h-8 ui:rounded-sm ui:gap-1.5 ui:px-3 ui:has-[>svg]:px-2.5",
-            lg: "ui:h-10 ui:rounded-sm ui:px-6 ui:has-[>svg]:px-4",
-            icon: "ui:size-9"
+            default: "uii:h-9 uii:px-4 uii:py-2 uii:has-[>svg]:px-3",
+            sm: "uii:h-8 uii:rounded-sm uii:gap-1.5 uii:px-3 uii:has-[>svg]:px-2.5",
+            lg: "uii:h-10 uii:rounded-sm uii:px-6 uii:has-[>svg]:px-4",
+            icon: "uii:size-9"
         }
     },
     defaultVariants: {
@@ -5129,6 +5129,12 @@ __export(fields_exports, {
     useAllInferredTypes: function() {
         return useAllInferredTypes;
     },
+    useClearAllInferredTypes: function() {
+        return useClearAllInferredTypes;
+    },
+    useClearInferredType: function() {
+        return useClearInferredType;
+    },
     useFieldPath: function() {
         return useFieldPath;
     },
@@ -5163,8 +5169,53 @@ __export(fields_exports, {
         return useTemplateFieldContext;
     }
 });
+var DevContext = createContext(null);
+function useResolvedExpectedType(expectedType, devCtx) {
+    var inferredTypes = devCtx === null || devCtx === void 0 ? void 0 : devCtx.inferredTypes;
+    return React2.useMemo(function() {
+        var _match_;
+        if (!expectedType) return "any";
+        if (!expectedType.startsWith("$infer<")) {
+            return expectedType;
+        }
+        var match = expectedType.match(/^\$infer<(.+)>$/);
+        if (!match) return expectedType;
+        var content = ((_match_ = match[1]) === null || _match_ === void 0 ? void 0 : _match_.trim()) || "";
+        if (content.startsWith("[") && content.endsWith("]")) {
+            var arrayContent = content.slice(1, -1);
+            var fieldNames = arrayContent.split(",").map(function(s) {
+                return s.trim().replace(/^["']|["']$/g, "");
+            }).filter(Boolean);
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(fieldNames.join(", "));
+            }
+            var types = fieldNames.map(function(name) {
+                return inferredTypes[name];
+            }).filter(function(t) {
+                return !!t && t.length > 0;
+            });
+            if (types.length === 0) {
+                return "Waiting for: ".concat(fieldNames.join(", "));
+            }
+            return types.length === 1 ? types[0] : types.join(" & ");
+        }
+        if (!content.includes("|") && /^[a-zA-Z_][a-zA-Z0-9_\-]*$/.test(content)) {
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(content);
+            }
+            var resolvedType = inferredTypes[content];
+            return resolvedType || "Waiting for: ".concat(content);
+        }
+        return content;
+    }, [
+        expectedType,
+        inferredTypes
+    ]);
+}
 function Input(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, editorClassName = param.editorClassName;
+    var devCtx = useContext(DevContext);
+    var resolvedExpectedType = useResolvedExpectedType(expectedType, devCtx);
     var displayValue = React2.useMemo(function() {
         if (value && (typeof value === "undefined" ? "undefined" : _type_of(value)) === "object" && "expression" in value) {
             return value.expression || "";
@@ -5192,6 +5243,7 @@ function Input(param) {
         onChange
     ]);
     var showError = hasRequiredError || required && !displayValue;
+    var isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
     return /* @__PURE__ */ React2.createElement("div", {
         className: cn("uii:mb-2", className)
     }, /* @__PURE__ */ React2.createElement("div", {
@@ -5199,9 +5251,10 @@ function Input(param) {
     }, /* @__PURE__ */ React2.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React2.createElement("span", {
-        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React2.createElement("span", {
+    }, label, ":"), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React2.createElement("span", {
+        className: cn("uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:rounded-sm uii:text-[10px] uii:font-mono uii:font-light uii:max-w-[300px] uii:truncate", isWaiting ? "uii:bg-yellow-100 uii:text-yellow-700" : "uii:bg-gray-200 uii:text-muted-foreground"),
+        title: resolvedExpectedType
+    }, resolvedExpectedType), showError && /* @__PURE__ */ React2.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
     }, "Required")), /* @__PURE__ */ React2.createElement("div", {
         className: "uii:mt-0.5"
@@ -5298,8 +5351,52 @@ function SelectScrollDownButton(_param) {
     }));
 }
 // src/components/fields/Select.tsx
+function useResolvedExpectedType2(expectedType, devCtx) {
+    var inferredTypes = devCtx === null || devCtx === void 0 ? void 0 : devCtx.inferredTypes;
+    return React2.useMemo(function() {
+        var _match_;
+        if (!expectedType) return "any";
+        if (!expectedType.startsWith("$infer<")) {
+            return expectedType;
+        }
+        var match = expectedType.match(/^\$infer<(.+)>$/);
+        if (!match) return expectedType;
+        var content = ((_match_ = match[1]) === null || _match_ === void 0 ? void 0 : _match_.trim()) || "";
+        if (content.startsWith("[") && content.endsWith("]")) {
+            var arrayContent = content.slice(1, -1);
+            var fieldNames = arrayContent.split(",").map(function(s) {
+                return s.trim().replace(/^["']|["']$/g, "");
+            }).filter(Boolean);
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(fieldNames.join(", "));
+            }
+            var types = fieldNames.map(function(name) {
+                return inferredTypes[name];
+            }).filter(function(t) {
+                return !!t && t.length > 0;
+            });
+            if (types.length === 0) {
+                return "Waiting for: ".concat(fieldNames.join(", "));
+            }
+            return types.length === 1 ? types[0] : types.join(" & ");
+        }
+        if (!content.includes("|") && /^[a-zA-Z_][a-zA-Z0-9_\-]*$/.test(content)) {
+            if (!inferredTypes) {
+                return "Subscribing to: ".concat(content);
+            }
+            var resolvedType = inferredTypes[content];
+            return resolvedType || "Waiting for: ".concat(content);
+        }
+        return content;
+    }, [
+        expectedType,
+        inferredTypes
+    ]);
+}
 function Select2(param) {
     var fieldName = param.fieldName, label = param.label, value = param.value, onChange = param.onChange, rawOptions = param.options, _param_disabled = param.disabled, disabled = _param_disabled === void 0 ? false : _param_disabled, placeholder = param.placeholder, _param_expectedType = param.expectedType, expectedType = _param_expectedType === void 0 ? "string" : _param_expectedType, _param_required = param.required, required = _param_required === void 0 ? false : _param_required, _param_hasRequiredError = param.hasRequiredError, hasRequiredError = _param_hasRequiredError === void 0 ? false : _param_hasRequiredError, className = param.className, children = param.children;
+    var devCtx = useContext(DevContext);
+    var resolvedExpectedType = useResolvedExpectedType2(expectedType, devCtx);
     var _React2_useState = _sliced_to_array(React2.useState(false), 2), isExpressionMode = _React2_useState[0], setIsExpressionMode = _React2_useState[1];
     var _React2_useState1 = _sliced_to_array(React2.useState(""), 2), expressionValue = _React2_useState1[0], setExpressionValue = _React2_useState1[1];
     var options = React2.useMemo(function() {
@@ -5388,6 +5485,7 @@ function Select2(param) {
         },
         hasError: showError
     };
+    var isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
     return /* @__PURE__ */ React2.createElement("div", {
         className: cn("uii:mb-2", className)
     }, /* @__PURE__ */ React2.createElement("div", {
@@ -5395,9 +5493,10 @@ function Select2(param) {
     }, /* @__PURE__ */ React2.createElement("label", {
         htmlFor: fieldName,
         className: "uii:text-xs uii:font-bold uii:text-muted-foreground"
-    }, label, ":"), expectedType !== "$.interface.timer" && /* @__PURE__ */ React2.createElement("span", {
-        className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-gray-200 uii:rounded-sm uii:text-[10px] uii:font-mono uii:text-muted-foreground uii:font-light"
-    }, expectedType), showError && /* @__PURE__ */ React2.createElement("span", {
+    }, label, ":"), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React2.createElement("span", {
+        className: cn("uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:rounded-sm uii:text-[10px] uii:font-mono uii:font-light uii:max-w-[300px] uii:truncate", isWaiting ? "uii:bg-yellow-100 uii:text-yellow-700" : "uii:bg-gray-200 uii:text-muted-foreground"),
+        title: resolvedExpectedType
+    }, resolvedExpectedType), showError && /* @__PURE__ */ React2.createElement("span", {
         className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium"
     }, "Required")), /* @__PURE__ */ React2.createElement("div", {
         className: "uii:mt-0.5"
@@ -5534,26 +5633,29 @@ function parseInferredTypes(typeStr) {
     return result;
 }
 function computeExtendedType(inferredType, opDef) {
-    if (!opDef.extendsWithBase || opDef.narrowsTo === "never") {
-        return opDef.narrowsTo;
+    if (opDef.narrowsTo === "never") {
+        return "never";
     }
     var parsed = parseInferredTypes(inferredType);
-    var matchingTypes = [];
+    var matchingLiterals = [];
     var _iteratorNormalCompletion = true, _didIteratorError = false, _iteratorError = undefined;
     try {
         for(var _iterator = parsed.rawTypes[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true){
             var t = _step.value;
             if (opDef.narrowsTo === "string") {
-                if (t === "string" || /^["'].*["']$/.test(t)) {
-                    matchingTypes.push(t);
+                if (t === "string") ;
+                else if (/^["'].*["']$/.test(t)) {
+                    matchingLiterals.push(t);
                 }
             } else if (opDef.narrowsTo === "number") {
-                if (t === "number" || /^-?\d+(\.\d+)?$/.test(t)) {
-                    matchingTypes.push(t);
+                if (t === "number") ;
+                else if (/^-?\d+(\.\d+)?$/.test(t)) {
+                    matchingLiterals.push(t);
                 }
             } else if (opDef.narrowsTo === "boolean") {
-                if (t === "boolean" || t === "true" || t === "false") {
-                    matchingTypes.push(t);
+                if (t === "boolean") ;
+                else if (t === "true" || t === "false") {
+                    matchingLiterals.push(t);
                 }
             }
         }
@@ -5571,10 +5673,13 @@ function computeExtendedType(inferredType, opDef) {
             }
         }
     }
-    if (opDef.extendsWithBase && !matchingTypes.includes(opDef.narrowsTo)) {
-        matchingTypes.push(opDef.narrowsTo);
+    var result = _to_consumable_array(matchingLiterals);
+    if (opDef.extendsWithBase || matchingLiterals.length === 0) {
+        if (!result.includes(opDef.narrowsTo)) {
+            result.push(opDef.narrowsTo);
+        }
     }
-    return matchingTypes.length > 0 ? matchingTypes.join(" | ") : opDef.narrowsTo;
+    return result.length > 0 ? result.join(" | ") : opDef.narrowsTo;
 }
 function filterOperatorsByType(operators, inferredType) {
     var parsed = parseInferredTypes(inferredType);
@@ -5627,7 +5732,18 @@ function NestedFieldProvider(param) {
 }
 var InferredTypesContext = createContext(null);
 function useInferredTypes() {
-    return useContext(InferredTypesContext);
+    var devContext = useContext(DevContext);
+    var realContext = useContext(InferredTypesContext);
+    if (devContext) {
+        return {
+            inferredTypes: devContext.inferredTypes,
+            setInferredType: devContext.setInferredType,
+            getInferredType: devContext.getInferredType,
+            clearInferredType: devContext.clearInferredType,
+            clearAllInferredTypes: devContext.clearAllInferredTypes
+        };
+    }
+    return realContext;
 }
 function InferredTypesProvider(param) {
     var children = param.children;
@@ -5757,43 +5873,175 @@ function NodePropertyProvider(param) {
     return /* @__PURE__ */ React2__default.createElement(React2__default.Fragment, null, children);
 }
 function useIsInNodePropertyProvider() {
-    return false;
+    var devContext = useContext(DevContext);
+    return devContext !== null;
 }
 function useNodeProperty(key) {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_data;
+        return devContext === null || devContext === void 0 ? void 0 : (_devContext_data = devContext.data) === null || _devContext_data === void 0 ? void 0 : _devContext_data[key];
+    }), 2), devValue = _useState[0], setDevValue = _useState[1];
+    React2__default.useEffect(function() {
+        if (devContext) {
+            setDevValue(devContext.data[key]);
+        }
+    }, [
+        devContext,
+        key
+    ]);
+    var devSetter = useCallback(function(value) {
+        if (devContext) {
+            devContext.setProperty(key, value);
+            setDevValue(value);
+        }
+    }, [
+        devContext,
+        key
+    ]);
     var noopSetter = useCallback(function() {
-        console.warn('[useNodeProperty] Mock mode - cannot set "'.concat(key, '"'));
+        console.warn('[useNodeProperty] No provider - cannot set "'.concat(key, '"'));
     }, [
         key
     ]);
+    if (devContext) {
+        return [
+            devValue,
+            devSetter
+        ];
+    }
     return [
         void 0,
         noopSetter
     ];
 }
 function useNodeProperties() {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_data;
+        return (_devContext_data = devContext === null || devContext === void 0 ? void 0 : devContext.data) !== null && _devContext_data !== void 0 ? _devContext_data : {};
+    }), 2), devData = _useState[0], setDevData = _useState[1];
+    React2__default.useEffect(function() {
+        if (devContext) {
+            setDevData(_object_spread({}, devContext.data));
+        }
+    }, [
+        devContext,
+        devContext === null || devContext === void 0 ? void 0 : devContext.data
+    ]);
+    var devSetter = useCallback(function(updates) {
+        if (devContext) {
+            Object.entries(updates).forEach(function(param) {
+                var _param = _sliced_to_array(param, 2), key = _param[0], value = _param[1];
+                devContext.setProperty(key, value);
+            });
+            setDevData(function(prev) {
+                return _object_spread({}, prev, updates);
+            });
+        }
+    }, [
+        devContext
+    ]);
     var noopSetter = useCallback(function() {
-        console.warn("[useNodeProperties] Mock mode - cannot set properties");
+        console.warn("[useNodeProperties] No provider - cannot set properties");
     }, []);
+    if (devContext) {
+        return [
+            devData,
+            devSetter
+        ];
+    }
     return [
         {},
         noopSetter
     ];
 }
 function useInferredType(fieldName) {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_inferredTypes;
+        return devContext === null || devContext === void 0 ? void 0 : (_devContext_inferredTypes = devContext.inferredTypes) === null || _devContext_inferredTypes === void 0 ? void 0 : _devContext_inferredTypes[fieldName];
+    }), 2), devInferredType = _useState[0], setDevInferredType = _useState[1];
+    React2__default.useEffect(function() {
+        if (devContext) {
+            setDevInferredType(devContext.inferredTypes[fieldName]);
+        }
+    }, [
+        devContext,
+        fieldName,
+        devContext === null || devContext === void 0 ? void 0 : devContext.inferredTypes
+    ]);
+    if (devContext) {
+        return devInferredType;
+    }
     return void 0;
 }
 function useSetInferredType() {
+    var devContext = useContext(DevContext);
     return useCallback(function(fieldName, type) {
-        console.warn('[useSetInferredType] Mock mode - cannot set "'.concat(fieldName, '" to "').concat(type, '"'));
-    }, []);
+        if (devContext) {
+            devContext.setInferredType(fieldName, type);
+        } else {
+            console.warn('[useSetInferredType] No provider - cannot set "'.concat(fieldName, '" to "').concat(type, '"'));
+        }
+    }, [
+        devContext
+    ]);
+}
+function useClearInferredType() {
+    var devContext = useContext(DevContext);
+    return useCallback(function(fieldName) {
+        if (devContext) {
+            devContext.clearInferredType(fieldName);
+        } else {
+            console.warn('[useClearInferredType] No provider - cannot clear "'.concat(fieldName, '"'));
+        }
+    }, [
+        devContext
+    ]);
+}
+function useClearAllInferredTypes() {
+    var devContext = useContext(DevContext);
+    return useCallback(function() {
+        if (devContext) {
+            devContext.clearAllInferredTypes();
+        } else {
+            console.warn("[useClearAllInferredTypes] No provider - cannot clear all types");
+        }
+    }, [
+        devContext
+    ]);
 }
 function useAllInferredTypes() {
+    var devContext = useContext(DevContext);
+    var _useState = _sliced_to_array(useState(function() {
+        var _devContext_inferredTypes;
+        return (_devContext_inferredTypes = devContext === null || devContext === void 0 ? void 0 : devContext.inferredTypes) !== null && _devContext_inferredTypes !== void 0 ? _devContext_inferredTypes : {};
+    }), 2), devTypes = _useState[0], setDevTypes = _useState[1];
+    React2__default.useEffect(function() {
+        if (devContext) {
+            setDevTypes(_object_spread({}, devContext.inferredTypes));
+        }
+    }, [
+        devContext,
+        devContext === null || devContext === void 0 ? void 0 : devContext.inferredTypes
+    ]);
+    if (devContext) {
+        return devTypes;
+    }
     return {};
 }
 function useSetProperty() {
+    var devContext = useContext(DevContext);
     return useCallback(function(key, value) {
-        console.warn('[useSetProperty] Mock mode - cannot set "'.concat(key, '"'));
-    }, []);
+        if (devContext) {
+            devContext.setProperty(key, value);
+        } else {
+            console.warn('[useSetProperty] No provider - cannot set "'.concat(key, '"'));
+        }
+    }, [
+        devContext
+    ]);
 }
 function useFieldValidation() {
     var setFieldRequired = useCallback(function(fieldName, required) {
