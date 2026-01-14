@@ -5189,6 +5189,9 @@ __export(fields_exports, {
     },
     useTemplateFieldContext: function() {
         return useTemplateFieldContext;
+    },
+    useTriggerLayoutUpdate: function() {
+        return useTriggerLayoutUpdate;
     }
 });
 var DevContext = React2.createContext(null);
@@ -6060,6 +6063,18 @@ function useSetProperty() {
             devContext.setProperty(key, value);
         } else {
             console.warn('[useSetProperty] No provider - cannot set "'.concat(key, '"'));
+        }
+    }, [
+        devContext
+    ]);
+}
+function useTriggerLayoutUpdate() {
+    var devContext = React2.useContext(DevContext);
+    return React2.useCallback(function() {
+        if (devContext) {
+            console.log("[useTriggerLayoutUpdate] Dev mode - layout update is a no-op");
+        } else {
+            console.warn("[useTriggerLayoutUpdate] No provider - layout update ignored");
         }
     }, [
         devContext

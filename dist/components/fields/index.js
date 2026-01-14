@@ -5659,6 +5659,18 @@ function useSetProperty() {
         devContext
     ]);
 }
+function useTriggerLayoutUpdate() {
+    var devContext = useContext(DevContext);
+    return useCallback(function() {
+        if (devContext) {
+            console.log("[useTriggerLayoutUpdate] Dev mode - layout update is a no-op");
+        } else {
+            console.warn("[useTriggerLayoutUpdate] No provider - layout update ignored");
+        }
+    }, [
+        devContext
+    ]);
+}
 function useFieldValidation() {
     var setFieldRequired = useCallback(function(fieldName, required) {
         console.warn('[useFieldValidation] Mock mode - cannot set required for "'.concat(fieldName, '"'));
@@ -5687,5 +5699,5 @@ function useFieldValidation() {
         validateField: validateField
     };
 }
-export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useFieldPath, useFieldValidation, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext }; //# sourceMappingURL=index.js.map
+export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useFieldPath, useFieldValidation, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

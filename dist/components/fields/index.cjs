@@ -5680,6 +5680,18 @@ function useSetProperty() {
         devContext
     ]);
 }
+function useTriggerLayoutUpdate() {
+    var devContext = React4.useContext(DevContext);
+    return React4.useCallback(function() {
+        if (devContext) {
+            console.log("[useTriggerLayoutUpdate] Dev mode - layout update is a no-op");
+        } else {
+            console.warn("[useTriggerLayoutUpdate] No provider - layout update ignored");
+        }
+    }, [
+        devContext
+    ]);
+}
 function useFieldValidation() {
     var setFieldRequired = React4.useCallback(function(fieldName, required) {
         console.warn('[useFieldValidation] Mock mode - cannot set required for "'.concat(fieldName, '"'));
@@ -5737,5 +5749,6 @@ exports.useNodeProperties = useNodeProperties;
 exports.useNodeProperty = useNodeProperty;
 exports.useSetInferredType = useSetInferredType;
 exports.useSetProperty = useSetProperty;
-exports.useTemplateFieldContext = useTemplateFieldContext; //# sourceMappingURL=index.cjs.map
+exports.useTemplateFieldContext = useTemplateFieldContext;
+exports.useTriggerLayoutUpdate = useTriggerLayoutUpdate; //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map
