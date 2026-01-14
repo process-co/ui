@@ -1,20 +1,6 @@
-# UI Component Library
+# @process.co/ui
 
-This package contains a collection of reusable UI components for the proc-app project. All components are built with React, TypeScript, and Tailwind CSS.
-
-## Table of Contents
-
-- [Installation](#installation)
-- [Usage](#usage)
-- [Components](#components)
-  - [Basic Components](#basic-components)
-  - [Form Components](#form-components)
-  - [Layout Components](#layout-components)
-  - [Feedback Components](#feedback-components)
-  - [Navigation Components](#navigation-components)
-  - [Blocks](#blocks)
-  - [Providers](#providers)
-- [Storybook](#storybook)
+A React UI component library for Process.co applications with built-in collaborative editing, type inference, and expression support.
 
 ## Installation
 
@@ -22,393 +8,472 @@ This package contains a collection of reusable UI components for the proc-app pr
 npm install @process.co/ui
 ```
 
-Or with pnpm:
-
-```bash
-pnpm add @process.co/ui
-```
-
-## Usage
-
-### Importing Components
-
-```tsx
-import { Button, Card, Alert } from '@process.co/ui';
-import { UIProvider } from '@process.co/ui';
-```
-
 ### Importing Styles
 
-The library includes pre-built CSS that must be imported in your application:
-
 ```tsx
-// In your main app file or layout
 import '@process.co/ui/styles';
 ```
 
-Or in your CSS:
+---
 
-```css
-@import '@process.co/ui/styles';
-```
+## Field Components
 
-### Basic Example
+The `Input` and `Select` components are collaborative-aware form controls designed for building custom UIs that integrate with Process.co's flow editor.
+
+### Quick Start
 
 ```tsx
-import { Button, Card, Alert } from '@process.co/ui';
-import { UIProvider } from '@process.co/ui';
+import { Input, Select, useNodeProperty } from '@process.co/ui/fields';
 import '@process.co/ui/styles';
 
-// Wrap your app with UIProvider
-function App() {
+function MyCustomControl({ fieldName }) {
+  const [value, setValue] = useNodeProperty(fieldName);
+  
   return (
-    <UIProvider>
-      <Button>Click me</Button>
-    </UIProvider>
+    <Input
+      fieldName="expression"
+      label="Expression"
+      expectedType="string"
+      value={value}
+      onChange={setValue}
+    />
   );
 }
 ```
 
-## Components
+---
 
-### Basic Components
+## Input Component
 
-#### Button
-A customizable button component with multiple variants and sizes.
+A text input with expression support, type inference, and real-time collaboration.
 
-```tsx
-import { Button } from '@repo/ui';
+### Props
 
-<Button variant="primary" size="md" onClick={handleClick}>
-  Click me
-</Button>
-```
+| Prop | Type | Description |
+|------|------|-------------|
+| `fieldName` | `string` | Unique identifier for collaborative sync |
+| `label` | `string` | Display label |
+| `value` | `any` | Current value |
+| `onChange` | `(value: any) => void` | Change handler |
+| `expectedType` | `string` | Expected type for validation (see Type Inference) |
+| `placeholder` | `string` | Placeholder text |
 
-**Props:**
-- `variant`: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' | 'destructive'
-- `size`: 'sm' | 'md' | 'lg'
-- `disabled`: boolean
-- `loading`: boolean
-- Standard button HTML attributes
-
-#### Card
-A clickable card component that links to external resources.
+### Example
 
 ```tsx
-import { Card } from '@repo/ui';
-
-<Card
-  title="Documentation"
-  href="https://docs.example.com"
-  className="custom-class"
->
-  Learn more about our components
-</Card>
-```
-
-**Props:**
-- `title`: string (required)
-- `href`: string (required)
-- `className`: string (optional)
-- `children`: React.ReactNode
-
-#### Code
-A simple inline code component for displaying code snippets.
-
-```tsx
-import { Code } from '@repo/ui';
-
-<Code className="custom-class">const example = "Hello";</Code>
-```
-
-**Props:**
-- `className`: string (optional)
-- `children`: React.ReactNode
-
-#### Header
-A header component with navigation and branding.
-
-```tsx
-import { Header } from '@repo/ui';
-
-<Header
-  logoSrc="/logo.svg"
-  logoAlt="Company Logo"
-  navigation={navigationItems}
+<Input
+  fieldName="userEmail"
+  label="Email Address"
+  expectedType="string"
+  value={email}
+  onChange={setEmail}
+  placeholder="user@example.com"
 />
 ```
 
-### Form Components
+---
 
-#### TextInput
-A text input component with built-in validation and error handling.
+## Select Component
+
+A dropdown select with expression support and type-aware options.
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `fieldName` | `string` | Unique identifier for collaborative sync |
+| `label` | `string` | Display label |
+| `value` | `any` | Current selected value |
+| `onChange` | `(value: any) => void` | Change handler |
+| `options` | `SelectOption[]` | Available options |
+| `expectedType` | `string` | Expected type for validation |
+
+### SelectOption Type
 
 ```tsx
-import { TextInput } from '@repo/ui';
-
-<TextInput
-  label="Email"
-  name="email"
-  type="email"
-  placeholder="Enter your email"
-  error={errors.email}
-  onChange={handleChange}
-/>
+type SelectOption = {
+  value: string;
+  label: string;
+  node?: ReactNode; // Custom render
+};
 ```
 
-**Props:**
-- `label`: string
-- `name`: string
-- `type`: string
-- `placeholder`: string
-- `error`: string
-- `required`: boolean
-- Standard input HTML attributes
-
-#### PasswordMeter
-A password input with strength meter visualization.
+### Example
 
 ```tsx
-import { PasswordMeter } from '@repo/ui';
-
-<PasswordMeter
-  password={password}
-  onChange={setPassword}
-  requirements={{
-    minLength: 8,
-    requireUppercase: true,
-    requireNumbers: true,
-    requireSpecialChars: true
-  }}
-/>
-```
-
-**Props:**
-- `password`: string
-- `onChange`: (value: string) => void
-- `requirements`: PasswordRequirements object
-
-### Layout Components
-
-#### NotFound (404)
-A pre-styled 404 error page layout.
-
-```tsx
-import { NotFound } from '@repo/ui';
-
-<NotFound />
-```
-
-The component uses translations from UIProvider for customization.
-
-#### Sidebar
-A collapsible sidebar navigation component.
-
-```tsx
-import { Sidebar } from '@repo/ui';
-
-<Sidebar
-  items={navigationItems}
-  collapsed={isCollapsed}
-  onToggle={handleToggle}
-/>
-```
-
-### Feedback Components
-
-#### Alert
-A dismissible alert component for displaying messages.
-
-```tsx
-import { Alert } from '@repo/ui';
-
-<Alert
-  type="success"
-  message="Operation completed successfully"
-  onClose={handleClose}
-/>
-```
-
-**Props:**
-- `type`: 'success' | 'error' | 'warning' | 'info'
-- `message`: string
-- `onClose`: () => void (optional)
-
-#### Loader
-An animated loading indicator.
-
-```tsx
-import { Loader } from '@repo/ui';
-
-<Loader
-  id="unique-loader-id"
-  getAnimationData={() => animationData}
-  speed={1}
-/>
-```
-
-#### SuspenseLoader
-A full-screen loading component with animation, wrapped in React Query provider.
-
-```tsx
-import { SuspenseLoader } from '@repo/ui';
-
-<SuspenseLoader />
-```
-
-#### FullScreenLoader
-A centered full-screen loading overlay.
-
-```tsx
-import { FullScreenLoader } from '@repo/ui';
-
-<FullScreenLoader
-  message="Loading..."
-  showSpinner={true}
-/>
-```
-
-#### Tooltip
-A simple tooltip component for hover information.
-
-```tsx
-import { Tooltip } from '@repo/ui';
-
-<Tooltip content="Additional information">
-  <Button>Hover me</Button>
-</Tooltip>
-```
-
-### Navigation Components
-
-#### NavigationPortal
-A portal component for setting navigation breadcrumbs and content.
-
-```tsx
-import NavigationPortal from '@repo/ui';
-
-<NavigationPortal
-  breadcrumbs={[
-    { label: 'Home', href: '/' },
-    { label: 'Products', href: '/products' },
-    { label: 'Current Page' }
+<Select
+  fieldName="operator"
+  label="Operation"
+  value={operator}
+  onChange={setOperator}
+  options={[
+    { value: 'equals', label: 'Equals' },
+    { value: 'contains', label: 'Contains' },
+    { value: 'startsWith', label: 'Starts With' },
   ]}
-  clearOnUnmount={true}
->
-  <CustomNavigation />
-</NavigationPortal>
-```
-
-**Props:**
-- `breadcrumbs`: Breadcrumb[] (optional)
-- `clearOnUnmount`: boolean (default: true)
-- `keys`: unknown[] (for memoization)
-- `children`: React.ReactNode (navigation content)
-
-### Blocks
-
-#### LinkTree
-A component displaying a tree of navigation links.
-
-```tsx
-import { LinkTree } from '@repo/ui';
-
-<LinkTree links={navigationLinks} />
-```
-
-#### Copyright
-A copyright notice component with customizable text.
-
-```tsx
-import { Copyright } from '@repo/ui';
-
-<Copyright year={2024} company="Process Co" />
-```
-
-### Authentication Components
-
-#### SocialLogin
-A component for social authentication providers.
-
-```tsx
-import { SocialLogin } from '@repo/ui';
-
-<SocialLogin
-  providers={['google', 'github', 'microsoft']}
-  onLogin={handleSocialLogin}
 />
 ```
 
-### Providers
+---
 
-#### UIProvider
-The main provider component that wraps your application and provides context for translations, settings, and state management.
+## Type Inference System
 
-```tsx
-import { UIProvider } from '@repo/ui';
+The `$infer<...>` syntax enables automatic type inference and propagation between fields.
 
-<UIProvider
-  locale="en"
-  translations={translations}
-  theme="light"
->
-  <App />
-</UIProvider>
-```
+### How It Works
 
-**Exports:**
-- `useSettings`: Hook to access UI settings
-- `useTranslation`: Hook for translations
-- `KeyValueStore`: Type definition for storage
-- `StorageType`: Enum for storage types
+When a field uses `$infer` or `$infer<allowedTypes>` as its `expectedType`:
 
-## Utility Functions
+1. The field **infers** the type of the user's input
+2. The field **publishes** that inferred type under its `fieldName`
+3. Other fields can **subscribe** to that type using `$infer<[fieldName]>`
 
-The package also exports utility functions from `lib/utils`:
+### Publishing Types (Automatic)
+
+Any field with `$infer` syntax automatically publishes its inferred type:
 
 ```tsx
-import { cn, formatDate } from '@repo/ui';
+// This field publishes its inferred type as "switchExpression"
+<Input
+  fieldName="switchExpression"
+  expectedType="$infer<string | number | boolean>"
+/>
 ```
 
-## Storybook
+The field will:
+1. Accept string, number, or boolean values
+2. Infer the actual type from user input (e.g., if user types `"hello"`, infers `string`)
+3. **Publish** the inferred type so other fields can access it via `fieldName`
 
-To view all components in Storybook:
+You can also use just `$infer` without constraints:
 
-```bash
-pnpm storybook
+```tsx
+// Publishes inferred type with no restrictions on allowed types
+<Input
+  fieldName="myExpression"
+  expectedType="$infer"
+/>
 ```
 
-## Development
+Or with a single known type:
 
-### Adding New Components
-
-1. Create the component in `src/components/`
-2. Export it from `src/index.tsx`
-3. Create a Storybook story in `src/stories/components/`
-4. Update this documentation
-
-### Component Guidelines
-
-- Use TypeScript for all components
-- Follow the existing naming conventions
-- Include proper TypeScript types
-- Add JSDoc comments for props
-- Create comprehensive Storybook stories
-- Ensure accessibility compliance
-- Use Tailwind CSS with the `ui:` prefix for styling
-
-### Testing
-
-Run tests with:
-
-```bash
-pnpm test
+```tsx
+// Publishes "string" as the inferred type for this field
+<Input
+  fieldName="stringField"
+  expectedType="$infer<string>"
+/>
 ```
 
-### Building
+### Subscribing to Types
 
-Build the package with:
+A field can **subscribe** to another field's published type:
 
-```bash
-pnpm build
+```tsx
+// This field receives its expected type from "switchExpression"
+<Input
+  fieldName="caseValue"
+  expectedType="$infer<[switchExpression]>"
+/>
 ```
+
+This field will:
+1. Look up the inferred type published by `switchExpression`
+2. Use that type for validation and autocomplete
+3. Update automatically when the source field's type changes
+
+### Multi-Field Subscription
+
+Subscribe to multiple fields - types are intersected:
+
+```tsx
+<Input
+  fieldName="value"
+  expectedType='$infer<["statementField", "operatorField"]>'
+/>
+```
+
+The expected type is computed by intersecting types from both fields.
+
+### Example Flow
+
+```tsx
+// 1. Statement field publishes its inferred type
+<Input
+  fieldName="statement"
+  expectedType="$infer<string | number | boolean>"
+  // User enters: this.user.age
+  // Infers and publishes: "number"
+/>
+
+// 2. Operator dropdown reads the published type to filter options
+const ctx = useInferredTypes();
+const statementType = ctx?.getInferredType('statement'); // "number"
+const operators = statementType === 'number' 
+  ? ['=', '!=', '<', '>', '<=', '>=']
+  : ['=', '!='];
+
+// 3. Value field subscribes to the statement's type
+<Input
+  fieldName="value"
+  expectedType="$infer<[statement]>"
+  // Expects: "number" (from statement field)
+/>
+```
+
+---
+
+## useInferredTypes Hook
+
+Access inferred types programmatically for building type-aware UIs:
+
+```tsx
+import { useInferredTypes } from '@process.co/ui/fields';
+
+function OperatorSelect() {
+  const ctx = useInferredTypes();
+  
+  // Read the published type from another field
+  const expressionType = ctx?.getInferredType('switchExpression') || 'any';
+  
+  // Manually publish a type (e.g., for operator narrowing)
+  ctx?.setInferredType('operatorNarrow', 'string');
+  
+  // Filter operators based on type
+  const operators = expressionType === 'number' 
+    ? ['=', '!=', '<', '>', '<=', '>=']
+    : expressionType === 'string'
+      ? ['=', '!=', 'contains', 'startsWith', 'endsWith']
+      : ['=', '!='];
+  
+  return (
+    <Select options={operators.map(op => ({ value: op, label: op }))} />
+  );
+}
+```
+
+### Context Methods
+
+| Method | Description |
+|--------|-------------|
+| `getInferredType(fieldName)` | Get the published type for a field |
+| `setInferredType(fieldName, type)` | Manually publish a type for a field |
+| `inferredTypes` | Record of all fieldName → type mappings |
+
+---
+
+## useNodeProperty Hook
+
+Subscribe to and update node properties with automatic collaboration sync:
+
+```tsx
+import { useNodeProperty } from '@process.co/ui/fields';
+
+function MyControl({ fieldName }) {
+  const [value, setValue] = useNodeProperty<MyValueType>(fieldName);
+  
+  // value: Current property value (undefined if not set)
+  // setValue: Update function with automatic sync
+  
+  return (
+    <button onClick={() => setValue({ ...value, enabled: true })}>
+      Enable
+    </button>
+  );
+}
+```
+
+---
+
+## Building Custom Controls
+
+Custom controls integrate with Process.co's collaborative editing system through the `useNodeProperty` hook.
+
+### Basic Pattern
+
+```tsx
+import { useNodeProperty, useInferredTypes } from '@process.co/ui/fields';
+
+interface MyControlProps {
+  fieldName: string;
+  readonly?: boolean;
+}
+
+export default function MyControl({ fieldName, readonly = false }: MyControlProps) {
+  // Subscribe to the property value
+  const [value, setValue] = useNodeProperty<MyValueType>(fieldName);
+  
+  // Access type inference context (optional)
+  const ctx = useInferredTypes();
+  
+  // Derive state from value
+  const items = value?.items ?? [];
+  
+  // Update handler
+  const addItem = () => {
+    setValue({
+      ...value,
+      items: [...items, { id: generateId(), name: '' }]
+    });
+  };
+  
+  return (
+    <div>
+      {items.map(item => (
+        <ItemRow key={item.id} item={item} />
+      ))}
+      {!readonly && <button onClick={addItem}>Add Item</button>}
+    </div>
+  );
+}
+```
+
+### With Type Inference
+
+```tsx
+import { 
+  useNodeProperty, 
+  useInferredTypes,
+  Input,
+  Select,
+} from '@process.co/ui/fields';
+
+export default function ConditionalEditor({ fieldName }) {
+  const [value, setValue] = useNodeProperty(fieldName);
+  const ctx = useInferredTypes();
+  
+  // Get inferred type from statement field (it publishes automatically)
+  const statementType = ctx?.getInferredType(`${fieldName}_statement`) || 'any';
+  
+  // Filter operators based on statement type
+  const operators = getOperatorsForType(statementType);
+  
+  return (
+    <div>
+      {/* This field PUBLISHES its inferred type as "${fieldName}_statement" */}
+      <Input
+        fieldName={`${fieldName}_statement`}
+        label="Statement"
+        expectedType="$infer<string | number | boolean>"
+        value={value?.statement}
+        onChange={(v) => setValue({ ...value, statement: v })}
+      />
+      
+      <Select
+        fieldName={`${fieldName}_operator`}
+        label="Operator"
+        options={operators}
+        value={value?.operator}
+        onChange={(v) => setValue({ ...value, operator: v })}
+      />
+      
+      {/* This field SUBSCRIBES to the statement field's type */}
+      <Input
+        fieldName={`${fieldName}_value`}
+        label="Value"
+        expectedType={`$infer<[${fieldName}_statement]>`}
+        value={value?.value}
+        onChange={(v) => setValue({ ...value, value: v })}
+      />
+    </div>
+  );
+}
+```
+
+---
+
+## Operator Utilities
+
+Shared utilities for building query builders with type-aware operators.
+
+### Types
+
+```tsx
+import { 
+  BaseOperatorType,
+  OperatorDef,
+  ParsedTypes,
+} from '@process.co/ui/fields';
+
+// BaseOperatorType includes: 'exists', 'not_exists', 'string_equals', 
+// 'string_contains', 'number_gt', 'boolean_equals', etc.
+
+// OperatorDef<T> is generic - extend with custom operators
+type MyOperator = 'expression' | 'custom_check';
+const operators: OperatorDef<MyOperator>[] = [...];
+```
+
+### Functions
+
+```tsx
+import {
+  parseInferredTypes,
+  computeExtendedType,
+  filterOperatorsByType,
+  getStringConstants,
+  getNumberConstants,
+} from '@process.co/ui/fields';
+
+// Parse type string into components
+const parsed = parseInferredTypes('"adam" | "beth" | number');
+// { baseTypes: ['string', 'number'], stringConstants: ['adam', 'beth'], ... }
+
+// Filter operators by compatible type
+const ops = filterOperatorsByType(OPERATORS, '"adam" | "beth"');
+// Returns operators with types: ['any'] or ['string']
+
+// Compute extended type for operators with extendsWithBase
+const expectedType = computeExtendedType('"adam" | "beth"', operatorDef);
+// If extendsWithBase: true, returns '"adam" | "beth" | string'
+```
+
+### Extended Type Narrowing
+
+Some operators support `extendsWithBase` for flexible type matching:
+
+```tsx
+const OPERATORS: OperatorDef[] = [
+  // Exact match - only accepts the literal values
+  { value: 'string_equals', narrowsTo: 'string', extendsWithBase: false },
+  
+  // Extended match - accepts literals OR any string
+  { value: 'string_starts_with', narrowsTo: 'string', extendsWithBase: true },
+];
+```
+
+**Example:** If statement infers `"adam" | "beth"`:
+- `string_equals` expects: `"adam" | "beth"` (must match exactly)
+- `string_starts_with` expects: `"adam" | "beth" | string` (can provide partial match like `"a"`)
+
+---
+
+## Collaboration Features
+
+All field components support real-time collaboration when used within the Process.co flow editor:
+
+- **Cursor sharing**: See where other users are editing
+- **Conflict resolution**: Automatic handling of concurrent edits via Yjs
+- **Presence indicators**: Visual indication of active editors
+
+These features work automatically when components are rendered within a `NodePropertyProvider` context.
+
+---
+
+## UI Components
+
+The library also includes standard UI components:
+
+```tsx
+import {
+  Button,
+  Card,
+  Alert,
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  ConfirmationDropdownMenuItem,
+} from '@process.co/ui';
+```
+
+See the [Storybook documentation](https://main--674d30e40a127b13419e46ba.chromatic.com) for full component reference.
