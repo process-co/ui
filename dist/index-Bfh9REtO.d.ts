@@ -90,6 +90,8 @@ interface SelectProps {
     placeholder?: string;
     /** Expected return type for validation */
     expectedType?: string;
+    /** Whether to hide the type badge */
+    hideTypeBadge?: boolean;
     /** Whether this is a required field */
     required?: boolean;
     /** Whether this field has a required property error (missing value) */
@@ -147,7 +149,7 @@ interface SelectRenderProps {
  * />
  * ```
  */
-declare function Select({ fieldName, label, value, onChange, options: rawOptions, disabled, placeholder, expectedType, required, hasRequiredError, className, children, }: SelectProps): React.JSX.Element;
+declare function Select({ fieldName, label, value, onChange, options: rawOptions, disabled, placeholder, expectedType, hideTypeBadge, required, hasRequiredError, className, children, }: SelectProps): React.JSX.Element;
 
 /**
  * Shared Operator Type Definitions and Utilities
