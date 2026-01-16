@@ -19,7 +19,7 @@ npm install @process.co/ui
 
 ### Pinned Version
 ```bash
-npm install git+https://github.com/process-co/ui.git#v0.0.11
+npm install git+https://github.com/process-co/ui.git#v0.0.14
 ```
 
 ### Latest Development Version
@@ -214,6 +214,35 @@ function MyControl({ fieldName }) {
   );
 }
 ```
+
+---
+
+## Flow Editor Actions
+
+Custom controls can trigger flow-level side effects using a unified hook:
+
+```tsx
+import { useFlowEditorActions } from '@process.co/ui/fields';
+
+function SwitchEditor({ fieldName }) {
+  const { triggerLayoutUpdate, triggerValidation, clearValidationErrorsByPrefix } =
+    useFlowEditorActions();
+
+  const handleRemoveCase = (caseId: string) => {
+    clearValidationErrorsByPrefix(caseId);
+    triggerLayoutUpdate();
+    triggerValidation();
+  };
+}
+```
+
+### Actions
+
+| Action | Description |
+|--------|-------------|
+| `triggerLayoutUpdate()` | Recalculate node layout after structural changes |
+| `triggerValidation()` | Run unified flow validation |
+| `clearValidationErrorsByPrefix(prefix)` | Remove expression errors matching a field prefix |
 
 ---
 

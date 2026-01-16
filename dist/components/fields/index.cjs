@@ -5649,6 +5649,23 @@ function useClearAllInferredTypes() {
         devContext
     ]);
 }
+function useClearValidationErrorsByPrefix() {
+    return React4.useCallback(function(fieldPrefix) {
+        console.log('[useClearValidationErrorsByPrefix] Dev mode - clearing errors with prefix "'.concat(fieldPrefix, '" is a no-op'));
+    }, []);
+}
+function useFlowEditorActions() {
+    var clearValidationErrorsByPrefix = useClearValidationErrorsByPrefix();
+    return {
+        triggerLayoutUpdate: function() {
+            console.log("[useFlowEditorActions] Dev mode - triggerLayoutUpdate is a no-op");
+        },
+        triggerValidation: function() {
+            console.log("[useFlowEditorActions] Dev mode - triggerValidation is a no-op");
+        },
+        clearValidationErrorsByPrefix: clearValidationErrorsByPrefix
+    };
+}
 function useAllInferredTypes() {
     var devContext = React4.useContext(DevContext);
     var _React4_useState = _sliced_to_array(React4.useState(function() {
@@ -5739,8 +5756,10 @@ exports.parseInferredTypes = parseInferredTypes;
 exports.useAllInferredTypes = useAllInferredTypes;
 exports.useClearAllInferredTypes = useClearAllInferredTypes;
 exports.useClearInferredType = useClearInferredType;
+exports.useClearValidationErrorsByPrefix = useClearValidationErrorsByPrefix;
 exports.useFieldPath = useFieldPath;
 exports.useFieldValidation = useFieldValidation;
+exports.useFlowEditorActions = useFlowEditorActions;
 exports.useInferredType = useInferredType;
 exports.useInferredTypes = useInferredTypes;
 exports.useIsInNodePropertyProvider = useIsInNodePropertyProvider;

@@ -656,6 +656,36 @@ declare function useClearInferredType(): (fieldName: string) => void;
  */
 declare function useClearAllInferredTypes(): () => void;
 /**
+ * Hook to get a function that clears validation errors by field name prefix.
+ *
+ * Used when dynamic fields (like switch cases/conditions) are removed to clean up
+ * any associated validation errors.
+ *
+ * In development mode (DevProvider), this is a no-op.
+ * In production, this clears errors matching the prefix from the validation store.
+ *
+ * @example
+ * ```tsx
+ * const clearErrorsByPrefix = useClearValidationErrorsByPrefix();
+ *
+ * const handleRemoveCase = (caseId: string) => {
+ *   // Remove the case from state
+ *   setCases(cases.filter(c => c.id !== caseId));
+ *   // Clear any validation errors for fields in this case
+ *   clearErrorsByPrefix(caseId);
+ * };
+ * ```
+ */
+declare function useClearValidationErrorsByPrefix(): (fieldPrefix: string) => void;
+/**
+ * Unified flow editor actions for custom controls (mock/dev).
+ */
+declare function useFlowEditorActions(): {
+    triggerLayoutUpdate: () => void;
+    triggerValidation: () => void;
+    clearValidationErrorsByPrefix: (fieldPrefix: string) => void;
+};
+/**
  * Hook to subscribe to all inferred types.
  *
  * When used within a DevProvider, uses the dev context's inferred types.
@@ -757,8 +787,10 @@ declare const index_parseInferredTypes: typeof parseInferredTypes;
 declare const index_useAllInferredTypes: typeof useAllInferredTypes;
 declare const index_useClearAllInferredTypes: typeof useClearAllInferredTypes;
 declare const index_useClearInferredType: typeof useClearInferredType;
+declare const index_useClearValidationErrorsByPrefix: typeof useClearValidationErrorsByPrefix;
 declare const index_useFieldPath: typeof useFieldPath;
 declare const index_useFieldValidation: typeof useFieldValidation;
+declare const index_useFlowEditorActions: typeof useFlowEditorActions;
 declare const index_useInferredType: typeof useInferredType;
 declare const index_useInferredTypes: typeof useInferredTypes;
 declare const index_useIsInNodePropertyProvider: typeof useIsInNodePropertyProvider;
@@ -770,7 +802,7 @@ declare const index_useSetProperty: typeof useSetProperty;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare const index_useTriggerLayoutUpdate: typeof useTriggerLayoutUpdate;
 declare namespace index {
-  export { type index_BaseOperatorType as BaseOperatorType, type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_useAllInferredTypes as useAllInferredTypes, index_useClearAllInferredTypes as useClearAllInferredTypes, index_useClearInferredType as useClearInferredType, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext, index_useTriggerLayoutUpdate as useTriggerLayoutUpdate };
+  export { type index_BaseOperatorType as BaseOperatorType, type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_useAllInferredTypes as useAllInferredTypes, index_useClearAllInferredTypes as useClearAllInferredTypes, index_useClearInferredType as useClearInferredType, index_useClearValidationErrorsByPrefix as useClearValidationErrorsByPrefix, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useFlowEditorActions as useFlowEditorActions, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext, index_useTriggerLayoutUpdate as useTriggerLayoutUpdate };
 }
 
-export { useClearAllInferredTypes as A, useAllInferredTypes as B, useSetProperty as C, useTriggerLayoutUpdate as D, useFieldValidation as E, type FieldValidationRule as F, Input as G, type InputProps as H, type InferredTypesContextValue as I, type SelectProps as J, type SelectOption as K, type SelectRenderProps as L, parseInferredTypes as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, computeExtendedType as P, filterOperatorsByType as Q, getStringConstants as R, Select as S, type TemplateFieldContextValue as T, getNumberConstants as U, type BaseOperatorType as V, type OperatorDef as W, type ParsedTypes as X, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useIsInNodePropertyProvider as t, useTemplateFieldContext as u, useNodeProperty as v, useNodeProperties as w, useInferredType as x, useSetInferredType as y, useClearInferredType as z };
+export { useClearAllInferredTypes as A, useClearValidationErrorsByPrefix as B, useFlowEditorActions as C, useAllInferredTypes as D, useSetProperty as E, useTriggerLayoutUpdate as F, type FieldValidationRule as G, useFieldValidation as H, type InferredTypesContextValue as I, Input as J, type InputProps as K, type SelectProps as L, type SelectOption as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, type SelectRenderProps as P, parseInferredTypes as Q, computeExtendedType as R, Select as S, type TemplateFieldContextValue as T, filterOperatorsByType as U, getStringConstants as V, getNumberConstants as W, type BaseOperatorType as X, type OperatorDef as Y, type ParsedTypes as Z, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useIsInNodePropertyProvider as t, useTemplateFieldContext as u, useNodeProperty as v, useNodeProperties as w, useInferredType as x, useSetInferredType as y, useClearInferredType as z };

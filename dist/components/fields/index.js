@@ -5628,6 +5628,23 @@ function useClearAllInferredTypes() {
         devContext
     ]);
 }
+function useClearValidationErrorsByPrefix() {
+    return useCallback(function(fieldPrefix) {
+        console.log('[useClearValidationErrorsByPrefix] Dev mode - clearing errors with prefix "'.concat(fieldPrefix, '" is a no-op'));
+    }, []);
+}
+function useFlowEditorActions() {
+    var clearValidationErrorsByPrefix = useClearValidationErrorsByPrefix();
+    return {
+        triggerLayoutUpdate: function() {
+            console.log("[useFlowEditorActions] Dev mode - triggerLayoutUpdate is a no-op");
+        },
+        triggerValidation: function() {
+            console.log("[useFlowEditorActions] Dev mode - triggerValidation is a no-op");
+        },
+        clearValidationErrorsByPrefix: clearValidationErrorsByPrefix
+    };
+}
 function useAllInferredTypes() {
     var devContext = useContext(DevContext);
     var _useState = _sliced_to_array(useState(function() {
@@ -5699,5 +5716,5 @@ function useFieldValidation() {
         validateField: validateField
     };
 }
-export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useFieldPath, useFieldValidation, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate }; //# sourceMappingURL=index.js.map
+export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useClearValidationErrorsByPrefix, useFieldPath, useFieldValidation, useFlowEditorActions, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

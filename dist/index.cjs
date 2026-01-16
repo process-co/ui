@@ -5157,11 +5157,17 @@ __export(fields_exports, {
     useClearInferredType: function() {
         return useClearInferredType;
     },
+    useClearValidationErrorsByPrefix: function() {
+        return useClearValidationErrorsByPrefix;
+    },
     useFieldPath: function() {
         return useFieldPath;
     },
     useFieldValidation: function() {
         return useFieldValidation;
+    },
+    useFlowEditorActions: function() {
+        return useFlowEditorActions;
     },
     useInferredType: function() {
         return useInferredType;
@@ -6036,6 +6042,23 @@ function useClearAllInferredTypes() {
     }, [
         devContext
     ]);
+}
+function useClearValidationErrorsByPrefix() {
+    return React2.useCallback(function(fieldPrefix) {
+        console.log('[useClearValidationErrorsByPrefix] Dev mode - clearing errors with prefix "'.concat(fieldPrefix, '" is a no-op'));
+    }, []);
+}
+function useFlowEditorActions() {
+    var clearValidationErrorsByPrefix = useClearValidationErrorsByPrefix();
+    return {
+        triggerLayoutUpdate: function() {
+            console.log("[useFlowEditorActions] Dev mode - triggerLayoutUpdate is a no-op");
+        },
+        triggerValidation: function() {
+            console.log("[useFlowEditorActions] Dev mode - triggerValidation is a no-op");
+        },
+        clearValidationErrorsByPrefix: clearValidationErrorsByPrefix
+    };
 }
 function useAllInferredTypes() {
     var devContext = React2.useContext(DevContext);

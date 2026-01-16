@@ -303,6 +303,35 @@ function MyControl({ fieldName }) {
 
 ---
 
+## Flow Editor Actions
+
+Custom controls can trigger flow-level side effects using a unified hook:
+
+```tsx
+import { useFlowEditorActions } from '@process.co/ui/fields';
+
+function SwitchEditor({ fieldName }) {
+  const { triggerLayoutUpdate, triggerValidation, clearValidationErrorsByPrefix } =
+    useFlowEditorActions();
+
+  const handleRemoveCase = (caseId: string) => {
+    clearValidationErrorsByPrefix(caseId);
+    triggerLayoutUpdate();
+    triggerValidation();
+  };
+}
+```
+
+### Actions
+
+| Action | Description |
+|--------|-------------|
+| `triggerLayoutUpdate()` | Recalculate node layout after structural changes |
+| `triggerValidation()` | Run unified flow validation |
+| `clearValidationErrorsByPrefix(prefix)` | Remove expression errors matching a field prefix |
+
+---
+
 ## Building Custom Controls
 
 Custom controls integrate with Process.co's collaborative editing system through the `useNodeProperty` hook.
