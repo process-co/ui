@@ -5187,6 +5187,9 @@ __export(fields_exports, {
     useNodeProperty: function() {
         return useNodeProperty;
     },
+    useSetFieldMetadataOnly: function() {
+        return useSetFieldMetadataOnly;
+    },
     useSetInferredType: function() {
         return useSetInferredType;
     },
@@ -5743,6 +5746,7 @@ function useTemplateFieldContext() {
         onControlBlur: function() {},
         onRecordChange: function() {},
         onValidationChange: function() {},
+        onValueChange: void 0,
         parentFieldPath: null,
         disabled: false
     };
@@ -5903,6 +5907,9 @@ function NodePropertyProvider(param) {
     var children = param.children;
     return /* @__PURE__ */ React2__namespace.default.createElement(React2__namespace.default.Fragment, null, children);
 }
+function useSetFieldMetadataOnly() {
+    return React2.useCallback(function(_fieldKey, _metadata) {}, []);
+}
 function useIsInNodePropertyProvider() {
     var devContext = React2.useContext(DevContext);
     return devContext !== null;
@@ -5921,7 +5928,7 @@ function useNodeProperty(key) {
         devContext,
         key
     ]);
-    var devSetter = React2.useCallback(function(value) {
+    var devSetter = React2.useCallback(function(value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
             setDevValue(value);
@@ -6081,7 +6088,7 @@ function useAllInferredTypes() {
 }
 function useSetProperty() {
     var devContext = React2.useContext(DevContext);
-    return React2.useCallback(function(key, value) {
+    return React2.useCallback(function(key, value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
         } else {

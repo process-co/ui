@@ -134,7 +134,7 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
 import * as React4 from 'react';
-import React4__default, { createContext, useContext, useState, useCallback } from 'react';
+import React4__default, { createContext, useContext, useCallback, useState } from 'react';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import { ChevronDownIcon, CheckIcon, ChevronUpIcon } from 'lucide-react';
 // src/components/fields/index.tsx
@@ -5328,6 +5328,7 @@ function useTemplateFieldContext() {
         onControlBlur: function() {},
         onRecordChange: function() {},
         onValidationChange: function() {},
+        onValueChange: void 0,
         parentFieldPath: null,
         disabled: false
     };
@@ -5488,6 +5489,9 @@ function NodePropertyProvider(param) {
     var children = param.children;
     return /* @__PURE__ */ React4__default.createElement(React4__default.Fragment, null, children);
 }
+function useSetFieldMetadataOnly() {
+    return useCallback(function(_fieldKey, _metadata) {}, []);
+}
 function useIsInNodePropertyProvider() {
     var devContext = useContext(DevContext);
     return devContext !== null;
@@ -5506,7 +5510,7 @@ function useNodeProperty(key) {
         devContext,
         key
     ]);
-    var devSetter = useCallback(function(value) {
+    var devSetter = useCallback(function(value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
             setDevValue(value);
@@ -5666,7 +5670,7 @@ function useAllInferredTypes() {
 }
 function useSetProperty() {
     var devContext = useContext(DevContext);
-    return useCallback(function(key, value) {
+    return useCallback(function(key, value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
         } else {
@@ -5716,5 +5720,5 @@ function useFieldValidation() {
         validateField: validateField
     };
 }
-export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useClearValidationErrorsByPrefix, useFieldPath, useFieldValidation, useFlowEditorActions, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate }; //# sourceMappingURL=index.js.map
+export { InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select2 as Select, TemplateFieldProvider, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, parseInferSyntax, parseInferredTypes, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useClearValidationErrorsByPrefix, useFieldPath, useFieldValidation, useFlowEditorActions, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetFieldMetadataOnly, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate }; //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

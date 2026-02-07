@@ -158,7 +158,7 @@ function _unsupported_iterable_to_array(o, minLen) {
     if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _array_like_to_array(o, minLen);
 }
 import * as React2 from 'react';
-import React2__default, { createContext, useContext, useState, useCallback } from 'react';
+import React2__default, { createContext, useContext, useCallback, useState } from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import { CheckIcon, CircleIcon, ChevronRightIcon, ChevronDownIcon, ChevronUpIcon } from 'lucide-react';
@@ -5165,6 +5165,9 @@ __export(fields_exports, {
     useNodeProperty: function() {
         return useNodeProperty;
     },
+    useSetFieldMetadataOnly: function() {
+        return useSetFieldMetadataOnly;
+    },
     useSetInferredType: function() {
         return useSetInferredType;
     },
@@ -5721,6 +5724,7 @@ function useTemplateFieldContext() {
         onControlBlur: function() {},
         onRecordChange: function() {},
         onValidationChange: function() {},
+        onValueChange: void 0,
         parentFieldPath: null,
         disabled: false
     };
@@ -5881,6 +5885,9 @@ function NodePropertyProvider(param) {
     var children = param.children;
     return /* @__PURE__ */ React2__default.createElement(React2__default.Fragment, null, children);
 }
+function useSetFieldMetadataOnly() {
+    return useCallback(function(_fieldKey, _metadata) {}, []);
+}
 function useIsInNodePropertyProvider() {
     var devContext = useContext(DevContext);
     return devContext !== null;
@@ -5899,7 +5906,7 @@ function useNodeProperty(key) {
         devContext,
         key
     ]);
-    var devSetter = useCallback(function(value) {
+    var devSetter = useCallback(function(value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
             setDevValue(value);
@@ -6059,7 +6066,7 @@ function useAllInferredTypes() {
 }
 function useSetProperty() {
     var devContext = useContext(DevContext);
-    return useCallback(function(key, value) {
+    return useCallback(function(key, value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
         } else {

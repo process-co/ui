@@ -60,6 +60,12 @@ function MyCustomControl({ fieldName }) {
 }
 ```
 
+### Value and metadata
+
+- `useNodeProperty(fieldName)` returns `[value, setValue]`. You can call `setValue(newValue, metadata?)` to persist optional field metadata (e.g. expression format) with the host.
+- `useSetFieldMetadataOnly()` returns a function `(fieldKey, metadata) => void` to update only metadata for a field without changing its value.
+- When the host provides `TemplateFieldProvider` with `onValueChange`, nested `Input`/`Select` components can pass metadata so the host persists it (e.g. into `$meta` and Yjs).
+
 ---
 
 ## Input Component

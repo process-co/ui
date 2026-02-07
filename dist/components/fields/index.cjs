@@ -5349,6 +5349,7 @@ function useTemplateFieldContext() {
         onControlBlur: function() {},
         onRecordChange: function() {},
         onValidationChange: function() {},
+        onValueChange: void 0,
         parentFieldPath: null,
         disabled: false
     };
@@ -5509,6 +5510,9 @@ function NodePropertyProvider(param) {
     var children = param.children;
     return /* @__PURE__ */ React4__namespace.default.createElement(React4__namespace.default.Fragment, null, children);
 }
+function useSetFieldMetadataOnly() {
+    return React4.useCallback(function(_fieldKey, _metadata) {}, []);
+}
 function useIsInNodePropertyProvider() {
     var devContext = React4.useContext(DevContext);
     return devContext !== null;
@@ -5527,7 +5531,7 @@ function useNodeProperty(key) {
         devContext,
         key
     ]);
-    var devSetter = React4.useCallback(function(value) {
+    var devSetter = React4.useCallback(function(value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
             setDevValue(value);
@@ -5687,7 +5691,7 @@ function useAllInferredTypes() {
 }
 function useSetProperty() {
     var devContext = React4.useContext(DevContext);
-    return React4.useCallback(function(key, value) {
+    return React4.useCallback(function(key, value, _metadata) {
         if (devContext) {
             devContext.setProperty(key, value);
         } else {
@@ -5766,6 +5770,7 @@ exports.useIsInNodePropertyProvider = useIsInNodePropertyProvider;
 exports.useIsInTemplateFieldProvider = useIsInTemplateFieldProvider;
 exports.useNodeProperties = useNodeProperties;
 exports.useNodeProperty = useNodeProperty;
+exports.useSetFieldMetadataOnly = useSetFieldMetadataOnly;
 exports.useSetInferredType = useSetInferredType;
 exports.useSetProperty = useSetProperty;
 exports.useTemplateFieldContext = useTemplateFieldContext;
