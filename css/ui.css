@@ -2446,7 +2446,7 @@ body {
   [data-radix-popover-trigger][role="combobox"] {
     pointer-events: auto !important;
   }
-  [data-radix-popover-trigger][role="combobox"] [role="button"], [data-radix-popover-trigger][role="combobox"] .ui\\:cursor-pointer {
+  [data-radix-popover-trigger][role="combobox"] [role="button"], [data-radix-popover-trigger][role="combobox"] .ui\:cursor-pointer {
     pointer-events: auto !important;
   }
   .cosine-mono {

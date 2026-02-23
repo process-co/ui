@@ -44,7 +44,12 @@
         "default": "./dist/components/dev/index.cjs"
       }
     },
-    "./styles": "./css/ui.css",
+    "./styles": {
+      "import": {
+        "types": "./css/ui.d.ts",
+        "default": "./css/ui.css"
+      }
+    },
     "./package.json": "./package.json"
   },
   "repository": {
