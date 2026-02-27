@@ -3,7 +3,6 @@
 var React43 = require('react');
 var jsxRuntime = require('react/jsx-runtime');
 var ReactDOM4 = require('react-dom');
-var lucideReact = require('lucide-react');
 
 function _interopNamespace(e) {
   if (e && e.__esModule) return e;
@@ -8528,6 +8527,93 @@ var Separator2 = DropdownMenuSeparator;
 var Sub2 = DropdownMenuSub;
 var SubTrigger2 = DropdownMenuSubTrigger;
 var SubContent2 = DropdownMenuSubContent;
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/shared/src/utils.js
+var toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+var mergeClasses = (...classes) => classes.filter((className, index2, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index2;
+}).join(" ").trim();
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/defaultAttributes.js
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/Icon.js
+var Icon = React43.forwardRef(
+  ({
+    color = "currentColor",
+    size: size4 = 24,
+    strokeWidth = 2,
+    absoluteStrokeWidth,
+    className = "",
+    children,
+    iconNode,
+    ...rest
+  }, ref) => {
+    return React43.createElement(
+      "svg",
+      {
+        ref,
+        ...defaultAttributes,
+        width: size4,
+        height: size4,
+        stroke: color,
+        strokeWidth: absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size4) : strokeWidth,
+        className: mergeClasses("lucide", className),
+        ...rest
+      },
+      [
+        ...iconNode.map(([tag, attrs]) => React43.createElement(tag, attrs)),
+        ...Array.isArray(children) ? children : [children]
+      ]
+    );
+  }
+);
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/createLucideIcon.js
+var createLucideIcon = (iconName, iconNode) => {
+  const Component = React43.forwardRef(
+    ({ className, ...props }, ref) => React43.createElement(Icon, {
+      ref,
+      iconNode,
+      className: mergeClasses(`lucide-${toKebabCase(iconName)}`, className),
+      ...props
+    })
+  );
+  Component.displayName = `${iconName}`;
+  return Component;
+};
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/icons/check.js
+var __iconNode = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+var Check = createLucideIcon("Check", __iconNode);
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/icons/chevron-down.js
+var __iconNode2 = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+var ChevronDown = createLucideIcon("ChevronDown", __iconNode2);
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/icons/chevron-right.js
+var __iconNode3 = [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]];
+var ChevronRight = createLucideIcon("ChevronRight", __iconNode3);
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/icons/chevron-up.js
+var __iconNode4 = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+var ChevronUp = createLucideIcon("ChevronUp", __iconNode4);
+
+// ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/icons/circle.js
+var __iconNode5 = [["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }]];
+var Circle = createLucideIcon("Circle", __iconNode5);
+
+// src/components/ui/dropdown-menu.tsx
 function DropdownMenu2({
   ...props
 }) {
@@ -8633,7 +8719,7 @@ function DropdownMenuCheckboxItem2({
       checked,
       ...props
     },
-    /* @__PURE__ */ React43__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React43__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React43__namespace.createElement(lucideReact.CheckIcon, { className: "uii:size-4" }))),
+    /* @__PURE__ */ React43__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React43__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React43__namespace.createElement(Check, { className: "uii:size-4" }))),
     children
   );
 }
@@ -8663,7 +8749,7 @@ function DropdownMenuRadioItem2({
       ),
       ...props
     },
-    /* @__PURE__ */ React43__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React43__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React43__namespace.createElement(lucideReact.CircleIcon, { className: "uii:size-2 uii:fill-current" }))),
+    /* @__PURE__ */ React43__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React43__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React43__namespace.createElement(Circle, { className: "uii:size-2 uii:fill-current" }))),
     children
   );
 }
@@ -8737,7 +8823,7 @@ function DropdownMenuSubTrigger2({
       ...props
     },
     children,
-    /* @__PURE__ */ React43__namespace.createElement(lucideReact.ChevronRightIcon, { className: "uii:ml-auto uii:size-4" })
+    /* @__PURE__ */ React43__namespace.createElement(ChevronRight, { className: "uii:ml-auto uii:size-4" })
   );
 }
 function DropdownMenuSubContent2({
@@ -10069,7 +10155,7 @@ function wrapArray3(array, startIndex) {
 var Root24 = Select;
 var Trigger2 = SelectTrigger;
 var Value = SelectValue;
-var Icon = SelectIcon;
+var Icon2 = SelectIcon;
 var Portal3 = SelectPortal;
 var Content23 = SelectContent;
 var Viewport = SelectViewport;
@@ -10078,6 +10164,8 @@ var ItemText = SelectItemText;
 var ItemIndicator3 = SelectItemIndicator;
 var ScrollUpButton = SelectScrollUpButton;
 var ScrollDownButton = SelectScrollDownButton;
+
+// src/components/ui/select.tsx
 function Select2({
   ...props
 }) {
@@ -10104,7 +10192,7 @@ function SelectTrigger2({
       ...props
     },
     children,
-    /* @__PURE__ */ React43__namespace.createElement(Icon, { asChild: true }, /* @__PURE__ */ React43__namespace.createElement(lucideReact.ChevronDownIcon, { className: "uii:size-4 uii:opacity-50" }))
+    /* @__PURE__ */ React43__namespace.createElement(Icon2, { asChild: true }, /* @__PURE__ */ React43__namespace.createElement(ChevronDown, { className: "uii:size-4 uii:opacity-50" }))
   );
 }
 function SelectContent2({
@@ -10159,7 +10247,7 @@ function SelectItem2({
       ),
       ...props
     },
-    /* @__PURE__ */ React43__namespace.createElement("span", { className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React43__namespace.createElement(ItemIndicator3, null, /* @__PURE__ */ React43__namespace.createElement(lucideReact.CheckIcon, { className: "uii:size-4" }))),
+    /* @__PURE__ */ React43__namespace.createElement("span", { className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React43__namespace.createElement(ItemIndicator3, null, /* @__PURE__ */ React43__namespace.createElement(Check, { className: "uii:size-4" }))),
     /* @__PURE__ */ React43__namespace.createElement(ItemText, null, children)
   );
 }
@@ -10177,7 +10265,7 @@ function SelectScrollUpButton2({
       ),
       ...props
     },
-    /* @__PURE__ */ React43__namespace.createElement(lucideReact.ChevronUpIcon, { className: "uii:size-4" })
+    /* @__PURE__ */ React43__namespace.createElement(ChevronUp, { className: "uii:size-4" })
   );
 }
 function SelectScrollDownButton2({
@@ -10194,7 +10282,7 @@ function SelectScrollDownButton2({
       ),
       ...props
     },
-    /* @__PURE__ */ React43__namespace.createElement(lucideReact.ChevronDownIcon, { className: "uii:size-4" })
+    /* @__PURE__ */ React43__namespace.createElement(ChevronDown, { className: "uii:size-4" })
   );
 }
 
@@ -10815,6 +10903,25 @@ function useFieldValidation() {
     validateField
   };
 }
+/*! Bundled license information:
+
+lucide-react/dist/esm/shared/src/utils.js:
+lucide-react/dist/esm/defaultAttributes.js:
+lucide-react/dist/esm/Icon.js:
+lucide-react/dist/esm/createLucideIcon.js:
+lucide-react/dist/esm/icons/check.js:
+lucide-react/dist/esm/icons/chevron-down.js:
+lucide-react/dist/esm/icons/chevron-right.js:
+lucide-react/dist/esm/icons/chevron-up.js:
+lucide-react/dist/esm/icons/circle.js:
+lucide-react/dist/esm/lucide-react.js:
+  (**
+   * @license lucide-react v0.476.0 - ISC
+   *
+   * This source code is licensed under the ISC license.
+   * See the LICENSE file in the root directory of this source tree.
+   *)
+*/
 
 exports.Button = Button;
 exports.ConfirmationDropdownMenuItem = ConfirmationDropdownMenuItem;
