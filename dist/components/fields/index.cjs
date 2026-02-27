@@ -8822,6 +8822,23 @@ function ToggleButton({ className, variant, size: size4, ...props }) {
     }
   );
 }
+var logicToggleButtonStyles = [
+  "uii:inline-flex uii:items-center uii:justify-center uii:rounded-md uii:border uii:border-[#e5e7eb] uii:min-w-[28px] uii:w-[28px] uii:min-h-[56px] uii:h-[56px] uii:text-xs uii:font-bold uii:outline-none uii:focus-visible:ring-2 uii:focus-visible:ring-[#3b82f6]/40 uii:focus-visible:ring-offset-1 uii:disabled:pointer-events-none uii:disabled:opacity-50 uii:cursor-pointer uii:transition-colors uii:select-none",
+  "uii:data-[state=on]:bg-[#3b82f6] uii:data-[state=on]:text-white uii:data-[state=on]:border-[#3b82f6]",
+  "uii:data-[state=off]:bg-[#f3f4f6] uii:data-[state=off]:text-[#374151] uii:data-[state=off]:hover:bg-[#e5e7eb]"
+].join(" ");
+var logicToggleButtonLabelStyles = "uii:inline-block uii:whitespace-nowrap uii:[transform:rotate(-90deg)]";
+function LogicToggleButton({ className, children, ...props }) {
+  return /* @__PURE__ */ React33__namespace.createElement(
+    Root3,
+    {
+      "data-slot": "logic-toggle-button",
+      className: cn(logicToggleButtonStyles, className),
+      ...props
+    },
+    children != null ? /* @__PURE__ */ React33__namespace.createElement("span", { className: logicToggleButtonLabelStyles }, children) : null
+  );
+}
 
 // src/components/fields/types.ts
 function parseInferredTypes(typeStr) {
@@ -9246,6 +9263,7 @@ exports.Button = Button;
 exports.InferredTypesContext = InferredTypesContext;
 exports.InferredTypesProvider = InferredTypesProvider;
 exports.Input = Input;
+exports.LogicToggleButton = LogicToggleButton;
 exports.NestedFieldProvider = NestedFieldProvider;
 exports.NodePropertyProvider = NodePropertyProvider;
 exports.OPERATORS_BY_TYPE = OPERATORS_BY_TYPE;
@@ -9259,6 +9277,7 @@ exports.getNumberConstants = getNumberConstants;
 exports.getOperatorsForType = getOperatorsForType;
 exports.getStringConstants = getStringConstants;
 exports.intersectTypes = intersectTypes;
+exports.logicToggleButtonStyles = logicToggleButtonStyles;
 exports.normalizeFieldValue = normalizeFieldValue;
 exports.parseInferSyntax = parseInferSyntax;
 exports.parseInferredTypes = parseInferredTypes;

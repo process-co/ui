@@ -8801,6 +8801,23 @@ function ToggleButton({ className, variant, size: size4, ...props }) {
     }
   );
 }
+var logicToggleButtonStyles = [
+  "uii:inline-flex uii:items-center uii:justify-center uii:rounded-md uii:border uii:border-[#e5e7eb] uii:min-w-[28px] uii:w-[28px] uii:min-h-[56px] uii:h-[56px] uii:text-xs uii:font-bold uii:outline-none uii:focus-visible:ring-2 uii:focus-visible:ring-[#3b82f6]/40 uii:focus-visible:ring-offset-1 uii:disabled:pointer-events-none uii:disabled:opacity-50 uii:cursor-pointer uii:transition-colors uii:select-none",
+  "uii:data-[state=on]:bg-[#3b82f6] uii:data-[state=on]:text-white uii:data-[state=on]:border-[#3b82f6]",
+  "uii:data-[state=off]:bg-[#f3f4f6] uii:data-[state=off]:text-[#374151] uii:data-[state=off]:hover:bg-[#e5e7eb]"
+].join(" ");
+var logicToggleButtonLabelStyles = "uii:inline-block uii:whitespace-nowrap uii:[transform:rotate(-90deg)]";
+function LogicToggleButton({ className, children, ...props }) {
+  return /* @__PURE__ */ React33.createElement(
+    Root3,
+    {
+      "data-slot": "logic-toggle-button",
+      className: cn(logicToggleButtonStyles, className),
+      ...props
+    },
+    children != null ? /* @__PURE__ */ React33.createElement("span", { className: logicToggleButtonLabelStyles }, children) : null
+  );
+}
 
 // src/components/fields/types.ts
 function parseInferredTypes(typeStr) {
@@ -9221,6 +9238,6 @@ lucide-react/dist/esm/lucide-react.js:
    *)
 */
 
-export { Button, InferredTypesContext, InferredTypesProvider, Input, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select3 as Select, TemplateFieldProvider, ToggleButton, buttonVariants, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, normalizeFieldValue, parseInferSyntax, parseInferredTypes, toggleButtonVariants, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useClearValidationErrorsByPrefix, useFieldPath, useFieldValidation, useFlowEditorActions, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetFieldMetadataOnly, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate };
+export { Button, InferredTypesContext, InferredTypesProvider, Input, LogicToggleButton, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select3 as Select, TemplateFieldProvider, ToggleButton, buttonVariants, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, logicToggleButtonStyles, normalizeFieldValue, parseInferSyntax, parseInferredTypes, toggleButtonVariants, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useClearValidationErrorsByPrefix, useFieldPath, useFieldValidation, useFlowEditorActions, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetFieldMetadataOnly, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map
