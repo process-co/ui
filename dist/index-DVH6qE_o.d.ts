@@ -197,6 +197,15 @@ interface InputProps {
     editorClassName?: string;
     /** Property definition (for richer context) */
     propertyDefinition?: any;
+    /**
+     * When true, show a small case-sensitivity toggle next to the type label (e.g. for Value position in conditions).
+     * Controlled by caseSensitive and onCaseSensitiveChange.
+     */
+    showCaseSensitivity?: boolean;
+    /** Current case-sensitive state (when showCaseSensitivity is true). */
+    caseSensitive?: boolean;
+    /** Called when the user toggles case sensitivity (when showCaseSensitivity is true). */
+    onCaseSensitiveChange?: (value: boolean) => void;
 }
 /**
  * Mock Input component for development/design mode.
@@ -215,7 +224,7 @@ interface InputProps {
  * />
  * ```
  */
-declare function Input({ fieldName, label, value, onChange, disabled, placeholder, expectedType, required, hasRequiredError, className, editorClassName, }: InputProps): React.JSX.Element;
+declare function Input({ fieldName, label, value, onChange, disabled, placeholder, expectedType, required, hasRequiredError, className, editorClassName, showCaseSensitivity, caseSensitive, onCaseSensitiveChange, }: InputProps): React.JSX.Element;
 
 interface SelectOption {
     node?: React.ReactNode;

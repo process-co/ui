@@ -1261,6 +1261,9 @@
   .uii\:border-input {
     border-color: var(--input);
   }
+  .uii\:border-primary {
+    border-color: var(--primary);
+  }
   .uii\:border-purple-200 {
     border-color: oklch(90.2% 0.063 306.703);
   }

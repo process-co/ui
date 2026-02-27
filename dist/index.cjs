@@ -8949,7 +8949,10 @@ function Input({
   required = false,
   hasRequiredError = false,
   className,
-  editorClassName
+  editorClassName,
+  showCaseSensitivity = false,
+  caseSensitive = false,
+  onCaseSensitiveChange
 }) {
   const devCtx = React44.useContext(DevContext);
   const resolvedExpectedType = useResolvedExpectedType(expectedType, devCtx);
@@ -8993,7 +8996,19 @@ function Input({
       title: resolvedExpectedType
     },
     resolvedExpectedType
-  ), showError && /* @__PURE__ */ React44__namespace.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required")), /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:mt-0.5" }, /* @__PURE__ */ React44__namespace.createElement(
+  ), showError && /* @__PURE__ */ React44__namespace.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required"), showCaseSensitivity && onCaseSensitiveChange && /* @__PURE__ */ React44__namespace.createElement(
+    "button",
+    {
+      type: "button",
+      title: caseSensitive ? "Case sensitive (click to ignore case)" : "Ignore case (click for case sensitive)",
+      onClick: () => onCaseSensitiveChange(!caseSensitive),
+      className: cn(
+        "uii:-mt-2 uii:inline-flex uii:items-center uii:justify-center uii:rounded-sm uii:border uii:px-1 uii:py-0.5 uii:text-[10px] uii:font-medium uii:transition-colors uii:outline-none focus:uii:ring-2 focus:uii:ring-ring focus:uii:ring-offset-1",
+        caseSensitive ? "uii:bg-primary uii:text-primary-foreground uii:border-primary" : "uii:bg-gray-200 uii:text-muted-foreground uii:border-input hover:uii:bg-gray-300"
+      )
+    },
+    "Aa"
+  )), /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:mt-0.5" }, /* @__PURE__ */ React44__namespace.createElement(
     "input",
     {
       id: fieldName,
