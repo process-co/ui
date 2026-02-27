@@ -1,156 +1,30 @@
 import * as React from 'react';
 import React__default from 'react';
+import * as class_variance_authority_types from 'class-variance-authority/types';
+import { VariantProps } from 'class-variance-authority';
+import * as TogglePrimitive from '@radix-ui/react-toggle';
 
-interface InputProps {
-    /**
-     * Field name/key.
-     * Used for Yjs field path and validation error tracking.
-     * When nested inside NestedFieldProvider, the parent path is auto-prepended.
-     */
-    fieldName: string;
-    /** Display label for the field */
-    label: string;
-    /** Current value */
-    value: string | {
-        expression: string;
-        type: 'expression';
-        value?: string;
-    };
-    /** Called when value changes */
-    onChange: (value: string | {
-        expression: string;
-        type: 'expression';
-    }, metadata?: any) => void;
-    /** Whether the field is disabled */
-    disabled?: boolean;
-    /** Placeholder text */
-    placeholder?: string;
-    /** Expected return type for validation */
-    expectedType?: string;
-    /** Whether this is a required field */
-    required?: boolean;
-    /** Whether this field has a required property error (missing value) */
-    hasRequiredError?: boolean;
-    /** Custom className for the wrapper */
-    className?: string;
-    /** Custom className for the editor container */
-    editorClassName?: string;
-    /** Property definition (for richer context) */
-    propertyDefinition?: any;
-}
-/**
- * Mock Input component for development/design mode.
- *
- * This is a simplified version that renders a basic input field.
- * In production, this is replaced with the real Input from packages/ui
- * which includes collaboration, type inference, and expression support.
- *
- * @example
- * ```tsx
- * <Input
- *   fieldName="firstName"
- *   label="First Name"
- *   value={value}
- *   onChange={setValue}
- * />
- * ```
- */
-declare function Input({ fieldName, label, value, onChange, disabled, placeholder, expectedType, required, hasRequiredError, className, editorClassName, }: InputProps): React.JSX.Element;
+declare const buttonVariants: (props?: ({
+    variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "typePill" | null | undefined;
+    size?: "default" | "sm" | "lg" | "icon" | "iconSm" | null | undefined;
+} & class_variance_authority_types.ClassProp) | undefined) => string;
+declare function Button({ className, variant, size, asChild, ...props }: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & {
+    asChild?: boolean;
+}): React.JSX.Element;
 
-interface SelectOption {
-    node?: React.ReactNode;
-    value: string;
-    label: string;
-}
-interface SelectProps {
-    /**
-     * Field name/key.
-     * Used for Yjs field path and validation error tracking.
-     * When nested inside NestedFieldProvider, the parent path is auto-prepended.
-     */
-    fieldName: string;
-    /** Display label for the field */
-    label: string;
-    /** Current value */
-    value: string | {
-        expression: string;
-        type: 'expression';
-        value?: string;
-    };
-    /** Called when value changes */
-    onChange: (value: string | {
-        expression: string;
-        type: 'expression';
-    }, metadata?: any) => void;
-    /** Available options */
-    options: SelectOption[] | string[];
-    /** Whether the field is disabled */
-    disabled?: boolean;
-    /** Placeholder text */
-    placeholder?: string;
-    /** Expected return type for validation */
-    expectedType?: string;
-    /** Whether to hide the type badge */
-    hideTypeBadge?: boolean;
-    /** Whether this is a required field */
-    required?: boolean;
-    /** Whether this field has a required property error (missing value) */
-    hasRequiredError?: boolean;
-    /** Custom className for the wrapper */
-    className?: string;
-    /** Property definition (for richer context) */
-    propertyDefinition?: any;
-    /**
-     * Render prop for custom select UI.
-     * If not provided, uses a basic HTML select.
-     */
-    children?: (props: SelectRenderProps) => React.ReactNode;
-}
-interface SelectRenderProps {
-    value: string;
-    onChange: (value: string) => void;
-    onFocus?: () => void;
-    onBlur?: () => void;
-    onExpressionClick: () => void;
-    options: SelectOption[];
-    localInput: string;
-    setLocalInput: (value: string) => void;
-    expressionMode: {
-        current: 'value' | 'expression';
-        isExpressionMode: boolean;
-        isEditorMode: boolean;
-        isEditing: boolean;
-        isFullScreen: boolean;
-        expression: string;
-        switchToValue: () => void;
-        switchToExpression: () => void;
-        switchToEditor: () => void;
-        clear: () => void;
-    };
-    inferredType?: string;
-    hasTypeMismatch?: boolean;
-    hasError?: boolean;
-}
-/**
- * Mock Select component for development/design mode.
- *
- * This is a simplified version that renders a basic select field.
- * In production, this is replaced with the real Select from packages/ui
- * which includes collaboration, type inference, and expression support.
- *
- * @example
- * ```tsx
- * <Select
- *   fieldName="status"
- *   label="Status"
- *   value={value}
- *   onChange={setValue}
- *   options={['draft', 'published', 'archived']}
- * />
- * ```
- */
-declare function Select({ fieldName, label, value, onChange, options: rawOptions, disabled, placeholder, expectedType, hideTypeBadge, required, hasRequiredError, className, children, }: SelectProps): React.JSX.Element;
+declare const toggleButtonVariants: (props?: ({
+    variant?: "default" | "outline" | "secondary" | "ghost" | null | undefined;
+    size?: "default" | "sm" | "lg" | "icon" | "iconSm" | null | undefined;
+} & class_variance_authority_types.ClassProp) | undefined) => string;
+type ToggleButtonProps = React.ComponentProps<typeof TogglePrimitive.Root> & VariantProps<typeof toggleButtonVariants>;
+declare function ToggleButton({ className, variant, size, ...props }: ToggleButtonProps): React.JSX.Element;
 
+/** Accepted value for Input/Select: string or expression object. For untyped sources (e.g. condition.value), assert: value={x as FieldValue} */
+type FieldValue = string | {
+    expression: string;
+    type: 'expression';
+    value?: string;
+};
 /**
  * Shared Operator Type Definitions and Utilities
  *
@@ -285,6 +159,142 @@ declare function getStringConstants(inferredType: string): string[];
  */
 declare function getNumberConstants(inferredType: string): number[];
 
+interface InputProps {
+    /**
+     * Field name/key.
+     * Used for Yjs field path and validation error tracking.
+     * When nested inside NestedFieldProvider, the parent path is auto-prepended.
+     */
+    fieldName: string;
+    /** Display label for the field */
+    label: string;
+    /** Current value (string or expression object). From untyped sources use: value={x as FieldValue} */
+    value: FieldValue;
+    /** Called when value changes (may receive string or expression object; use normalizeFieldValue to get a string) */
+    onChange: (value: FieldValue, metadata?: any) => void;
+    /** Whether the field is disabled */
+    disabled?: boolean;
+    /** Placeholder text */
+    placeholder?: string;
+    /** Expected return type for validation */
+    expectedType?: string;
+    /** Whether this is a required field */
+    required?: boolean;
+    /** Whether this field has a required property error (missing value) */
+    hasRequiredError?: boolean;
+    /** Custom className for the wrapper */
+    className?: string;
+    /** Custom className for the editor container */
+    editorClassName?: string;
+    /** Property definition (for richer context) */
+    propertyDefinition?: any;
+}
+/**
+ * Mock Input component for development/design mode.
+ *
+ * This is a simplified version that renders a basic input field.
+ * In production, this is replaced with the real Input from packages/ui
+ * which includes collaboration, type inference, and expression support.
+ *
+ * @example
+ * ```tsx
+ * <Input
+ *   fieldName="firstName"
+ *   label="First Name"
+ *   value={value}
+ *   onChange={setValue}
+ * />
+ * ```
+ */
+declare function Input({ fieldName, label, value, onChange, disabled, placeholder, expectedType, required, hasRequiredError, className, editorClassName, }: InputProps): React.JSX.Element;
+
+interface SelectOption {
+    node?: React.ReactNode;
+    value: string;
+    label: string;
+}
+interface SelectProps {
+    /**
+     * Field name/key.
+     * Used for Yjs field path and validation error tracking.
+     * When nested inside NestedFieldProvider, the parent path is auto-prepended.
+     */
+    fieldName: string;
+    /** Display label for the field */
+    label: string;
+    /** Current value (string or expression object). From untyped sources use: value={x as FieldValue} */
+    value: FieldValue;
+    /** Called when value changes (may receive string or expression object; use normalizeFieldValue to get a string) */
+    onChange: (value: FieldValue, metadata?: any) => void;
+    /** Available options */
+    options: SelectOption[] | string[];
+    /** Whether the field is disabled */
+    disabled?: boolean;
+    /** Placeholder text */
+    placeholder?: string;
+    /** Expected return type for validation */
+    expectedType?: string;
+    /** Whether to hide the type badge */
+    hideTypeBadge?: boolean;
+    /** Whether this is a required field */
+    required?: boolean;
+    /** Whether this field has a required property error (missing value) */
+    hasRequiredError?: boolean;
+    /** Custom className for the wrapper */
+    className?: string;
+    /** Property definition (for richer context) */
+    propertyDefinition?: any;
+    /**
+     * Render prop for custom select UI.
+     * If not provided, uses a basic HTML select.
+     */
+    children?: (props: SelectRenderProps) => React.ReactNode;
+}
+interface SelectRenderProps {
+    value: string;
+    onChange: (value: string) => void;
+    onFocus?: () => void;
+    onBlur?: () => void;
+    onExpressionClick: () => void;
+    options: SelectOption[];
+    localInput: string;
+    setLocalInput: (value: string) => void;
+    expressionMode: {
+        current: 'value' | 'expression';
+        isExpressionMode: boolean;
+        isEditorMode: boolean;
+        isEditing: boolean;
+        isFullScreen: boolean;
+        expression: string;
+        switchToValue: () => void;
+        switchToExpression: () => void;
+        switchToEditor: () => void;
+        clear: () => void;
+    };
+    inferredType?: string;
+    hasTypeMismatch?: boolean;
+    hasError?: boolean;
+}
+/**
+ * Mock Select component for development/design mode.
+ *
+ * This is a simplified version that renders a basic select field.
+ * In production, this is replaced with the real Select from packages/ui
+ * which includes collaboration, type inference, and expression support.
+ *
+ * @example
+ * ```tsx
+ * <Select
+ *   fieldName="status"
+ *   label="Status"
+ *   value={value}
+ *   onChange={setValue}
+ *   options={['draft', 'published', 'archived']}
+ * />
+ * ```
+ */
+declare function Select({ fieldName, label, value, onChange, options: rawOptions, disabled, placeholder, expectedType, hideTypeBadge, required, hasRequiredError, className, children, }: SelectProps): React.JSX.Element;
+
 /**
  * Simplified Field Components (Mock/Development Version)
  *
@@ -336,6 +346,13 @@ declare function getNumberConstants(inferredType: string): number[];
  * ```
  */
 
+/**
+ * Normalize a value from Input/Select onChange (or any stored value) to a string.
+ * Use when persisting condition.value or other fields that store a string only.
+ */
+declare function normalizeFieldValue(val: string | {
+    expression?: string;
+} | unknown): string;
 /**
  * Mock context value (always returns defaults).
  * In production, this is replaced with the real context from packages/ui.
@@ -789,7 +806,9 @@ declare function useFieldValidation(): {
 };
 
 type index_BaseOperatorType = BaseOperatorType;
+declare const index_Button: typeof Button;
 type index_FieldValidationRule = FieldValidationRule;
+type index_FieldValue = FieldValue;
 type index_InferConfig = InferConfig;
 declare const index_InferredTypesContext: typeof InferredTypesContext;
 type index_InferredTypesContextValue = InferredTypesContextValue;
@@ -815,14 +834,18 @@ type index_TemplateFieldFocusContext = TemplateFieldFocusContext;
 declare const index_TemplateFieldProvider: typeof TemplateFieldProvider;
 type index_TemplateFieldProviderProps = TemplateFieldProviderProps;
 type index_TemplateFieldValidationError = TemplateFieldValidationError;
+declare const index_ToggleButton: typeof ToggleButton;
+declare const index_buttonVariants: typeof buttonVariants;
 declare const index_computeExtendedType: typeof computeExtendedType;
 declare const index_filterOperatorsByType: typeof filterOperatorsByType;
 declare const index_getNumberConstants: typeof getNumberConstants;
 declare const index_getOperatorsForType: typeof getOperatorsForType;
 declare const index_getStringConstants: typeof getStringConstants;
 declare const index_intersectTypes: typeof intersectTypes;
+declare const index_normalizeFieldValue: typeof normalizeFieldValue;
 declare const index_parseInferSyntax: typeof parseInferSyntax;
 declare const index_parseInferredTypes: typeof parseInferredTypes;
+declare const index_toggleButtonVariants: typeof toggleButtonVariants;
 declare const index_useAllInferredTypes: typeof useAllInferredTypes;
 declare const index_useClearAllInferredTypes: typeof useClearAllInferredTypes;
 declare const index_useClearInferredType: typeof useClearInferredType;
@@ -842,7 +865,7 @@ declare const index_useSetProperty: typeof useSetProperty;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare const index_useTriggerLayoutUpdate: typeof useTriggerLayoutUpdate;
 declare namespace index {
-  export { type index_BaseOperatorType as BaseOperatorType, type index_FieldValidationRule as FieldValidationRule, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, type index_PropertyMetadata as PropertyMetadata, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_useAllInferredTypes as useAllInferredTypes, index_useClearAllInferredTypes as useClearAllInferredTypes, index_useClearInferredType as useClearInferredType, index_useClearValidationErrorsByPrefix as useClearValidationErrorsByPrefix, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useFlowEditorActions as useFlowEditorActions, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetFieldMetadataOnly as useSetFieldMetadataOnly, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext, index_useTriggerLayoutUpdate as useTriggerLayoutUpdate };
+  export { type index_BaseOperatorType as BaseOperatorType, index_Button as Button, type index_FieldValidationRule as FieldValidationRule, type index_FieldValue as FieldValue, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, type index_PropertyMetadata as PropertyMetadata, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_ToggleButton as ToggleButton, index_buttonVariants as buttonVariants, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_normalizeFieldValue as normalizeFieldValue, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_toggleButtonVariants as toggleButtonVariants, index_useAllInferredTypes as useAllInferredTypes, index_useClearAllInferredTypes as useClearAllInferredTypes, index_useClearInferredType as useClearInferredType, index_useClearValidationErrorsByPrefix as useClearValidationErrorsByPrefix, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useFlowEditorActions as useFlowEditorActions, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetFieldMetadataOnly as useSetFieldMetadataOnly, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext, index_useTriggerLayoutUpdate as useTriggerLayoutUpdate };
 }
 
-export { type ParsedTypes as $, useClearInferredType as A, useClearAllInferredTypes as B, useClearValidationErrorsByPrefix as C, useFlowEditorActions as D, useAllInferredTypes as E, useSetProperty as F, useTriggerLayoutUpdate as G, type FieldValidationRule as H, type InferredTypesContextValue as I, useFieldValidation as J, Input as K, type InputProps as L, type SelectProps as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, type PropertyMetadata as P, type SelectOption as Q, type SelectRenderProps as R, Select as S, type TemplateFieldContextValue as T, parseInferredTypes as U, computeExtendedType as V, filterOperatorsByType as W, getStringConstants as X, getNumberConstants as Y, type BaseOperatorType as Z, type OperatorDef as _, useIsInTemplateFieldProvider as a, useFieldPath as b, TemplateFieldProvider as c, type TemplateFieldProviderProps as d, type NestedFieldProviderProps as e, type TemplateFieldValidationError as f, type TemplateFieldFocusContext as g, type TemplateFieldChangeEvent as h, index as i, InferredTypesContext as j, useInferredTypes as k, type InferredTypesProviderProps as l, InferredTypesProvider as m, intersectTypes as n, type InferConfig as o, parseInferSyntax as p, getOperatorsForType as q, type NodePropertyProviderProps as r, NodePropertyProvider as s, useSetFieldMetadataOnly as t, useTemplateFieldContext as u, useIsInNodePropertyProvider as v, useNodeProperty as w, useNodeProperties as x, useInferredType as y, useSetInferredType as z };
+export { computeExtendedType as $, useNodeProperty as A, Button as B, useNodeProperties as C, useInferredType as D, useSetInferredType as E, useClearInferredType as F, useClearAllInferredTypes as G, useClearValidationErrorsByPrefix as H, type InferredTypesContextValue as I, useFlowEditorActions as J, useAllInferredTypes as K, useSetProperty as L, useTriggerLayoutUpdate as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, type PropertyMetadata as P, type FieldValidationRule as Q, useFieldValidation as R, type FieldValue as S, ToggleButton as T, Input as U, type InputProps as V, Select as W, type SelectProps as X, type SelectOption as Y, type SelectRenderProps as Z, parseInferredTypes as _, type TemplateFieldContextValue as a, filterOperatorsByType as a0, getStringConstants as a1, getNumberConstants as a2, type BaseOperatorType as a3, type OperatorDef as a4, type ParsedTypes as a5, buttonVariants as b, useIsInTemplateFieldProvider as c, useFieldPath as d, TemplateFieldProvider as e, type TemplateFieldProviderProps as f, type NestedFieldProviderProps as g, type TemplateFieldValidationError as h, index as i, type TemplateFieldFocusContext as j, type TemplateFieldChangeEvent as k, InferredTypesContext as l, useInferredTypes as m, normalizeFieldValue as n, type InferredTypesProviderProps as o, InferredTypesProvider as p, intersectTypes as q, type InferConfig as r, parseInferSyntax as s, toggleButtonVariants as t, useTemplateFieldContext as u, getOperatorsForType as v, type NodePropertyProviderProps as w, NodePropertyProvider as x, useSetFieldMetadataOnly as y, useIsInNodePropertyProvider as z };
