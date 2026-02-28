@@ -1,5 +1,5 @@
-import * as React44 from 'react';
-import React44__default, { forwardRef, createElement, createContext, useLayoutEffect, useState, useContext, useCallback } from 'react';
+import * as React45 from 'react';
+import React45__default, { forwardRef, createElement, createContext, useLayoutEffect, useState, useContext, useCallback } from 'react';
 import { jsx, Fragment, jsxs } from 'react/jsx-runtime';
 import * as ReactDOM4 from 'react-dom';
 import ReactDOM4__default from 'react-dom';
@@ -41,10 +41,10 @@ function composeRefs(...refs) {
   };
 }
 function useComposedRefs(...refs) {
-  return React44.useCallback(composeRefs(...refs), refs);
+  return React45.useCallback(composeRefs(...refs), refs);
 }
 var REACT_LAZY_TYPE = Symbol.for("react.lazy");
-var use = React44[" use ".trim().toString()];
+var use = React45[" use ".trim().toString()];
 function isPromiseLike(value) {
   return typeof value === "object" && value !== null && "then" in value;
 }
@@ -54,24 +54,24 @@ function isLazyComponent(element) {
 // @__NO_SIDE_EFFECTS__
 function createSlot(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
-  const Slot22 = React44.forwardRef((props, forwardedRef) => {
+  const Slot22 = React45.forwardRef((props, forwardedRef) => {
     let { children, ...slotProps } = props;
     if (isLazyComponent(children) && typeof use === "function") {
       children = use(children._payload);
     }
-    const childrenArray = React44.Children.toArray(children);
+    const childrenArray = React45.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React44.Children.count(newElement) > 1) return React44.Children.only(null);
-          return React44.isValidElement(newElement) ? newElement.props.children : null;
+          if (React45.Children.count(newElement) > 1) return React45.Children.only(null);
+          return React45.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React44.isValidElement(newElement) ? React44.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React45.isValidElement(newElement) ? React45.cloneElement(newElement, void 0, newChildren) : null });
     }
     return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
@@ -81,27 +81,27 @@ function createSlot(ownerName) {
 var Slot = /* @__PURE__ */ createSlot("Slot");
 // @__NO_SIDE_EFFECTS__
 function createSlotClone(ownerName) {
-  const SlotClone = React44.forwardRef((props, forwardedRef) => {
+  const SlotClone = React45.forwardRef((props, forwardedRef) => {
     let { children, ...slotProps } = props;
     if (isLazyComponent(children) && typeof use === "function") {
       children = use(children._payload);
     }
-    if (React44.isValidElement(children)) {
+    if (React45.isValidElement(children)) {
       const childrenRef = getElementRef(children);
       const props2 = mergeProps(slotProps, children.props);
-      if (children.type !== React44.Fragment) {
+      if (children.type !== React45.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React44.cloneElement(children, props2);
+      return React45.cloneElement(children, props2);
     }
-    return React44.Children.count(children) > 1 ? React44.Children.only(null) : null;
+    return React45.Children.count(children) > 1 ? React45.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
 var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
 function isSlottable(child) {
-  return React44.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
+  return React45.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
 }
 function mergeProps(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -3248,7 +3248,7 @@ function Button({
   ...props
 }) {
   const Comp = asChild ? Slot : "button";
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Comp,
     {
       "data-slot": "button",
@@ -3265,9 +3265,9 @@ function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForD
     }
   };
 }
-var useLayoutEffect2 = globalThis?.document ? React44.useLayoutEffect : () => {
+var useLayoutEffect2 = globalThis?.document ? React45.useLayoutEffect : () => {
 };
-var useInsertionEffect = React44[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
+var useInsertionEffect = React45[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
 function useControllableState({
   prop,
   defaultProp,
@@ -3282,8 +3282,8 @@ function useControllableState({
   const isControlled = prop !== void 0;
   const value = isControlled ? prop : uncontrolledProp;
   {
-    const isControlledRef = React44.useRef(prop !== void 0);
-    React44.useEffect(() => {
+    const isControlledRef = React45.useRef(prop !== void 0);
+    React45.useEffect(() => {
       const wasControlled = isControlledRef.current;
       if (wasControlled !== isControlled) {
         const from = wasControlled ? "controlled" : "uncontrolled";
@@ -3295,7 +3295,7 @@ function useControllableState({
       isControlledRef.current = isControlled;
     }, [isControlled, caller]);
   }
-  const setValue = React44.useCallback(
+  const setValue = React45.useCallback(
     (nextValue) => {
       if (isControlled) {
         const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
@@ -3314,13 +3314,13 @@ function useUncontrolledState({
   defaultProp,
   onChange
 }) {
-  const [value, setValue] = React44.useState(defaultProp);
-  const prevValueRef = React44.useRef(value);
-  const onChangeRef = React44.useRef(onChange);
+  const [value, setValue] = React45.useState(defaultProp);
+  const prevValueRef = React45.useRef(value);
+  const onChangeRef = React45.useRef(onChange);
   useInsertionEffect(() => {
     onChangeRef.current = onChange;
   }, [onChange]);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     if (prevValueRef.current !== value) {
       onChangeRef.current?.(value);
       prevValueRef.current = value;
@@ -3334,21 +3334,21 @@ function isFunction(value) {
 // @__NO_SIDE_EFFECTS__
 function createSlot2(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone2(ownerName);
-  const Slot22 = React44.forwardRef((props, forwardedRef) => {
+  const Slot22 = React45.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    const childrenArray = React44.Children.toArray(children);
+    const childrenArray = React45.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable2);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React44.Children.count(newElement) > 1) return React44.Children.only(null);
-          return React44.isValidElement(newElement) ? newElement.props.children : null;
+          if (React45.Children.count(newElement) > 1) return React45.Children.only(null);
+          return React45.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React44.isValidElement(newElement) ? React44.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React45.isValidElement(newElement) ? React45.cloneElement(newElement, void 0, newChildren) : null });
     }
     return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
@@ -3357,24 +3357,24 @@ function createSlot2(ownerName) {
 }
 // @__NO_SIDE_EFFECTS__
 function createSlotClone2(ownerName) {
-  const SlotClone = React44.forwardRef((props, forwardedRef) => {
+  const SlotClone = React45.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    if (React44.isValidElement(children)) {
+    if (React45.isValidElement(children)) {
       const childrenRef = getElementRef2(children);
       const props2 = mergeProps2(slotProps, children.props);
-      if (children.type !== React44.Fragment) {
+      if (children.type !== React45.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React44.cloneElement(children, props2);
+      return React45.cloneElement(children, props2);
     }
-    return React44.Children.count(children) > 1 ? React44.Children.only(null) : null;
+    return React45.Children.count(children) > 1 ? React45.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
 var SLOTTABLE_IDENTIFIER2 = Symbol("radix.slottable");
 function isSlottable2(child) {
-  return React44.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER2;
+  return React45.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER2;
 }
 function mergeProps2(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -3434,7 +3434,7 @@ var NODES = [
 ];
 var Primitive = NODES.reduce((primitive, node) => {
   const Slot4 = createSlot2(`Primitive.${node}`);
-  const Node2 = React44.forwardRef((props, forwardedRef) => {
+  const Node2 = React45.forwardRef((props, forwardedRef) => {
     const { asChild, ...primitiveProps } = props;
     const Comp = asChild ? Slot4 : node;
     if (typeof window !== "undefined") {
@@ -3449,7 +3449,7 @@ function dispatchDiscreteCustomEvent(target, event) {
   if (target) ReactDOM4.flushSync(() => target.dispatchEvent(event));
 }
 var NAME = "Toggle";
-var Toggle = React44.forwardRef((props, forwardedRef) => {
+var Toggle = React45.forwardRef((props, forwardedRef) => {
   const { pressed: pressedProp, defaultPressed, onPressedChange, ...buttonProps } = props;
   const [pressed, setPressed] = useControllableState({
     prop: pressedProp,
@@ -3503,7 +3503,7 @@ var toggleButtonVariants = cva(
   }
 );
 function ToggleButton({ className, variant, size: size4, ...props }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Root,
     {
       "data-slot": "toggle-button",
@@ -3519,32 +3519,32 @@ var logicToggleButtonStyles = [
 ].join(" ");
 var logicToggleButtonLabelStyles = "uii:inline-block uii:whitespace-nowrap uii:[transform:rotate(-90deg)]";
 function LogicToggleButton({ className, children, ...props }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Root,
     {
       "data-slot": "logic-toggle-button",
       className: cn(logicToggleButtonStyles, className),
       ...props
     },
-    children != null ? /* @__PURE__ */ React44.createElement("span", { className: logicToggleButtonLabelStyles }, children) : null
+    children != null ? /* @__PURE__ */ React45.createElement("span", { className: logicToggleButtonLabelStyles }, children) : null
   );
 }
 function createContextScope(scopeName, createContextScopeDeps = []) {
   let defaultContexts = [];
   function createContext32(rootComponentName, defaultContext) {
-    const BaseContext = React44.createContext(defaultContext);
+    const BaseContext = React45.createContext(defaultContext);
     const index2 = defaultContexts.length;
     defaultContexts = [...defaultContexts, defaultContext];
     const Provider = (props) => {
       const { scope, children, ...context } = props;
       const Context = scope?.[scopeName]?.[index2] || BaseContext;
-      const value = React44.useMemo(() => context, Object.values(context));
+      const value = React45.useMemo(() => context, Object.values(context));
       return /* @__PURE__ */ jsx(Context.Provider, { value, children });
     };
     Provider.displayName = rootComponentName + "Provider";
     function useContext22(consumerName, scope) {
       const Context = scope?.[scopeName]?.[index2] || BaseContext;
-      const context = React44.useContext(Context);
+      const context = React45.useContext(Context);
       if (context) return context;
       if (defaultContext !== void 0) return defaultContext;
       throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
@@ -3553,11 +3553,11 @@ function createContextScope(scopeName, createContextScopeDeps = []) {
   }
   const createScope = () => {
     const scopeContexts = defaultContexts.map((defaultContext) => {
-      return React44.createContext(defaultContext);
+      return React45.createContext(defaultContext);
     });
     return function useScope(scope) {
       const contexts = scope?.[scopeName] || scopeContexts;
-      return React44.useMemo(
+      return React45.useMemo(
         () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
         [scope, contexts]
       );
@@ -3580,7 +3580,7 @@ function composeContextScopes(...scopes) {
         const currentScope = scopeProps[`__scope${scopeName}`];
         return { ...nextScopes2, ...currentScope };
       }, {});
-      return React44.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
+      return React45.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
     };
   };
   createScope.scopeName = baseScope.scopeName;
@@ -3595,14 +3595,14 @@ function createCollection(name) {
   );
   const CollectionProvider = (props) => {
     const { scope, children } = props;
-    const ref = React44__default.useRef(null);
-    const itemMap = React44__default.useRef(/* @__PURE__ */ new Map()).current;
+    const ref = React45__default.useRef(null);
+    const itemMap = React45__default.useRef(/* @__PURE__ */ new Map()).current;
     return /* @__PURE__ */ jsx(CollectionProviderImpl, { scope, itemMap, collectionRef: ref, children });
   };
   CollectionProvider.displayName = PROVIDER_NAME;
   const COLLECTION_SLOT_NAME = name + "CollectionSlot";
   const CollectionSlotImpl = createSlot2(COLLECTION_SLOT_NAME);
-  const CollectionSlot = React44__default.forwardRef(
+  const CollectionSlot = React45__default.forwardRef(
     (props, forwardedRef) => {
       const { scope, children } = props;
       const context = useCollectionContext(COLLECTION_SLOT_NAME, scope);
@@ -3614,13 +3614,13 @@ function createCollection(name) {
   const ITEM_SLOT_NAME = name + "CollectionItemSlot";
   const ITEM_DATA_ATTR = "data-radix-collection-item";
   const CollectionItemSlotImpl = createSlot2(ITEM_SLOT_NAME);
-  const CollectionItemSlot = React44__default.forwardRef(
+  const CollectionItemSlot = React45__default.forwardRef(
     (props, forwardedRef) => {
       const { scope, children, ...itemData } = props;
-      const ref = React44__default.useRef(null);
+      const ref = React45__default.useRef(null);
       const composedRefs = useComposedRefs(forwardedRef, ref);
       const context = useCollectionContext(ITEM_SLOT_NAME, scope);
-      React44__default.useEffect(() => {
+      React45__default.useEffect(() => {
         context.itemMap.set(ref, { ref, ...itemData });
         return () => void context.itemMap.delete(ref);
       });
@@ -3630,7 +3630,7 @@ function createCollection(name) {
   CollectionItemSlot.displayName = ITEM_SLOT_NAME;
   function useCollection4(scope) {
     const context = useCollectionContext(name + "CollectionConsumer", scope);
-    const getItems = React44__default.useCallback(() => {
+    const getItems = React45__default.useCallback(() => {
       const collectionNode = context.collectionRef.current;
       if (!collectionNode) return [];
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`));
@@ -3648,21 +3648,21 @@ function createCollection(name) {
     createCollectionScope4
   ];
 }
-var DirectionContext = React44.createContext(void 0);
+var DirectionContext = React45.createContext(void 0);
 function useDirection(localDir) {
-  const globalDir = React44.useContext(DirectionContext);
+  const globalDir = React45.useContext(DirectionContext);
   return localDir || globalDir || "ltr";
 }
 function useCallbackRef(callback) {
-  const callbackRef = React44.useRef(callback);
-  React44.useEffect(() => {
+  const callbackRef = React45.useRef(callback);
+  React45.useEffect(() => {
     callbackRef.current = callback;
   });
-  return React44.useMemo(() => (...args) => callbackRef.current?.(...args), []);
+  return React45.useMemo(() => (...args) => callbackRef.current?.(...args), []);
 }
 function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis?.document) {
   const onEscapeKeyDown = useCallbackRef(onEscapeKeyDownProp);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         onEscapeKeyDown(event);
@@ -3677,12 +3677,12 @@ var CONTEXT_UPDATE = "dismissableLayer.update";
 var POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
 var FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
 var originalBodyPointerEvents;
-var DismissableLayerContext = React44.createContext({
+var DismissableLayerContext = React45.createContext({
   layers: /* @__PURE__ */ new Set(),
   layersWithOutsidePointerEventsDisabled: /* @__PURE__ */ new Set(),
   branches: /* @__PURE__ */ new Set()
 });
-var DismissableLayer = React44.forwardRef(
+var DismissableLayer = React45.forwardRef(
   (props, forwardedRef) => {
     const {
       disableOutsidePointerEvents = false,
@@ -3693,10 +3693,10 @@ var DismissableLayer = React44.forwardRef(
       onDismiss,
       ...layerProps
     } = props;
-    const context = React44.useContext(DismissableLayerContext);
-    const [node, setNode] = React44.useState(null);
+    const context = React45.useContext(DismissableLayerContext);
+    const [node, setNode] = React45.useState(null);
     const ownerDocument = node?.ownerDocument ?? globalThis?.document;
-    const [, force] = React44.useState({});
+    const [, force] = React45.useState({});
     const composedRefs = useComposedRefs(forwardedRef, (node2) => setNode(node2));
     const layers = Array.from(context.layers);
     const [highestLayerWithOutsidePointerEventsDisabled] = [...context.layersWithOutsidePointerEventsDisabled].slice(-1);
@@ -3729,7 +3729,7 @@ var DismissableLayer = React44.forwardRef(
         onDismiss();
       }
     }, ownerDocument);
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       if (!node) return;
       if (disableOutsidePointerEvents) {
         if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
@@ -3746,7 +3746,7 @@ var DismissableLayer = React44.forwardRef(
         }
       };
     }, [node, ownerDocument, disableOutsidePointerEvents, context]);
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       return () => {
         if (!node) return;
         context.layers.delete(node);
@@ -3754,7 +3754,7 @@ var DismissableLayer = React44.forwardRef(
         dispatchUpdate();
       };
     }, [node, context]);
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       const handleUpdate = () => force({});
       document.addEventListener(CONTEXT_UPDATE, handleUpdate);
       return () => document.removeEventListener(CONTEXT_UPDATE, handleUpdate);
@@ -3780,11 +3780,11 @@ var DismissableLayer = React44.forwardRef(
 );
 DismissableLayer.displayName = DISMISSABLE_LAYER_NAME;
 var BRANCH_NAME = "DismissableLayerBranch";
-var DismissableLayerBranch = React44.forwardRef((props, forwardedRef) => {
-  const context = React44.useContext(DismissableLayerContext);
-  const ref = React44.useRef(null);
+var DismissableLayerBranch = React45.forwardRef((props, forwardedRef) => {
+  const context = React45.useContext(DismissableLayerContext);
+  const ref = React45.useRef(null);
   const composedRefs = useComposedRefs(forwardedRef, ref);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     const node = ref.current;
     if (node) {
       context.branches.add(node);
@@ -3798,10 +3798,10 @@ var DismissableLayerBranch = React44.forwardRef((props, forwardedRef) => {
 DismissableLayerBranch.displayName = BRANCH_NAME;
 function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?.document) {
   const handlePointerDownOutside = useCallbackRef(onPointerDownOutside);
-  const isPointerInsideReactTreeRef = React44.useRef(false);
-  const handleClickRef = React44.useRef(() => {
+  const isPointerInsideReactTreeRef = React45.useRef(false);
+  const handleClickRef = React45.useRef(() => {
   });
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     const handlePointerDown = (event) => {
       if (event.target && !isPointerInsideReactTreeRef.current) {
         let handleAndDispatchPointerDownOutsideEvent2 = function() {
@@ -3841,8 +3841,8 @@ function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?
 }
 function useFocusOutside(onFocusOutside, ownerDocument = globalThis?.document) {
   const handleFocusOutside = useCallbackRef(onFocusOutside);
-  const isFocusInsideReactTreeRef = React44.useRef(false);
-  React44.useEffect(() => {
+  const isFocusInsideReactTreeRef = React45.useRef(false);
+  React45.useEffect(() => {
     const handleFocus = (event) => {
       if (event.target && !isFocusInsideReactTreeRef.current) {
         const eventDetail = { originalEvent: event };
@@ -3875,7 +3875,7 @@ function handleAndDispatchCustomEvent(name, handler, detail, { discrete }) {
 }
 var count = 0;
 function useFocusGuards() {
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
     document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
     document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
@@ -3902,7 +3902,7 @@ var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
 var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
 var EVENT_OPTIONS = { bubbles: false, cancelable: true };
 var FOCUS_SCOPE_NAME = "FocusScope";
-var FocusScope = React44.forwardRef((props, forwardedRef) => {
+var FocusScope = React45.forwardRef((props, forwardedRef) => {
   const {
     loop = false,
     trapped = false,
@@ -3910,12 +3910,12 @@ var FocusScope = React44.forwardRef((props, forwardedRef) => {
     onUnmountAutoFocus: onUnmountAutoFocusProp,
     ...scopeProps
   } = props;
-  const [container, setContainer] = React44.useState(null);
+  const [container, setContainer] = React45.useState(null);
   const onMountAutoFocus = useCallbackRef(onMountAutoFocusProp);
   const onUnmountAutoFocus = useCallbackRef(onUnmountAutoFocusProp);
-  const lastFocusedElementRef = React44.useRef(null);
+  const lastFocusedElementRef = React45.useRef(null);
   const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
-  const focusScope = React44.useRef({
+  const focusScope = React45.useRef({
     paused: false,
     pause() {
       this.paused = true;
@@ -3924,7 +3924,7 @@ var FocusScope = React44.forwardRef((props, forwardedRef) => {
       this.paused = false;
     }
   }).current;
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     if (trapped) {
       let handleFocusIn2 = function(event) {
         if (focusScope.paused || !container) return;
@@ -3959,7 +3959,7 @@ var FocusScope = React44.forwardRef((props, forwardedRef) => {
       };
     }
   }, [trapped, container, focusScope.paused]);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     if (container) {
       focusScopesStack.add(focusScope);
       const previouslyFocusedElement = document.activeElement;
@@ -3990,7 +3990,7 @@ var FocusScope = React44.forwardRef((props, forwardedRef) => {
       };
     }
   }, [container, onMountAutoFocus, onUnmountAutoFocus, focusScope]);
-  const handleKeyDown = React44.useCallback(
+  const handleKeyDown = React45.useCallback(
     (event) => {
       if (!loop && !trapped) return;
       if (focusScope.paused) return;
@@ -4097,10 +4097,10 @@ function arrayRemove(array, item) {
 function removeLinks(items) {
   return items.filter((item) => item.tagName !== "A");
 }
-var useReactId = React44[" useId ".trim().toString()] || (() => void 0);
+var useReactId = React45[" useId ".trim().toString()] || (() => void 0);
 var count2 = 0;
 function useId(deterministicId) {
-  const [id, setId] = React44.useState(useReactId());
+  const [id, setId] = React45.useState(useReactId());
   useLayoutEffect2(() => {
     setId((reactId) => reactId ?? String(count2++));
   }, [deterministicId]);
@@ -5775,7 +5775,7 @@ function roundByDPR(element, value) {
   return Math.round(value * dpr) / dpr;
 }
 function useLatestRef(value) {
-  const ref = React44.useRef(value);
+  const ref = React45.useRef(value);
   index(() => {
     ref.current = value;
   });
@@ -5798,7 +5798,7 @@ function useFloating(options) {
     whileElementsMounted,
     open
   } = options;
-  const [data, setData] = React44.useState({
+  const [data, setData] = React45.useState({
     x: 0,
     y: 0,
     strategy,
@@ -5806,19 +5806,19 @@ function useFloating(options) {
     middlewareData: {},
     isPositioned: false
   });
-  const [latestMiddleware, setLatestMiddleware] = React44.useState(middleware);
+  const [latestMiddleware, setLatestMiddleware] = React45.useState(middleware);
   if (!deepEqual(latestMiddleware, middleware)) {
     setLatestMiddleware(middleware);
   }
-  const [_reference, _setReference] = React44.useState(null);
-  const [_floating, _setFloating] = React44.useState(null);
-  const setReference = React44.useCallback((node) => {
+  const [_reference, _setReference] = React45.useState(null);
+  const [_floating, _setFloating] = React45.useState(null);
+  const setReference = React45.useCallback((node) => {
     if (node !== referenceRef.current) {
       referenceRef.current = node;
       _setReference(node);
     }
   }, []);
-  const setFloating = React44.useCallback((node) => {
+  const setFloating = React45.useCallback((node) => {
     if (node !== floatingRef.current) {
       floatingRef.current = node;
       _setFloating(node);
@@ -5826,14 +5826,14 @@ function useFloating(options) {
   }, []);
   const referenceEl = externalReference || _reference;
   const floatingEl = externalFloating || _floating;
-  const referenceRef = React44.useRef(null);
-  const floatingRef = React44.useRef(null);
-  const dataRef = React44.useRef(data);
+  const referenceRef = React45.useRef(null);
+  const floatingRef = React45.useRef(null);
+  const dataRef = React45.useRef(data);
   const hasWhileElementsMounted = whileElementsMounted != null;
   const whileElementsMountedRef = useLatestRef(whileElementsMounted);
   const platformRef = useLatestRef(platform2);
   const openRef = useLatestRef(open);
-  const update = React44.useCallback(() => {
+  const update = React45.useCallback(() => {
     if (!referenceRef.current || !floatingRef.current) {
       return;
     }
@@ -5871,7 +5871,7 @@ function useFloating(options) {
       }));
     }
   }, [open]);
-  const isMountedRef = React44.useRef(false);
+  const isMountedRef = React45.useRef(false);
   index(() => {
     isMountedRef.current = true;
     return () => {
@@ -5888,17 +5888,17 @@ function useFloating(options) {
       update();
     }
   }, [referenceEl, floatingEl, update, whileElementsMountedRef, hasWhileElementsMounted]);
-  const refs = React44.useMemo(() => ({
+  const refs = React45.useMemo(() => ({
     reference: referenceRef,
     floating: floatingRef,
     setReference,
     setFloating
   }), [setReference, setFloating]);
-  const elements = React44.useMemo(() => ({
+  const elements = React45.useMemo(() => ({
     reference: referenceEl,
     floating: floatingEl
   }), [referenceEl, floatingEl]);
-  const floatingStyles = React44.useMemo(() => {
+  const floatingStyles = React45.useMemo(() => {
     const initialStyles = {
       position: strategy,
       left: 0,
@@ -5924,7 +5924,7 @@ function useFloating(options) {
       top: y
     };
   }, [strategy, transform, elements.floating, data.x, data.y]);
-  return React44.useMemo(() => ({
+  return React45.useMemo(() => ({
     ...data,
     update,
     refs,
@@ -5992,7 +5992,7 @@ var arrow3 = (options, deps) => ({
   options: [options, deps]
 });
 var NAME2 = "Arrow";
-var Arrow = React44.forwardRef((props, forwardedRef) => {
+var Arrow = React45.forwardRef((props, forwardedRef) => {
   const { children, width = 10, height = 5, ...arrowProps } = props;
   return /* @__PURE__ */ jsx(
     Primitive.svg,
@@ -6010,7 +6010,7 @@ var Arrow = React44.forwardRef((props, forwardedRef) => {
 Arrow.displayName = NAME2;
 var Root2 = Arrow;
 function useSize(element) {
-  const [size4, setSize] = React44.useState(void 0);
+  const [size4, setSize] = React45.useState(void 0);
   useLayoutEffect2(() => {
     if (element) {
       setSize({ width: element.offsetWidth, height: element.offsetHeight });
@@ -6048,19 +6048,19 @@ var [createPopperContext, createPopperScope] = createContextScope(POPPER_NAME);
 var [PopperProvider, usePopperContext] = createPopperContext(POPPER_NAME);
 var Popper = (props) => {
   const { __scopePopper, children } = props;
-  const [anchor, setAnchor] = React44.useState(null);
+  const [anchor, setAnchor] = React45.useState(null);
   return /* @__PURE__ */ jsx(PopperProvider, { scope: __scopePopper, anchor, onAnchorChange: setAnchor, children });
 };
 Popper.displayName = POPPER_NAME;
 var ANCHOR_NAME = "PopperAnchor";
-var PopperAnchor = React44.forwardRef(
+var PopperAnchor = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopePopper, virtualRef, ...anchorProps } = props;
     const context = usePopperContext(ANCHOR_NAME, __scopePopper);
-    const ref = React44.useRef(null);
+    const ref = React45.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    const anchorRef = React44.useRef(null);
-    React44.useEffect(() => {
+    const anchorRef = React45.useRef(null);
+    React45.useEffect(() => {
       const previousAnchor = anchorRef.current;
       anchorRef.current = virtualRef?.current || ref.current;
       if (previousAnchor !== anchorRef.current) {
@@ -6073,7 +6073,7 @@ var PopperAnchor = React44.forwardRef(
 PopperAnchor.displayName = ANCHOR_NAME;
 var CONTENT_NAME = "PopperContent";
 var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME);
-var PopperContent = React44.forwardRef(
+var PopperContent = React45.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopePopper,
@@ -6092,9 +6092,9 @@ var PopperContent = React44.forwardRef(
       ...contentProps
     } = props;
     const context = usePopperContext(CONTENT_NAME, __scopePopper);
-    const [content, setContent] = React44.useState(null);
+    const [content, setContent] = React45.useState(null);
     const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
-    const [arrow4, setArrow] = React44.useState(null);
+    const [arrow4, setArrow] = React45.useState(null);
     const arrowSize = useSize(arrow4);
     const arrowWidth = arrowSize?.width ?? 0;
     const arrowHeight = arrowSize?.height ?? 0;
@@ -6156,7 +6156,7 @@ var PopperContent = React44.forwardRef(
     const arrowX = middlewareData.arrow?.x;
     const arrowY = middlewareData.arrow?.y;
     const cannotCenterArrow = middlewareData.arrow?.centerOffset !== 0;
-    const [contentZIndex, setContentZIndex] = React44.useState();
+    const [contentZIndex, setContentZIndex] = React45.useState();
     useLayoutEffect2(() => {
       if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
     }, [content]);
@@ -6222,7 +6222,7 @@ var OPPOSITE_SIDE = {
   bottom: "top",
   left: "right"
 };
-var PopperArrow = React44.forwardRef(function PopperArrow2(props, forwardedRef) {
+var PopperArrow = React45.forwardRef(function PopperArrow2(props, forwardedRef) {
   const { __scopePopper, ...arrowProps } = props;
   const contentContext = useContentContext(ARROW_NAME, __scopePopper);
   const baseSide = OPPOSITE_SIDE[contentContext.placedSide];
@@ -6313,16 +6313,16 @@ var Anchor = PopperAnchor;
 var Content = PopperContent;
 var Arrow2 = PopperArrow;
 var PORTAL_NAME = "Portal";
-var Portal = React44.forwardRef((props, forwardedRef) => {
+var Portal = React45.forwardRef((props, forwardedRef) => {
   const { container: containerProp, ...portalProps } = props;
-  const [mounted, setMounted] = React44.useState(false);
+  const [mounted, setMounted] = React45.useState(false);
   useLayoutEffect2(() => setMounted(true), []);
   const container = containerProp || mounted && globalThis?.document?.body;
   return container ? ReactDOM4__default.createPortal(/* @__PURE__ */ jsx(Primitive.div, { ...portalProps, ref: forwardedRef }), container) : null;
 });
 Portal.displayName = PORTAL_NAME;
 function useStateMachine(initialState, machine) {
-  return React44.useReducer((state, event) => {
+  return React45.useReducer((state, event) => {
     const nextState = machine[state][event];
     return nextState ?? state;
   }, initialState);
@@ -6330,17 +6330,17 @@ function useStateMachine(initialState, machine) {
 var Presence = (props) => {
   const { present, children } = props;
   const presence = usePresence(present);
-  const child = typeof children === "function" ? children({ present: presence.isPresent }) : React44.Children.only(children);
+  const child = typeof children === "function" ? children({ present: presence.isPresent }) : React45.Children.only(children);
   const ref = useComposedRefs(presence.ref, getElementRef3(child));
   const forceMount = typeof children === "function";
-  return forceMount || presence.isPresent ? React44.cloneElement(child, { ref }) : null;
+  return forceMount || presence.isPresent ? React45.cloneElement(child, { ref }) : null;
 };
 Presence.displayName = "Presence";
 function usePresence(present) {
-  const [node, setNode] = React44.useState();
-  const stylesRef = React44.useRef(null);
-  const prevPresentRef = React44.useRef(present);
-  const prevAnimationNameRef = React44.useRef("none");
+  const [node, setNode] = React45.useState();
+  const stylesRef = React45.useRef(null);
+  const prevPresentRef = React45.useRef(present);
+  const prevAnimationNameRef = React45.useRef("none");
   const initialState = present ? "mounted" : "unmounted";
   const [state, send] = useStateMachine(initialState, {
     mounted: {
@@ -6355,7 +6355,7 @@ function usePresence(present) {
       MOUNT: "mounted"
     }
   });
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     const currentAnimationName = getAnimationName(stylesRef.current);
     prevAnimationNameRef.current = state === "mounted" ? currentAnimationName : "none";
   }, [state]);
@@ -6421,7 +6421,7 @@ function usePresence(present) {
   }, [node, send]);
   return {
     isPresent: ["mounted", "unmountSuspended"].includes(state),
-    ref: React44.useCallback((node2) => {
+    ref: React45.useCallback((node2) => {
       stylesRef.current = node2 ? getComputedStyle(node2) : null;
       setNode(node2);
     }, [])
@@ -6452,13 +6452,13 @@ var [createRovingFocusGroupContext, createRovingFocusGroupScope] = createContext
   [createCollectionScope]
 );
 var [RovingFocusProvider, useRovingFocusContext] = createRovingFocusGroupContext(GROUP_NAME);
-var RovingFocusGroup = React44.forwardRef(
+var RovingFocusGroup = React45.forwardRef(
   (props, forwardedRef) => {
     return /* @__PURE__ */ jsx(Collection.Provider, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ jsx(Collection.Slot, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ jsx(RovingFocusGroupImpl, { ...props, ref: forwardedRef }) }) });
   }
 );
 RovingFocusGroup.displayName = GROUP_NAME;
-var RovingFocusGroupImpl = React44.forwardRef((props, forwardedRef) => {
+var RovingFocusGroupImpl = React45.forwardRef((props, forwardedRef) => {
   const {
     __scopeRovingFocusGroup,
     orientation,
@@ -6471,7 +6471,7 @@ var RovingFocusGroupImpl = React44.forwardRef((props, forwardedRef) => {
     preventScrollOnEntryFocus = false,
     ...groupProps
   } = props;
-  const ref = React44.useRef(null);
+  const ref = React45.useRef(null);
   const composedRefs = useComposedRefs(forwardedRef, ref);
   const direction = useDirection(dir);
   const [currentTabStopId, setCurrentTabStopId] = useControllableState({
@@ -6480,12 +6480,12 @@ var RovingFocusGroupImpl = React44.forwardRef((props, forwardedRef) => {
     onChange: onCurrentTabStopIdChange,
     caller: GROUP_NAME
   });
-  const [isTabbingBackOut, setIsTabbingBackOut] = React44.useState(false);
+  const [isTabbingBackOut, setIsTabbingBackOut] = React45.useState(false);
   const handleEntryFocus = useCallbackRef(onEntryFocus);
   const getItems = useCollection(__scopeRovingFocusGroup);
-  const isClickFocusRef = React44.useRef(false);
-  const [focusableItemsCount, setFocusableItemsCount] = React44.useState(0);
-  React44.useEffect(() => {
+  const isClickFocusRef = React45.useRef(false);
+  const [focusableItemsCount, setFocusableItemsCount] = React45.useState(0);
+  React45.useEffect(() => {
     const node = ref.current;
     if (node) {
       node.addEventListener(ENTRY_FOCUS, handleEntryFocus);
@@ -6500,16 +6500,16 @@ var RovingFocusGroupImpl = React44.forwardRef((props, forwardedRef) => {
       dir: direction,
       loop,
       currentTabStopId,
-      onItemFocus: React44.useCallback(
+      onItemFocus: React45.useCallback(
         (tabStopId) => setCurrentTabStopId(tabStopId),
         [setCurrentTabStopId]
       ),
-      onItemShiftTab: React44.useCallback(() => setIsTabbingBackOut(true), []),
-      onFocusableItemAdd: React44.useCallback(
+      onItemShiftTab: React45.useCallback(() => setIsTabbingBackOut(true), []),
+      onFocusableItemAdd: React45.useCallback(
         () => setFocusableItemsCount((prevCount) => prevCount + 1),
         []
       ),
-      onFocusableItemRemove: React44.useCallback(
+      onFocusableItemRemove: React45.useCallback(
         () => setFocusableItemsCount((prevCount) => prevCount - 1),
         []
       ),
@@ -6549,7 +6549,7 @@ var RovingFocusGroupImpl = React44.forwardRef((props, forwardedRef) => {
   );
 });
 var ITEM_NAME = "RovingFocusGroupItem";
-var RovingFocusGroupItem = React44.forwardRef(
+var RovingFocusGroupItem = React45.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeRovingFocusGroup,
@@ -6565,7 +6565,7 @@ var RovingFocusGroupItem = React44.forwardRef(
     const isCurrentTabStop = context.currentTabStopId === id;
     const getItems = useCollection(__scopeRovingFocusGroup);
     const { onFocusableItemAdd, onFocusableItemRemove, currentTabStopId } = context;
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       if (focusable) {
         onFocusableItemAdd();
         return () => onFocusableItemRemove();
@@ -6846,7 +6846,7 @@ function useCallbackRef2(initialValue, callback) {
   ref.callback = callback;
   return ref.facade;
 }
-var useIsomorphicLayoutEffect = typeof window !== "undefined" ? React44.useLayoutEffect : React44.useEffect;
+var useIsomorphicLayoutEffect = typeof window !== "undefined" ? React45.useLayoutEffect : React45.useEffect;
 var currentValues = /* @__PURE__ */ new WeakMap();
 function useMergeRefs(refs, defaultValue) {
   var callbackRef = useCallbackRef2(null, function(newValue) {
@@ -6970,7 +6970,7 @@ var SideCar = function(_a) {
   if (!Target) {
     throw new Error("Sidecar medium not found");
   }
-  return React44.createElement(Target, __assign({}, rest));
+  return React45.createElement(Target, __assign({}, rest));
 };
 SideCar.isSideCarExport = true;
 function exportSidecar(medium, exported) {
@@ -6985,9 +6985,9 @@ var effectCar = createSidecarMedium();
 var nothing = function() {
   return;
 };
-var RemoveScroll = React44.forwardRef(function(props, parentRef) {
-  var ref = React44.useRef(null);
-  var _a = React44.useState({
+var RemoveScroll = React45.forwardRef(function(props, parentRef) {
+  var ref = React45.useRef(null);
+  var _a = React45.useState({
     onScrollCapture: nothing,
     onWheelCapture: nothing,
     onTouchMoveCapture: nothing
@@ -6996,11 +6996,11 @@ var RemoveScroll = React44.forwardRef(function(props, parentRef) {
   var SideCar2 = sideCar;
   var containerRef = useMergeRefs([ref, parentRef]);
   var containerProps = __assign(__assign({}, rest), callbacks);
-  return React44.createElement(
-    React44.Fragment,
+  return React45.createElement(
+    React45.Fragment,
     null,
-    enabled && React44.createElement(SideCar2, { sideCar: effectCar, removeScrollBar, shards, noRelative, noIsolation, inert, setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref, gapMode }),
-    forwardProps ? React44.cloneElement(React44.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : React44.createElement(Container, __assign({}, containerProps, { className, ref: containerRef }), children)
+    enabled && React45.createElement(SideCar2, { sideCar: effectCar, removeScrollBar, shards, noRelative, noIsolation, inert, setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref, gapMode }),
+    forwardProps ? React45.cloneElement(React45.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : React45.createElement(Container, __assign({}, containerProps, { className, ref: containerRef }), children)
   );
 });
 RemoveScroll.defaultProps = {
@@ -7069,7 +7069,7 @@ var stylesheetSingleton = function() {
 var styleHookSingleton = function() {
   var sheet = stylesheetSingleton();
   return function(styles, isDynamic) {
-    React44.useEffect(function() {
+    React45.useEffect(function() {
       sheet.add(styles);
       return function() {
         sheet.remove();
@@ -7143,7 +7143,7 @@ var getCurrentUseCounter = function() {
   return isFinite(counter) ? counter : 0;
 };
 var useLockAttribute = function() {
-  React44.useEffect(function() {
+  React45.useEffect(function() {
     document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
     return function() {
       var newCounter = getCurrentUseCounter() - 1;
@@ -7158,10 +7158,10 @@ var useLockAttribute = function() {
 var RemoveScrollBar = function(_a) {
   var noRelative = _a.noRelative, noImportant = _a.noImportant, _b = _a.gapMode, gapMode = _b === void 0 ? "margin" : _b;
   useLockAttribute();
-  var gap = React44.useMemo(function() {
+  var gap = React45.useMemo(function() {
     return getGapWidth(gapMode);
   }, [gapMode]);
-  return React44.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
+  return React45.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
 };
 
 // ../../node_modules/.pnpm/react-remove-scroll@2.7.1_@types+react@19.2.2_react@19.2.2/node_modules/react-remove-scroll/dist/es2015/aggresiveCapture.js
@@ -7302,16 +7302,16 @@ var generateStyle = function(id) {
 var idCounter = 0;
 var lockStack = [];
 function RemoveScrollSideCar(props) {
-  var shouldPreventQueue = React44.useRef([]);
-  var touchStartRef = React44.useRef([0, 0]);
-  var activeAxis = React44.useRef();
-  var id = React44.useState(idCounter++)[0];
-  var Style2 = React44.useState(styleSingleton)[0];
-  var lastProps = React44.useRef(props);
-  React44.useEffect(function() {
+  var shouldPreventQueue = React45.useRef([]);
+  var touchStartRef = React45.useRef([0, 0]);
+  var activeAxis = React45.useRef();
+  var id = React45.useState(idCounter++)[0];
+  var Style2 = React45.useState(styleSingleton)[0];
+  var lastProps = React45.useRef(props);
+  React45.useEffect(function() {
     lastProps.current = props;
   }, [props]);
-  React44.useEffect(function() {
+  React45.useEffect(function() {
     if (props.inert) {
       document.body.classList.add("block-interactivity-".concat(id));
       var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef)).filter(Boolean);
@@ -7327,7 +7327,7 @@ function RemoveScrollSideCar(props) {
     }
     return;
   }, [props.inert, props.lockRef.current, props.shards]);
-  var shouldCancelEvent = React44.useCallback(function(event, parent) {
+  var shouldCancelEvent = React45.useCallback(function(event, parent) {
     if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) {
       return !lastProps.current.allowPinchZoom;
     }
@@ -7363,7 +7363,7 @@ function RemoveScrollSideCar(props) {
     var cancelingAxis = activeAxis.current || currentAxis;
     return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY);
   }, []);
-  var shouldPrevent = React44.useCallback(function(_event) {
+  var shouldPrevent = React45.useCallback(function(_event) {
     var event = _event;
     if (!lockStack.length || lockStack[lockStack.length - 1] !== Style2) {
       return;
@@ -7390,7 +7390,7 @@ function RemoveScrollSideCar(props) {
       }
     }
   }, []);
-  var shouldCancel = React44.useCallback(function(name, delta, target, should) {
+  var shouldCancel = React45.useCallback(function(name, delta, target, should) {
     var event = { name, delta, target, should, shadowParent: getOutermostShadowParent(target) };
     shouldPreventQueue.current.push(event);
     setTimeout(function() {
@@ -7399,17 +7399,17 @@ function RemoveScrollSideCar(props) {
       });
     }, 1);
   }, []);
-  var scrollTouchStart = React44.useCallback(function(event) {
+  var scrollTouchStart = React45.useCallback(function(event) {
     touchStartRef.current = getTouchXY(event);
     activeAxis.current = void 0;
   }, []);
-  var scrollWheel = React44.useCallback(function(event) {
+  var scrollWheel = React45.useCallback(function(event) {
     shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
   }, []);
-  var scrollTouchMove = React44.useCallback(function(event) {
+  var scrollTouchMove = React45.useCallback(function(event) {
     shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
   }, []);
-  React44.useEffect(function() {
+  React45.useEffect(function() {
     lockStack.push(Style2);
     props.setCallbacks({
       onScrollCapture: scrollWheel,
@@ -7429,11 +7429,11 @@ function RemoveScrollSideCar(props) {
     };
   }, []);
   var removeScrollBar = props.removeScrollBar, inert = props.inert;
-  return React44.createElement(
-    React44.Fragment,
+  return React45.createElement(
+    React45.Fragment,
     null,
-    inert ? React44.createElement(Style2, { styles: generateStyle(id) }) : null,
-    removeScrollBar ? React44.createElement(RemoveScrollBar, { noRelative: props.noRelative, gapMode: props.gapMode }) : null
+    inert ? React45.createElement(Style2, { styles: generateStyle(id) }) : null,
+    removeScrollBar ? React45.createElement(RemoveScrollBar, { noRelative: props.noRelative, gapMode: props.gapMode }) : null
   );
 }
 function getOutermostShadowParent(node) {
@@ -7452,8 +7452,8 @@ function getOutermostShadowParent(node) {
 var sidecar_default = exportSidecar(effectCar, RemoveScrollSideCar);
 
 // ../../node_modules/.pnpm/react-remove-scroll@2.7.1_@types+react@19.2.2_react@19.2.2/node_modules/react-remove-scroll/dist/es2015/Combination.js
-var ReactRemoveScroll = React44.forwardRef(function(props, ref) {
-  return React44.createElement(RemoveScroll, __assign({}, props, { ref, sideCar: sidecar_default }));
+var ReactRemoveScroll = React45.forwardRef(function(props, ref) {
+  return React45.createElement(RemoveScroll, __assign({}, props, { ref, sideCar: sidecar_default }));
 });
 ReactRemoveScroll.classNames = RemoveScroll.classNames;
 var Combination_default = ReactRemoveScroll;
@@ -7483,11 +7483,11 @@ var [MenuRootProvider, useMenuRootContext] = createMenuContext(MENU_NAME);
 var Menu = (props) => {
   const { __scopeMenu, open = false, children, dir, onOpenChange, modal = true } = props;
   const popperScope = usePopperScope(__scopeMenu);
-  const [content, setContent] = React44.useState(null);
-  const isUsingKeyboardRef = React44.useRef(false);
+  const [content, setContent] = React45.useState(null);
+  const isUsingKeyboardRef = React45.useRef(false);
   const handleOpenChange = useCallbackRef(onOpenChange);
   const direction = useDirection(dir);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     const handleKeyDown = () => {
       isUsingKeyboardRef.current = true;
       document.addEventListener("pointerdown", handlePointer, { capture: true, once: true });
@@ -7513,7 +7513,7 @@ var Menu = (props) => {
         MenuRootProvider,
         {
           scope: __scopeMenu,
-          onClose: React44.useCallback(() => handleOpenChange(false), [handleOpenChange]),
+          onClose: React45.useCallback(() => handleOpenChange(false), [handleOpenChange]),
           isUsingKeyboardRef,
           dir: direction,
           modal,
@@ -7525,7 +7525,7 @@ var Menu = (props) => {
 };
 Menu.displayName = MENU_NAME;
 var ANCHOR_NAME2 = "MenuAnchor";
-var MenuAnchor = React44.forwardRef(
+var MenuAnchor = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...anchorProps } = props;
     const popperScope = usePopperScope(__scopeMenu);
@@ -7545,7 +7545,7 @@ var MenuPortal = (props) => {
 MenuPortal.displayName = PORTAL_NAME2;
 var CONTENT_NAME2 = "MenuContent";
 var [MenuContentProvider, useMenuContentContext] = createMenuContext(CONTENT_NAME2);
-var MenuContent = React44.forwardRef(
+var MenuContent = React45.forwardRef(
   (props, forwardedRef) => {
     const portalContext = usePortalContext(CONTENT_NAME2, props.__scopeMenu);
     const { forceMount = portalContext.forceMount, ...contentProps } = props;
@@ -7554,12 +7554,12 @@ var MenuContent = React44.forwardRef(
     return /* @__PURE__ */ jsx(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsx(Collection2.Slot, { scope: props.__scopeMenu, children: rootContext.modal ? /* @__PURE__ */ jsx(MenuRootContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ jsx(MenuRootContentNonModal, { ...contentProps, ref: forwardedRef }) }) }) });
   }
 );
-var MenuRootContentModal = React44.forwardRef(
+var MenuRootContentModal = React45.forwardRef(
   (props, forwardedRef) => {
     const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
-    const ref = React44.useRef(null);
+    const ref = React45.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       const content = ref.current;
       if (content) return hideOthers(content);
     }, []);
@@ -7581,7 +7581,7 @@ var MenuRootContentModal = React44.forwardRef(
     );
   }
 );
-var MenuRootContentNonModal = React44.forwardRef((props, forwardedRef) => {
+var MenuRootContentNonModal = React45.forwardRef((props, forwardedRef) => {
   const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
   return /* @__PURE__ */ jsx(
     MenuContentImpl,
@@ -7596,7 +7596,7 @@ var MenuRootContentNonModal = React44.forwardRef((props, forwardedRef) => {
   );
 });
 var Slot2 = createSlot2("MenuContent.ScrollLock");
-var MenuContentImpl = React44.forwardRef(
+var MenuContentImpl = React45.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeMenu,
@@ -7619,16 +7619,16 @@ var MenuContentImpl = React44.forwardRef(
     const popperScope = usePopperScope(__scopeMenu);
     const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeMenu);
     const getItems = useCollection2(__scopeMenu);
-    const [currentItemId, setCurrentItemId] = React44.useState(null);
-    const contentRef = React44.useRef(null);
+    const [currentItemId, setCurrentItemId] = React45.useState(null);
+    const contentRef = React45.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, contentRef, context.onContentChange);
-    const timerRef = React44.useRef(0);
-    const searchRef = React44.useRef("");
-    const pointerGraceTimerRef = React44.useRef(0);
-    const pointerGraceIntentRef = React44.useRef(null);
-    const pointerDirRef = React44.useRef("right");
-    const lastPointerXRef = React44.useRef(0);
-    const ScrollLockWrapper = disableOutsideScroll ? Combination_default : React44.Fragment;
+    const timerRef = React45.useRef(0);
+    const searchRef = React45.useRef("");
+    const pointerGraceTimerRef = React45.useRef(0);
+    const pointerGraceIntentRef = React45.useRef(null);
+    const pointerDirRef = React45.useRef("right");
+    const lastPointerXRef = React45.useRef(0);
+    const ScrollLockWrapper = disableOutsideScroll ? Combination_default : React45.Fragment;
     const scrollLockWrapperProps = disableOutsideScroll ? { as: Slot2, allowPinchZoom: true } : void 0;
     const handleTypeaheadSearch = (key) => {
       const search = searchRef.current + key;
@@ -7647,11 +7647,11 @@ var MenuContentImpl = React44.forwardRef(
         setTimeout(() => newItem.focus());
       }
     };
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       return () => window.clearTimeout(timerRef.current);
     }, []);
     useFocusGuards();
-    const isPointerMovingToSubmenu = React44.useCallback((event) => {
+    const isPointerMovingToSubmenu = React45.useCallback((event) => {
       const isMovingTowards = pointerDirRef.current === pointerGraceIntentRef.current?.side;
       return isMovingTowards && isPointerInGraceArea(event, pointerGraceIntentRef.current?.area);
     }, []);
@@ -7660,13 +7660,13 @@ var MenuContentImpl = React44.forwardRef(
       {
         scope: __scopeMenu,
         searchRef,
-        onItemEnter: React44.useCallback(
+        onItemEnter: React45.useCallback(
           (event) => {
             if (isPointerMovingToSubmenu(event)) event.preventDefault();
           },
           [isPointerMovingToSubmenu]
         ),
-        onItemLeave: React44.useCallback(
+        onItemLeave: React45.useCallback(
           (event) => {
             if (isPointerMovingToSubmenu(event)) return;
             contentRef.current?.focus();
@@ -7674,14 +7674,14 @@ var MenuContentImpl = React44.forwardRef(
           },
           [isPointerMovingToSubmenu]
         ),
-        onTriggerLeave: React44.useCallback(
+        onTriggerLeave: React45.useCallback(
           (event) => {
             if (isPointerMovingToSubmenu(event)) event.preventDefault();
           },
           [isPointerMovingToSubmenu]
         ),
         pointerGraceTimerRef,
-        onPointerGraceIntentChange: React44.useCallback((intent) => {
+        onPointerGraceIntentChange: React45.useCallback((intent) => {
           pointerGraceIntentRef.current = intent;
         }, []),
         children: /* @__PURE__ */ jsx(ScrollLockWrapper, { ...scrollLockWrapperProps, children: /* @__PURE__ */ jsx(
@@ -7780,7 +7780,7 @@ var MenuContentImpl = React44.forwardRef(
 );
 MenuContent.displayName = CONTENT_NAME2;
 var GROUP_NAME2 = "MenuGroup";
-var MenuGroup = React44.forwardRef(
+var MenuGroup = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...groupProps } = props;
     return /* @__PURE__ */ jsx(Primitive.div, { role: "group", ...groupProps, ref: forwardedRef });
@@ -7788,7 +7788,7 @@ var MenuGroup = React44.forwardRef(
 );
 MenuGroup.displayName = GROUP_NAME2;
 var LABEL_NAME = "MenuLabel";
-var MenuLabel = React44.forwardRef(
+var MenuLabel = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...labelProps } = props;
     return /* @__PURE__ */ jsx(Primitive.div, { ...labelProps, ref: forwardedRef });
@@ -7797,14 +7797,14 @@ var MenuLabel = React44.forwardRef(
 MenuLabel.displayName = LABEL_NAME;
 var ITEM_NAME2 = "MenuItem";
 var ITEM_SELECT = "menu.itemSelect";
-var MenuItem = React44.forwardRef(
+var MenuItem = React45.forwardRef(
   (props, forwardedRef) => {
     const { disabled = false, onSelect, ...itemProps } = props;
-    const ref = React44.useRef(null);
+    const ref = React45.useRef(null);
     const rootContext = useMenuRootContext(ITEM_NAME2, props.__scopeMenu);
     const contentContext = useMenuContentContext(ITEM_NAME2, props.__scopeMenu);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    const isPointerDownRef = React44.useRef(false);
+    const isPointerDownRef = React45.useRef(false);
     const handleSelect = () => {
       const menuItem = ref.current;
       if (!disabled && menuItem) {
@@ -7845,16 +7845,16 @@ var MenuItem = React44.forwardRef(
   }
 );
 MenuItem.displayName = ITEM_NAME2;
-var MenuItemImpl = React44.forwardRef(
+var MenuItemImpl = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, disabled = false, textValue, ...itemProps } = props;
     const contentContext = useMenuContentContext(ITEM_NAME2, __scopeMenu);
     const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeMenu);
-    const ref = React44.useRef(null);
+    const ref = React45.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    const [isFocused, setIsFocused] = React44.useState(false);
-    const [textContent, setTextContent] = React44.useState("");
-    React44.useEffect(() => {
+    const [isFocused, setIsFocused] = React45.useState(false);
+    const [textContent, setTextContent] = React45.useState("");
+    React45.useEffect(() => {
       const menuItem = ref.current;
       if (menuItem) {
         setTextContent((menuItem.textContent ?? "").trim());
@@ -7902,7 +7902,7 @@ var MenuItemImpl = React44.forwardRef(
   }
 );
 var CHECKBOX_ITEM_NAME = "MenuCheckboxItem";
-var MenuCheckboxItem = React44.forwardRef(
+var MenuCheckboxItem = React45.forwardRef(
   (props, forwardedRef) => {
     const { checked = false, onCheckedChange, ...checkboxItemProps } = props;
     return /* @__PURE__ */ jsx(ItemIndicatorProvider, { scope: props.__scopeMenu, checked, children: /* @__PURE__ */ jsx(
@@ -7929,7 +7929,7 @@ var [RadioGroupProvider, useRadioGroupContext] = createMenuContext(
   { value: void 0, onValueChange: () => {
   } }
 );
-var MenuRadioGroup = React44.forwardRef(
+var MenuRadioGroup = React45.forwardRef(
   (props, forwardedRef) => {
     const { value, onValueChange, ...groupProps } = props;
     const handleValueChange = useCallbackRef(onValueChange);
@@ -7938,7 +7938,7 @@ var MenuRadioGroup = React44.forwardRef(
 );
 MenuRadioGroup.displayName = RADIO_GROUP_NAME;
 var RADIO_ITEM_NAME = "MenuRadioItem";
-var MenuRadioItem = React44.forwardRef(
+var MenuRadioItem = React45.forwardRef(
   (props, forwardedRef) => {
     const { value, ...radioItemProps } = props;
     const context = useRadioGroupContext(RADIO_ITEM_NAME, props.__scopeMenu);
@@ -7966,7 +7966,7 @@ var [ItemIndicatorProvider, useItemIndicatorContext] = createMenuContext(
   ITEM_INDICATOR_NAME,
   { checked: false }
 );
-var MenuItemIndicator = React44.forwardRef(
+var MenuItemIndicator = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, forceMount, ...itemIndicatorProps } = props;
     const indicatorContext = useItemIndicatorContext(ITEM_INDICATOR_NAME, __scopeMenu);
@@ -7988,7 +7988,7 @@ var MenuItemIndicator = React44.forwardRef(
 );
 MenuItemIndicator.displayName = ITEM_INDICATOR_NAME;
 var SEPARATOR_NAME = "MenuSeparator";
-var MenuSeparator = React44.forwardRef(
+var MenuSeparator = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...separatorProps } = props;
     return /* @__PURE__ */ jsx(
@@ -8004,7 +8004,7 @@ var MenuSeparator = React44.forwardRef(
 );
 MenuSeparator.displayName = SEPARATOR_NAME;
 var ARROW_NAME2 = "MenuArrow";
-var MenuArrow = React44.forwardRef(
+var MenuArrow = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...arrowProps } = props;
     const popperScope = usePopperScope(__scopeMenu);
@@ -8018,10 +8018,10 @@ var MenuSub = (props) => {
   const { __scopeMenu, children, open = false, onOpenChange } = props;
   const parentMenuContext = useMenuContext(SUB_NAME, __scopeMenu);
   const popperScope = usePopperScope(__scopeMenu);
-  const [trigger, setTrigger] = React44.useState(null);
-  const [content, setContent] = React44.useState(null);
+  const [trigger, setTrigger] = React45.useState(null);
+  const [content, setContent] = React45.useState(null);
   const handleOpenChange = useCallbackRef(onOpenChange);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     if (parentMenuContext.open === false) handleOpenChange(false);
     return () => handleOpenChange(false);
   }, [parentMenuContext.open, handleOpenChange]);
@@ -8049,21 +8049,21 @@ var MenuSub = (props) => {
 };
 MenuSub.displayName = SUB_NAME;
 var SUB_TRIGGER_NAME = "MenuSubTrigger";
-var MenuSubTrigger = React44.forwardRef(
+var MenuSubTrigger = React45.forwardRef(
   (props, forwardedRef) => {
     const context = useMenuContext(SUB_TRIGGER_NAME, props.__scopeMenu);
     const rootContext = useMenuRootContext(SUB_TRIGGER_NAME, props.__scopeMenu);
     const subContext = useMenuSubContext(SUB_TRIGGER_NAME, props.__scopeMenu);
     const contentContext = useMenuContentContext(SUB_TRIGGER_NAME, props.__scopeMenu);
-    const openTimerRef = React44.useRef(null);
+    const openTimerRef = React45.useRef(null);
     const { pointerGraceTimerRef, onPointerGraceIntentChange } = contentContext;
     const scope = { __scopeMenu: props.__scopeMenu };
-    const clearOpenTimer = React44.useCallback(() => {
+    const clearOpenTimer = React45.useCallback(() => {
       if (openTimerRef.current) window.clearTimeout(openTimerRef.current);
       openTimerRef.current = null;
     }, []);
-    React44.useEffect(() => clearOpenTimer, [clearOpenTimer]);
-    React44.useEffect(() => {
+    React45.useEffect(() => clearOpenTimer, [clearOpenTimer]);
+    React45.useEffect(() => {
       const pointerGraceTimer = pointerGraceTimerRef.current;
       return () => {
         window.clearTimeout(pointerGraceTimer);
@@ -8150,14 +8150,14 @@ var MenuSubTrigger = React44.forwardRef(
 );
 MenuSubTrigger.displayName = SUB_TRIGGER_NAME;
 var SUB_CONTENT_NAME = "MenuSubContent";
-var MenuSubContent = React44.forwardRef(
+var MenuSubContent = React45.forwardRef(
   (props, forwardedRef) => {
     const portalContext = usePortalContext(CONTENT_NAME2, props.__scopeMenu);
     const { forceMount = portalContext.forceMount, ...subContentProps } = props;
     const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
     const rootContext = useMenuRootContext(CONTENT_NAME2, props.__scopeMenu);
     const subContext = useMenuSubContext(SUB_CONTENT_NAME, props.__scopeMenu);
-    const ref = React44.useRef(null);
+    const ref = React45.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
     return /* @__PURE__ */ jsx(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsx(Collection2.Slot, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsx(
       MenuContentImpl,
@@ -8286,7 +8286,7 @@ var DropdownMenu = (props) => {
     modal = true
   } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  const triggerRef = React44.useRef(null);
+  const triggerRef = React45.useRef(null);
   const [open, setOpen] = useControllableState({
     prop: openProp,
     defaultProp: defaultOpen ?? false,
@@ -8302,7 +8302,7 @@ var DropdownMenu = (props) => {
       contentId: useId(),
       open,
       onOpenChange: setOpen,
-      onOpenToggle: React44.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
+      onOpenToggle: React45.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
       modal,
       children: /* @__PURE__ */ jsx(Root32, { ...menuScope, open, onOpenChange: setOpen, dir, modal, children })
     }
@@ -8310,7 +8310,7 @@ var DropdownMenu = (props) => {
 };
 DropdownMenu.displayName = DROPDOWN_MENU_NAME;
 var TRIGGER_NAME = "DropdownMenuTrigger";
-var DropdownMenuTrigger = React44.forwardRef(
+var DropdownMenuTrigger = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, disabled = false, ...triggerProps } = props;
     const context = useDropdownMenuContext(TRIGGER_NAME, __scopeDropdownMenu);
@@ -8353,12 +8353,12 @@ var DropdownMenuPortal = (props) => {
 };
 DropdownMenuPortal.displayName = PORTAL_NAME3;
 var CONTENT_NAME3 = "DropdownMenuContent";
-var DropdownMenuContent = React44.forwardRef(
+var DropdownMenuContent = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...contentProps } = props;
     const context = useDropdownMenuContext(CONTENT_NAME3, __scopeDropdownMenu);
     const menuScope = useMenuScope(__scopeDropdownMenu);
-    const hasInteractedOutsideRef = React44.useRef(false);
+    const hasInteractedOutsideRef = React45.useRef(false);
     return /* @__PURE__ */ jsx(
       Content2,
       {
@@ -8395,7 +8395,7 @@ var DropdownMenuContent = React44.forwardRef(
 );
 DropdownMenuContent.displayName = CONTENT_NAME3;
 var GROUP_NAME3 = "DropdownMenuGroup";
-var DropdownMenuGroup = React44.forwardRef(
+var DropdownMenuGroup = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...groupProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8404,7 +8404,7 @@ var DropdownMenuGroup = React44.forwardRef(
 );
 DropdownMenuGroup.displayName = GROUP_NAME3;
 var LABEL_NAME2 = "DropdownMenuLabel";
-var DropdownMenuLabel = React44.forwardRef(
+var DropdownMenuLabel = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...labelProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8413,7 +8413,7 @@ var DropdownMenuLabel = React44.forwardRef(
 );
 DropdownMenuLabel.displayName = LABEL_NAME2;
 var ITEM_NAME3 = "DropdownMenuItem";
-var DropdownMenuItem = React44.forwardRef(
+var DropdownMenuItem = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...itemProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8422,42 +8422,42 @@ var DropdownMenuItem = React44.forwardRef(
 );
 DropdownMenuItem.displayName = ITEM_NAME3;
 var CHECKBOX_ITEM_NAME2 = "DropdownMenuCheckboxItem";
-var DropdownMenuCheckboxItem = React44.forwardRef((props, forwardedRef) => {
+var DropdownMenuCheckboxItem = React45.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...checkboxItemProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsx(CheckboxItem, { ...menuScope, ...checkboxItemProps, ref: forwardedRef });
 });
 DropdownMenuCheckboxItem.displayName = CHECKBOX_ITEM_NAME2;
 var RADIO_GROUP_NAME2 = "DropdownMenuRadioGroup";
-var DropdownMenuRadioGroup = React44.forwardRef((props, forwardedRef) => {
+var DropdownMenuRadioGroup = React45.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...radioGroupProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsx(RadioGroup, { ...menuScope, ...radioGroupProps, ref: forwardedRef });
 });
 DropdownMenuRadioGroup.displayName = RADIO_GROUP_NAME2;
 var RADIO_ITEM_NAME2 = "DropdownMenuRadioItem";
-var DropdownMenuRadioItem = React44.forwardRef((props, forwardedRef) => {
+var DropdownMenuRadioItem = React45.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...radioItemProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsx(RadioItem, { ...menuScope, ...radioItemProps, ref: forwardedRef });
 });
 DropdownMenuRadioItem.displayName = RADIO_ITEM_NAME2;
 var INDICATOR_NAME = "DropdownMenuItemIndicator";
-var DropdownMenuItemIndicator = React44.forwardRef((props, forwardedRef) => {
+var DropdownMenuItemIndicator = React45.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...itemIndicatorProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsx(ItemIndicator, { ...menuScope, ...itemIndicatorProps, ref: forwardedRef });
 });
 DropdownMenuItemIndicator.displayName = INDICATOR_NAME;
 var SEPARATOR_NAME2 = "DropdownMenuSeparator";
-var DropdownMenuSeparator = React44.forwardRef((props, forwardedRef) => {
+var DropdownMenuSeparator = React45.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...separatorProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsx(Separator, { ...menuScope, ...separatorProps, ref: forwardedRef });
 });
 DropdownMenuSeparator.displayName = SEPARATOR_NAME2;
 var ARROW_NAME3 = "DropdownMenuArrow";
-var DropdownMenuArrow = React44.forwardRef(
+var DropdownMenuArrow = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...arrowProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8477,14 +8477,14 @@ var DropdownMenuSub = (props) => {
   return /* @__PURE__ */ jsx(Sub, { ...menuScope, open, onOpenChange: setOpen, children });
 };
 var SUB_TRIGGER_NAME2 = "DropdownMenuSubTrigger";
-var DropdownMenuSubTrigger = React44.forwardRef((props, forwardedRef) => {
+var DropdownMenuSubTrigger = React45.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...subTriggerProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsx(SubTrigger, { ...menuScope, ...subTriggerProps, ref: forwardedRef });
 });
 DropdownMenuSubTrigger.displayName = SUB_TRIGGER_NAME2;
 var SUB_CONTENT_NAME2 = "DropdownMenuSubContent";
-var DropdownMenuSubContent = React44.forwardRef((props, forwardedRef) => {
+var DropdownMenuSubContent = React45.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...subContentProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsx(
@@ -8613,17 +8613,17 @@ var Circle = createLucideIcon("Circle", __iconNode5);
 function DropdownMenu2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Root23, { "data-slot": "dropdown-menu", ...props });
+  return /* @__PURE__ */ React45.createElement(Root23, { "data-slot": "dropdown-menu", ...props });
 }
 function DropdownMenuPortal2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Portal22, { "data-slot": "dropdown-menu-portal", ...props });
+  return /* @__PURE__ */ React45.createElement(Portal22, { "data-slot": "dropdown-menu-portal", ...props });
 }
 function DropdownMenuTrigger2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Trigger,
     {
       "data-slot": "dropdown-menu-trigger",
@@ -8636,7 +8636,7 @@ function DropdownMenuContent2({
   sideOffset = 4,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Portal22, null, /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(Portal22, null, /* @__PURE__ */ React45.createElement(
     Content22,
     {
       "data-slot": "dropdown-menu-content",
@@ -8653,30 +8653,30 @@ function DropdownMenuClose({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Item22, { "data-slot": "dropdown-menu-close", className: "hidden", ...props });
+  return /* @__PURE__ */ React45.createElement(Item22, { "data-slot": "dropdown-menu-close", className: "hidden", ...props });
 }
 function DropdownMenuGroup2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Group2, { "data-slot": "dropdown-menu-group", ...props });
+  return /* @__PURE__ */ React45.createElement(Group2, { "data-slot": "dropdown-menu-group", ...props });
 }
 function ConfirmationDropdownMenuItem({
   ...props
 }) {
   const { onClick: originalOnClick, ...rest } = props;
-  const [isConfirming, setIsConfirming] = React44.useState(false);
-  return !isConfirming ? /* @__PURE__ */ React44.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
+  const [isConfirming, setIsConfirming] = React45.useState(false);
+  return !isConfirming ? /* @__PURE__ */ React45.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
     setIsConfirming(true);
     e.preventDefault();
     e.stopPropagation();
-  } }) : /* @__PURE__ */ React44.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
+  } }) : /* @__PURE__ */ React45.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
     if (originalOnClick) {
       setIsConfirming(false);
       originalOnClick(e);
       e.preventDefault();
       e.stopPropagation();
     }
-  } }, /* @__PURE__ */ React44.createElement("div", { className: "flex flex-row gap-2 items-center" }, /* @__PURE__ */ React44.createElement("div", { className: "text-destructive" }, "Are you sure ?")));
+  } }, /* @__PURE__ */ React45.createElement("div", { className: "flex flex-row gap-2 items-center" }, /* @__PURE__ */ React45.createElement("div", { className: "text-destructive" }, "Are you sure ?")));
 }
 function DropdownMenuItem2({
   className,
@@ -8684,7 +8684,7 @@ function DropdownMenuItem2({
   variant = "default",
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Item22,
     {
       "data-slot": "dropdown-menu-item",
@@ -8704,7 +8704,7 @@ function DropdownMenuCheckboxItem2({
   checked,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     CheckboxItem2,
     {
       "data-slot": "dropdown-menu-checkbox-item",
@@ -8715,14 +8715,14 @@ function DropdownMenuCheckboxItem2({
       checked,
       ...props
     },
-    /* @__PURE__ */ React44.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React44.createElement(ItemIndicator2, null, /* @__PURE__ */ React44.createElement(Check, { className: "uii:size-4" }))),
+    /* @__PURE__ */ React45.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React45.createElement(ItemIndicator2, null, /* @__PURE__ */ React45.createElement(Check, { className: "uii:size-4" }))),
     children
   );
 }
 function DropdownMenuRadioGroup2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     RadioGroup2,
     {
       "data-slot": "dropdown-menu-radio-group",
@@ -8735,7 +8735,7 @@ function DropdownMenuRadioItem2({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     RadioItem2,
     {
       "data-slot": "dropdown-menu-radio-item",
@@ -8745,7 +8745,7 @@ function DropdownMenuRadioItem2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React44.createElement(ItemIndicator2, null, /* @__PURE__ */ React44.createElement(Circle, { className: "uii:size-2 uii:fill-current" }))),
+    /* @__PURE__ */ React45.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React45.createElement(ItemIndicator2, null, /* @__PURE__ */ React45.createElement(Circle, { className: "uii:size-2 uii:fill-current" }))),
     children
   );
 }
@@ -8754,7 +8754,7 @@ function DropdownMenuLabel2({
   inset,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Label2,
     {
       "data-slot": "dropdown-menu-label",
@@ -8771,7 +8771,7 @@ function DropdownMenuSeparator2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Separator2,
     {
       "data-slot": "dropdown-menu-separator",
@@ -8784,7 +8784,7 @@ function DropdownMenuShortcut({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     "span",
     {
       "data-slot": "dropdown-menu-shortcut",
@@ -8799,7 +8799,7 @@ function DropdownMenuShortcut({
 function DropdownMenuSub2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Sub2, { "data-slot": "dropdown-menu-sub", ...props });
+  return /* @__PURE__ */ React45.createElement(Sub2, { "data-slot": "dropdown-menu-sub", ...props });
 }
 function DropdownMenuSubTrigger2({
   className,
@@ -8807,7 +8807,7 @@ function DropdownMenuSubTrigger2({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     SubTrigger2,
     {
       "data-slot": "dropdown-menu-sub-trigger",
@@ -8819,14 +8819,14 @@ function DropdownMenuSubTrigger2({
       ...props
     },
     children,
-    /* @__PURE__ */ React44.createElement(ChevronRight, { className: "uii:ml-auto uii:size-4" })
+    /* @__PURE__ */ React45.createElement(ChevronRight, { className: "uii:ml-auto uii:size-4" })
   );
 }
 function DropdownMenuSubContent2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     SubContent2,
     {
       "data-slot": "dropdown-menu-sub-content",
@@ -8887,7 +8887,7 @@ __export(fields_exports, {
 var DevContext = createContext(null);
 function useResolvedExpectedType(expectedType, devCtx) {
   const inferredTypes = devCtx?.inferredTypes;
-  return React44.useMemo(() => {
+  return React45.useMemo(() => {
     if (!expectedType) return "any";
     if (!expectedType.startsWith("$infer<")) {
       return expectedType;
@@ -8935,22 +8935,22 @@ function Input({
 }) {
   const devCtx = useContext(DevContext);
   const resolvedExpectedType = useResolvedExpectedType(expectedType, devCtx);
-  const displayValue = React44.useMemo(() => {
+  const displayValue = React45.useMemo(() => {
     if (value != null && typeof value === "object" && "expression" in value) {
       return String(value.expression ?? "");
     }
     return String(value ?? "");
   }, [value]);
-  const isExpression = React44.useMemo(() => {
+  const isExpression = React45.useMemo(() => {
     return value != null && typeof value === "object" && "expression" in value;
   }, [value]);
-  const handleChange = React44.useCallback(
+  const handleChange = React45.useCallback(
     (e) => onChange(e.target.value),
     [onChange]
   );
   const showError = hasRequiredError || required && !displayValue;
   const isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
-  return /* @__PURE__ */ React44.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React44.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React45.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React45.createElement(
     "label",
     {
       htmlFor: fieldName,
@@ -8958,7 +8958,7 @@ function Input({
     },
     label,
     ":"
-  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React44.createElement(
+  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React45.createElement(
     "span",
     {
       className: cn(
@@ -8968,7 +8968,7 @@ function Input({
       title: resolvedExpectedType
     },
     resolvedExpectedType
-  ), showError && /* @__PURE__ */ React44.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required"), showCaseSensitivity && onCaseSensitiveChange && /* @__PURE__ */ React44.createElement(
+  ), showError && /* @__PURE__ */ React45.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required"), showCaseSensitivity && onCaseSensitiveChange && /* @__PURE__ */ React45.createElement(
     "button",
     {
       type: "button",
@@ -8980,7 +8980,7 @@ function Input({
       )
     },
     "Aa"
-  )), /* @__PURE__ */ React44.createElement("div", { className: "uii:mt-0.5" }, /* @__PURE__ */ React44.createElement(
+  )), /* @__PURE__ */ React45.createElement("div", { className: "uii:mt-0.5" }, /* @__PURE__ */ React45.createElement(
     "input",
     {
       id: fieldName,
@@ -9008,8 +9008,8 @@ function clamp2(value, [min2, max2]) {
   return Math.min(max2, Math.max(min2, value));
 }
 function usePrevious(value) {
-  const ref = React44.useRef({ value, previous: value });
-  return React44.useMemo(() => {
+  const ref = React45.useRef({ value, previous: value });
+  return React45.useMemo(() => {
     if (ref.current.value !== value) {
       ref.current.previous = ref.current.value;
       ref.current.value = value;
@@ -9031,7 +9031,7 @@ var VISUALLY_HIDDEN_STYLES = Object.freeze({
   wordWrap: "normal"
 });
 var NAME3 = "VisuallyHidden";
-var VisuallyHidden = React44.forwardRef(
+var VisuallyHidden = React45.forwardRef(
   (props, forwardedRef) => {
     return /* @__PURE__ */ jsx(
       Primitive.span,
@@ -9073,9 +9073,9 @@ var Select = (props) => {
     form
   } = props;
   const popperScope = usePopperScope2(__scopeSelect);
-  const [trigger, setTrigger] = React44.useState(null);
-  const [valueNode, setValueNode] = React44.useState(null);
-  const [valueNodeHasChildren, setValueNodeHasChildren] = React44.useState(false);
+  const [trigger, setTrigger] = React45.useState(null);
+  const [valueNode, setValueNode] = React45.useState(null);
+  const [valueNodeHasChildren, setValueNodeHasChildren] = React45.useState(false);
   const direction = useDirection(dir);
   const [open, setOpen] = useControllableState({
     prop: openProp,
@@ -9089,9 +9089,9 @@ var Select = (props) => {
     onChange: onValueChange,
     caller: SELECT_NAME
   });
-  const triggerPointerDownPosRef = React44.useRef(null);
+  const triggerPointerDownPosRef = React45.useRef(null);
   const isFormControl = trigger ? form || !!trigger.closest("form") : true;
-  const [nativeOptionsSet, setNativeOptionsSet] = React44.useState(/* @__PURE__ */ new Set());
+  const [nativeOptionsSet, setNativeOptionsSet] = React45.useState(/* @__PURE__ */ new Set());
   const nativeSelectKey = Array.from(nativeOptionsSet).map((option) => option.props.value).join(";");
   return /* @__PURE__ */ jsx(Root22, { ...popperScope, children: /* @__PURE__ */ jsxs(
     SelectProvider,
@@ -9117,10 +9117,10 @@ var Select = (props) => {
           SelectNativeOptionsProvider,
           {
             scope: props.__scopeSelect,
-            onNativeOptionAdd: React44.useCallback((option) => {
+            onNativeOptionAdd: React45.useCallback((option) => {
               setNativeOptionsSet((prev) => new Set(prev).add(option));
             }, []),
-            onNativeOptionRemove: React44.useCallback((option) => {
+            onNativeOptionRemove: React45.useCallback((option) => {
               setNativeOptionsSet((prev) => {
                 const optionsSet = new Set(prev);
                 optionsSet.delete(option);
@@ -9155,7 +9155,7 @@ var Select = (props) => {
 };
 Select.displayName = SELECT_NAME;
 var TRIGGER_NAME2 = "SelectTrigger";
-var SelectTrigger = React44.forwardRef(
+var SelectTrigger = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, disabled = false, ...triggerProps } = props;
     const popperScope = usePopperScope2(__scopeSelect);
@@ -9163,7 +9163,7 @@ var SelectTrigger = React44.forwardRef(
     const isDisabled = context.disabled || disabled;
     const composedRefs = useComposedRefs(forwardedRef, context.onTriggerChange);
     const getItems = useCollection3(__scopeSelect);
-    const pointerTypeRef = React44.useRef("touch");
+    const pointerTypeRef = React45.useRef("touch");
     const [searchRef, handleTypeaheadSearch, resetTypeahead] = useTypeaheadSearch((search) => {
       const enabledItems = getItems().filter((item) => !item.disabled);
       const currentItem = enabledItems.find((item) => item.value === context.value);
@@ -9233,7 +9233,7 @@ var SelectTrigger = React44.forwardRef(
 );
 SelectTrigger.displayName = TRIGGER_NAME2;
 var VALUE_NAME = "SelectValue";
-var SelectValue = React44.forwardRef(
+var SelectValue = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, className, style, children, placeholder = "", ...valueProps } = props;
     const context = useSelectContext(VALUE_NAME, __scopeSelect);
@@ -9256,7 +9256,7 @@ var SelectValue = React44.forwardRef(
 );
 SelectValue.displayName = VALUE_NAME;
 var ICON_NAME = "SelectIcon";
-var SelectIcon = React44.forwardRef(
+var SelectIcon = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, children, ...iconProps } = props;
     return /* @__PURE__ */ jsx(Primitive.span, { "aria-hidden": true, ...iconProps, ref: forwardedRef, children: children || "\u25BC" });
@@ -9269,10 +9269,10 @@ var SelectPortal = (props) => {
 };
 SelectPortal.displayName = PORTAL_NAME4;
 var CONTENT_NAME4 = "SelectContent";
-var SelectContent = React44.forwardRef(
+var SelectContent = React45.forwardRef(
   (props, forwardedRef) => {
     const context = useSelectContext(CONTENT_NAME4, props.__scopeSelect);
-    const [fragment, setFragment] = React44.useState();
+    const [fragment, setFragment] = React45.useState();
     useLayoutEffect2(() => {
       setFragment(new DocumentFragment());
     }, []);
@@ -9291,7 +9291,7 @@ var CONTENT_MARGIN = 10;
 var [SelectContentProvider, useSelectContentContext] = createSelectContext(CONTENT_NAME4);
 var CONTENT_IMPL_NAME = "SelectContentImpl";
 var Slot3 = createSlot2("SelectContent.RemoveScroll");
-var SelectContentImpl = React44.forwardRef(
+var SelectContentImpl = React45.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeSelect,
@@ -9315,21 +9315,21 @@ var SelectContentImpl = React44.forwardRef(
       ...contentProps
     } = props;
     const context = useSelectContext(CONTENT_NAME4, __scopeSelect);
-    const [content, setContent] = React44.useState(null);
-    const [viewport, setViewport] = React44.useState(null);
+    const [content, setContent] = React45.useState(null);
+    const [viewport, setViewport] = React45.useState(null);
     const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
-    const [selectedItem, setSelectedItem] = React44.useState(null);
-    const [selectedItemText, setSelectedItemText] = React44.useState(
+    const [selectedItem, setSelectedItem] = React45.useState(null);
+    const [selectedItemText, setSelectedItemText] = React45.useState(
       null
     );
     const getItems = useCollection3(__scopeSelect);
-    const [isPositioned, setIsPositioned] = React44.useState(false);
-    const firstValidItemFoundRef = React44.useRef(false);
-    React44.useEffect(() => {
+    const [isPositioned, setIsPositioned] = React45.useState(false);
+    const firstValidItemFoundRef = React45.useRef(false);
+    React45.useEffect(() => {
       if (content) return hideOthers(content);
     }, [content]);
     useFocusGuards();
-    const focusFirst4 = React44.useCallback(
+    const focusFirst4 = React45.useCallback(
       (candidates) => {
         const [firstItem, ...restItems] = getItems().map((item) => item.ref.current);
         const [lastItem] = restItems.slice(-1);
@@ -9345,17 +9345,17 @@ var SelectContentImpl = React44.forwardRef(
       },
       [getItems, viewport]
     );
-    const focusSelectedItem = React44.useCallback(
+    const focusSelectedItem = React45.useCallback(
       () => focusFirst4([selectedItem, content]),
       [focusFirst4, selectedItem, content]
     );
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       if (isPositioned) {
         focusSelectedItem();
       }
     }, [isPositioned, focusSelectedItem]);
     const { onOpenChange, triggerPointerDownPosRef } = context;
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       if (content) {
         let pointerMoveDelta = { x: 0, y: 0 };
         const handlePointerMove = (event) => {
@@ -9385,7 +9385,7 @@ var SelectContentImpl = React44.forwardRef(
         };
       }
     }, [content, onOpenChange, triggerPointerDownPosRef]);
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       const close = () => onOpenChange(false);
       window.addEventListener("blur", close);
       window.addEventListener("resize", close);
@@ -9402,7 +9402,7 @@ var SelectContentImpl = React44.forwardRef(
         setTimeout(() => nextItem.ref.current.focus());
       }
     });
-    const itemRefCallback = React44.useCallback(
+    const itemRefCallback = React45.useCallback(
       (node, value, disabled) => {
         const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
         const isSelectedItem = context.value !== void 0 && context.value === value;
@@ -9413,8 +9413,8 @@ var SelectContentImpl = React44.forwardRef(
       },
       [context.value]
     );
-    const handleItemLeave = React44.useCallback(() => content?.focus(), [content]);
-    const itemTextRefCallback = React44.useCallback(
+    const handleItemLeave = React45.useCallback(() => content?.focus(), [content]);
+    const itemTextRefCallback = React45.useCallback(
       (node, value, disabled) => {
         const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
         const isSelectedItem = context.value !== void 0 && context.value === value;
@@ -9525,18 +9525,18 @@ var SelectContentImpl = React44.forwardRef(
 );
 SelectContentImpl.displayName = CONTENT_IMPL_NAME;
 var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition";
-var SelectItemAlignedPosition = React44.forwardRef((props, forwardedRef) => {
+var SelectItemAlignedPosition = React45.forwardRef((props, forwardedRef) => {
   const { __scopeSelect, onPlaced, ...popperProps } = props;
   const context = useSelectContext(CONTENT_NAME4, __scopeSelect);
   const contentContext = useSelectContentContext(CONTENT_NAME4, __scopeSelect);
-  const [contentWrapper, setContentWrapper] = React44.useState(null);
-  const [content, setContent] = React44.useState(null);
+  const [contentWrapper, setContentWrapper] = React45.useState(null);
+  const [content, setContent] = React45.useState(null);
   const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
   const getItems = useCollection3(__scopeSelect);
-  const shouldExpandOnScrollRef = React44.useRef(false);
-  const shouldRepositionRef = React44.useRef(true);
+  const shouldExpandOnScrollRef = React45.useRef(false);
+  const shouldRepositionRef = React45.useRef(true);
   const { viewport, selectedItem, selectedItemText, focusSelectedItem } = contentContext;
-  const position = React44.useCallback(() => {
+  const position = React45.useCallback(() => {
     if (context.trigger && context.valueNode && contentWrapper && content && viewport && selectedItem && selectedItemText) {
       const triggerRect = context.trigger.getBoundingClientRect();
       const contentRect = content.getBoundingClientRect();
@@ -9636,11 +9636,11 @@ var SelectItemAlignedPosition = React44.forwardRef((props, forwardedRef) => {
     onPlaced
   ]);
   useLayoutEffect2(() => position(), [position]);
-  const [contentZIndex, setContentZIndex] = React44.useState();
+  const [contentZIndex, setContentZIndex] = React45.useState();
   useLayoutEffect2(() => {
     if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
   }, [content]);
-  const handleScrollButtonChange = React44.useCallback(
+  const handleScrollButtonChange = React45.useCallback(
     (node) => {
       if (node && shouldRepositionRef.current === true) {
         position();
@@ -9689,7 +9689,7 @@ var SelectItemAlignedPosition = React44.forwardRef((props, forwardedRef) => {
 });
 SelectItemAlignedPosition.displayName = ITEM_ALIGNED_POSITION_NAME;
 var POPPER_POSITION_NAME = "SelectPopperPosition";
-var SelectPopperPosition = React44.forwardRef((props, forwardedRef) => {
+var SelectPopperPosition = React45.forwardRef((props, forwardedRef) => {
   const {
     __scopeSelect,
     align = "start",
@@ -9724,13 +9724,13 @@ var SelectPopperPosition = React44.forwardRef((props, forwardedRef) => {
 SelectPopperPosition.displayName = POPPER_POSITION_NAME;
 var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CONTENT_NAME4, {});
 var VIEWPORT_NAME = "SelectViewport";
-var SelectViewport = React44.forwardRef(
+var SelectViewport = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, nonce, ...viewportProps } = props;
     const contentContext = useSelectContentContext(VIEWPORT_NAME, __scopeSelect);
     const viewportContext = useSelectViewportContext(VIEWPORT_NAME, __scopeSelect);
     const composedRefs = useComposedRefs(forwardedRef, contentContext.onViewportChange);
-    const prevScrollTopRef = React44.useRef(0);
+    const prevScrollTopRef = React45.useRef(0);
     return /* @__PURE__ */ jsxs(Fragment, { children: [
       /* @__PURE__ */ jsx(
         "style",
@@ -9793,7 +9793,7 @@ var SelectViewport = React44.forwardRef(
 SelectViewport.displayName = VIEWPORT_NAME;
 var GROUP_NAME4 = "SelectGroup";
 var [SelectGroupContextProvider, useSelectGroupContext] = createSelectContext(GROUP_NAME4);
-var SelectGroup = React44.forwardRef(
+var SelectGroup = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...groupProps } = props;
     const groupId = useId();
@@ -9802,7 +9802,7 @@ var SelectGroup = React44.forwardRef(
 );
 SelectGroup.displayName = GROUP_NAME4;
 var LABEL_NAME3 = "SelectLabel";
-var SelectLabel = React44.forwardRef(
+var SelectLabel = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...labelProps } = props;
     const groupContext = useSelectGroupContext(LABEL_NAME3, __scopeSelect);
@@ -9812,7 +9812,7 @@ var SelectLabel = React44.forwardRef(
 SelectLabel.displayName = LABEL_NAME3;
 var ITEM_NAME4 = "SelectItem";
 var [SelectItemContextProvider, useSelectItemContext] = createSelectContext(ITEM_NAME4);
-var SelectItem = React44.forwardRef(
+var SelectItem = React45.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeSelect,
@@ -9824,14 +9824,14 @@ var SelectItem = React44.forwardRef(
     const context = useSelectContext(ITEM_NAME4, __scopeSelect);
     const contentContext = useSelectContentContext(ITEM_NAME4, __scopeSelect);
     const isSelected = context.value === value;
-    const [textValue, setTextValue] = React44.useState(textValueProp ?? "");
-    const [isFocused, setIsFocused] = React44.useState(false);
+    const [textValue, setTextValue] = React45.useState(textValueProp ?? "");
+    const [isFocused, setIsFocused] = React45.useState(false);
     const composedRefs = useComposedRefs(
       forwardedRef,
       (node) => contentContext.itemRefCallback?.(node, value, disabled)
     );
     const textId = useId();
-    const pointerTypeRef = React44.useRef("touch");
+    const pointerTypeRef = React45.useRef("touch");
     const handleSelect = () => {
       if (!disabled) {
         context.onValueChange(value);
@@ -9851,7 +9851,7 @@ var SelectItem = React44.forwardRef(
         disabled,
         textId,
         isSelected,
-        onItemTextChange: React44.useCallback((node) => {
+        onItemTextChange: React45.useCallback((node) => {
           setTextValue((prevTextValue) => prevTextValue || (node?.textContent ?? "").trim());
         }, []),
         children: /* @__PURE__ */ jsx(
@@ -9914,14 +9914,14 @@ var SelectItem = React44.forwardRef(
 );
 SelectItem.displayName = ITEM_NAME4;
 var ITEM_TEXT_NAME = "SelectItemText";
-var SelectItemText = React44.forwardRef(
+var SelectItemText = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, className, style, ...itemTextProps } = props;
     const context = useSelectContext(ITEM_TEXT_NAME, __scopeSelect);
     const contentContext = useSelectContentContext(ITEM_TEXT_NAME, __scopeSelect);
     const itemContext = useSelectItemContext(ITEM_TEXT_NAME, __scopeSelect);
     const nativeOptionsContext = useSelectNativeOptionsContext(ITEM_TEXT_NAME, __scopeSelect);
-    const [itemTextNode, setItemTextNode] = React44.useState(null);
+    const [itemTextNode, setItemTextNode] = React45.useState(null);
     const composedRefs = useComposedRefs(
       forwardedRef,
       (node) => setItemTextNode(node),
@@ -9929,7 +9929,7 @@ var SelectItemText = React44.forwardRef(
       (node) => contentContext.itemTextRefCallback?.(node, itemContext.value, itemContext.disabled)
     );
     const textContent = itemTextNode?.textContent;
-    const nativeOption = React44.useMemo(
+    const nativeOption = React45.useMemo(
       () => /* @__PURE__ */ jsx("option", { value: itemContext.value, disabled: itemContext.disabled, children: textContent }, itemContext.value),
       [itemContext.disabled, itemContext.value, textContent]
     );
@@ -9946,7 +9946,7 @@ var SelectItemText = React44.forwardRef(
 );
 SelectItemText.displayName = ITEM_TEXT_NAME;
 var ITEM_INDICATOR_NAME2 = "SelectItemIndicator";
-var SelectItemIndicator = React44.forwardRef(
+var SelectItemIndicator = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...itemIndicatorProps } = props;
     const itemContext = useSelectItemContext(ITEM_INDICATOR_NAME2, __scopeSelect);
@@ -9955,10 +9955,10 @@ var SelectItemIndicator = React44.forwardRef(
 );
 SelectItemIndicator.displayName = ITEM_INDICATOR_NAME2;
 var SCROLL_UP_BUTTON_NAME = "SelectScrollUpButton";
-var SelectScrollUpButton = React44.forwardRef((props, forwardedRef) => {
+var SelectScrollUpButton = React45.forwardRef((props, forwardedRef) => {
   const contentContext = useSelectContentContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
   const viewportContext = useSelectViewportContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
-  const [canScrollUp, setCanScrollUp] = React44.useState(false);
+  const [canScrollUp, setCanScrollUp] = React45.useState(false);
   const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
   useLayoutEffect2(() => {
     if (contentContext.viewport && contentContext.isPositioned) {
@@ -9988,10 +9988,10 @@ var SelectScrollUpButton = React44.forwardRef((props, forwardedRef) => {
 });
 SelectScrollUpButton.displayName = SCROLL_UP_BUTTON_NAME;
 var SCROLL_DOWN_BUTTON_NAME = "SelectScrollDownButton";
-var SelectScrollDownButton = React44.forwardRef((props, forwardedRef) => {
+var SelectScrollDownButton = React45.forwardRef((props, forwardedRef) => {
   const contentContext = useSelectContentContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
   const viewportContext = useSelectViewportContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
-  const [canScrollDown, setCanScrollDown] = React44.useState(false);
+  const [canScrollDown, setCanScrollDown] = React45.useState(false);
   const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
   useLayoutEffect2(() => {
     if (contentContext.viewport && contentContext.isPositioned) {
@@ -10021,18 +10021,18 @@ var SelectScrollDownButton = React44.forwardRef((props, forwardedRef) => {
   ) : null;
 });
 SelectScrollDownButton.displayName = SCROLL_DOWN_BUTTON_NAME;
-var SelectScrollButtonImpl = React44.forwardRef((props, forwardedRef) => {
+var SelectScrollButtonImpl = React45.forwardRef((props, forwardedRef) => {
   const { __scopeSelect, onAutoScroll, ...scrollIndicatorProps } = props;
   const contentContext = useSelectContentContext("SelectScrollButton", __scopeSelect);
-  const autoScrollTimerRef = React44.useRef(null);
+  const autoScrollTimerRef = React45.useRef(null);
   const getItems = useCollection3(__scopeSelect);
-  const clearAutoScrollTimer = React44.useCallback(() => {
+  const clearAutoScrollTimer = React45.useCallback(() => {
     if (autoScrollTimerRef.current !== null) {
       window.clearInterval(autoScrollTimerRef.current);
       autoScrollTimerRef.current = null;
     }
   }, []);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     return () => clearAutoScrollTimer();
   }, [clearAutoScrollTimer]);
   useLayoutEffect2(() => {
@@ -10064,7 +10064,7 @@ var SelectScrollButtonImpl = React44.forwardRef((props, forwardedRef) => {
   );
 });
 var SEPARATOR_NAME3 = "SelectSeparator";
-var SelectSeparator = React44.forwardRef(
+var SelectSeparator = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...separatorProps } = props;
     return /* @__PURE__ */ jsx(Primitive.div, { "aria-hidden": true, ...separatorProps, ref: forwardedRef });
@@ -10072,7 +10072,7 @@ var SelectSeparator = React44.forwardRef(
 );
 SelectSeparator.displayName = SEPARATOR_NAME3;
 var ARROW_NAME4 = "SelectArrow";
-var SelectArrow = React44.forwardRef(
+var SelectArrow = React45.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...arrowProps } = props;
     const popperScope = usePopperScope2(__scopeSelect);
@@ -10083,12 +10083,12 @@ var SelectArrow = React44.forwardRef(
 );
 SelectArrow.displayName = ARROW_NAME4;
 var BUBBLE_INPUT_NAME = "SelectBubbleInput";
-var SelectBubbleInput = React44.forwardRef(
+var SelectBubbleInput = React45.forwardRef(
   ({ __scopeSelect, value, ...props }, forwardedRef) => {
-    const ref = React44.useRef(null);
+    const ref = React45.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
     const prevValue = usePrevious(value);
-    React44.useEffect(() => {
+    React45.useEffect(() => {
       const select = ref.current;
       if (!select) return;
       const selectProto = window.HTMLSelectElement.prototype;
@@ -10120,9 +10120,9 @@ function shouldShowPlaceholder(value) {
 }
 function useTypeaheadSearch(onSearchChange) {
   const handleSearchChange = useCallbackRef(onSearchChange);
-  const searchRef = React44.useRef("");
-  const timerRef = React44.useRef(0);
-  const handleTypeaheadSearch = React44.useCallback(
+  const searchRef = React45.useRef("");
+  const timerRef = React45.useRef(0);
+  const handleTypeaheadSearch = React45.useCallback(
     (key) => {
       const search = searchRef.current + key;
       handleSearchChange(search);
@@ -10134,11 +10134,11 @@ function useTypeaheadSearch(onSearchChange) {
     },
     [handleSearchChange]
   );
-  const resetTypeahead = React44.useCallback(() => {
+  const resetTypeahead = React45.useCallback(() => {
     searchRef.current = "";
     window.clearTimeout(timerRef.current);
   }, []);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     return () => window.clearTimeout(timerRef.current);
   }, []);
   return [searchRef, handleTypeaheadSearch, resetTypeahead];
@@ -10175,19 +10175,19 @@ var ScrollDownButton = SelectScrollDownButton;
 function Select2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Root24, { "data-slot": "select", ...props });
+  return /* @__PURE__ */ React45.createElement(Root24, { "data-slot": "select", ...props });
 }
 function SelectValue2({
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Value, { "data-slot": "select-value", ...props });
+  return /* @__PURE__ */ React45.createElement(Value, { "data-slot": "select-value", ...props });
 }
 function SelectTrigger2({
   className,
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Trigger2,
     {
       "data-slot": "select-trigger",
@@ -10198,7 +10198,7 @@ function SelectTrigger2({
       ...props
     },
     children,
-    /* @__PURE__ */ React44.createElement(Icon2, { asChild: true }, /* @__PURE__ */ React44.createElement(ChevronDown, { className: "uii:size-4 uii:opacity-50" }))
+    /* @__PURE__ */ React45.createElement(Icon2, { asChild: true }, /* @__PURE__ */ React45.createElement(ChevronDown, { className: "uii:size-4 uii:opacity-50" }))
   );
 }
 function SelectContent2({
@@ -10210,7 +10210,7 @@ function SelectContent2({
   hideScrollDownButton = false,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(Portal3, null, /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(Portal3, null, /* @__PURE__ */ React45.createElement(
     Content23,
     {
       "data-slot": "select-content",
@@ -10223,8 +10223,8 @@ function SelectContent2({
       position,
       ...props
     },
-    !hideScrollUpButton && /* @__PURE__ */ React44.createElement(SelectScrollUpButton2, null),
-    /* @__PURE__ */ React44.createElement(
+    !hideScrollUpButton && /* @__PURE__ */ React45.createElement(SelectScrollUpButton2, null),
+    /* @__PURE__ */ React45.createElement(
       Viewport,
       {
         className: cn(
@@ -10234,8 +10234,8 @@ function SelectContent2({
       },
       children
     ),
-    footer ? /* @__PURE__ */ React44.createElement("div", { className: "uii:border-t uii:p-2 uii:bg-popover" }, footer) : null,
-    !hideScrollDownButton && /* @__PURE__ */ React44.createElement(SelectScrollDownButton2, null)
+    footer ? /* @__PURE__ */ React45.createElement("div", { className: "uii:border-t uii:p-2 uii:bg-popover" }, footer) : null,
+    !hideScrollDownButton && /* @__PURE__ */ React45.createElement(SelectScrollDownButton2, null)
   ));
 }
 function SelectItem2({
@@ -10243,7 +10243,7 @@ function SelectItem2({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     Item3,
     {
       "data-slot": "select-item",
@@ -10253,15 +10253,15 @@ function SelectItem2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44.createElement("span", { className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React44.createElement(ItemIndicator3, null, /* @__PURE__ */ React44.createElement(Check, { className: "uii:size-4" }))),
-    /* @__PURE__ */ React44.createElement(ItemText, null, children)
+    /* @__PURE__ */ React45.createElement("span", { className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React45.createElement(ItemIndicator3, null, /* @__PURE__ */ React45.createElement(Check, { className: "uii:size-4" }))),
+    /* @__PURE__ */ React45.createElement(ItemText, null, children)
   );
 }
 function SelectScrollUpButton2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     ScrollUpButton,
     {
       "data-slot": "select-scroll-up-button",
@@ -10271,14 +10271,14 @@ function SelectScrollUpButton2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44.createElement(ChevronUp, { className: "uii:size-4" })
+    /* @__PURE__ */ React45.createElement(ChevronUp, { className: "uii:size-4" })
   );
 }
 function SelectScrollDownButton2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement(
     ScrollDownButton,
     {
       "data-slot": "select-scroll-down-button",
@@ -10288,14 +10288,14 @@ function SelectScrollDownButton2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44.createElement(ChevronDown, { className: "uii:size-4" })
+    /* @__PURE__ */ React45.createElement(ChevronDown, { className: "uii:size-4" })
   );
 }
 
 // src/components/fields/Select.tsx
 function useResolvedExpectedType2(expectedType, devCtx) {
   const inferredTypes = devCtx?.inferredTypes;
-  return React44.useMemo(() => {
+  return React45.useMemo(() => {
     if (!expectedType) return "any";
     if (!expectedType.startsWith("$infer<")) {
       return expectedType;
@@ -10342,36 +10342,36 @@ function Select3({
 }) {
   const devCtx = useContext(DevContext);
   const resolvedExpectedType = useResolvedExpectedType2(expectedType, devCtx);
-  const [isExpressionMode, setIsExpressionMode] = React44.useState(false);
-  const [expressionValue, setExpressionValue] = React44.useState("");
-  const options = React44.useMemo(() => {
+  const [isExpressionMode, setIsExpressionMode] = React45.useState(false);
+  const [expressionValue, setExpressionValue] = React45.useState("");
+  const options = React45.useMemo(() => {
     return rawOptions.map(
       (opt) => typeof opt === "string" ? { value: opt, label: opt } : opt
     );
   }, [rawOptions]);
-  const displayValue = React44.useMemo(() => {
+  const displayValue = React45.useMemo(() => {
     if (value != null && typeof value === "object" && "expression" in value) {
       return String(value.expression ?? "");
     }
     return String(value ?? "");
   }, [value]);
-  const isExpression = React44.useMemo(() => {
+  const isExpression = React45.useMemo(() => {
     return value && typeof value === "object" && "expression" in value;
   }, [value]);
-  React44.useEffect(() => {
+  React45.useEffect(() => {
     if (isExpression) {
       setIsExpressionMode(true);
       setExpressionValue(displayValue);
     }
   }, [isExpression, displayValue]);
-  const handleSelectChange = React44.useCallback((newValue) => {
+  const handleSelectChange = React45.useCallback((newValue) => {
     if (newValue === "__expression__") {
       setIsExpressionMode(true);
       return;
     }
     onChange(newValue);
   }, [onChange]);
-  const handleExpressionChange = React44.useCallback(
+  const handleExpressionChange = React45.useCallback(
     (e) => {
       const newValue = e.target.value;
       setExpressionValue(newValue);
@@ -10379,7 +10379,7 @@ function Select3({
     },
     [onChange]
   );
-  const handleSwitchToValue = React44.useCallback(() => {
+  const handleSwitchToValue = React45.useCallback(() => {
     setIsExpressionMode(false);
     setExpressionValue("");
     onChange("");
@@ -10408,7 +10408,7 @@ function Select3({
     hasError: showError
   };
   const isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
-  return /* @__PURE__ */ React44.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React44.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React44.createElement(
+  return /* @__PURE__ */ React45.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React45.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React45.createElement(
     "label",
     {
       htmlFor: fieldName,
@@ -10416,7 +10416,7 @@ function Select3({
     },
     label,
     ":"
-  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React44.createElement(
+  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React45.createElement(
     "span",
     {
       className: cn(
@@ -10426,12 +10426,12 @@ function Select3({
       title: resolvedExpectedType
     },
     resolvedExpectedType
-  ), showError && /* @__PURE__ */ React44.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required")), /* @__PURE__ */ React44.createElement("div", { className: "uii:mt-0.5" }, children ? (
+  ), showError && /* @__PURE__ */ React45.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required")), /* @__PURE__ */ React45.createElement("div", { className: "uii:mt-0.5" }, children ? (
     // Use custom render function
     children(renderProps)
   ) : isExpressionMode ? (
     // Expression mode - show input with clear button
-    /* @__PURE__ */ React44.createElement("div", { className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5" }, /* @__PURE__ */ React44.createElement(
+    /* @__PURE__ */ React45.createElement("div", { className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5" }, /* @__PURE__ */ React45.createElement(
       "input",
       {
         id: fieldName,
@@ -10447,7 +10447,7 @@ function Select3({
           disabled && "uii:opacity-50 uii:cursor-not-allowed"
         )
       }
-    ), /* @__PURE__ */ React44.createElement(
+    ), /* @__PURE__ */ React45.createElement(
       "button",
       {
         type: "button",
@@ -10489,21 +10489,21 @@ function Select3({
     //     📝 Custom Expression
     //   </option>
     // </select>
-    /* @__PURE__ */ React44.createElement(
+    /* @__PURE__ */ React45.createElement(
       Select2,
       {
         value: displayValue,
         onValueChange: (e) => handleSelectChange(e),
         disabled: disabled ?? disabled
       },
-      /* @__PURE__ */ React44.createElement(
+      /* @__PURE__ */ React45.createElement(
         SelectTrigger2,
         {
           className: "ui:w-full ui:h-9 ui:px-3 ui:border ui:border-input ui:rounded-sm ui:bg-background"
         },
-        /* @__PURE__ */ React44.createElement(SelectValue2, { placeholder })
+        /* @__PURE__ */ React45.createElement(SelectValue2, { placeholder })
       ),
-      /* @__PURE__ */ React44.createElement(SelectContent2, null, options.map((opt) => /* @__PURE__ */ React44.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React44.createElement(React44.Fragment, null, opt.label))))
+      /* @__PURE__ */ React45.createElement(SelectContent2, null, options.map((opt) => /* @__PURE__ */ React45.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React45.createElement(React45.Fragment, null, opt.label))))
     )
   )));
 }
@@ -10634,12 +10634,12 @@ function useFieldPath(fieldName) {
   return fieldName;
 }
 function TemplateFieldProvider({ children }) {
-  return /* @__PURE__ */ React44__default.createElement(React44__default.Fragment, null, children);
+  return /* @__PURE__ */ React45__default.createElement(React45__default.Fragment, null, children);
 }
 function NestedFieldProvider({
   children
 }) {
-  return /* @__PURE__ */ React44__default.createElement(React44__default.Fragment, null, children);
+  return /* @__PURE__ */ React45__default.createElement(React45__default.Fragment, null, children);
 }
 var InferredTypesContext = createContext(null);
 function useInferredTypes() {
@@ -10657,7 +10657,7 @@ function useInferredTypes() {
   return realContext;
 }
 function InferredTypesProvider({ children }) {
-  return /* @__PURE__ */ React44__default.createElement(React44__default.Fragment, null, children);
+  return /* @__PURE__ */ React45__default.createElement(React45__default.Fragment, null, children);
 }
 function intersectTypes(types) {
   const validTypes = types.filter((t) => !!t && t.length > 0);
@@ -10718,7 +10718,7 @@ function getOperatorsForType(type) {
   ];
 }
 function NodePropertyProvider({ children }) {
-  return /* @__PURE__ */ React44__default.createElement(React44__default.Fragment, null, children);
+  return /* @__PURE__ */ React45__default.createElement(React45__default.Fragment, null, children);
 }
 function useSetFieldMetadataOnly() {
   return useCallback((_fieldKey, _metadata) => {
@@ -10733,7 +10733,7 @@ function useNodeProperty(key) {
   const [devValue, setDevValue] = useState(
     () => devContext?.data?.[key]
   );
-  React44__default.useEffect(() => {
+  React45__default.useEffect(() => {
     if (devContext) {
       setDevValue(devContext.data[key]);
     }
@@ -10757,7 +10757,7 @@ function useNodeProperties() {
   const [devData, setDevData] = useState(
     () => devContext?.data ?? {}
   );
-  React44__default.useEffect(() => {
+  React45__default.useEffect(() => {
     if (devContext) {
       setDevData({ ...devContext.data });
     }
@@ -10783,7 +10783,7 @@ function useInferredType(fieldName) {
   const [devInferredType, setDevInferredType] = useState(
     () => devContext?.inferredTypes?.[fieldName]
   );
-  React44__default.useEffect(() => {
+  React45__default.useEffect(() => {
     if (devContext) {
       setDevInferredType(devContext.inferredTypes[fieldName]);
     }
@@ -10845,7 +10845,7 @@ function useAllInferredTypes() {
   const [devTypes, setDevTypes] = useState(
     () => devContext?.inferredTypes ?? {}
   );
-  React44__default.useEffect(() => {
+  React45__default.useEffect(() => {
     if (devContext) {
       setDevTypes({ ...devContext.inferredTypes });
     }
@@ -10909,6 +10909,23 @@ function useFieldValidation() {
     validateField
   };
 }
+
+// src/components/slots/index.tsx
+var slots_exports = {};
+__export(slots_exports, {
+  ExportManager: () => ExportManager,
+  SlotElements: () => SlotElements
+});
+
+// src/components/slots/SlotElements.tsx
+var SlotElements = () => {
+  return /* @__PURE__ */ React.createElement("div", { className: "uii:flex uii:flex-row uii:gap-2 uii:border-dashed uii:border uii:border-gray-300 \n        uii:rounded-sm uii:p-2 uii:h-10 uii:w-full uii:items-center uii:justify-start uii:p-1" }, /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755226713/namespace-icons/http.svg" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755227094/namespace-icons/mailgun.svg" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/upload/v1772002004/img.icons8.com.png" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755226713/namespace-icons/http.svg" })));
+};
+
+// src/components/slots/ExportManager.tsx
+var ExportManager = () => {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(Button, null, "Manage Exports"));
+};
 /*! Bundled license information:
 
 lucide-react/dist/esm/shared/src/utils.js:
@@ -10929,6 +10946,6 @@ lucide-react/dist/esm/lucide-react.js:
    *)
 */
 
-export { Button, ConfirmationDropdownMenuItem, DropdownMenu2 as DropdownMenu, DropdownMenuCheckboxItem2 as DropdownMenuCheckboxItem, DropdownMenuClose, DropdownMenuContent2 as DropdownMenuContent, DropdownMenuGroup2 as DropdownMenuGroup, DropdownMenuItem2 as DropdownMenuItem, DropdownMenuLabel2 as DropdownMenuLabel, DropdownMenuPortal2 as DropdownMenuPortal, DropdownMenuRadioGroup2 as DropdownMenuRadioGroup, DropdownMenuRadioItem2 as DropdownMenuRadioItem, DropdownMenuSeparator2 as DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub2 as DropdownMenuSub, DropdownMenuSubContent2 as DropdownMenuSubContent, DropdownMenuSubTrigger2 as DropdownMenuSubTrigger, DropdownMenuTrigger2 as DropdownMenuTrigger, LogicToggleButton, ToggleButton, buttonVariants, fields_exports as fields, logicToggleButtonStyles, toggleButtonVariants };
+export { Button, ConfirmationDropdownMenuItem, DropdownMenu2 as DropdownMenu, DropdownMenuCheckboxItem2 as DropdownMenuCheckboxItem, DropdownMenuClose, DropdownMenuContent2 as DropdownMenuContent, DropdownMenuGroup2 as DropdownMenuGroup, DropdownMenuItem2 as DropdownMenuItem, DropdownMenuLabel2 as DropdownMenuLabel, DropdownMenuPortal2 as DropdownMenuPortal, DropdownMenuRadioGroup2 as DropdownMenuRadioGroup, DropdownMenuRadioItem2 as DropdownMenuRadioItem, DropdownMenuSeparator2 as DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub2 as DropdownMenuSub, DropdownMenuSubContent2 as DropdownMenuSubContent, DropdownMenuSubTrigger2 as DropdownMenuSubTrigger, DropdownMenuTrigger2 as DropdownMenuTrigger, LogicToggleButton, ToggleButton, buttonVariants, fields_exports as fields, logicToggleButtonStyles, slots_exports as slots, toggleButtonVariants };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

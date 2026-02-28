@@ -34,6 +34,16 @@
         "default": "./dist/components/fields/index.cjs"
       }
     },
+    "./slots": {
+      "import": {
+        "types": "./dist/components/slots/index.d.ts",
+        "default": "./dist/components/slots/index.js"
+      },
+      "require": {
+        "types": "./dist/components/slots/index.d.cts",
+        "default": "./dist/components/slots/index.cjs"
+      }
+    },
     "./dev": {
       "import": {
         "types": "./dist/components/dev/index.d.ts",

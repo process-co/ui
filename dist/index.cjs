@@ -1,6 +1,6 @@
 'use strict';
 
-var React44 = require('react');
+var React45 = require('react');
 var jsxRuntime = require('react/jsx-runtime');
 var ReactDOM4 = require('react-dom');
 
@@ -22,7 +22,7 @@ function _interopNamespace(e) {
   return Object.freeze(n);
 }
 
-var React44__namespace = /*#__PURE__*/_interopNamespace(React44);
+var React45__namespace = /*#__PURE__*/_interopNamespace(React45);
 var ReactDOM4__namespace = /*#__PURE__*/_interopNamespace(ReactDOM4);
 
 var __defProp = Object.defineProperty;
@@ -62,10 +62,10 @@ function composeRefs(...refs) {
   };
 }
 function useComposedRefs(...refs) {
-  return React44__namespace.useCallback(composeRefs(...refs), refs);
+  return React45__namespace.useCallback(composeRefs(...refs), refs);
 }
 var REACT_LAZY_TYPE = Symbol.for("react.lazy");
-var use = React44__namespace[" use ".trim().toString()];
+var use = React45__namespace[" use ".trim().toString()];
 function isPromiseLike(value) {
   return typeof value === "object" && value !== null && "then" in value;
 }
@@ -75,24 +75,24 @@ function isLazyComponent(element) {
 // @__NO_SIDE_EFFECTS__
 function createSlot(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
-  const Slot22 = React44__namespace.forwardRef((props, forwardedRef) => {
+  const Slot22 = React45__namespace.forwardRef((props, forwardedRef) => {
     let { children, ...slotProps } = props;
     if (isLazyComponent(children) && typeof use === "function") {
       children = use(children._payload);
     }
-    const childrenArray = React44__namespace.Children.toArray(children);
+    const childrenArray = React45__namespace.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React44__namespace.Children.count(newElement) > 1) return React44__namespace.Children.only(null);
-          return React44__namespace.isValidElement(newElement) ? newElement.props.children : null;
+          if (React45__namespace.Children.count(newElement) > 1) return React45__namespace.Children.only(null);
+          return React45__namespace.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ jsxRuntime.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React44__namespace.isValidElement(newElement) ? React44__namespace.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsxRuntime.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React45__namespace.isValidElement(newElement) ? React45__namespace.cloneElement(newElement, void 0, newChildren) : null });
     }
     return /* @__PURE__ */ jsxRuntime.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
@@ -102,27 +102,27 @@ function createSlot(ownerName) {
 var Slot = /* @__PURE__ */ createSlot("Slot");
 // @__NO_SIDE_EFFECTS__
 function createSlotClone(ownerName) {
-  const SlotClone = React44__namespace.forwardRef((props, forwardedRef) => {
+  const SlotClone = React45__namespace.forwardRef((props, forwardedRef) => {
     let { children, ...slotProps } = props;
     if (isLazyComponent(children) && typeof use === "function") {
       children = use(children._payload);
     }
-    if (React44__namespace.isValidElement(children)) {
+    if (React45__namespace.isValidElement(children)) {
       const childrenRef = getElementRef(children);
       const props2 = mergeProps(slotProps, children.props);
-      if (children.type !== React44__namespace.Fragment) {
+      if (children.type !== React45__namespace.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React44__namespace.cloneElement(children, props2);
+      return React45__namespace.cloneElement(children, props2);
     }
-    return React44__namespace.Children.count(children) > 1 ? React44__namespace.Children.only(null) : null;
+    return React45__namespace.Children.count(children) > 1 ? React45__namespace.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
 var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
 function isSlottable(child) {
-  return React44__namespace.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
+  return React45__namespace.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
 }
 function mergeProps(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -3269,7 +3269,7 @@ function Button({
   ...props
 }) {
   const Comp = asChild ? Slot : "button";
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Comp,
     {
       "data-slot": "button",
@@ -3286,9 +3286,9 @@ function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForD
     }
   };
 }
-var useLayoutEffect2 = globalThis?.document ? React44__namespace.useLayoutEffect : () => {
+var useLayoutEffect2 = globalThis?.document ? React45__namespace.useLayoutEffect : () => {
 };
-var useInsertionEffect = React44__namespace[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
+var useInsertionEffect = React45__namespace[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
 function useControllableState({
   prop,
   defaultProp,
@@ -3303,8 +3303,8 @@ function useControllableState({
   const isControlled = prop !== void 0;
   const value = isControlled ? prop : uncontrolledProp;
   {
-    const isControlledRef = React44__namespace.useRef(prop !== void 0);
-    React44__namespace.useEffect(() => {
+    const isControlledRef = React45__namespace.useRef(prop !== void 0);
+    React45__namespace.useEffect(() => {
       const wasControlled = isControlledRef.current;
       if (wasControlled !== isControlled) {
         const from = wasControlled ? "controlled" : "uncontrolled";
@@ -3316,7 +3316,7 @@ function useControllableState({
       isControlledRef.current = isControlled;
     }, [isControlled, caller]);
   }
-  const setValue = React44__namespace.useCallback(
+  const setValue = React45__namespace.useCallback(
     (nextValue) => {
       if (isControlled) {
         const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
@@ -3335,13 +3335,13 @@ function useUncontrolledState({
   defaultProp,
   onChange
 }) {
-  const [value, setValue] = React44__namespace.useState(defaultProp);
-  const prevValueRef = React44__namespace.useRef(value);
-  const onChangeRef = React44__namespace.useRef(onChange);
+  const [value, setValue] = React45__namespace.useState(defaultProp);
+  const prevValueRef = React45__namespace.useRef(value);
+  const onChangeRef = React45__namespace.useRef(onChange);
   useInsertionEffect(() => {
     onChangeRef.current = onChange;
   }, [onChange]);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     if (prevValueRef.current !== value) {
       onChangeRef.current?.(value);
       prevValueRef.current = value;
@@ -3355,21 +3355,21 @@ function isFunction(value) {
 // @__NO_SIDE_EFFECTS__
 function createSlot2(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone2(ownerName);
-  const Slot22 = React44__namespace.forwardRef((props, forwardedRef) => {
+  const Slot22 = React45__namespace.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    const childrenArray = React44__namespace.Children.toArray(children);
+    const childrenArray = React45__namespace.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable2);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React44__namespace.Children.count(newElement) > 1) return React44__namespace.Children.only(null);
-          return React44__namespace.isValidElement(newElement) ? newElement.props.children : null;
+          if (React45__namespace.Children.count(newElement) > 1) return React45__namespace.Children.only(null);
+          return React45__namespace.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ jsxRuntime.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React44__namespace.isValidElement(newElement) ? React44__namespace.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsxRuntime.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React45__namespace.isValidElement(newElement) ? React45__namespace.cloneElement(newElement, void 0, newChildren) : null });
     }
     return /* @__PURE__ */ jsxRuntime.jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
@@ -3378,24 +3378,24 @@ function createSlot2(ownerName) {
 }
 // @__NO_SIDE_EFFECTS__
 function createSlotClone2(ownerName) {
-  const SlotClone = React44__namespace.forwardRef((props, forwardedRef) => {
+  const SlotClone = React45__namespace.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    if (React44__namespace.isValidElement(children)) {
+    if (React45__namespace.isValidElement(children)) {
       const childrenRef = getElementRef2(children);
       const props2 = mergeProps2(slotProps, children.props);
-      if (children.type !== React44__namespace.Fragment) {
+      if (children.type !== React45__namespace.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React44__namespace.cloneElement(children, props2);
+      return React45__namespace.cloneElement(children, props2);
     }
-    return React44__namespace.Children.count(children) > 1 ? React44__namespace.Children.only(null) : null;
+    return React45__namespace.Children.count(children) > 1 ? React45__namespace.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
 var SLOTTABLE_IDENTIFIER2 = Symbol("radix.slottable");
 function isSlottable2(child) {
-  return React44__namespace.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER2;
+  return React45__namespace.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER2;
 }
 function mergeProps2(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -3455,7 +3455,7 @@ var NODES = [
 ];
 var Primitive = NODES.reduce((primitive, node) => {
   const Slot4 = createSlot2(`Primitive.${node}`);
-  const Node2 = React44__namespace.forwardRef((props, forwardedRef) => {
+  const Node2 = React45__namespace.forwardRef((props, forwardedRef) => {
     const { asChild, ...primitiveProps } = props;
     const Comp = asChild ? Slot4 : node;
     if (typeof window !== "undefined") {
@@ -3470,7 +3470,7 @@ function dispatchDiscreteCustomEvent(target, event) {
   if (target) ReactDOM4__namespace.flushSync(() => target.dispatchEvent(event));
 }
 var NAME = "Toggle";
-var Toggle = React44__namespace.forwardRef((props, forwardedRef) => {
+var Toggle = React45__namespace.forwardRef((props, forwardedRef) => {
   const { pressed: pressedProp, defaultPressed, onPressedChange, ...buttonProps } = props;
   const [pressed, setPressed] = useControllableState({
     prop: pressedProp,
@@ -3524,7 +3524,7 @@ var toggleButtonVariants = cva(
   }
 );
 function ToggleButton({ className, variant, size: size4, ...props }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Root,
     {
       "data-slot": "toggle-button",
@@ -3540,32 +3540,32 @@ var logicToggleButtonStyles = [
 ].join(" ");
 var logicToggleButtonLabelStyles = "uii:inline-block uii:whitespace-nowrap uii:[transform:rotate(-90deg)]";
 function LogicToggleButton({ className, children, ...props }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Root,
     {
       "data-slot": "logic-toggle-button",
       className: cn(logicToggleButtonStyles, className),
       ...props
     },
-    children != null ? /* @__PURE__ */ React44__namespace.createElement("span", { className: logicToggleButtonLabelStyles }, children) : null
+    children != null ? /* @__PURE__ */ React45__namespace.createElement("span", { className: logicToggleButtonLabelStyles }, children) : null
   );
 }
 function createContextScope(scopeName, createContextScopeDeps = []) {
   let defaultContexts = [];
   function createContext32(rootComponentName, defaultContext) {
-    const BaseContext = React44__namespace.createContext(defaultContext);
+    const BaseContext = React45__namespace.createContext(defaultContext);
     const index2 = defaultContexts.length;
     defaultContexts = [...defaultContexts, defaultContext];
     const Provider = (props) => {
       const { scope, children, ...context } = props;
       const Context = scope?.[scopeName]?.[index2] || BaseContext;
-      const value = React44__namespace.useMemo(() => context, Object.values(context));
+      const value = React45__namespace.useMemo(() => context, Object.values(context));
       return /* @__PURE__ */ jsxRuntime.jsx(Context.Provider, { value, children });
     };
     Provider.displayName = rootComponentName + "Provider";
     function useContext22(consumerName, scope) {
       const Context = scope?.[scopeName]?.[index2] || BaseContext;
-      const context = React44__namespace.useContext(Context);
+      const context = React45__namespace.useContext(Context);
       if (context) return context;
       if (defaultContext !== void 0) return defaultContext;
       throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
@@ -3574,11 +3574,11 @@ function createContextScope(scopeName, createContextScopeDeps = []) {
   }
   const createScope = () => {
     const scopeContexts = defaultContexts.map((defaultContext) => {
-      return React44__namespace.createContext(defaultContext);
+      return React45__namespace.createContext(defaultContext);
     });
     return function useScope(scope) {
       const contexts = scope?.[scopeName] || scopeContexts;
-      return React44__namespace.useMemo(
+      return React45__namespace.useMemo(
         () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
         [scope, contexts]
       );
@@ -3601,7 +3601,7 @@ function composeContextScopes(...scopes) {
         const currentScope = scopeProps[`__scope${scopeName}`];
         return { ...nextScopes2, ...currentScope };
       }, {});
-      return React44__namespace.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
+      return React45__namespace.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
     };
   };
   createScope.scopeName = baseScope.scopeName;
@@ -3616,14 +3616,14 @@ function createCollection(name) {
   );
   const CollectionProvider = (props) => {
     const { scope, children } = props;
-    const ref = React44__namespace.default.useRef(null);
-    const itemMap = React44__namespace.default.useRef(/* @__PURE__ */ new Map()).current;
+    const ref = React45__namespace.default.useRef(null);
+    const itemMap = React45__namespace.default.useRef(/* @__PURE__ */ new Map()).current;
     return /* @__PURE__ */ jsxRuntime.jsx(CollectionProviderImpl, { scope, itemMap, collectionRef: ref, children });
   };
   CollectionProvider.displayName = PROVIDER_NAME;
   const COLLECTION_SLOT_NAME = name + "CollectionSlot";
   const CollectionSlotImpl = createSlot2(COLLECTION_SLOT_NAME);
-  const CollectionSlot = React44__namespace.default.forwardRef(
+  const CollectionSlot = React45__namespace.default.forwardRef(
     (props, forwardedRef) => {
       const { scope, children } = props;
       const context = useCollectionContext(COLLECTION_SLOT_NAME, scope);
@@ -3635,13 +3635,13 @@ function createCollection(name) {
   const ITEM_SLOT_NAME = name + "CollectionItemSlot";
   const ITEM_DATA_ATTR = "data-radix-collection-item";
   const CollectionItemSlotImpl = createSlot2(ITEM_SLOT_NAME);
-  const CollectionItemSlot = React44__namespace.default.forwardRef(
+  const CollectionItemSlot = React45__namespace.default.forwardRef(
     (props, forwardedRef) => {
       const { scope, children, ...itemData } = props;
-      const ref = React44__namespace.default.useRef(null);
+      const ref = React45__namespace.default.useRef(null);
       const composedRefs = useComposedRefs(forwardedRef, ref);
       const context = useCollectionContext(ITEM_SLOT_NAME, scope);
-      React44__namespace.default.useEffect(() => {
+      React45__namespace.default.useEffect(() => {
         context.itemMap.set(ref, { ref, ...itemData });
         return () => void context.itemMap.delete(ref);
       });
@@ -3651,7 +3651,7 @@ function createCollection(name) {
   CollectionItemSlot.displayName = ITEM_SLOT_NAME;
   function useCollection4(scope) {
     const context = useCollectionContext(name + "CollectionConsumer", scope);
-    const getItems = React44__namespace.default.useCallback(() => {
+    const getItems = React45__namespace.default.useCallback(() => {
       const collectionNode = context.collectionRef.current;
       if (!collectionNode) return [];
       const orderedNodes = Array.from(collectionNode.querySelectorAll(`[${ITEM_DATA_ATTR}]`));
@@ -3669,21 +3669,21 @@ function createCollection(name) {
     createCollectionScope4
   ];
 }
-var DirectionContext = React44__namespace.createContext(void 0);
+var DirectionContext = React45__namespace.createContext(void 0);
 function useDirection(localDir) {
-  const globalDir = React44__namespace.useContext(DirectionContext);
+  const globalDir = React45__namespace.useContext(DirectionContext);
   return localDir || globalDir || "ltr";
 }
 function useCallbackRef(callback) {
-  const callbackRef = React44__namespace.useRef(callback);
-  React44__namespace.useEffect(() => {
+  const callbackRef = React45__namespace.useRef(callback);
+  React45__namespace.useEffect(() => {
     callbackRef.current = callback;
   });
-  return React44__namespace.useMemo(() => (...args) => callbackRef.current?.(...args), []);
+  return React45__namespace.useMemo(() => (...args) => callbackRef.current?.(...args), []);
 }
 function useEscapeKeydown(onEscapeKeyDownProp, ownerDocument = globalThis?.document) {
   const onEscapeKeyDown = useCallbackRef(onEscapeKeyDownProp);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         onEscapeKeyDown(event);
@@ -3698,12 +3698,12 @@ var CONTEXT_UPDATE = "dismissableLayer.update";
 var POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
 var FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
 var originalBodyPointerEvents;
-var DismissableLayerContext = React44__namespace.createContext({
+var DismissableLayerContext = React45__namespace.createContext({
   layers: /* @__PURE__ */ new Set(),
   layersWithOutsidePointerEventsDisabled: /* @__PURE__ */ new Set(),
   branches: /* @__PURE__ */ new Set()
 });
-var DismissableLayer = React44__namespace.forwardRef(
+var DismissableLayer = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const {
       disableOutsidePointerEvents = false,
@@ -3714,10 +3714,10 @@ var DismissableLayer = React44__namespace.forwardRef(
       onDismiss,
       ...layerProps
     } = props;
-    const context = React44__namespace.useContext(DismissableLayerContext);
-    const [node, setNode] = React44__namespace.useState(null);
+    const context = React45__namespace.useContext(DismissableLayerContext);
+    const [node, setNode] = React45__namespace.useState(null);
     const ownerDocument = node?.ownerDocument ?? globalThis?.document;
-    const [, force] = React44__namespace.useState({});
+    const [, force] = React45__namespace.useState({});
     const composedRefs = useComposedRefs(forwardedRef, (node2) => setNode(node2));
     const layers = Array.from(context.layers);
     const [highestLayerWithOutsidePointerEventsDisabled] = [...context.layersWithOutsidePointerEventsDisabled].slice(-1);
@@ -3750,7 +3750,7 @@ var DismissableLayer = React44__namespace.forwardRef(
         onDismiss();
       }
     }, ownerDocument);
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       if (!node) return;
       if (disableOutsidePointerEvents) {
         if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
@@ -3767,7 +3767,7 @@ var DismissableLayer = React44__namespace.forwardRef(
         }
       };
     }, [node, ownerDocument, disableOutsidePointerEvents, context]);
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       return () => {
         if (!node) return;
         context.layers.delete(node);
@@ -3775,7 +3775,7 @@ var DismissableLayer = React44__namespace.forwardRef(
         dispatchUpdate();
       };
     }, [node, context]);
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       const handleUpdate = () => force({});
       document.addEventListener(CONTEXT_UPDATE, handleUpdate);
       return () => document.removeEventListener(CONTEXT_UPDATE, handleUpdate);
@@ -3801,11 +3801,11 @@ var DismissableLayer = React44__namespace.forwardRef(
 );
 DismissableLayer.displayName = DISMISSABLE_LAYER_NAME;
 var BRANCH_NAME = "DismissableLayerBranch";
-var DismissableLayerBranch = React44__namespace.forwardRef((props, forwardedRef) => {
-  const context = React44__namespace.useContext(DismissableLayerContext);
-  const ref = React44__namespace.useRef(null);
+var DismissableLayerBranch = React45__namespace.forwardRef((props, forwardedRef) => {
+  const context = React45__namespace.useContext(DismissableLayerContext);
+  const ref = React45__namespace.useRef(null);
   const composedRefs = useComposedRefs(forwardedRef, ref);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     const node = ref.current;
     if (node) {
       context.branches.add(node);
@@ -3819,10 +3819,10 @@ var DismissableLayerBranch = React44__namespace.forwardRef((props, forwardedRef)
 DismissableLayerBranch.displayName = BRANCH_NAME;
 function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?.document) {
   const handlePointerDownOutside = useCallbackRef(onPointerDownOutside);
-  const isPointerInsideReactTreeRef = React44__namespace.useRef(false);
-  const handleClickRef = React44__namespace.useRef(() => {
+  const isPointerInsideReactTreeRef = React45__namespace.useRef(false);
+  const handleClickRef = React45__namespace.useRef(() => {
   });
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     const handlePointerDown = (event) => {
       if (event.target && !isPointerInsideReactTreeRef.current) {
         let handleAndDispatchPointerDownOutsideEvent2 = function() {
@@ -3862,8 +3862,8 @@ function usePointerDownOutside(onPointerDownOutside, ownerDocument = globalThis?
 }
 function useFocusOutside(onFocusOutside, ownerDocument = globalThis?.document) {
   const handleFocusOutside = useCallbackRef(onFocusOutside);
-  const isFocusInsideReactTreeRef = React44__namespace.useRef(false);
-  React44__namespace.useEffect(() => {
+  const isFocusInsideReactTreeRef = React45__namespace.useRef(false);
+  React45__namespace.useEffect(() => {
     const handleFocus = (event) => {
       if (event.target && !isFocusInsideReactTreeRef.current) {
         const eventDetail = { originalEvent: event };
@@ -3896,7 +3896,7 @@ function handleAndDispatchCustomEvent(name, handler, detail, { discrete }) {
 }
 var count = 0;
 function useFocusGuards() {
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
     document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
     document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
@@ -3923,7 +3923,7 @@ var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
 var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
 var EVENT_OPTIONS = { bubbles: false, cancelable: true };
 var FOCUS_SCOPE_NAME = "FocusScope";
-var FocusScope = React44__namespace.forwardRef((props, forwardedRef) => {
+var FocusScope = React45__namespace.forwardRef((props, forwardedRef) => {
   const {
     loop = false,
     trapped = false,
@@ -3931,12 +3931,12 @@ var FocusScope = React44__namespace.forwardRef((props, forwardedRef) => {
     onUnmountAutoFocus: onUnmountAutoFocusProp,
     ...scopeProps
   } = props;
-  const [container, setContainer] = React44__namespace.useState(null);
+  const [container, setContainer] = React45__namespace.useState(null);
   const onMountAutoFocus = useCallbackRef(onMountAutoFocusProp);
   const onUnmountAutoFocus = useCallbackRef(onUnmountAutoFocusProp);
-  const lastFocusedElementRef = React44__namespace.useRef(null);
+  const lastFocusedElementRef = React45__namespace.useRef(null);
   const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
-  const focusScope = React44__namespace.useRef({
+  const focusScope = React45__namespace.useRef({
     paused: false,
     pause() {
       this.paused = true;
@@ -3945,7 +3945,7 @@ var FocusScope = React44__namespace.forwardRef((props, forwardedRef) => {
       this.paused = false;
     }
   }).current;
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     if (trapped) {
       let handleFocusIn2 = function(event) {
         if (focusScope.paused || !container) return;
@@ -3980,7 +3980,7 @@ var FocusScope = React44__namespace.forwardRef((props, forwardedRef) => {
       };
     }
   }, [trapped, container, focusScope.paused]);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     if (container) {
       focusScopesStack.add(focusScope);
       const previouslyFocusedElement = document.activeElement;
@@ -4011,7 +4011,7 @@ var FocusScope = React44__namespace.forwardRef((props, forwardedRef) => {
       };
     }
   }, [container, onMountAutoFocus, onUnmountAutoFocus, focusScope]);
-  const handleKeyDown = React44__namespace.useCallback(
+  const handleKeyDown = React45__namespace.useCallback(
     (event) => {
       if (!loop && !trapped) return;
       if (focusScope.paused) return;
@@ -4118,10 +4118,10 @@ function arrayRemove(array, item) {
 function removeLinks(items) {
   return items.filter((item) => item.tagName !== "A");
 }
-var useReactId = React44__namespace[" useId ".trim().toString()] || (() => void 0);
+var useReactId = React45__namespace[" useId ".trim().toString()] || (() => void 0);
 var count2 = 0;
 function useId(deterministicId) {
-  const [id, setId] = React44__namespace.useState(useReactId());
+  const [id, setId] = React45__namespace.useState(useReactId());
   useLayoutEffect2(() => {
     setId((reactId) => reactId ?? String(count2++));
   }, [deterministicId]);
@@ -5736,7 +5736,7 @@ var computePosition2 = (reference, floating, options) => {
 var isClient = typeof document !== "undefined";
 var noop = function noop2() {
 };
-var index = isClient ? React44.useLayoutEffect : noop;
+var index = isClient ? React45.useLayoutEffect : noop;
 function deepEqual(a, b) {
   if (a === b) {
     return true;
@@ -5796,7 +5796,7 @@ function roundByDPR(element, value) {
   return Math.round(value * dpr) / dpr;
 }
 function useLatestRef(value) {
-  const ref = React44__namespace.useRef(value);
+  const ref = React45__namespace.useRef(value);
   index(() => {
     ref.current = value;
   });
@@ -5819,7 +5819,7 @@ function useFloating(options) {
     whileElementsMounted,
     open
   } = options;
-  const [data, setData] = React44__namespace.useState({
+  const [data, setData] = React45__namespace.useState({
     x: 0,
     y: 0,
     strategy,
@@ -5827,19 +5827,19 @@ function useFloating(options) {
     middlewareData: {},
     isPositioned: false
   });
-  const [latestMiddleware, setLatestMiddleware] = React44__namespace.useState(middleware);
+  const [latestMiddleware, setLatestMiddleware] = React45__namespace.useState(middleware);
   if (!deepEqual(latestMiddleware, middleware)) {
     setLatestMiddleware(middleware);
   }
-  const [_reference, _setReference] = React44__namespace.useState(null);
-  const [_floating, _setFloating] = React44__namespace.useState(null);
-  const setReference = React44__namespace.useCallback((node) => {
+  const [_reference, _setReference] = React45__namespace.useState(null);
+  const [_floating, _setFloating] = React45__namespace.useState(null);
+  const setReference = React45__namespace.useCallback((node) => {
     if (node !== referenceRef.current) {
       referenceRef.current = node;
       _setReference(node);
     }
   }, []);
-  const setFloating = React44__namespace.useCallback((node) => {
+  const setFloating = React45__namespace.useCallback((node) => {
     if (node !== floatingRef.current) {
       floatingRef.current = node;
       _setFloating(node);
@@ -5847,14 +5847,14 @@ function useFloating(options) {
   }, []);
   const referenceEl = externalReference || _reference;
   const floatingEl = externalFloating || _floating;
-  const referenceRef = React44__namespace.useRef(null);
-  const floatingRef = React44__namespace.useRef(null);
-  const dataRef = React44__namespace.useRef(data);
+  const referenceRef = React45__namespace.useRef(null);
+  const floatingRef = React45__namespace.useRef(null);
+  const dataRef = React45__namespace.useRef(data);
   const hasWhileElementsMounted = whileElementsMounted != null;
   const whileElementsMountedRef = useLatestRef(whileElementsMounted);
   const platformRef = useLatestRef(platform2);
   const openRef = useLatestRef(open);
-  const update = React44__namespace.useCallback(() => {
+  const update = React45__namespace.useCallback(() => {
     if (!referenceRef.current || !floatingRef.current) {
       return;
     }
@@ -5892,7 +5892,7 @@ function useFloating(options) {
       }));
     }
   }, [open]);
-  const isMountedRef = React44__namespace.useRef(false);
+  const isMountedRef = React45__namespace.useRef(false);
   index(() => {
     isMountedRef.current = true;
     return () => {
@@ -5909,17 +5909,17 @@ function useFloating(options) {
       update();
     }
   }, [referenceEl, floatingEl, update, whileElementsMountedRef, hasWhileElementsMounted]);
-  const refs = React44__namespace.useMemo(() => ({
+  const refs = React45__namespace.useMemo(() => ({
     reference: referenceRef,
     floating: floatingRef,
     setReference,
     setFloating
   }), [setReference, setFloating]);
-  const elements = React44__namespace.useMemo(() => ({
+  const elements = React45__namespace.useMemo(() => ({
     reference: referenceEl,
     floating: floatingEl
   }), [referenceEl, floatingEl]);
-  const floatingStyles = React44__namespace.useMemo(() => {
+  const floatingStyles = React45__namespace.useMemo(() => {
     const initialStyles = {
       position: strategy,
       left: 0,
@@ -5945,7 +5945,7 @@ function useFloating(options) {
       top: y
     };
   }, [strategy, transform, elements.floating, data.x, data.y]);
-  return React44__namespace.useMemo(() => ({
+  return React45__namespace.useMemo(() => ({
     ...data,
     update,
     refs,
@@ -6013,7 +6013,7 @@ var arrow3 = (options, deps) => ({
   options: [options, deps]
 });
 var NAME2 = "Arrow";
-var Arrow = React44__namespace.forwardRef((props, forwardedRef) => {
+var Arrow = React45__namespace.forwardRef((props, forwardedRef) => {
   const { children, width = 10, height = 5, ...arrowProps } = props;
   return /* @__PURE__ */ jsxRuntime.jsx(
     Primitive.svg,
@@ -6031,7 +6031,7 @@ var Arrow = React44__namespace.forwardRef((props, forwardedRef) => {
 Arrow.displayName = NAME2;
 var Root2 = Arrow;
 function useSize(element) {
-  const [size4, setSize] = React44__namespace.useState(void 0);
+  const [size4, setSize] = React45__namespace.useState(void 0);
   useLayoutEffect2(() => {
     if (element) {
       setSize({ width: element.offsetWidth, height: element.offsetHeight });
@@ -6069,19 +6069,19 @@ var [createPopperContext, createPopperScope] = createContextScope(POPPER_NAME);
 var [PopperProvider, usePopperContext] = createPopperContext(POPPER_NAME);
 var Popper = (props) => {
   const { __scopePopper, children } = props;
-  const [anchor, setAnchor] = React44__namespace.useState(null);
+  const [anchor, setAnchor] = React45__namespace.useState(null);
   return /* @__PURE__ */ jsxRuntime.jsx(PopperProvider, { scope: __scopePopper, anchor, onAnchorChange: setAnchor, children });
 };
 Popper.displayName = POPPER_NAME;
 var ANCHOR_NAME = "PopperAnchor";
-var PopperAnchor = React44__namespace.forwardRef(
+var PopperAnchor = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopePopper, virtualRef, ...anchorProps } = props;
     const context = usePopperContext(ANCHOR_NAME, __scopePopper);
-    const ref = React44__namespace.useRef(null);
+    const ref = React45__namespace.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    const anchorRef = React44__namespace.useRef(null);
-    React44__namespace.useEffect(() => {
+    const anchorRef = React45__namespace.useRef(null);
+    React45__namespace.useEffect(() => {
       const previousAnchor = anchorRef.current;
       anchorRef.current = virtualRef?.current || ref.current;
       if (previousAnchor !== anchorRef.current) {
@@ -6094,7 +6094,7 @@ var PopperAnchor = React44__namespace.forwardRef(
 PopperAnchor.displayName = ANCHOR_NAME;
 var CONTENT_NAME = "PopperContent";
 var [PopperContentProvider, useContentContext] = createPopperContext(CONTENT_NAME);
-var PopperContent = React44__namespace.forwardRef(
+var PopperContent = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopePopper,
@@ -6113,9 +6113,9 @@ var PopperContent = React44__namespace.forwardRef(
       ...contentProps
     } = props;
     const context = usePopperContext(CONTENT_NAME, __scopePopper);
-    const [content, setContent] = React44__namespace.useState(null);
+    const [content, setContent] = React45__namespace.useState(null);
     const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
-    const [arrow4, setArrow] = React44__namespace.useState(null);
+    const [arrow4, setArrow] = React45__namespace.useState(null);
     const arrowSize = useSize(arrow4);
     const arrowWidth = arrowSize?.width ?? 0;
     const arrowHeight = arrowSize?.height ?? 0;
@@ -6177,7 +6177,7 @@ var PopperContent = React44__namespace.forwardRef(
     const arrowX = middlewareData.arrow?.x;
     const arrowY = middlewareData.arrow?.y;
     const cannotCenterArrow = middlewareData.arrow?.centerOffset !== 0;
-    const [contentZIndex, setContentZIndex] = React44__namespace.useState();
+    const [contentZIndex, setContentZIndex] = React45__namespace.useState();
     useLayoutEffect2(() => {
       if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
     }, [content]);
@@ -6243,7 +6243,7 @@ var OPPOSITE_SIDE = {
   bottom: "top",
   left: "right"
 };
-var PopperArrow = React44__namespace.forwardRef(function PopperArrow2(props, forwardedRef) {
+var PopperArrow = React45__namespace.forwardRef(function PopperArrow2(props, forwardedRef) {
   const { __scopePopper, ...arrowProps } = props;
   const contentContext = useContentContext(ARROW_NAME, __scopePopper);
   const baseSide = OPPOSITE_SIDE[contentContext.placedSide];
@@ -6334,16 +6334,16 @@ var Anchor = PopperAnchor;
 var Content = PopperContent;
 var Arrow2 = PopperArrow;
 var PORTAL_NAME = "Portal";
-var Portal = React44__namespace.forwardRef((props, forwardedRef) => {
+var Portal = React45__namespace.forwardRef((props, forwardedRef) => {
   const { container: containerProp, ...portalProps } = props;
-  const [mounted, setMounted] = React44__namespace.useState(false);
+  const [mounted, setMounted] = React45__namespace.useState(false);
   useLayoutEffect2(() => setMounted(true), []);
   const container = containerProp || mounted && globalThis?.document?.body;
   return container ? ReactDOM4__namespace.default.createPortal(/* @__PURE__ */ jsxRuntime.jsx(Primitive.div, { ...portalProps, ref: forwardedRef }), container) : null;
 });
 Portal.displayName = PORTAL_NAME;
 function useStateMachine(initialState, machine) {
-  return React44__namespace.useReducer((state, event) => {
+  return React45__namespace.useReducer((state, event) => {
     const nextState = machine[state][event];
     return nextState ?? state;
   }, initialState);
@@ -6351,17 +6351,17 @@ function useStateMachine(initialState, machine) {
 var Presence = (props) => {
   const { present, children } = props;
   const presence = usePresence(present);
-  const child = typeof children === "function" ? children({ present: presence.isPresent }) : React44__namespace.Children.only(children);
+  const child = typeof children === "function" ? children({ present: presence.isPresent }) : React45__namespace.Children.only(children);
   const ref = useComposedRefs(presence.ref, getElementRef3(child));
   const forceMount = typeof children === "function";
-  return forceMount || presence.isPresent ? React44__namespace.cloneElement(child, { ref }) : null;
+  return forceMount || presence.isPresent ? React45__namespace.cloneElement(child, { ref }) : null;
 };
 Presence.displayName = "Presence";
 function usePresence(present) {
-  const [node, setNode] = React44__namespace.useState();
-  const stylesRef = React44__namespace.useRef(null);
-  const prevPresentRef = React44__namespace.useRef(present);
-  const prevAnimationNameRef = React44__namespace.useRef("none");
+  const [node, setNode] = React45__namespace.useState();
+  const stylesRef = React45__namespace.useRef(null);
+  const prevPresentRef = React45__namespace.useRef(present);
+  const prevAnimationNameRef = React45__namespace.useRef("none");
   const initialState = present ? "mounted" : "unmounted";
   const [state, send] = useStateMachine(initialState, {
     mounted: {
@@ -6376,7 +6376,7 @@ function usePresence(present) {
       MOUNT: "mounted"
     }
   });
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     const currentAnimationName = getAnimationName(stylesRef.current);
     prevAnimationNameRef.current = state === "mounted" ? currentAnimationName : "none";
   }, [state]);
@@ -6442,7 +6442,7 @@ function usePresence(present) {
   }, [node, send]);
   return {
     isPresent: ["mounted", "unmountSuspended"].includes(state),
-    ref: React44__namespace.useCallback((node2) => {
+    ref: React45__namespace.useCallback((node2) => {
       stylesRef.current = node2 ? getComputedStyle(node2) : null;
       setNode(node2);
     }, [])
@@ -6473,13 +6473,13 @@ var [createRovingFocusGroupContext, createRovingFocusGroupScope] = createContext
   [createCollectionScope]
 );
 var [RovingFocusProvider, useRovingFocusContext] = createRovingFocusGroupContext(GROUP_NAME);
-var RovingFocusGroup = React44__namespace.forwardRef(
+var RovingFocusGroup = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     return /* @__PURE__ */ jsxRuntime.jsx(Collection.Provider, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ jsxRuntime.jsx(Collection.Slot, { scope: props.__scopeRovingFocusGroup, children: /* @__PURE__ */ jsxRuntime.jsx(RovingFocusGroupImpl, { ...props, ref: forwardedRef }) }) });
   }
 );
 RovingFocusGroup.displayName = GROUP_NAME;
-var RovingFocusGroupImpl = React44__namespace.forwardRef((props, forwardedRef) => {
+var RovingFocusGroupImpl = React45__namespace.forwardRef((props, forwardedRef) => {
   const {
     __scopeRovingFocusGroup,
     orientation,
@@ -6492,7 +6492,7 @@ var RovingFocusGroupImpl = React44__namespace.forwardRef((props, forwardedRef) =
     preventScrollOnEntryFocus = false,
     ...groupProps
   } = props;
-  const ref = React44__namespace.useRef(null);
+  const ref = React45__namespace.useRef(null);
   const composedRefs = useComposedRefs(forwardedRef, ref);
   const direction = useDirection(dir);
   const [currentTabStopId, setCurrentTabStopId] = useControllableState({
@@ -6501,12 +6501,12 @@ var RovingFocusGroupImpl = React44__namespace.forwardRef((props, forwardedRef) =
     onChange: onCurrentTabStopIdChange,
     caller: GROUP_NAME
   });
-  const [isTabbingBackOut, setIsTabbingBackOut] = React44__namespace.useState(false);
+  const [isTabbingBackOut, setIsTabbingBackOut] = React45__namespace.useState(false);
   const handleEntryFocus = useCallbackRef(onEntryFocus);
   const getItems = useCollection(__scopeRovingFocusGroup);
-  const isClickFocusRef = React44__namespace.useRef(false);
-  const [focusableItemsCount, setFocusableItemsCount] = React44__namespace.useState(0);
-  React44__namespace.useEffect(() => {
+  const isClickFocusRef = React45__namespace.useRef(false);
+  const [focusableItemsCount, setFocusableItemsCount] = React45__namespace.useState(0);
+  React45__namespace.useEffect(() => {
     const node = ref.current;
     if (node) {
       node.addEventListener(ENTRY_FOCUS, handleEntryFocus);
@@ -6521,16 +6521,16 @@ var RovingFocusGroupImpl = React44__namespace.forwardRef((props, forwardedRef) =
       dir: direction,
       loop,
       currentTabStopId,
-      onItemFocus: React44__namespace.useCallback(
+      onItemFocus: React45__namespace.useCallback(
         (tabStopId) => setCurrentTabStopId(tabStopId),
         [setCurrentTabStopId]
       ),
-      onItemShiftTab: React44__namespace.useCallback(() => setIsTabbingBackOut(true), []),
-      onFocusableItemAdd: React44__namespace.useCallback(
+      onItemShiftTab: React45__namespace.useCallback(() => setIsTabbingBackOut(true), []),
+      onFocusableItemAdd: React45__namespace.useCallback(
         () => setFocusableItemsCount((prevCount) => prevCount + 1),
         []
       ),
-      onFocusableItemRemove: React44__namespace.useCallback(
+      onFocusableItemRemove: React45__namespace.useCallback(
         () => setFocusableItemsCount((prevCount) => prevCount - 1),
         []
       ),
@@ -6570,7 +6570,7 @@ var RovingFocusGroupImpl = React44__namespace.forwardRef((props, forwardedRef) =
   );
 });
 var ITEM_NAME = "RovingFocusGroupItem";
-var RovingFocusGroupItem = React44__namespace.forwardRef(
+var RovingFocusGroupItem = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeRovingFocusGroup,
@@ -6586,7 +6586,7 @@ var RovingFocusGroupItem = React44__namespace.forwardRef(
     const isCurrentTabStop = context.currentTabStopId === id;
     const getItems = useCollection(__scopeRovingFocusGroup);
     const { onFocusableItemAdd, onFocusableItemRemove, currentTabStopId } = context;
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       if (focusable) {
         onFocusableItemAdd();
         return () => onFocusableItemRemove();
@@ -6843,7 +6843,7 @@ function assignRef(ref, value) {
   return ref;
 }
 function useCallbackRef2(initialValue, callback) {
-  var ref = React44.useState(function() {
+  var ref = React45.useState(function() {
     return {
       // value
       value: initialValue,
@@ -6867,7 +6867,7 @@ function useCallbackRef2(initialValue, callback) {
   ref.callback = callback;
   return ref.facade;
 }
-var useIsomorphicLayoutEffect = typeof window !== "undefined" ? React44__namespace.useLayoutEffect : React44__namespace.useEffect;
+var useIsomorphicLayoutEffect = typeof window !== "undefined" ? React45__namespace.useLayoutEffect : React45__namespace.useEffect;
 var currentValues = /* @__PURE__ */ new WeakMap();
 function useMergeRefs(refs, defaultValue) {
   var callbackRef = useCallbackRef2(null, function(newValue) {
@@ -6991,7 +6991,7 @@ var SideCar = function(_a) {
   if (!Target) {
     throw new Error("Sidecar medium not found");
   }
-  return React44__namespace.createElement(Target, __assign({}, rest));
+  return React45__namespace.createElement(Target, __assign({}, rest));
 };
 SideCar.isSideCarExport = true;
 function exportSidecar(medium, exported) {
@@ -7006,9 +7006,9 @@ var effectCar = createSidecarMedium();
 var nothing = function() {
   return;
 };
-var RemoveScroll = React44__namespace.forwardRef(function(props, parentRef) {
-  var ref = React44__namespace.useRef(null);
-  var _a = React44__namespace.useState({
+var RemoveScroll = React45__namespace.forwardRef(function(props, parentRef) {
+  var ref = React45__namespace.useRef(null);
+  var _a = React45__namespace.useState({
     onScrollCapture: nothing,
     onWheelCapture: nothing,
     onTouchMoveCapture: nothing
@@ -7017,11 +7017,11 @@ var RemoveScroll = React44__namespace.forwardRef(function(props, parentRef) {
   var SideCar2 = sideCar;
   var containerRef = useMergeRefs([ref, parentRef]);
   var containerProps = __assign(__assign({}, rest), callbacks);
-  return React44__namespace.createElement(
-    React44__namespace.Fragment,
+  return React45__namespace.createElement(
+    React45__namespace.Fragment,
     null,
-    enabled && React44__namespace.createElement(SideCar2, { sideCar: effectCar, removeScrollBar, shards, noRelative, noIsolation, inert, setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref, gapMode }),
-    forwardProps ? React44__namespace.cloneElement(React44__namespace.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : React44__namespace.createElement(Container, __assign({}, containerProps, { className, ref: containerRef }), children)
+    enabled && React45__namespace.createElement(SideCar2, { sideCar: effectCar, removeScrollBar, shards, noRelative, noIsolation, inert, setCallbacks, allowPinchZoom: !!allowPinchZoom, lockRef: ref, gapMode }),
+    forwardProps ? React45__namespace.cloneElement(React45__namespace.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : React45__namespace.createElement(Container, __assign({}, containerProps, { className, ref: containerRef }), children)
   );
 });
 RemoveScroll.defaultProps = {
@@ -7090,7 +7090,7 @@ var stylesheetSingleton = function() {
 var styleHookSingleton = function() {
   var sheet = stylesheetSingleton();
   return function(styles, isDynamic) {
-    React44__namespace.useEffect(function() {
+    React45__namespace.useEffect(function() {
       sheet.add(styles);
       return function() {
         sheet.remove();
@@ -7164,7 +7164,7 @@ var getCurrentUseCounter = function() {
   return isFinite(counter) ? counter : 0;
 };
 var useLockAttribute = function() {
-  React44__namespace.useEffect(function() {
+  React45__namespace.useEffect(function() {
     document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
     return function() {
       var newCounter = getCurrentUseCounter() - 1;
@@ -7179,10 +7179,10 @@ var useLockAttribute = function() {
 var RemoveScrollBar = function(_a) {
   var noRelative = _a.noRelative, noImportant = _a.noImportant, _b = _a.gapMode, gapMode = _b === void 0 ? "margin" : _b;
   useLockAttribute();
-  var gap = React44__namespace.useMemo(function() {
+  var gap = React45__namespace.useMemo(function() {
     return getGapWidth(gapMode);
   }, [gapMode]);
-  return React44__namespace.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
+  return React45__namespace.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
 };
 
 // ../../node_modules/.pnpm/react-remove-scroll@2.7.1_@types+react@19.2.2_react@19.2.2/node_modules/react-remove-scroll/dist/es2015/aggresiveCapture.js
@@ -7323,16 +7323,16 @@ var generateStyle = function(id) {
 var idCounter = 0;
 var lockStack = [];
 function RemoveScrollSideCar(props) {
-  var shouldPreventQueue = React44__namespace.useRef([]);
-  var touchStartRef = React44__namespace.useRef([0, 0]);
-  var activeAxis = React44__namespace.useRef();
-  var id = React44__namespace.useState(idCounter++)[0];
-  var Style2 = React44__namespace.useState(styleSingleton)[0];
-  var lastProps = React44__namespace.useRef(props);
-  React44__namespace.useEffect(function() {
+  var shouldPreventQueue = React45__namespace.useRef([]);
+  var touchStartRef = React45__namespace.useRef([0, 0]);
+  var activeAxis = React45__namespace.useRef();
+  var id = React45__namespace.useState(idCounter++)[0];
+  var Style2 = React45__namespace.useState(styleSingleton)[0];
+  var lastProps = React45__namespace.useRef(props);
+  React45__namespace.useEffect(function() {
     lastProps.current = props;
   }, [props]);
-  React44__namespace.useEffect(function() {
+  React45__namespace.useEffect(function() {
     if (props.inert) {
       document.body.classList.add("block-interactivity-".concat(id));
       var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef)).filter(Boolean);
@@ -7348,7 +7348,7 @@ function RemoveScrollSideCar(props) {
     }
     return;
   }, [props.inert, props.lockRef.current, props.shards]);
-  var shouldCancelEvent = React44__namespace.useCallback(function(event, parent) {
+  var shouldCancelEvent = React45__namespace.useCallback(function(event, parent) {
     if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) {
       return !lastProps.current.allowPinchZoom;
     }
@@ -7384,7 +7384,7 @@ function RemoveScrollSideCar(props) {
     var cancelingAxis = activeAxis.current || currentAxis;
     return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY);
   }, []);
-  var shouldPrevent = React44__namespace.useCallback(function(_event) {
+  var shouldPrevent = React45__namespace.useCallback(function(_event) {
     var event = _event;
     if (!lockStack.length || lockStack[lockStack.length - 1] !== Style2) {
       return;
@@ -7411,7 +7411,7 @@ function RemoveScrollSideCar(props) {
       }
     }
   }, []);
-  var shouldCancel = React44__namespace.useCallback(function(name, delta, target, should) {
+  var shouldCancel = React45__namespace.useCallback(function(name, delta, target, should) {
     var event = { name, delta, target, should, shadowParent: getOutermostShadowParent(target) };
     shouldPreventQueue.current.push(event);
     setTimeout(function() {
@@ -7420,17 +7420,17 @@ function RemoveScrollSideCar(props) {
       });
     }, 1);
   }, []);
-  var scrollTouchStart = React44__namespace.useCallback(function(event) {
+  var scrollTouchStart = React45__namespace.useCallback(function(event) {
     touchStartRef.current = getTouchXY(event);
     activeAxis.current = void 0;
   }, []);
-  var scrollWheel = React44__namespace.useCallback(function(event) {
+  var scrollWheel = React45__namespace.useCallback(function(event) {
     shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
   }, []);
-  var scrollTouchMove = React44__namespace.useCallback(function(event) {
+  var scrollTouchMove = React45__namespace.useCallback(function(event) {
     shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
   }, []);
-  React44__namespace.useEffect(function() {
+  React45__namespace.useEffect(function() {
     lockStack.push(Style2);
     props.setCallbacks({
       onScrollCapture: scrollWheel,
@@ -7450,11 +7450,11 @@ function RemoveScrollSideCar(props) {
     };
   }, []);
   var removeScrollBar = props.removeScrollBar, inert = props.inert;
-  return React44__namespace.createElement(
-    React44__namespace.Fragment,
+  return React45__namespace.createElement(
+    React45__namespace.Fragment,
     null,
-    inert ? React44__namespace.createElement(Style2, { styles: generateStyle(id) }) : null,
-    removeScrollBar ? React44__namespace.createElement(RemoveScrollBar, { noRelative: props.noRelative, gapMode: props.gapMode }) : null
+    inert ? React45__namespace.createElement(Style2, { styles: generateStyle(id) }) : null,
+    removeScrollBar ? React45__namespace.createElement(RemoveScrollBar, { noRelative: props.noRelative, gapMode: props.gapMode }) : null
   );
 }
 function getOutermostShadowParent(node) {
@@ -7473,8 +7473,8 @@ function getOutermostShadowParent(node) {
 var sidecar_default = exportSidecar(effectCar, RemoveScrollSideCar);
 
 // ../../node_modules/.pnpm/react-remove-scroll@2.7.1_@types+react@19.2.2_react@19.2.2/node_modules/react-remove-scroll/dist/es2015/Combination.js
-var ReactRemoveScroll = React44__namespace.forwardRef(function(props, ref) {
-  return React44__namespace.createElement(RemoveScroll, __assign({}, props, { ref, sideCar: sidecar_default }));
+var ReactRemoveScroll = React45__namespace.forwardRef(function(props, ref) {
+  return React45__namespace.createElement(RemoveScroll, __assign({}, props, { ref, sideCar: sidecar_default }));
 });
 ReactRemoveScroll.classNames = RemoveScroll.classNames;
 var Combination_default = ReactRemoveScroll;
@@ -7504,11 +7504,11 @@ var [MenuRootProvider, useMenuRootContext] = createMenuContext(MENU_NAME);
 var Menu = (props) => {
   const { __scopeMenu, open = false, children, dir, onOpenChange, modal = true } = props;
   const popperScope = usePopperScope(__scopeMenu);
-  const [content, setContent] = React44__namespace.useState(null);
-  const isUsingKeyboardRef = React44__namespace.useRef(false);
+  const [content, setContent] = React45__namespace.useState(null);
+  const isUsingKeyboardRef = React45__namespace.useRef(false);
   const handleOpenChange = useCallbackRef(onOpenChange);
   const direction = useDirection(dir);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     const handleKeyDown = () => {
       isUsingKeyboardRef.current = true;
       document.addEventListener("pointerdown", handlePointer, { capture: true, once: true });
@@ -7534,7 +7534,7 @@ var Menu = (props) => {
         MenuRootProvider,
         {
           scope: __scopeMenu,
-          onClose: React44__namespace.useCallback(() => handleOpenChange(false), [handleOpenChange]),
+          onClose: React45__namespace.useCallback(() => handleOpenChange(false), [handleOpenChange]),
           isUsingKeyboardRef,
           dir: direction,
           modal,
@@ -7546,7 +7546,7 @@ var Menu = (props) => {
 };
 Menu.displayName = MENU_NAME;
 var ANCHOR_NAME2 = "MenuAnchor";
-var MenuAnchor = React44__namespace.forwardRef(
+var MenuAnchor = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...anchorProps } = props;
     const popperScope = usePopperScope(__scopeMenu);
@@ -7566,7 +7566,7 @@ var MenuPortal = (props) => {
 MenuPortal.displayName = PORTAL_NAME2;
 var CONTENT_NAME2 = "MenuContent";
 var [MenuContentProvider, useMenuContentContext] = createMenuContext(CONTENT_NAME2);
-var MenuContent = React44__namespace.forwardRef(
+var MenuContent = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const portalContext = usePortalContext(CONTENT_NAME2, props.__scopeMenu);
     const { forceMount = portalContext.forceMount, ...contentProps } = props;
@@ -7575,12 +7575,12 @@ var MenuContent = React44__namespace.forwardRef(
     return /* @__PURE__ */ jsxRuntime.jsx(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsxRuntime.jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsxRuntime.jsx(Collection2.Slot, { scope: props.__scopeMenu, children: rootContext.modal ? /* @__PURE__ */ jsxRuntime.jsx(MenuRootContentModal, { ...contentProps, ref: forwardedRef }) : /* @__PURE__ */ jsxRuntime.jsx(MenuRootContentNonModal, { ...contentProps, ref: forwardedRef }) }) }) });
   }
 );
-var MenuRootContentModal = React44__namespace.forwardRef(
+var MenuRootContentModal = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
-    const ref = React44__namespace.useRef(null);
+    const ref = React45__namespace.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       const content = ref.current;
       if (content) return hideOthers(content);
     }, []);
@@ -7602,7 +7602,7 @@ var MenuRootContentModal = React44__namespace.forwardRef(
     );
   }
 );
-var MenuRootContentNonModal = React44__namespace.forwardRef((props, forwardedRef) => {
+var MenuRootContentNonModal = React45__namespace.forwardRef((props, forwardedRef) => {
   const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(
     MenuContentImpl,
@@ -7617,7 +7617,7 @@ var MenuRootContentNonModal = React44__namespace.forwardRef((props, forwardedRef
   );
 });
 var Slot2 = createSlot2("MenuContent.ScrollLock");
-var MenuContentImpl = React44__namespace.forwardRef(
+var MenuContentImpl = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeMenu,
@@ -7640,16 +7640,16 @@ var MenuContentImpl = React44__namespace.forwardRef(
     const popperScope = usePopperScope(__scopeMenu);
     const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeMenu);
     const getItems = useCollection2(__scopeMenu);
-    const [currentItemId, setCurrentItemId] = React44__namespace.useState(null);
-    const contentRef = React44__namespace.useRef(null);
+    const [currentItemId, setCurrentItemId] = React45__namespace.useState(null);
+    const contentRef = React45__namespace.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, contentRef, context.onContentChange);
-    const timerRef = React44__namespace.useRef(0);
-    const searchRef = React44__namespace.useRef("");
-    const pointerGraceTimerRef = React44__namespace.useRef(0);
-    const pointerGraceIntentRef = React44__namespace.useRef(null);
-    const pointerDirRef = React44__namespace.useRef("right");
-    const lastPointerXRef = React44__namespace.useRef(0);
-    const ScrollLockWrapper = disableOutsideScroll ? Combination_default : React44__namespace.Fragment;
+    const timerRef = React45__namespace.useRef(0);
+    const searchRef = React45__namespace.useRef("");
+    const pointerGraceTimerRef = React45__namespace.useRef(0);
+    const pointerGraceIntentRef = React45__namespace.useRef(null);
+    const pointerDirRef = React45__namespace.useRef("right");
+    const lastPointerXRef = React45__namespace.useRef(0);
+    const ScrollLockWrapper = disableOutsideScroll ? Combination_default : React45__namespace.Fragment;
     const scrollLockWrapperProps = disableOutsideScroll ? { as: Slot2, allowPinchZoom: true } : void 0;
     const handleTypeaheadSearch = (key) => {
       const search = searchRef.current + key;
@@ -7668,11 +7668,11 @@ var MenuContentImpl = React44__namespace.forwardRef(
         setTimeout(() => newItem.focus());
       }
     };
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       return () => window.clearTimeout(timerRef.current);
     }, []);
     useFocusGuards();
-    const isPointerMovingToSubmenu = React44__namespace.useCallback((event) => {
+    const isPointerMovingToSubmenu = React45__namespace.useCallback((event) => {
       const isMovingTowards = pointerDirRef.current === pointerGraceIntentRef.current?.side;
       return isMovingTowards && isPointerInGraceArea(event, pointerGraceIntentRef.current?.area);
     }, []);
@@ -7681,13 +7681,13 @@ var MenuContentImpl = React44__namespace.forwardRef(
       {
         scope: __scopeMenu,
         searchRef,
-        onItemEnter: React44__namespace.useCallback(
+        onItemEnter: React45__namespace.useCallback(
           (event) => {
             if (isPointerMovingToSubmenu(event)) event.preventDefault();
           },
           [isPointerMovingToSubmenu]
         ),
-        onItemLeave: React44__namespace.useCallback(
+        onItemLeave: React45__namespace.useCallback(
           (event) => {
             if (isPointerMovingToSubmenu(event)) return;
             contentRef.current?.focus();
@@ -7695,14 +7695,14 @@ var MenuContentImpl = React44__namespace.forwardRef(
           },
           [isPointerMovingToSubmenu]
         ),
-        onTriggerLeave: React44__namespace.useCallback(
+        onTriggerLeave: React45__namespace.useCallback(
           (event) => {
             if (isPointerMovingToSubmenu(event)) event.preventDefault();
           },
           [isPointerMovingToSubmenu]
         ),
         pointerGraceTimerRef,
-        onPointerGraceIntentChange: React44__namespace.useCallback((intent) => {
+        onPointerGraceIntentChange: React45__namespace.useCallback((intent) => {
           pointerGraceIntentRef.current = intent;
         }, []),
         children: /* @__PURE__ */ jsxRuntime.jsx(ScrollLockWrapper, { ...scrollLockWrapperProps, children: /* @__PURE__ */ jsxRuntime.jsx(
@@ -7801,7 +7801,7 @@ var MenuContentImpl = React44__namespace.forwardRef(
 );
 MenuContent.displayName = CONTENT_NAME2;
 var GROUP_NAME2 = "MenuGroup";
-var MenuGroup = React44__namespace.forwardRef(
+var MenuGroup = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...groupProps } = props;
     return /* @__PURE__ */ jsxRuntime.jsx(Primitive.div, { role: "group", ...groupProps, ref: forwardedRef });
@@ -7809,7 +7809,7 @@ var MenuGroup = React44__namespace.forwardRef(
 );
 MenuGroup.displayName = GROUP_NAME2;
 var LABEL_NAME = "MenuLabel";
-var MenuLabel = React44__namespace.forwardRef(
+var MenuLabel = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...labelProps } = props;
     return /* @__PURE__ */ jsxRuntime.jsx(Primitive.div, { ...labelProps, ref: forwardedRef });
@@ -7818,14 +7818,14 @@ var MenuLabel = React44__namespace.forwardRef(
 MenuLabel.displayName = LABEL_NAME;
 var ITEM_NAME2 = "MenuItem";
 var ITEM_SELECT = "menu.itemSelect";
-var MenuItem = React44__namespace.forwardRef(
+var MenuItem = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { disabled = false, onSelect, ...itemProps } = props;
-    const ref = React44__namespace.useRef(null);
+    const ref = React45__namespace.useRef(null);
     const rootContext = useMenuRootContext(ITEM_NAME2, props.__scopeMenu);
     const contentContext = useMenuContentContext(ITEM_NAME2, props.__scopeMenu);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    const isPointerDownRef = React44__namespace.useRef(false);
+    const isPointerDownRef = React45__namespace.useRef(false);
     const handleSelect = () => {
       const menuItem = ref.current;
       if (!disabled && menuItem) {
@@ -7866,16 +7866,16 @@ var MenuItem = React44__namespace.forwardRef(
   }
 );
 MenuItem.displayName = ITEM_NAME2;
-var MenuItemImpl = React44__namespace.forwardRef(
+var MenuItemImpl = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, disabled = false, textValue, ...itemProps } = props;
     const contentContext = useMenuContentContext(ITEM_NAME2, __scopeMenu);
     const rovingFocusGroupScope = useRovingFocusGroupScope(__scopeMenu);
-    const ref = React44__namespace.useRef(null);
+    const ref = React45__namespace.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
-    const [isFocused, setIsFocused] = React44__namespace.useState(false);
-    const [textContent, setTextContent] = React44__namespace.useState("");
-    React44__namespace.useEffect(() => {
+    const [isFocused, setIsFocused] = React45__namespace.useState(false);
+    const [textContent, setTextContent] = React45__namespace.useState("");
+    React45__namespace.useEffect(() => {
       const menuItem = ref.current;
       if (menuItem) {
         setTextContent((menuItem.textContent ?? "").trim());
@@ -7923,7 +7923,7 @@ var MenuItemImpl = React44__namespace.forwardRef(
   }
 );
 var CHECKBOX_ITEM_NAME = "MenuCheckboxItem";
-var MenuCheckboxItem = React44__namespace.forwardRef(
+var MenuCheckboxItem = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { checked = false, onCheckedChange, ...checkboxItemProps } = props;
     return /* @__PURE__ */ jsxRuntime.jsx(ItemIndicatorProvider, { scope: props.__scopeMenu, checked, children: /* @__PURE__ */ jsxRuntime.jsx(
@@ -7950,7 +7950,7 @@ var [RadioGroupProvider, useRadioGroupContext] = createMenuContext(
   { value: void 0, onValueChange: () => {
   } }
 );
-var MenuRadioGroup = React44__namespace.forwardRef(
+var MenuRadioGroup = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { value, onValueChange, ...groupProps } = props;
     const handleValueChange = useCallbackRef(onValueChange);
@@ -7959,7 +7959,7 @@ var MenuRadioGroup = React44__namespace.forwardRef(
 );
 MenuRadioGroup.displayName = RADIO_GROUP_NAME;
 var RADIO_ITEM_NAME = "MenuRadioItem";
-var MenuRadioItem = React44__namespace.forwardRef(
+var MenuRadioItem = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { value, ...radioItemProps } = props;
     const context = useRadioGroupContext(RADIO_ITEM_NAME, props.__scopeMenu);
@@ -7987,7 +7987,7 @@ var [ItemIndicatorProvider, useItemIndicatorContext] = createMenuContext(
   ITEM_INDICATOR_NAME,
   { checked: false }
 );
-var MenuItemIndicator = React44__namespace.forwardRef(
+var MenuItemIndicator = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, forceMount, ...itemIndicatorProps } = props;
     const indicatorContext = useItemIndicatorContext(ITEM_INDICATOR_NAME, __scopeMenu);
@@ -8009,7 +8009,7 @@ var MenuItemIndicator = React44__namespace.forwardRef(
 );
 MenuItemIndicator.displayName = ITEM_INDICATOR_NAME;
 var SEPARATOR_NAME = "MenuSeparator";
-var MenuSeparator = React44__namespace.forwardRef(
+var MenuSeparator = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...separatorProps } = props;
     return /* @__PURE__ */ jsxRuntime.jsx(
@@ -8025,7 +8025,7 @@ var MenuSeparator = React44__namespace.forwardRef(
 );
 MenuSeparator.displayName = SEPARATOR_NAME;
 var ARROW_NAME2 = "MenuArrow";
-var MenuArrow = React44__namespace.forwardRef(
+var MenuArrow = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeMenu, ...arrowProps } = props;
     const popperScope = usePopperScope(__scopeMenu);
@@ -8039,10 +8039,10 @@ var MenuSub = (props) => {
   const { __scopeMenu, children, open = false, onOpenChange } = props;
   const parentMenuContext = useMenuContext(SUB_NAME, __scopeMenu);
   const popperScope = usePopperScope(__scopeMenu);
-  const [trigger, setTrigger] = React44__namespace.useState(null);
-  const [content, setContent] = React44__namespace.useState(null);
+  const [trigger, setTrigger] = React45__namespace.useState(null);
+  const [content, setContent] = React45__namespace.useState(null);
   const handleOpenChange = useCallbackRef(onOpenChange);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     if (parentMenuContext.open === false) handleOpenChange(false);
     return () => handleOpenChange(false);
   }, [parentMenuContext.open, handleOpenChange]);
@@ -8070,21 +8070,21 @@ var MenuSub = (props) => {
 };
 MenuSub.displayName = SUB_NAME;
 var SUB_TRIGGER_NAME = "MenuSubTrigger";
-var MenuSubTrigger = React44__namespace.forwardRef(
+var MenuSubTrigger = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const context = useMenuContext(SUB_TRIGGER_NAME, props.__scopeMenu);
     const rootContext = useMenuRootContext(SUB_TRIGGER_NAME, props.__scopeMenu);
     const subContext = useMenuSubContext(SUB_TRIGGER_NAME, props.__scopeMenu);
     const contentContext = useMenuContentContext(SUB_TRIGGER_NAME, props.__scopeMenu);
-    const openTimerRef = React44__namespace.useRef(null);
+    const openTimerRef = React45__namespace.useRef(null);
     const { pointerGraceTimerRef, onPointerGraceIntentChange } = contentContext;
     const scope = { __scopeMenu: props.__scopeMenu };
-    const clearOpenTimer = React44__namespace.useCallback(() => {
+    const clearOpenTimer = React45__namespace.useCallback(() => {
       if (openTimerRef.current) window.clearTimeout(openTimerRef.current);
       openTimerRef.current = null;
     }, []);
-    React44__namespace.useEffect(() => clearOpenTimer, [clearOpenTimer]);
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => clearOpenTimer, [clearOpenTimer]);
+    React45__namespace.useEffect(() => {
       const pointerGraceTimer = pointerGraceTimerRef.current;
       return () => {
         window.clearTimeout(pointerGraceTimer);
@@ -8171,14 +8171,14 @@ var MenuSubTrigger = React44__namespace.forwardRef(
 );
 MenuSubTrigger.displayName = SUB_TRIGGER_NAME;
 var SUB_CONTENT_NAME = "MenuSubContent";
-var MenuSubContent = React44__namespace.forwardRef(
+var MenuSubContent = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const portalContext = usePortalContext(CONTENT_NAME2, props.__scopeMenu);
     const { forceMount = portalContext.forceMount, ...subContentProps } = props;
     const context = useMenuContext(CONTENT_NAME2, props.__scopeMenu);
     const rootContext = useMenuRootContext(CONTENT_NAME2, props.__scopeMenu);
     const subContext = useMenuSubContext(SUB_CONTENT_NAME, props.__scopeMenu);
-    const ref = React44__namespace.useRef(null);
+    const ref = React45__namespace.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
     return /* @__PURE__ */ jsxRuntime.jsx(Collection2.Provider, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsxRuntime.jsx(Presence, { present: forceMount || context.open, children: /* @__PURE__ */ jsxRuntime.jsx(Collection2.Slot, { scope: props.__scopeMenu, children: /* @__PURE__ */ jsxRuntime.jsx(
       MenuContentImpl,
@@ -8307,7 +8307,7 @@ var DropdownMenu = (props) => {
     modal = true
   } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
-  const triggerRef = React44__namespace.useRef(null);
+  const triggerRef = React45__namespace.useRef(null);
   const [open, setOpen] = useControllableState({
     prop: openProp,
     defaultProp: defaultOpen ?? false,
@@ -8323,7 +8323,7 @@ var DropdownMenu = (props) => {
       contentId: useId(),
       open,
       onOpenChange: setOpen,
-      onOpenToggle: React44__namespace.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
+      onOpenToggle: React45__namespace.useCallback(() => setOpen((prevOpen) => !prevOpen), [setOpen]),
       modal,
       children: /* @__PURE__ */ jsxRuntime.jsx(Root32, { ...menuScope, open, onOpenChange: setOpen, dir, modal, children })
     }
@@ -8331,7 +8331,7 @@ var DropdownMenu = (props) => {
 };
 DropdownMenu.displayName = DROPDOWN_MENU_NAME;
 var TRIGGER_NAME = "DropdownMenuTrigger";
-var DropdownMenuTrigger = React44__namespace.forwardRef(
+var DropdownMenuTrigger = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, disabled = false, ...triggerProps } = props;
     const context = useDropdownMenuContext(TRIGGER_NAME, __scopeDropdownMenu);
@@ -8374,12 +8374,12 @@ var DropdownMenuPortal = (props) => {
 };
 DropdownMenuPortal.displayName = PORTAL_NAME3;
 var CONTENT_NAME3 = "DropdownMenuContent";
-var DropdownMenuContent = React44__namespace.forwardRef(
+var DropdownMenuContent = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...contentProps } = props;
     const context = useDropdownMenuContext(CONTENT_NAME3, __scopeDropdownMenu);
     const menuScope = useMenuScope(__scopeDropdownMenu);
-    const hasInteractedOutsideRef = React44__namespace.useRef(false);
+    const hasInteractedOutsideRef = React45__namespace.useRef(false);
     return /* @__PURE__ */ jsxRuntime.jsx(
       Content2,
       {
@@ -8416,7 +8416,7 @@ var DropdownMenuContent = React44__namespace.forwardRef(
 );
 DropdownMenuContent.displayName = CONTENT_NAME3;
 var GROUP_NAME3 = "DropdownMenuGroup";
-var DropdownMenuGroup = React44__namespace.forwardRef(
+var DropdownMenuGroup = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...groupProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8425,7 +8425,7 @@ var DropdownMenuGroup = React44__namespace.forwardRef(
 );
 DropdownMenuGroup.displayName = GROUP_NAME3;
 var LABEL_NAME2 = "DropdownMenuLabel";
-var DropdownMenuLabel = React44__namespace.forwardRef(
+var DropdownMenuLabel = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...labelProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8434,7 +8434,7 @@ var DropdownMenuLabel = React44__namespace.forwardRef(
 );
 DropdownMenuLabel.displayName = LABEL_NAME2;
 var ITEM_NAME3 = "DropdownMenuItem";
-var DropdownMenuItem = React44__namespace.forwardRef(
+var DropdownMenuItem = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...itemProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8443,42 +8443,42 @@ var DropdownMenuItem = React44__namespace.forwardRef(
 );
 DropdownMenuItem.displayName = ITEM_NAME3;
 var CHECKBOX_ITEM_NAME2 = "DropdownMenuCheckboxItem";
-var DropdownMenuCheckboxItem = React44__namespace.forwardRef((props, forwardedRef) => {
+var DropdownMenuCheckboxItem = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...checkboxItemProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(CheckboxItem, { ...menuScope, ...checkboxItemProps, ref: forwardedRef });
 });
 DropdownMenuCheckboxItem.displayName = CHECKBOX_ITEM_NAME2;
 var RADIO_GROUP_NAME2 = "DropdownMenuRadioGroup";
-var DropdownMenuRadioGroup = React44__namespace.forwardRef((props, forwardedRef) => {
+var DropdownMenuRadioGroup = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...radioGroupProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(RadioGroup, { ...menuScope, ...radioGroupProps, ref: forwardedRef });
 });
 DropdownMenuRadioGroup.displayName = RADIO_GROUP_NAME2;
 var RADIO_ITEM_NAME2 = "DropdownMenuRadioItem";
-var DropdownMenuRadioItem = React44__namespace.forwardRef((props, forwardedRef) => {
+var DropdownMenuRadioItem = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...radioItemProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(RadioItem, { ...menuScope, ...radioItemProps, ref: forwardedRef });
 });
 DropdownMenuRadioItem.displayName = RADIO_ITEM_NAME2;
 var INDICATOR_NAME = "DropdownMenuItemIndicator";
-var DropdownMenuItemIndicator = React44__namespace.forwardRef((props, forwardedRef) => {
+var DropdownMenuItemIndicator = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...itemIndicatorProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(ItemIndicator, { ...menuScope, ...itemIndicatorProps, ref: forwardedRef });
 });
 DropdownMenuItemIndicator.displayName = INDICATOR_NAME;
 var SEPARATOR_NAME2 = "DropdownMenuSeparator";
-var DropdownMenuSeparator = React44__namespace.forwardRef((props, forwardedRef) => {
+var DropdownMenuSeparator = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...separatorProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(Separator, { ...menuScope, ...separatorProps, ref: forwardedRef });
 });
 DropdownMenuSeparator.displayName = SEPARATOR_NAME2;
 var ARROW_NAME3 = "DropdownMenuArrow";
-var DropdownMenuArrow = React44__namespace.forwardRef(
+var DropdownMenuArrow = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeDropdownMenu, ...arrowProps } = props;
     const menuScope = useMenuScope(__scopeDropdownMenu);
@@ -8498,14 +8498,14 @@ var DropdownMenuSub = (props) => {
   return /* @__PURE__ */ jsxRuntime.jsx(Sub, { ...menuScope, open, onOpenChange: setOpen, children });
 };
 var SUB_TRIGGER_NAME2 = "DropdownMenuSubTrigger";
-var DropdownMenuSubTrigger = React44__namespace.forwardRef((props, forwardedRef) => {
+var DropdownMenuSubTrigger = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...subTriggerProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(SubTrigger, { ...menuScope, ...subTriggerProps, ref: forwardedRef });
 });
 DropdownMenuSubTrigger.displayName = SUB_TRIGGER_NAME2;
 var SUB_CONTENT_NAME2 = "DropdownMenuSubContent";
-var DropdownMenuSubContent = React44__namespace.forwardRef((props, forwardedRef) => {
+var DropdownMenuSubContent = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeDropdownMenu, ...subContentProps } = props;
   const menuScope = useMenuScope(__scopeDropdownMenu);
   return /* @__PURE__ */ jsxRuntime.jsx(
@@ -8565,7 +8565,7 @@ var defaultAttributes = {
 };
 
 // ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/Icon.js
-var Icon = React44.forwardRef(
+var Icon = React45.forwardRef(
   ({
     color = "currentColor",
     size: size4 = 24,
@@ -8576,7 +8576,7 @@ var Icon = React44.forwardRef(
     iconNode,
     ...rest
   }, ref) => {
-    return React44.createElement(
+    return React45.createElement(
       "svg",
       {
         ref,
@@ -8589,7 +8589,7 @@ var Icon = React44.forwardRef(
         ...rest
       },
       [
-        ...iconNode.map(([tag, attrs]) => React44.createElement(tag, attrs)),
+        ...iconNode.map(([tag, attrs]) => React45.createElement(tag, attrs)),
         ...Array.isArray(children) ? children : [children]
       ]
     );
@@ -8598,8 +8598,8 @@ var Icon = React44.forwardRef(
 
 // ../../node_modules/.pnpm/lucide-react@0.476.0_react@19.2.2/node_modules/lucide-react/dist/esm/createLucideIcon.js
 var createLucideIcon = (iconName, iconNode) => {
-  const Component = React44.forwardRef(
-    ({ className, ...props }, ref) => React44.createElement(Icon, {
+  const Component = React45.forwardRef(
+    ({ className, ...props }, ref) => React45.createElement(Icon, {
       ref,
       iconNode,
       className: mergeClasses(`lucide-${toKebabCase(iconName)}`, className),
@@ -8634,17 +8634,17 @@ var Circle = createLucideIcon("Circle", __iconNode5);
 function DropdownMenu2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Root23, { "data-slot": "dropdown-menu", ...props });
+  return /* @__PURE__ */ React45__namespace.createElement(Root23, { "data-slot": "dropdown-menu", ...props });
 }
 function DropdownMenuPortal2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Portal22, { "data-slot": "dropdown-menu-portal", ...props });
+  return /* @__PURE__ */ React45__namespace.createElement(Portal22, { "data-slot": "dropdown-menu-portal", ...props });
 }
 function DropdownMenuTrigger2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Trigger,
     {
       "data-slot": "dropdown-menu-trigger",
@@ -8657,7 +8657,7 @@ function DropdownMenuContent2({
   sideOffset = 4,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Portal22, null, /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(Portal22, null, /* @__PURE__ */ React45__namespace.createElement(
     Content22,
     {
       "data-slot": "dropdown-menu-content",
@@ -8674,30 +8674,30 @@ function DropdownMenuClose({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Item22, { "data-slot": "dropdown-menu-close", className: "hidden", ...props });
+  return /* @__PURE__ */ React45__namespace.createElement(Item22, { "data-slot": "dropdown-menu-close", className: "hidden", ...props });
 }
 function DropdownMenuGroup2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Group2, { "data-slot": "dropdown-menu-group", ...props });
+  return /* @__PURE__ */ React45__namespace.createElement(Group2, { "data-slot": "dropdown-menu-group", ...props });
 }
 function ConfirmationDropdownMenuItem({
   ...props
 }) {
   const { onClick: originalOnClick, ...rest } = props;
-  const [isConfirming, setIsConfirming] = React44__namespace.useState(false);
-  return !isConfirming ? /* @__PURE__ */ React44__namespace.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
+  const [isConfirming, setIsConfirming] = React45__namespace.useState(false);
+  return !isConfirming ? /* @__PURE__ */ React45__namespace.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
     setIsConfirming(true);
     e.preventDefault();
     e.stopPropagation();
-  } }) : /* @__PURE__ */ React44__namespace.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
+  } }) : /* @__PURE__ */ React45__namespace.createElement(DropdownMenuItem2, { ...rest, onClick: (e) => {
     if (originalOnClick) {
       setIsConfirming(false);
       originalOnClick(e);
       e.preventDefault();
       e.stopPropagation();
     }
-  } }, /* @__PURE__ */ React44__namespace.createElement("div", { className: "flex flex-row gap-2 items-center" }, /* @__PURE__ */ React44__namespace.createElement("div", { className: "text-destructive" }, "Are you sure ?")));
+  } }, /* @__PURE__ */ React45__namespace.createElement("div", { className: "flex flex-row gap-2 items-center" }, /* @__PURE__ */ React45__namespace.createElement("div", { className: "text-destructive" }, "Are you sure ?")));
 }
 function DropdownMenuItem2({
   className,
@@ -8705,7 +8705,7 @@ function DropdownMenuItem2({
   variant = "default",
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Item22,
     {
       "data-slot": "dropdown-menu-item",
@@ -8725,7 +8725,7 @@ function DropdownMenuCheckboxItem2({
   checked,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     CheckboxItem2,
     {
       "data-slot": "dropdown-menu-checkbox-item",
@@ -8736,14 +8736,14 @@ function DropdownMenuCheckboxItem2({
       checked,
       ...props
     },
-    /* @__PURE__ */ React44__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React44__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React44__namespace.createElement(Check, { className: "uii:size-4" }))),
+    /* @__PURE__ */ React45__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React45__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React45__namespace.createElement(Check, { className: "uii:size-4" }))),
     children
   );
 }
 function DropdownMenuRadioGroup2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     RadioGroup2,
     {
       "data-slot": "dropdown-menu-radio-group",
@@ -8756,7 +8756,7 @@ function DropdownMenuRadioItem2({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     RadioItem2,
     {
       "data-slot": "dropdown-menu-radio-item",
@@ -8766,7 +8766,7 @@ function DropdownMenuRadioItem2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React44__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React44__namespace.createElement(Circle, { className: "uii:size-2 uii:fill-current" }))),
+    /* @__PURE__ */ React45__namespace.createElement("span", { className: "uii:pointer-events-none uii:absolute uii:left-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React45__namespace.createElement(ItemIndicator2, null, /* @__PURE__ */ React45__namespace.createElement(Circle, { className: "uii:size-2 uii:fill-current" }))),
     children
   );
 }
@@ -8775,7 +8775,7 @@ function DropdownMenuLabel2({
   inset,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Label2,
     {
       "data-slot": "dropdown-menu-label",
@@ -8792,7 +8792,7 @@ function DropdownMenuSeparator2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Separator2,
     {
       "data-slot": "dropdown-menu-separator",
@@ -8805,7 +8805,7 @@ function DropdownMenuShortcut({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     "span",
     {
       "data-slot": "dropdown-menu-shortcut",
@@ -8820,7 +8820,7 @@ function DropdownMenuShortcut({
 function DropdownMenuSub2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Sub2, { "data-slot": "dropdown-menu-sub", ...props });
+  return /* @__PURE__ */ React45__namespace.createElement(Sub2, { "data-slot": "dropdown-menu-sub", ...props });
 }
 function DropdownMenuSubTrigger2({
   className,
@@ -8828,7 +8828,7 @@ function DropdownMenuSubTrigger2({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     SubTrigger2,
     {
       "data-slot": "dropdown-menu-sub-trigger",
@@ -8840,14 +8840,14 @@ function DropdownMenuSubTrigger2({
       ...props
     },
     children,
-    /* @__PURE__ */ React44__namespace.createElement(ChevronRight, { className: "uii:ml-auto uii:size-4" })
+    /* @__PURE__ */ React45__namespace.createElement(ChevronRight, { className: "uii:ml-auto uii:size-4" })
   );
 }
 function DropdownMenuSubContent2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     SubContent2,
     {
       "data-slot": "dropdown-menu-sub-content",
@@ -8905,10 +8905,10 @@ __export(fields_exports, {
   useTemplateFieldContext: () => useTemplateFieldContext,
   useTriggerLayoutUpdate: () => useTriggerLayoutUpdate
 });
-var DevContext = React44.createContext(null);
+var DevContext = React45.createContext(null);
 function useResolvedExpectedType(expectedType, devCtx) {
   const inferredTypes = devCtx?.inferredTypes;
-  return React44__namespace.useMemo(() => {
+  return React45__namespace.useMemo(() => {
     if (!expectedType) return "any";
     if (!expectedType.startsWith("$infer<")) {
       return expectedType;
@@ -8954,24 +8954,24 @@ function Input({
   caseSensitive = false,
   onCaseSensitiveChange
 }) {
-  const devCtx = React44.useContext(DevContext);
+  const devCtx = React45.useContext(DevContext);
   const resolvedExpectedType = useResolvedExpectedType(expectedType, devCtx);
-  const displayValue = React44__namespace.useMemo(() => {
+  const displayValue = React45__namespace.useMemo(() => {
     if (value != null && typeof value === "object" && "expression" in value) {
       return String(value.expression ?? "");
     }
     return String(value ?? "");
   }, [value]);
-  const isExpression = React44__namespace.useMemo(() => {
+  const isExpression = React45__namespace.useMemo(() => {
     return value != null && typeof value === "object" && "expression" in value;
   }, [value]);
-  const handleChange = React44__namespace.useCallback(
+  const handleChange = React45__namespace.useCallback(
     (e) => onChange(e.target.value),
     [onChange]
   );
   const showError = hasRequiredError || required && !displayValue;
   const isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
-  return /* @__PURE__ */ React44__namespace.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React45__namespace.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React45__namespace.createElement(
     "label",
     {
       htmlFor: fieldName,
@@ -8979,7 +8979,7 @@ function Input({
     },
     label,
     ":"
-  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React44__namespace.createElement(
+  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React45__namespace.createElement(
     "span",
     {
       className: cn(
@@ -8989,7 +8989,7 @@ function Input({
       title: resolvedExpectedType
     },
     resolvedExpectedType
-  ), showError && /* @__PURE__ */ React44__namespace.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required"), showCaseSensitivity && onCaseSensitiveChange && /* @__PURE__ */ React44__namespace.createElement(
+  ), showError && /* @__PURE__ */ React45__namespace.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required"), showCaseSensitivity && onCaseSensitiveChange && /* @__PURE__ */ React45__namespace.createElement(
     "button",
     {
       type: "button",
@@ -9001,7 +9001,7 @@ function Input({
       )
     },
     "Aa"
-  )), /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:mt-0.5" }, /* @__PURE__ */ React44__namespace.createElement(
+  )), /* @__PURE__ */ React45__namespace.createElement("div", { className: "uii:mt-0.5" }, /* @__PURE__ */ React45__namespace.createElement(
     "input",
     {
       id: fieldName,
@@ -9029,8 +9029,8 @@ function clamp2(value, [min2, max2]) {
   return Math.min(max2, Math.max(min2, value));
 }
 function usePrevious(value) {
-  const ref = React44__namespace.useRef({ value, previous: value });
-  return React44__namespace.useMemo(() => {
+  const ref = React45__namespace.useRef({ value, previous: value });
+  return React45__namespace.useMemo(() => {
     if (ref.current.value !== value) {
       ref.current.previous = ref.current.value;
       ref.current.value = value;
@@ -9052,7 +9052,7 @@ var VISUALLY_HIDDEN_STYLES = Object.freeze({
   wordWrap: "normal"
 });
 var NAME3 = "VisuallyHidden";
-var VisuallyHidden = React44__namespace.forwardRef(
+var VisuallyHidden = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     return /* @__PURE__ */ jsxRuntime.jsx(
       Primitive.span,
@@ -9094,9 +9094,9 @@ var Select = (props) => {
     form
   } = props;
   const popperScope = usePopperScope2(__scopeSelect);
-  const [trigger, setTrigger] = React44__namespace.useState(null);
-  const [valueNode, setValueNode] = React44__namespace.useState(null);
-  const [valueNodeHasChildren, setValueNodeHasChildren] = React44__namespace.useState(false);
+  const [trigger, setTrigger] = React45__namespace.useState(null);
+  const [valueNode, setValueNode] = React45__namespace.useState(null);
+  const [valueNodeHasChildren, setValueNodeHasChildren] = React45__namespace.useState(false);
   const direction = useDirection(dir);
   const [open, setOpen] = useControllableState({
     prop: openProp,
@@ -9110,9 +9110,9 @@ var Select = (props) => {
     onChange: onValueChange,
     caller: SELECT_NAME
   });
-  const triggerPointerDownPosRef = React44__namespace.useRef(null);
+  const triggerPointerDownPosRef = React45__namespace.useRef(null);
   const isFormControl = trigger ? form || !!trigger.closest("form") : true;
-  const [nativeOptionsSet, setNativeOptionsSet] = React44__namespace.useState(/* @__PURE__ */ new Set());
+  const [nativeOptionsSet, setNativeOptionsSet] = React45__namespace.useState(/* @__PURE__ */ new Set());
   const nativeSelectKey = Array.from(nativeOptionsSet).map((option) => option.props.value).join(";");
   return /* @__PURE__ */ jsxRuntime.jsx(Root22, { ...popperScope, children: /* @__PURE__ */ jsxRuntime.jsxs(
     SelectProvider,
@@ -9138,10 +9138,10 @@ var Select = (props) => {
           SelectNativeOptionsProvider,
           {
             scope: props.__scopeSelect,
-            onNativeOptionAdd: React44__namespace.useCallback((option) => {
+            onNativeOptionAdd: React45__namespace.useCallback((option) => {
               setNativeOptionsSet((prev) => new Set(prev).add(option));
             }, []),
-            onNativeOptionRemove: React44__namespace.useCallback((option) => {
+            onNativeOptionRemove: React45__namespace.useCallback((option) => {
               setNativeOptionsSet((prev) => {
                 const optionsSet = new Set(prev);
                 optionsSet.delete(option);
@@ -9176,7 +9176,7 @@ var Select = (props) => {
 };
 Select.displayName = SELECT_NAME;
 var TRIGGER_NAME2 = "SelectTrigger";
-var SelectTrigger = React44__namespace.forwardRef(
+var SelectTrigger = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, disabled = false, ...triggerProps } = props;
     const popperScope = usePopperScope2(__scopeSelect);
@@ -9184,7 +9184,7 @@ var SelectTrigger = React44__namespace.forwardRef(
     const isDisabled = context.disabled || disabled;
     const composedRefs = useComposedRefs(forwardedRef, context.onTriggerChange);
     const getItems = useCollection3(__scopeSelect);
-    const pointerTypeRef = React44__namespace.useRef("touch");
+    const pointerTypeRef = React45__namespace.useRef("touch");
     const [searchRef, handleTypeaheadSearch, resetTypeahead] = useTypeaheadSearch((search) => {
       const enabledItems = getItems().filter((item) => !item.disabled);
       const currentItem = enabledItems.find((item) => item.value === context.value);
@@ -9254,7 +9254,7 @@ var SelectTrigger = React44__namespace.forwardRef(
 );
 SelectTrigger.displayName = TRIGGER_NAME2;
 var VALUE_NAME = "SelectValue";
-var SelectValue = React44__namespace.forwardRef(
+var SelectValue = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, className, style, children, placeholder = "", ...valueProps } = props;
     const context = useSelectContext(VALUE_NAME, __scopeSelect);
@@ -9277,7 +9277,7 @@ var SelectValue = React44__namespace.forwardRef(
 );
 SelectValue.displayName = VALUE_NAME;
 var ICON_NAME = "SelectIcon";
-var SelectIcon = React44__namespace.forwardRef(
+var SelectIcon = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, children, ...iconProps } = props;
     return /* @__PURE__ */ jsxRuntime.jsx(Primitive.span, { "aria-hidden": true, ...iconProps, ref: forwardedRef, children: children || "\u25BC" });
@@ -9290,10 +9290,10 @@ var SelectPortal = (props) => {
 };
 SelectPortal.displayName = PORTAL_NAME4;
 var CONTENT_NAME4 = "SelectContent";
-var SelectContent = React44__namespace.forwardRef(
+var SelectContent = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const context = useSelectContext(CONTENT_NAME4, props.__scopeSelect);
-    const [fragment, setFragment] = React44__namespace.useState();
+    const [fragment, setFragment] = React45__namespace.useState();
     useLayoutEffect2(() => {
       setFragment(new DocumentFragment());
     }, []);
@@ -9312,7 +9312,7 @@ var CONTENT_MARGIN = 10;
 var [SelectContentProvider, useSelectContentContext] = createSelectContext(CONTENT_NAME4);
 var CONTENT_IMPL_NAME = "SelectContentImpl";
 var Slot3 = createSlot2("SelectContent.RemoveScroll");
-var SelectContentImpl = React44__namespace.forwardRef(
+var SelectContentImpl = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeSelect,
@@ -9336,21 +9336,21 @@ var SelectContentImpl = React44__namespace.forwardRef(
       ...contentProps
     } = props;
     const context = useSelectContext(CONTENT_NAME4, __scopeSelect);
-    const [content, setContent] = React44__namespace.useState(null);
-    const [viewport, setViewport] = React44__namespace.useState(null);
+    const [content, setContent] = React45__namespace.useState(null);
+    const [viewport, setViewport] = React45__namespace.useState(null);
     const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
-    const [selectedItem, setSelectedItem] = React44__namespace.useState(null);
-    const [selectedItemText, setSelectedItemText] = React44__namespace.useState(
+    const [selectedItem, setSelectedItem] = React45__namespace.useState(null);
+    const [selectedItemText, setSelectedItemText] = React45__namespace.useState(
       null
     );
     const getItems = useCollection3(__scopeSelect);
-    const [isPositioned, setIsPositioned] = React44__namespace.useState(false);
-    const firstValidItemFoundRef = React44__namespace.useRef(false);
-    React44__namespace.useEffect(() => {
+    const [isPositioned, setIsPositioned] = React45__namespace.useState(false);
+    const firstValidItemFoundRef = React45__namespace.useRef(false);
+    React45__namespace.useEffect(() => {
       if (content) return hideOthers(content);
     }, [content]);
     useFocusGuards();
-    const focusFirst4 = React44__namespace.useCallback(
+    const focusFirst4 = React45__namespace.useCallback(
       (candidates) => {
         const [firstItem, ...restItems] = getItems().map((item) => item.ref.current);
         const [lastItem] = restItems.slice(-1);
@@ -9366,17 +9366,17 @@ var SelectContentImpl = React44__namespace.forwardRef(
       },
       [getItems, viewport]
     );
-    const focusSelectedItem = React44__namespace.useCallback(
+    const focusSelectedItem = React45__namespace.useCallback(
       () => focusFirst4([selectedItem, content]),
       [focusFirst4, selectedItem, content]
     );
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       if (isPositioned) {
         focusSelectedItem();
       }
     }, [isPositioned, focusSelectedItem]);
     const { onOpenChange, triggerPointerDownPosRef } = context;
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       if (content) {
         let pointerMoveDelta = { x: 0, y: 0 };
         const handlePointerMove = (event) => {
@@ -9406,7 +9406,7 @@ var SelectContentImpl = React44__namespace.forwardRef(
         };
       }
     }, [content, onOpenChange, triggerPointerDownPosRef]);
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       const close = () => onOpenChange(false);
       window.addEventListener("blur", close);
       window.addEventListener("resize", close);
@@ -9423,7 +9423,7 @@ var SelectContentImpl = React44__namespace.forwardRef(
         setTimeout(() => nextItem.ref.current.focus());
       }
     });
-    const itemRefCallback = React44__namespace.useCallback(
+    const itemRefCallback = React45__namespace.useCallback(
       (node, value, disabled) => {
         const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
         const isSelectedItem = context.value !== void 0 && context.value === value;
@@ -9434,8 +9434,8 @@ var SelectContentImpl = React44__namespace.forwardRef(
       },
       [context.value]
     );
-    const handleItemLeave = React44__namespace.useCallback(() => content?.focus(), [content]);
-    const itemTextRefCallback = React44__namespace.useCallback(
+    const handleItemLeave = React45__namespace.useCallback(() => content?.focus(), [content]);
+    const itemTextRefCallback = React45__namespace.useCallback(
       (node, value, disabled) => {
         const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
         const isSelectedItem = context.value !== void 0 && context.value === value;
@@ -9546,18 +9546,18 @@ var SelectContentImpl = React44__namespace.forwardRef(
 );
 SelectContentImpl.displayName = CONTENT_IMPL_NAME;
 var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition";
-var SelectItemAlignedPosition = React44__namespace.forwardRef((props, forwardedRef) => {
+var SelectItemAlignedPosition = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeSelect, onPlaced, ...popperProps } = props;
   const context = useSelectContext(CONTENT_NAME4, __scopeSelect);
   const contentContext = useSelectContentContext(CONTENT_NAME4, __scopeSelect);
-  const [contentWrapper, setContentWrapper] = React44__namespace.useState(null);
-  const [content, setContent] = React44__namespace.useState(null);
+  const [contentWrapper, setContentWrapper] = React45__namespace.useState(null);
+  const [content, setContent] = React45__namespace.useState(null);
   const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
   const getItems = useCollection3(__scopeSelect);
-  const shouldExpandOnScrollRef = React44__namespace.useRef(false);
-  const shouldRepositionRef = React44__namespace.useRef(true);
+  const shouldExpandOnScrollRef = React45__namespace.useRef(false);
+  const shouldRepositionRef = React45__namespace.useRef(true);
   const { viewport, selectedItem, selectedItemText, focusSelectedItem } = contentContext;
-  const position = React44__namespace.useCallback(() => {
+  const position = React45__namespace.useCallback(() => {
     if (context.trigger && context.valueNode && contentWrapper && content && viewport && selectedItem && selectedItemText) {
       const triggerRect = context.trigger.getBoundingClientRect();
       const contentRect = content.getBoundingClientRect();
@@ -9657,11 +9657,11 @@ var SelectItemAlignedPosition = React44__namespace.forwardRef((props, forwardedR
     onPlaced
   ]);
   useLayoutEffect2(() => position(), [position]);
-  const [contentZIndex, setContentZIndex] = React44__namespace.useState();
+  const [contentZIndex, setContentZIndex] = React45__namespace.useState();
   useLayoutEffect2(() => {
     if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
   }, [content]);
-  const handleScrollButtonChange = React44__namespace.useCallback(
+  const handleScrollButtonChange = React45__namespace.useCallback(
     (node) => {
       if (node && shouldRepositionRef.current === true) {
         position();
@@ -9710,7 +9710,7 @@ var SelectItemAlignedPosition = React44__namespace.forwardRef((props, forwardedR
 });
 SelectItemAlignedPosition.displayName = ITEM_ALIGNED_POSITION_NAME;
 var POPPER_POSITION_NAME = "SelectPopperPosition";
-var SelectPopperPosition = React44__namespace.forwardRef((props, forwardedRef) => {
+var SelectPopperPosition = React45__namespace.forwardRef((props, forwardedRef) => {
   const {
     __scopeSelect,
     align = "start",
@@ -9745,13 +9745,13 @@ var SelectPopperPosition = React44__namespace.forwardRef((props, forwardedRef) =
 SelectPopperPosition.displayName = POPPER_POSITION_NAME;
 var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CONTENT_NAME4, {});
 var VIEWPORT_NAME = "SelectViewport";
-var SelectViewport = React44__namespace.forwardRef(
+var SelectViewport = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, nonce, ...viewportProps } = props;
     const contentContext = useSelectContentContext(VIEWPORT_NAME, __scopeSelect);
     const viewportContext = useSelectViewportContext(VIEWPORT_NAME, __scopeSelect);
     const composedRefs = useComposedRefs(forwardedRef, contentContext.onViewportChange);
-    const prevScrollTopRef = React44__namespace.useRef(0);
+    const prevScrollTopRef = React45__namespace.useRef(0);
     return /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
       /* @__PURE__ */ jsxRuntime.jsx(
         "style",
@@ -9814,7 +9814,7 @@ var SelectViewport = React44__namespace.forwardRef(
 SelectViewport.displayName = VIEWPORT_NAME;
 var GROUP_NAME4 = "SelectGroup";
 var [SelectGroupContextProvider, useSelectGroupContext] = createSelectContext(GROUP_NAME4);
-var SelectGroup = React44__namespace.forwardRef(
+var SelectGroup = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...groupProps } = props;
     const groupId = useId();
@@ -9823,7 +9823,7 @@ var SelectGroup = React44__namespace.forwardRef(
 );
 SelectGroup.displayName = GROUP_NAME4;
 var LABEL_NAME3 = "SelectLabel";
-var SelectLabel = React44__namespace.forwardRef(
+var SelectLabel = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...labelProps } = props;
     const groupContext = useSelectGroupContext(LABEL_NAME3, __scopeSelect);
@@ -9833,7 +9833,7 @@ var SelectLabel = React44__namespace.forwardRef(
 SelectLabel.displayName = LABEL_NAME3;
 var ITEM_NAME4 = "SelectItem";
 var [SelectItemContextProvider, useSelectItemContext] = createSelectContext(ITEM_NAME4);
-var SelectItem = React44__namespace.forwardRef(
+var SelectItem = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeSelect,
@@ -9845,14 +9845,14 @@ var SelectItem = React44__namespace.forwardRef(
     const context = useSelectContext(ITEM_NAME4, __scopeSelect);
     const contentContext = useSelectContentContext(ITEM_NAME4, __scopeSelect);
     const isSelected = context.value === value;
-    const [textValue, setTextValue] = React44__namespace.useState(textValueProp ?? "");
-    const [isFocused, setIsFocused] = React44__namespace.useState(false);
+    const [textValue, setTextValue] = React45__namespace.useState(textValueProp ?? "");
+    const [isFocused, setIsFocused] = React45__namespace.useState(false);
     const composedRefs = useComposedRefs(
       forwardedRef,
       (node) => contentContext.itemRefCallback?.(node, value, disabled)
     );
     const textId = useId();
-    const pointerTypeRef = React44__namespace.useRef("touch");
+    const pointerTypeRef = React45__namespace.useRef("touch");
     const handleSelect = () => {
       if (!disabled) {
         context.onValueChange(value);
@@ -9872,7 +9872,7 @@ var SelectItem = React44__namespace.forwardRef(
         disabled,
         textId,
         isSelected,
-        onItemTextChange: React44__namespace.useCallback((node) => {
+        onItemTextChange: React45__namespace.useCallback((node) => {
           setTextValue((prevTextValue) => prevTextValue || (node?.textContent ?? "").trim());
         }, []),
         children: /* @__PURE__ */ jsxRuntime.jsx(
@@ -9935,14 +9935,14 @@ var SelectItem = React44__namespace.forwardRef(
 );
 SelectItem.displayName = ITEM_NAME4;
 var ITEM_TEXT_NAME = "SelectItemText";
-var SelectItemText = React44__namespace.forwardRef(
+var SelectItemText = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, className, style, ...itemTextProps } = props;
     const context = useSelectContext(ITEM_TEXT_NAME, __scopeSelect);
     const contentContext = useSelectContentContext(ITEM_TEXT_NAME, __scopeSelect);
     const itemContext = useSelectItemContext(ITEM_TEXT_NAME, __scopeSelect);
     const nativeOptionsContext = useSelectNativeOptionsContext(ITEM_TEXT_NAME, __scopeSelect);
-    const [itemTextNode, setItemTextNode] = React44__namespace.useState(null);
+    const [itemTextNode, setItemTextNode] = React45__namespace.useState(null);
     const composedRefs = useComposedRefs(
       forwardedRef,
       (node) => setItemTextNode(node),
@@ -9950,7 +9950,7 @@ var SelectItemText = React44__namespace.forwardRef(
       (node) => contentContext.itemTextRefCallback?.(node, itemContext.value, itemContext.disabled)
     );
     const textContent = itemTextNode?.textContent;
-    const nativeOption = React44__namespace.useMemo(
+    const nativeOption = React45__namespace.useMemo(
       () => /* @__PURE__ */ jsxRuntime.jsx("option", { value: itemContext.value, disabled: itemContext.disabled, children: textContent }, itemContext.value),
       [itemContext.disabled, itemContext.value, textContent]
     );
@@ -9967,7 +9967,7 @@ var SelectItemText = React44__namespace.forwardRef(
 );
 SelectItemText.displayName = ITEM_TEXT_NAME;
 var ITEM_INDICATOR_NAME2 = "SelectItemIndicator";
-var SelectItemIndicator = React44__namespace.forwardRef(
+var SelectItemIndicator = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...itemIndicatorProps } = props;
     const itemContext = useSelectItemContext(ITEM_INDICATOR_NAME2, __scopeSelect);
@@ -9976,10 +9976,10 @@ var SelectItemIndicator = React44__namespace.forwardRef(
 );
 SelectItemIndicator.displayName = ITEM_INDICATOR_NAME2;
 var SCROLL_UP_BUTTON_NAME = "SelectScrollUpButton";
-var SelectScrollUpButton = React44__namespace.forwardRef((props, forwardedRef) => {
+var SelectScrollUpButton = React45__namespace.forwardRef((props, forwardedRef) => {
   const contentContext = useSelectContentContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
   const viewportContext = useSelectViewportContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
-  const [canScrollUp, setCanScrollUp] = React44__namespace.useState(false);
+  const [canScrollUp, setCanScrollUp] = React45__namespace.useState(false);
   const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
   useLayoutEffect2(() => {
     if (contentContext.viewport && contentContext.isPositioned) {
@@ -10009,10 +10009,10 @@ var SelectScrollUpButton = React44__namespace.forwardRef((props, forwardedRef) =
 });
 SelectScrollUpButton.displayName = SCROLL_UP_BUTTON_NAME;
 var SCROLL_DOWN_BUTTON_NAME = "SelectScrollDownButton";
-var SelectScrollDownButton = React44__namespace.forwardRef((props, forwardedRef) => {
+var SelectScrollDownButton = React45__namespace.forwardRef((props, forwardedRef) => {
   const contentContext = useSelectContentContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
   const viewportContext = useSelectViewportContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
-  const [canScrollDown, setCanScrollDown] = React44__namespace.useState(false);
+  const [canScrollDown, setCanScrollDown] = React45__namespace.useState(false);
   const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
   useLayoutEffect2(() => {
     if (contentContext.viewport && contentContext.isPositioned) {
@@ -10042,18 +10042,18 @@ var SelectScrollDownButton = React44__namespace.forwardRef((props, forwardedRef)
   ) : null;
 });
 SelectScrollDownButton.displayName = SCROLL_DOWN_BUTTON_NAME;
-var SelectScrollButtonImpl = React44__namespace.forwardRef((props, forwardedRef) => {
+var SelectScrollButtonImpl = React45__namespace.forwardRef((props, forwardedRef) => {
   const { __scopeSelect, onAutoScroll, ...scrollIndicatorProps } = props;
   const contentContext = useSelectContentContext("SelectScrollButton", __scopeSelect);
-  const autoScrollTimerRef = React44__namespace.useRef(null);
+  const autoScrollTimerRef = React45__namespace.useRef(null);
   const getItems = useCollection3(__scopeSelect);
-  const clearAutoScrollTimer = React44__namespace.useCallback(() => {
+  const clearAutoScrollTimer = React45__namespace.useCallback(() => {
     if (autoScrollTimerRef.current !== null) {
       window.clearInterval(autoScrollTimerRef.current);
       autoScrollTimerRef.current = null;
     }
   }, []);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     return () => clearAutoScrollTimer();
   }, [clearAutoScrollTimer]);
   useLayoutEffect2(() => {
@@ -10085,7 +10085,7 @@ var SelectScrollButtonImpl = React44__namespace.forwardRef((props, forwardedRef)
   );
 });
 var SEPARATOR_NAME3 = "SelectSeparator";
-var SelectSeparator = React44__namespace.forwardRef(
+var SelectSeparator = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...separatorProps } = props;
     return /* @__PURE__ */ jsxRuntime.jsx(Primitive.div, { "aria-hidden": true, ...separatorProps, ref: forwardedRef });
@@ -10093,7 +10093,7 @@ var SelectSeparator = React44__namespace.forwardRef(
 );
 SelectSeparator.displayName = SEPARATOR_NAME3;
 var ARROW_NAME4 = "SelectArrow";
-var SelectArrow = React44__namespace.forwardRef(
+var SelectArrow = React45__namespace.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSelect, ...arrowProps } = props;
     const popperScope = usePopperScope2(__scopeSelect);
@@ -10104,12 +10104,12 @@ var SelectArrow = React44__namespace.forwardRef(
 );
 SelectArrow.displayName = ARROW_NAME4;
 var BUBBLE_INPUT_NAME = "SelectBubbleInput";
-var SelectBubbleInput = React44__namespace.forwardRef(
+var SelectBubbleInput = React45__namespace.forwardRef(
   ({ __scopeSelect, value, ...props }, forwardedRef) => {
-    const ref = React44__namespace.useRef(null);
+    const ref = React45__namespace.useRef(null);
     const composedRefs = useComposedRefs(forwardedRef, ref);
     const prevValue = usePrevious(value);
-    React44__namespace.useEffect(() => {
+    React45__namespace.useEffect(() => {
       const select = ref.current;
       if (!select) return;
       const selectProto = window.HTMLSelectElement.prototype;
@@ -10141,9 +10141,9 @@ function shouldShowPlaceholder(value) {
 }
 function useTypeaheadSearch(onSearchChange) {
   const handleSearchChange = useCallbackRef(onSearchChange);
-  const searchRef = React44__namespace.useRef("");
-  const timerRef = React44__namespace.useRef(0);
-  const handleTypeaheadSearch = React44__namespace.useCallback(
+  const searchRef = React45__namespace.useRef("");
+  const timerRef = React45__namespace.useRef(0);
+  const handleTypeaheadSearch = React45__namespace.useCallback(
     (key) => {
       const search = searchRef.current + key;
       handleSearchChange(search);
@@ -10155,11 +10155,11 @@ function useTypeaheadSearch(onSearchChange) {
     },
     [handleSearchChange]
   );
-  const resetTypeahead = React44__namespace.useCallback(() => {
+  const resetTypeahead = React45__namespace.useCallback(() => {
     searchRef.current = "";
     window.clearTimeout(timerRef.current);
   }, []);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     return () => window.clearTimeout(timerRef.current);
   }, []);
   return [searchRef, handleTypeaheadSearch, resetTypeahead];
@@ -10196,19 +10196,19 @@ var ScrollDownButton = SelectScrollDownButton;
 function Select2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Root24, { "data-slot": "select", ...props });
+  return /* @__PURE__ */ React45__namespace.createElement(Root24, { "data-slot": "select", ...props });
 }
 function SelectValue2({
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Value, { "data-slot": "select-value", ...props });
+  return /* @__PURE__ */ React45__namespace.createElement(Value, { "data-slot": "select-value", ...props });
 }
 function SelectTrigger2({
   className,
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Trigger2,
     {
       "data-slot": "select-trigger",
@@ -10219,7 +10219,7 @@ function SelectTrigger2({
       ...props
     },
     children,
-    /* @__PURE__ */ React44__namespace.createElement(Icon2, { asChild: true }, /* @__PURE__ */ React44__namespace.createElement(ChevronDown, { className: "uii:size-4 uii:opacity-50" }))
+    /* @__PURE__ */ React45__namespace.createElement(Icon2, { asChild: true }, /* @__PURE__ */ React45__namespace.createElement(ChevronDown, { className: "uii:size-4 uii:opacity-50" }))
   );
 }
 function SelectContent2({
@@ -10231,7 +10231,7 @@ function SelectContent2({
   hideScrollDownButton = false,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(Portal3, null, /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(Portal3, null, /* @__PURE__ */ React45__namespace.createElement(
     Content23,
     {
       "data-slot": "select-content",
@@ -10244,8 +10244,8 @@ function SelectContent2({
       position,
       ...props
     },
-    !hideScrollUpButton && /* @__PURE__ */ React44__namespace.createElement(SelectScrollUpButton2, null),
-    /* @__PURE__ */ React44__namespace.createElement(
+    !hideScrollUpButton && /* @__PURE__ */ React45__namespace.createElement(SelectScrollUpButton2, null),
+    /* @__PURE__ */ React45__namespace.createElement(
       Viewport,
       {
         className: cn(
@@ -10255,8 +10255,8 @@ function SelectContent2({
       },
       children
     ),
-    footer ? /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:border-t uii:p-2 uii:bg-popover" }, footer) : null,
-    !hideScrollDownButton && /* @__PURE__ */ React44__namespace.createElement(SelectScrollDownButton2, null)
+    footer ? /* @__PURE__ */ React45__namespace.createElement("div", { className: "uii:border-t uii:p-2 uii:bg-popover" }, footer) : null,
+    !hideScrollDownButton && /* @__PURE__ */ React45__namespace.createElement(SelectScrollDownButton2, null)
   ));
 }
 function SelectItem2({
@@ -10264,7 +10264,7 @@ function SelectItem2({
   children,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     Item3,
     {
       "data-slot": "select-item",
@@ -10274,15 +10274,15 @@ function SelectItem2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44__namespace.createElement("span", { className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React44__namespace.createElement(ItemIndicator3, null, /* @__PURE__ */ React44__namespace.createElement(Check, { className: "uii:size-4" }))),
-    /* @__PURE__ */ React44__namespace.createElement(ItemText, null, children)
+    /* @__PURE__ */ React45__namespace.createElement("span", { className: "uii:absolute uii:right-2 uii:flex uii:size-3.5 uii:items-center uii:justify-center" }, /* @__PURE__ */ React45__namespace.createElement(ItemIndicator3, null, /* @__PURE__ */ React45__namespace.createElement(Check, { className: "uii:size-4" }))),
+    /* @__PURE__ */ React45__namespace.createElement(ItemText, null, children)
   );
 }
 function SelectScrollUpButton2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     ScrollUpButton,
     {
       "data-slot": "select-scroll-up-button",
@@ -10292,14 +10292,14 @@ function SelectScrollUpButton2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44__namespace.createElement(ChevronUp, { className: "uii:size-4" })
+    /* @__PURE__ */ React45__namespace.createElement(ChevronUp, { className: "uii:size-4" })
   );
 }
 function SelectScrollDownButton2({
   className,
   ...props
 }) {
-  return /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement(
     ScrollDownButton,
     {
       "data-slot": "select-scroll-down-button",
@@ -10309,14 +10309,14 @@ function SelectScrollDownButton2({
       ),
       ...props
     },
-    /* @__PURE__ */ React44__namespace.createElement(ChevronDown, { className: "uii:size-4" })
+    /* @__PURE__ */ React45__namespace.createElement(ChevronDown, { className: "uii:size-4" })
   );
 }
 
 // src/components/fields/Select.tsx
 function useResolvedExpectedType2(expectedType, devCtx) {
   const inferredTypes = devCtx?.inferredTypes;
-  return React44__namespace.useMemo(() => {
+  return React45__namespace.useMemo(() => {
     if (!expectedType) return "any";
     if (!expectedType.startsWith("$infer<")) {
       return expectedType;
@@ -10361,38 +10361,38 @@ function Select3({
   className,
   children
 }) {
-  const devCtx = React44.useContext(DevContext);
+  const devCtx = React45.useContext(DevContext);
   const resolvedExpectedType = useResolvedExpectedType2(expectedType, devCtx);
-  const [isExpressionMode, setIsExpressionMode] = React44__namespace.useState(false);
-  const [expressionValue, setExpressionValue] = React44__namespace.useState("");
-  const options = React44__namespace.useMemo(() => {
+  const [isExpressionMode, setIsExpressionMode] = React45__namespace.useState(false);
+  const [expressionValue, setExpressionValue] = React45__namespace.useState("");
+  const options = React45__namespace.useMemo(() => {
     return rawOptions.map(
       (opt) => typeof opt === "string" ? { value: opt, label: opt } : opt
     );
   }, [rawOptions]);
-  const displayValue = React44__namespace.useMemo(() => {
+  const displayValue = React45__namespace.useMemo(() => {
     if (value != null && typeof value === "object" && "expression" in value) {
       return String(value.expression ?? "");
     }
     return String(value ?? "");
   }, [value]);
-  const isExpression = React44__namespace.useMemo(() => {
+  const isExpression = React45__namespace.useMemo(() => {
     return value && typeof value === "object" && "expression" in value;
   }, [value]);
-  React44__namespace.useEffect(() => {
+  React45__namespace.useEffect(() => {
     if (isExpression) {
       setIsExpressionMode(true);
       setExpressionValue(displayValue);
     }
   }, [isExpression, displayValue]);
-  const handleSelectChange = React44__namespace.useCallback((newValue) => {
+  const handleSelectChange = React45__namespace.useCallback((newValue) => {
     if (newValue === "__expression__") {
       setIsExpressionMode(true);
       return;
     }
     onChange(newValue);
   }, [onChange]);
-  const handleExpressionChange = React44__namespace.useCallback(
+  const handleExpressionChange = React45__namespace.useCallback(
     (e) => {
       const newValue = e.target.value;
       setExpressionValue(newValue);
@@ -10400,7 +10400,7 @@ function Select3({
     },
     [onChange]
   );
-  const handleSwitchToValue = React44__namespace.useCallback(() => {
+  const handleSwitchToValue = React45__namespace.useCallback(() => {
     setIsExpressionMode(false);
     setExpressionValue("");
     onChange("");
@@ -10429,7 +10429,7 @@ function Select3({
     hasError: showError
   };
   const isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
-  return /* @__PURE__ */ React44__namespace.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React44__namespace.createElement(
+  return /* @__PURE__ */ React45__namespace.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React45__namespace.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React45__namespace.createElement(
     "label",
     {
       htmlFor: fieldName,
@@ -10437,7 +10437,7 @@ function Select3({
     },
     label,
     ":"
-  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React44__namespace.createElement(
+  ), resolvedExpectedType !== "$.interface.timer" && /* @__PURE__ */ React45__namespace.createElement(
     "span",
     {
       className: cn(
@@ -10447,12 +10447,12 @@ function Select3({
       title: resolvedExpectedType
     },
     resolvedExpectedType
-  ), showError && /* @__PURE__ */ React44__namespace.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required")), /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:mt-0.5" }, children ? (
+  ), showError && /* @__PURE__ */ React45__namespace.createElement("span", { className: "uii:-mt-2 uii:inline-flex uii:px-1 uii:py-0.5 uii:bg-red-100 uii:text-red-600 uii:rounded-sm uii:text-[10px] uii:font-medium" }, "Required")), /* @__PURE__ */ React45__namespace.createElement("div", { className: "uii:mt-0.5" }, children ? (
     // Use custom render function
     children(renderProps)
   ) : isExpressionMode ? (
     // Expression mode - show input with clear button
-    /* @__PURE__ */ React44__namespace.createElement("div", { className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5" }, /* @__PURE__ */ React44__namespace.createElement(
+    /* @__PURE__ */ React45__namespace.createElement("div", { className: "uii:flex uii:items-center uii:h-9 uii:rounded-sm uii:border uii:border-amber-500/50 uii:bg-amber-500/5" }, /* @__PURE__ */ React45__namespace.createElement(
       "input",
       {
         id: fieldName,
@@ -10468,7 +10468,7 @@ function Select3({
           disabled && "uii:opacity-50 uii:cursor-not-allowed"
         )
       }
-    ), /* @__PURE__ */ React44__namespace.createElement(
+    ), /* @__PURE__ */ React45__namespace.createElement(
       "button",
       {
         type: "button",
@@ -10510,21 +10510,21 @@ function Select3({
     //     📝 Custom Expression
     //   </option>
     // </select>
-    /* @__PURE__ */ React44__namespace.createElement(
+    /* @__PURE__ */ React45__namespace.createElement(
       Select2,
       {
         value: displayValue,
         onValueChange: (e) => handleSelectChange(e),
         disabled: disabled ?? disabled
       },
-      /* @__PURE__ */ React44__namespace.createElement(
+      /* @__PURE__ */ React45__namespace.createElement(
         SelectTrigger2,
         {
           className: "ui:w-full ui:h-9 ui:px-3 ui:border ui:border-input ui:rounded-sm ui:bg-background"
         },
-        /* @__PURE__ */ React44__namespace.createElement(SelectValue2, { placeholder })
+        /* @__PURE__ */ React45__namespace.createElement(SelectValue2, { placeholder })
       ),
-      /* @__PURE__ */ React44__namespace.createElement(SelectContent2, null, options.map((opt) => /* @__PURE__ */ React44__namespace.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React44__namespace.createElement(React44__namespace.Fragment, null, opt.label))))
+      /* @__PURE__ */ React45__namespace.createElement(SelectContent2, null, options.map((opt) => /* @__PURE__ */ React45__namespace.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React45__namespace.createElement(React45__namespace.Fragment, null, opt.label))))
     )
   )));
 }
@@ -10655,17 +10655,17 @@ function useFieldPath(fieldName) {
   return fieldName;
 }
 function TemplateFieldProvider({ children }) {
-  return /* @__PURE__ */ React44__namespace.default.createElement(React44__namespace.default.Fragment, null, children);
+  return /* @__PURE__ */ React45__namespace.default.createElement(React45__namespace.default.Fragment, null, children);
 }
 function NestedFieldProvider({
   children
 }) {
-  return /* @__PURE__ */ React44__namespace.default.createElement(React44__namespace.default.Fragment, null, children);
+  return /* @__PURE__ */ React45__namespace.default.createElement(React45__namespace.default.Fragment, null, children);
 }
-var InferredTypesContext = React44.createContext(null);
+var InferredTypesContext = React45.createContext(null);
 function useInferredTypes() {
-  const devContext = React44.useContext(DevContext);
-  const realContext = React44.useContext(InferredTypesContext);
+  const devContext = React45.useContext(DevContext);
+  const realContext = React45.useContext(InferredTypesContext);
   if (devContext) {
     return {
       inferredTypes: devContext.inferredTypes,
@@ -10678,7 +10678,7 @@ function useInferredTypes() {
   return realContext;
 }
 function InferredTypesProvider({ children }) {
-  return /* @__PURE__ */ React44__namespace.default.createElement(React44__namespace.default.Fragment, null, children);
+  return /* @__PURE__ */ React45__namespace.default.createElement(React45__namespace.default.Fragment, null, children);
 }
 function intersectTypes(types) {
   const validTypes = types.filter((t) => !!t && t.length > 0);
@@ -10739,33 +10739,33 @@ function getOperatorsForType(type) {
   ];
 }
 function NodePropertyProvider({ children }) {
-  return /* @__PURE__ */ React44__namespace.default.createElement(React44__namespace.default.Fragment, null, children);
+  return /* @__PURE__ */ React45__namespace.default.createElement(React45__namespace.default.Fragment, null, children);
 }
 function useSetFieldMetadataOnly() {
-  return React44.useCallback((_fieldKey, _metadata) => {
+  return React45.useCallback((_fieldKey, _metadata) => {
   }, []);
 }
 function useIsInNodePropertyProvider() {
-  const devContext = React44.useContext(DevContext);
+  const devContext = React45.useContext(DevContext);
   return devContext !== null;
 }
 function useNodeProperty(key) {
-  const devContext = React44.useContext(DevContext);
-  const [devValue, setDevValue] = React44.useState(
+  const devContext = React45.useContext(DevContext);
+  const [devValue, setDevValue] = React45.useState(
     () => devContext?.data?.[key]
   );
-  React44__namespace.default.useEffect(() => {
+  React45__namespace.default.useEffect(() => {
     if (devContext) {
       setDevValue(devContext.data[key]);
     }
   }, [devContext, key]);
-  const devSetter = React44.useCallback((value, _metadata) => {
+  const devSetter = React45.useCallback((value, _metadata) => {
     if (devContext) {
       devContext.setProperty(key, value);
       setDevValue(value);
     }
   }, [devContext, key]);
-  const noopSetter = React44.useCallback(() => {
+  const noopSetter = React45.useCallback(() => {
     console.warn(`[useNodeProperty] No provider - cannot set "${key}"`);
   }, [key]);
   if (devContext) {
@@ -10774,16 +10774,16 @@ function useNodeProperty(key) {
   return [void 0, noopSetter];
 }
 function useNodeProperties() {
-  const devContext = React44.useContext(DevContext);
-  const [devData, setDevData] = React44.useState(
+  const devContext = React45.useContext(DevContext);
+  const [devData, setDevData] = React45.useState(
     () => devContext?.data ?? {}
   );
-  React44__namespace.default.useEffect(() => {
+  React45__namespace.default.useEffect(() => {
     if (devContext) {
       setDevData({ ...devContext.data });
     }
   }, [devContext, devContext?.data]);
-  const devSetter = React44.useCallback((updates) => {
+  const devSetter = React45.useCallback((updates) => {
     if (devContext) {
       Object.entries(updates).forEach(([key, value]) => {
         devContext.setProperty(key, value);
@@ -10791,7 +10791,7 @@ function useNodeProperties() {
       setDevData((prev) => ({ ...prev, ...updates }));
     }
   }, [devContext]);
-  const noopSetter = React44.useCallback(() => {
+  const noopSetter = React45.useCallback(() => {
     console.warn("[useNodeProperties] No provider - cannot set properties");
   }, []);
   if (devContext) {
@@ -10800,11 +10800,11 @@ function useNodeProperties() {
   return [{}, noopSetter];
 }
 function useInferredType(fieldName) {
-  const devContext = React44.useContext(DevContext);
-  const [devInferredType, setDevInferredType] = React44.useState(
+  const devContext = React45.useContext(DevContext);
+  const [devInferredType, setDevInferredType] = React45.useState(
     () => devContext?.inferredTypes?.[fieldName]
   );
-  React44__namespace.default.useEffect(() => {
+  React45__namespace.default.useEffect(() => {
     if (devContext) {
       setDevInferredType(devContext.inferredTypes[fieldName]);
     }
@@ -10815,8 +10815,8 @@ function useInferredType(fieldName) {
   return void 0;
 }
 function useSetInferredType() {
-  const devContext = React44.useContext(DevContext);
-  return React44.useCallback((fieldName, type) => {
+  const devContext = React45.useContext(DevContext);
+  return React45.useCallback((fieldName, type) => {
     if (devContext) {
       devContext.setInferredType(fieldName, type);
     } else {
@@ -10825,8 +10825,8 @@ function useSetInferredType() {
   }, [devContext]);
 }
 function useClearInferredType() {
-  const devContext = React44.useContext(DevContext);
-  return React44.useCallback((fieldName) => {
+  const devContext = React45.useContext(DevContext);
+  return React45.useCallback((fieldName) => {
     if (devContext) {
       devContext.clearInferredType(fieldName);
     } else {
@@ -10835,8 +10835,8 @@ function useClearInferredType() {
   }, [devContext]);
 }
 function useClearAllInferredTypes() {
-  const devContext = React44.useContext(DevContext);
-  return React44.useCallback(() => {
+  const devContext = React45.useContext(DevContext);
+  return React45.useCallback(() => {
     if (devContext) {
       devContext.clearAllInferredTypes();
     } else {
@@ -10845,7 +10845,7 @@ function useClearAllInferredTypes() {
   }, [devContext]);
 }
 function useClearValidationErrorsByPrefix() {
-  return React44.useCallback((fieldPrefix) => {
+  return React45.useCallback((fieldPrefix) => {
     console.log(`[useClearValidationErrorsByPrefix] Dev mode - clearing errors with prefix "${fieldPrefix}" is a no-op`);
   }, []);
 }
@@ -10862,11 +10862,11 @@ function useFlowEditorActions() {
   };
 }
 function useAllInferredTypes() {
-  const devContext = React44.useContext(DevContext);
-  const [devTypes, setDevTypes] = React44.useState(
+  const devContext = React45.useContext(DevContext);
+  const [devTypes, setDevTypes] = React45.useState(
     () => devContext?.inferredTypes ?? {}
   );
-  React44__namespace.default.useEffect(() => {
+  React45__namespace.default.useEffect(() => {
     if (devContext) {
       setDevTypes({ ...devContext.inferredTypes });
     }
@@ -10877,8 +10877,8 @@ function useAllInferredTypes() {
   return {};
 }
 function useSetProperty() {
-  const devContext = React44.useContext(DevContext);
-  return React44.useCallback((key, value, _metadata) => {
+  const devContext = React45.useContext(DevContext);
+  return React45.useCallback((key, value, _metadata) => {
     if (devContext) {
       devContext.setProperty(key, value);
     } else {
@@ -10887,8 +10887,8 @@ function useSetProperty() {
   }, [devContext]);
 }
 function useTriggerLayoutUpdate() {
-  const devContext = React44.useContext(DevContext);
-  return React44.useCallback(() => {
+  const devContext = React45.useContext(DevContext);
+  return React45.useCallback(() => {
     if (devContext) {
       console.log("[useTriggerLayoutUpdate] Dev mode - layout update is a no-op");
     } else {
@@ -10897,28 +10897,28 @@ function useTriggerLayoutUpdate() {
   }, [devContext]);
 }
 function useFieldValidation() {
-  const setFieldRequired = React44.useCallback((fieldName, required) => {
+  const setFieldRequired = React45.useCallback((fieldName, required) => {
     console.warn(`[useFieldValidation] Mock mode - cannot set required for "${fieldName}"`);
   }, []);
-  const setFieldRequiredIf = React44.useCallback(
+  const setFieldRequiredIf = React45.useCallback(
     (fieldName, requiredIf) => {
       console.warn(`[useFieldValidation] Mock mode - cannot set requiredIf for "${fieldName}"`);
     },
     []
   );
-  const setFieldValidation = React44.useCallback(
+  const setFieldValidation = React45.useCallback(
     (fieldName, customValidation) => {
       console.warn(`[useFieldValidation] Mock mode - cannot set validation for "${fieldName}"`);
     },
     []
   );
-  const clearFieldValidation = React44.useCallback((fieldName) => {
+  const clearFieldValidation = React45.useCallback((fieldName) => {
     console.warn(`[useFieldValidation] Mock mode - cannot clear validation for "${fieldName}"`);
   }, []);
-  const isFieldRequired = React44.useCallback((fieldName) => {
+  const isFieldRequired = React45.useCallback((fieldName) => {
     return false;
   }, []);
-  const validateField = React44.useCallback((fieldName) => {
+  const validateField = React45.useCallback((fieldName) => {
     return null;
   }, []);
   return {
@@ -10930,6 +10930,23 @@ function useFieldValidation() {
     validateField
   };
 }
+
+// src/components/slots/index.tsx
+var slots_exports = {};
+__export(slots_exports, {
+  ExportManager: () => ExportManager,
+  SlotElements: () => SlotElements
+});
+
+// src/components/slots/SlotElements.tsx
+var SlotElements = () => {
+  return /* @__PURE__ */ React.createElement("div", { className: "uii:flex uii:flex-row uii:gap-2 uii:border-dashed uii:border uii:border-gray-300 \n        uii:rounded-sm uii:p-2 uii:h-10 uii:w-full uii:items-center uii:justify-start uii:p-1" }, /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755226713/namespace-icons/http.svg" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755227094/namespace-icons/mailgun.svg" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/upload/v1772002004/img.icons8.com.png" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755226713/namespace-icons/http.svg" })));
+};
+
+// src/components/slots/ExportManager.tsx
+var ExportManager = () => {
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(Button, null, "Manage Exports"));
+};
 /*! Bundled license information:
 
 lucide-react/dist/esm/shared/src/utils.js:
@@ -10973,6 +10990,7 @@ exports.ToggleButton = ToggleButton;
 exports.buttonVariants = buttonVariants;
 exports.fields = fields_exports;
 exports.logicToggleButtonStyles = logicToggleButtonStyles;
+exports.slots = slots_exports;
 exports.toggleButtonVariants = toggleButtonVariants;
 //# sourceMappingURL=index.cjs.map
 //# sourceMappingURL=index.cjs.map

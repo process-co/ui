@@ -193,6 +193,9 @@
   .uii\:left-2 {
     left: calc(var(--uii-spacing) * 2);
   }
+  .uii\:z-20 {
+    z-index: 20;
+  }
   .uii\:z-50 {
     z-index: 50;
   }
@@ -1121,6 +1124,9 @@
   .uii\:min-h-\[56px\] {
     min-height: 56px;
   }
+  .uii\:w-8 {
+    width: calc(var(--uii-spacing) * 8);
+  }
   .uii\:w-\[28px\] {
     width: 28px;
   }
@@ -1169,6 +1175,9 @@
   .uii\:scroll-my-1 {
     scroll-margin-block: calc(var(--uii-spacing) * 1);
   }
+  .uii\:flex-row {
+    flex-direction: row;
+  }
   .uii\:flex-wrap {
     flex-wrap: wrap;
   }
@@ -1180,6 +1189,9 @@
   }
   .uii\:justify-center {
     justify-content: center;
+  }
+  .uii\:justify-start {
+    justify-content: flex-start;
   }
   .uii\:gap-1\.5 {
     gap: calc(var(--uii-spacing) * 1.5);
@@ -1245,6 +1257,10 @@
     border-left-style: var(--tw-border-style);
     border-left-width: 10px;
   }
+  .uii\:border-dashed {
+    --tw-border-style: dashed;
+    border-style: dashed;
+  }
   .uii\:border-none {
     --tw-border-style: none;
     border-style: none;
@@ -1257,6 +1273,9 @@
   }
   .uii\:border-amber-500\/50 {
     border-color: color-mix(in oklab, oklch(76.9% 0.188 70.08) 50%, transparent);
+  }
+  .uii\:border-gray-300 {
+    border-color: oklch(87.2% 0.01 258.338);
   }
   .uii\:border-input {
     border-color: var(--input);
@@ -1335,6 +1354,9 @@
   }
   .uii\:fill-current {
     fill: currentcolor;
+  }
+  .uii\:object-contain {
+    object-fit: contain;
   }
   .uii\:p-1 {
     padding: calc(var(--uii-spacing) * 1);
