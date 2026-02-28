@@ -3096,17 +3096,10 @@ function Input({
   const isExpression = React33.useMemo(() => {
     return value != null && typeof value === "object" && "expression" in value;
   }, [value]);
-  const handleChange = React33.useCallback((e) => {
-    const newValue = e.target.value;
-    if (newValue.includes("{{")) {
-      onChange({
-        expression: newValue,
-        type: "expression"
-      });
-    } else {
-      onChange(newValue);
-    }
-  }, [onChange]);
+  const handleChange = React33.useCallback(
+    (e) => onChange(e.target.value),
+    [onChange]
+  );
   const showError = hasRequiredError || required && !displayValue;
   const isWaiting = resolvedExpectedType.startsWith("Waiting for:") || resolvedExpectedType.startsWith("Subscribing to:");
   return /* @__PURE__ */ React33.createElement("div", { className: cn("uii:mb-2", className) }, /* @__PURE__ */ React33.createElement("div", { className: "uii:flex uii:items-center uii:gap-2 uii:mt-2" }, /* @__PURE__ */ React33.createElement(
@@ -8431,14 +8424,14 @@ function Select3({
     }
     onChange(newValue);
   }, [onChange]);
-  const handleExpressionChange = React33.useCallback((e) => {
-    const newValue = e.target.value;
-    setExpressionValue(newValue);
-    onChange({
-      expression: newValue,
-      type: "expression"
-    });
-  }, [onChange]);
+  const handleExpressionChange = React33.useCallback(
+    (e) => {
+      const newValue = e.target.value;
+      setExpressionValue(newValue);
+      onChange(newValue);
+    },
+    [onChange]
+  );
   const handleSwitchToValue = React33.useCallback(() => {
     setIsExpressionMode(false);
     setExpressionValue("");
