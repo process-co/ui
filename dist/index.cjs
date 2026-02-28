@@ -10939,13 +10939,15 @@ __export(slots_exports, {
 });
 
 // src/components/slots/SlotElements.tsx
-var SlotElements = () => {
+var SlotElements = (props) => {
+  const { slotId } = props;
   return /* @__PURE__ */ React.createElement("div", { className: "uii:flex uii:flex-row uii:gap-2 uii:border-dashed uii:border uii:border-gray-300 \n        uii:rounded-sm uii:p-2 uii:h-10 uii:w-full uii:items-center uii:justify-start uii:p-1" }, /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755226713/namespace-icons/http.svg" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755227094/namespace-icons/mailgun.svg" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/upload/v1772002004/img.icons8.com.png" })), /* @__PURE__ */ React.createElement("div", { className: "uii:w-8 uii:h-8 uii:rounded-xs uii:overflow-hidden uii:flex uii:items-center uii:justify-center uii:relative uii:z-20" }, /* @__PURE__ */ React.createElement("img", { alt: "Send GET Request", className: "uii:w-8 uii:h-8 uii:object-contain uii:rounded-xs uii:z-20", src: "https://res.cloudinary.com/process-co/image/fetch/w_64,h_64,c_fill,g_face/https://res.cloudinary.com/process-co/image/upload/v1755226713/namespace-icons/http.svg" })));
 };
 
 // src/components/slots/ExportManager.tsx
-var ExportManager = () => {
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(Button, null, "Manage Exports"));
+var ExportManager = (props) => {
+  const { slotId } = props;
+  return /* @__PURE__ */ React.createElement(Button, { variant: "outline", size: "sm" }, "Manage Exports");
 };
 /*! Bundled license information:
 
