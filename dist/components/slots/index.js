@@ -1,5 +1,5 @@
-import * as React3 from 'react';
-import React3__default from 'react';
+import * as React4 from 'react';
+import React4__default, { createContext, useContext, useState, useEffect } from 'react';
 import { jsx, jsxs } from 'react/jsx-runtime';
 import 'react-dom';
 
@@ -1043,6 +1043,7 @@ var require_package = __commonJS({
     };
   }
 });
+var DevContext = createContext(null);
 
 // src/components/slots/SlotElements.tsx
 var SlotElements = (props) => {
@@ -1081,10 +1082,10 @@ function composeRefs(...refs) {
   };
 }
 function useComposedRefs(...refs) {
-  return React3.useCallback(composeRefs(...refs), refs);
+  return React4.useCallback(composeRefs(...refs), refs);
 }
 var REACT_LAZY_TYPE = Symbol.for("react.lazy");
-var use = React3[" use ".trim().toString()];
+var use = React4[" use ".trim().toString()];
 function isPromiseLike(value) {
   return typeof value === "object" && value !== null && "then" in value;
 }
@@ -1094,24 +1095,24 @@ function isLazyComponent(element) {
 // @__NO_SIDE_EFFECTS__
 function createSlot(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone(ownerName);
-  const Slot2 = React3.forwardRef((props, forwardedRef) => {
+  const Slot2 = React4.forwardRef((props, forwardedRef) => {
     let { children, ...slotProps } = props;
     if (isLazyComponent(children) && typeof use === "function") {
       children = use(children._payload);
     }
-    const childrenArray = React3.Children.toArray(children);
+    const childrenArray = React4.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React3.Children.count(newElement) > 1) return React3.Children.only(null);
-          return React3.isValidElement(newElement) ? newElement.props.children : null;
+          if (React4.Children.count(newElement) > 1) return React4.Children.only(null);
+          return React4.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React3.isValidElement(newElement) ? React3.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React4.isValidElement(newElement) ? React4.cloneElement(newElement, void 0, newChildren) : null });
     }
     return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
@@ -1121,27 +1122,27 @@ function createSlot(ownerName) {
 var Slot = /* @__PURE__ */ createSlot("Slot");
 // @__NO_SIDE_EFFECTS__
 function createSlotClone(ownerName) {
-  const SlotClone = React3.forwardRef((props, forwardedRef) => {
+  const SlotClone = React4.forwardRef((props, forwardedRef) => {
     let { children, ...slotProps } = props;
     if (isLazyComponent(children) && typeof use === "function") {
       children = use(children._payload);
     }
-    if (React3.isValidElement(children)) {
+    if (React4.isValidElement(children)) {
       const childrenRef = getElementRef(children);
       const props2 = mergeProps(slotProps, children.props);
-      if (children.type !== React3.Fragment) {
+      if (children.type !== React4.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React3.cloneElement(children, props2);
+      return React4.cloneElement(children, props2);
     }
-    return React3.Children.count(children) > 1 ? React3.Children.only(null) : null;
+    return React4.Children.count(children) > 1 ? React4.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
 var SLOTTABLE_IDENTIFIER = Symbol("radix.slottable");
 function isSlottable(child) {
-  return React3.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
+  return React4.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER;
 }
 function mergeProps(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -4288,7 +4289,7 @@ function Button({
   ...props
 }) {
   const Comp = asChild ? Slot : "button";
-  return /* @__PURE__ */ React3.createElement(
+  return /* @__PURE__ */ React4.createElement(
     Comp,
     {
       "data-slot": "button",
@@ -4314,32 +4315,32 @@ function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForD
 function createContextScope(scopeName, createContextScopeDeps = []) {
   let defaultContexts = [];
   function createContext3(rootComponentName, defaultContext) {
-    const BaseContext = React3.createContext(defaultContext);
+    const BaseContext = React4.createContext(defaultContext);
     const index = defaultContexts.length;
     defaultContexts = [...defaultContexts, defaultContext];
     const Provider = (props) => {
       const { scope, children, ...context } = props;
       const Context = scope?.[scopeName]?.[index] || BaseContext;
-      const value = React3.useMemo(() => context, Object.values(context));
+      const value = React4.useMemo(() => context, Object.values(context));
       return /* @__PURE__ */ jsx(Context.Provider, { value, children });
     };
     Provider.displayName = rootComponentName + "Provider";
-    function useContext2(consumerName, scope) {
+    function useContext22(consumerName, scope) {
       const Context = scope?.[scopeName]?.[index] || BaseContext;
-      const context = React3.useContext(Context);
+      const context = React4.useContext(Context);
       if (context) return context;
       if (defaultContext !== void 0) return defaultContext;
       throw new Error(`\`${consumerName}\` must be used within \`${rootComponentName}\``);
     }
-    return [Provider, useContext2];
+    return [Provider, useContext22];
   }
   const createScope = () => {
     const scopeContexts = defaultContexts.map((defaultContext) => {
-      return React3.createContext(defaultContext);
+      return React4.createContext(defaultContext);
     });
     return function useScope(scope) {
       const contexts = scope?.[scopeName] || scopeContexts;
-      return React3.useMemo(
+      return React4.useMemo(
         () => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }),
         [scope, contexts]
       );
@@ -4362,15 +4363,15 @@ function composeContextScopes(...scopes) {
         const currentScope = scopeProps[`__scope${scopeName}`];
         return { ...nextScopes2, ...currentScope };
       }, {});
-      return React3.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
+      return React4.useMemo(() => ({ [`__scope${baseScope.scopeName}`]: nextScopes }), [nextScopes]);
     };
   };
   createScope.scopeName = baseScope.scopeName;
   return createScope;
 }
-var useLayoutEffect2 = globalThis?.document ? React3.useLayoutEffect : () => {
+var useLayoutEffect2 = globalThis?.document ? React4.useLayoutEffect : () => {
 };
-var useInsertionEffect = React3[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
+var useInsertionEffect = React4[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
 function useControllableState({
   prop,
   defaultProp,
@@ -4385,8 +4386,8 @@ function useControllableState({
   const isControlled = prop !== void 0;
   const value = isControlled ? prop : uncontrolledProp;
   {
-    const isControlledRef = React3.useRef(prop !== void 0);
-    React3.useEffect(() => {
+    const isControlledRef = React4.useRef(prop !== void 0);
+    React4.useEffect(() => {
       const wasControlled = isControlledRef.current;
       if (wasControlled !== isControlled) {
         const from = wasControlled ? "controlled" : "uncontrolled";
@@ -4398,7 +4399,7 @@ function useControllableState({
       isControlledRef.current = isControlled;
     }, [isControlled, caller]);
   }
-  const setValue = React3.useCallback(
+  const setValue = React4.useCallback(
     (nextValue) => {
       if (isControlled) {
         const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
@@ -4417,13 +4418,13 @@ function useUncontrolledState({
   defaultProp,
   onChange: onChange2
 }) {
-  const [value, setValue] = React3.useState(defaultProp);
-  const prevValueRef = React3.useRef(value);
-  const onChangeRef = React3.useRef(onChange2);
+  const [value, setValue] = React4.useState(defaultProp);
+  const prevValueRef = React4.useRef(value);
+  const onChangeRef = React4.useRef(onChange2);
   useInsertionEffect(() => {
     onChangeRef.current = onChange2;
   }, [onChange2]);
-  React3.useEffect(() => {
+  React4.useEffect(() => {
     if (prevValueRef.current !== value) {
       onChangeRef.current?.(value);
       prevValueRef.current = value;
@@ -4435,8 +4436,8 @@ function isFunction(value) {
   return typeof value === "function";
 }
 function usePrevious(value) {
-  const ref = React3.useRef({ value, previous: value });
-  return React3.useMemo(() => {
+  const ref = React4.useRef({ value, previous: value });
+  return React4.useMemo(() => {
     if (ref.current.value !== value) {
       ref.current.previous = ref.current.value;
       ref.current.value = value;
@@ -4445,7 +4446,7 @@ function usePrevious(value) {
   }, [value]);
 }
 function useSize(element) {
-  const [size, setSize] = React3.useState(void 0);
+  const [size, setSize] = React4.useState(void 0);
   useLayoutEffect2(() => {
     if (element) {
       setSize({ width: element.offsetWidth, height: element.offsetHeight });
@@ -4481,21 +4482,21 @@ function useSize(element) {
 // @__NO_SIDE_EFFECTS__
 function createSlot2(ownerName) {
   const SlotClone = /* @__PURE__ */ createSlotClone2(ownerName);
-  const Slot2 = React3.forwardRef((props, forwardedRef) => {
+  const Slot2 = React4.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    const childrenArray = React3.Children.toArray(children);
+    const childrenArray = React4.Children.toArray(children);
     const slottable = childrenArray.find(isSlottable2);
     if (slottable) {
       const newElement = slottable.props.children;
       const newChildren = childrenArray.map((child) => {
         if (child === slottable) {
-          if (React3.Children.count(newElement) > 1) return React3.Children.only(null);
-          return React3.isValidElement(newElement) ? newElement.props.children : null;
+          if (React4.Children.count(newElement) > 1) return React4.Children.only(null);
+          return React4.isValidElement(newElement) ? newElement.props.children : null;
         } else {
           return child;
         }
       });
-      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React3.isValidElement(newElement) ? React3.cloneElement(newElement, void 0, newChildren) : null });
+      return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children: React4.isValidElement(newElement) ? React4.cloneElement(newElement, void 0, newChildren) : null });
     }
     return /* @__PURE__ */ jsx(SlotClone, { ...slotProps, ref: forwardedRef, children });
   });
@@ -4504,24 +4505,24 @@ function createSlot2(ownerName) {
 }
 // @__NO_SIDE_EFFECTS__
 function createSlotClone2(ownerName) {
-  const SlotClone = React3.forwardRef((props, forwardedRef) => {
+  const SlotClone = React4.forwardRef((props, forwardedRef) => {
     const { children, ...slotProps } = props;
-    if (React3.isValidElement(children)) {
+    if (React4.isValidElement(children)) {
       const childrenRef = getElementRef2(children);
       const props2 = mergeProps2(slotProps, children.props);
-      if (children.type !== React3.Fragment) {
+      if (children.type !== React4.Fragment) {
         props2.ref = forwardedRef ? composeRefs(forwardedRef, childrenRef) : childrenRef;
       }
-      return React3.cloneElement(children, props2);
+      return React4.cloneElement(children, props2);
     }
-    return React3.Children.count(children) > 1 ? React3.Children.only(null) : null;
+    return React4.Children.count(children) > 1 ? React4.Children.only(null) : null;
   });
   SlotClone.displayName = `${ownerName}.SlotClone`;
   return SlotClone;
 }
 var SLOTTABLE_IDENTIFIER2 = Symbol("radix.slottable");
 function isSlottable2(child) {
-  return React3.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER2;
+  return React4.isValidElement(child) && typeof child.type === "function" && "__radixId" in child.type && child.type.__radixId === SLOTTABLE_IDENTIFIER2;
 }
 function mergeProps2(slotProps, childProps) {
   const overrideProps = { ...childProps };
@@ -4581,7 +4582,7 @@ var NODES = [
 ];
 var Primitive = NODES.reduce((primitive, node) => {
   const Slot2 = createSlot2(`Primitive.${node}`);
-  const Node2 = React3.forwardRef((props, forwardedRef) => {
+  const Node2 = React4.forwardRef((props, forwardedRef) => {
     const { asChild, ...primitiveProps } = props;
     const Comp = asChild ? Slot2 : node;
     if (typeof window !== "undefined") {
@@ -4595,7 +4596,7 @@ var Primitive = NODES.reduce((primitive, node) => {
 var SWITCH_NAME = "Switch";
 var [createSwitchContext] = createContextScope(SWITCH_NAME);
 var [SwitchProvider, useSwitchContext] = createSwitchContext(SWITCH_NAME);
-var Switch = React3.forwardRef(
+var Switch = React4.forwardRef(
   (props, forwardedRef) => {
     const {
       __scopeSwitch,
@@ -4609,9 +4610,9 @@ var Switch = React3.forwardRef(
       form,
       ...switchProps
     } = props;
-    const [button, setButton] = React3.useState(null);
+    const [button, setButton] = React4.useState(null);
     const composedRefs = useComposedRefs(forwardedRef, (node) => setButton(node));
-    const hasConsumerStoppedPropagationRef = React3.useRef(false);
+    const hasConsumerStoppedPropagationRef = React4.useRef(false);
     const isFormControl = button ? form || !!button.closest("form") : true;
     const [checked, setChecked] = useControllableState({
       prop: checkedProp,
@@ -4661,7 +4662,7 @@ var Switch = React3.forwardRef(
 );
 Switch.displayName = SWITCH_NAME;
 var THUMB_NAME = "SwitchThumb";
-var SwitchThumb = React3.forwardRef(
+var SwitchThumb = React4.forwardRef(
   (props, forwardedRef) => {
     const { __scopeSwitch, ...thumbProps } = props;
     const context = useSwitchContext(THUMB_NAME, __scopeSwitch);
@@ -4678,7 +4679,7 @@ var SwitchThumb = React3.forwardRef(
 );
 SwitchThumb.displayName = THUMB_NAME;
 var BUBBLE_INPUT_NAME = "SwitchBubbleInput";
-var SwitchBubbleInput = React3.forwardRef(
+var SwitchBubbleInput = React4.forwardRef(
   ({
     __scopeSwitch,
     control,
@@ -4686,11 +4687,11 @@ var SwitchBubbleInput = React3.forwardRef(
     bubbles = true,
     ...props
   }, forwardedRef) => {
-    const ref = React3.useRef(null);
+    const ref = React4.useRef(null);
     const composedRefs = useComposedRefs(ref, forwardedRef);
     const prevChecked = usePrevious(checked);
     const controlSize = useSize(control);
-    React3.useEffect(() => {
+    React4.useEffect(() => {
       const input = ref.current;
       if (!input) return;
       const inputProto = window.HTMLInputElement.prototype;
@@ -4771,14 +4772,14 @@ var switchThumbVariants = cva(
   }
 );
 function Switch2({ className, size, ...props }) {
-  return /* @__PURE__ */ React3.createElement(
+  return /* @__PURE__ */ React4.createElement(
     Root,
     {
       "data-slot": "switch",
       className: cn(switchRootVariants({ size }), className),
       ...props
     },
-    /* @__PURE__ */ React3.createElement(
+    /* @__PURE__ */ React4.createElement(
       Thumb,
       {
         "data-slot": "switch-thumb",
@@ -7903,7 +7904,7 @@ var defaultProps = {
   swapOpacity: false,
   widthAuto: false
 };
-var FontAwesomeIcon = /* @__PURE__ */ React3__default.forwardRef(function(props, ref) {
+var FontAwesomeIcon = /* @__PURE__ */ React4__default.forwardRef(function(props, ref) {
   var allProps = _objectSpread22(_objectSpread22({}, defaultProps), props);
   var iconArgs = allProps.icon, maskArgs = allProps.mask, symbol = allProps.symbol, className = allProps.className, title = allProps.title, titleId = allProps.titleId, maskId = allProps.maskId;
   var iconLookup = normalizeIconArgs(iconArgs);
@@ -7964,7 +7965,7 @@ FontAwesomeIcon.propTypes = {
   swapOpacity: import_prop_types.default.bool,
   widthAuto: import_prop_types.default.bool
 };
-var convertCurry = convert.bind(null, React3__default.createElement);
+var convertCurry = convert.bind(null, React4__default.createElement);
 
 // ../../node_modules/.pnpm/@fortawesome+pro-solid-svg-icons@6.7.2/node_modules/@fortawesome/pro-solid-svg-icons/index.mjs
 var faGripVertical = {
@@ -7989,6 +7990,18 @@ var SlotDragHandle = (props) => {
   const { slotId } = props;
   return /* @__PURE__ */ React.createElement("div", { className: "uii:cursor-grab" }, /* @__PURE__ */ React.createElement(FontAwesomeIcon, { icon: faGripVertical }));
 };
+
+// src/components/slots/index.tsx
+function useSlotContext(slotId) {
+  const devContext = useContext(DevContext);
+  const [activeSlotId, setActiveSlotId] = useState(void 0);
+  useEffect(() => {
+    if (devContext) {
+      setActiveSlotId(devContext.activeSlotId ?? void 0);
+    }
+  }, [devContext, slotId]);
+  return { active: (activeSlotId ?? "") === slotId, enabled: true };
+}
 /*! Bundled license information:
 
 react-is/cjs/react-is.production.min.js:
@@ -8033,6 +8046,6 @@ object-assign/index.js:
    *)
 */
 
-export { ExportManager, SlotDelete, SlotDragHandle, SlotElements, SlotEnable };
+export { ExportManager, SlotDelete, SlotDragHandle, SlotElements, SlotEnable, useSlotContext };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

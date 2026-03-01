@@ -1,5 +1,5 @@
 import * as React45 from 'react';
-import React45__default, { forwardRef, createElement, createContext, useLayoutEffect, useState, useContext, useCallback } from 'react';
+import React45__default, { forwardRef, createElement, createContext, useLayoutEffect, useState, useContext, useCallback, useEffect } from 'react';
 import { jsx, Fragment, jsxs } from 'react/jsx-runtime';
 import * as ReactDOM4 from 'react-dom';
 import ReactDOM4__default from 'react-dom';
@@ -11956,7 +11956,8 @@ __export(slots_exports, {
   SlotDelete: () => SlotDelete,
   SlotDragHandle: () => SlotDragHandle,
   SlotElements: () => SlotElements,
-  SlotEnable: () => SlotEnable
+  SlotEnable: () => SlotEnable,
+  useSlotContext: () => useSlotContext
 });
 
 // src/components/slots/SlotElements.tsx
@@ -15367,6 +15368,18 @@ var SlotDragHandle = (props) => {
   const { slotId } = props;
   return /* @__PURE__ */ React.createElement("div", { className: "uii:cursor-grab" }, /* @__PURE__ */ React.createElement(FontAwesomeIcon, { icon: faGripVertical }));
 };
+
+// src/components/slots/index.tsx
+function useSlotContext(slotId) {
+  const devContext = useContext(DevContext);
+  const [activeSlotId, setActiveSlotId] = useState(void 0);
+  useEffect(() => {
+    if (devContext) {
+      setActiveSlotId(devContext.activeSlotId ?? void 0);
+    }
+  }, [devContext, slotId]);
+  return { active: (activeSlotId ?? "") === slotId, enabled: true };
+}
 /*! Bundled license information:
 
 react-is/cjs/react-is.production.min.js:

@@ -1,6 +1,40 @@
 import React__default, { PropsWithChildren } from 'react';
 
 /**
+ * Optional config for slot/case awareness in dev.
+ * Each control type can have unique data shape; getSlots interprets the field value and returns slot options.
+ */
+interface DevSlotConfig {
+    /** Property key (field) whose value holds the slot data (e.g. 'switchValue' or 'cases'). When set, getSlots and activeIdPath are applied to data[field]. */
+    field?: string;
+    /** Path (relative to the field value when field is set) where we store the active slot id in dev. This is mocked in dev only; we do not use the element definition's slots.activeSlotId (e.g. $.results.pathId). */
+    activeIdPath: string;
+    /**
+     * Given the field value (or full data when field is unset), return the list of slots for the Active path/case selector.
+     * Enables any control-specific shape (e.g. value.cases.cases, value.branches, etc.).
+     */
+    getSlots: (fieldValueOrData: Record<string, any>) => {
+        id: string;
+        label: string;
+    }[];
+}
+/** Preset for slot/case awareness (legacy); prefer deriving from elementDefinition.slots. */
+type SlotPreset = 'switch' | 'cases' | 'branches';
+/**
+ * Action/signal definition shape (defineAction): optional slots, initValue, props.
+ * Used to derive slotConfig and optionally initialData.
+ */
+interface ElementDefinition {
+    slots?: {
+        slots?: any[];
+        activeSlotId?: string;
+        [k: string]: any;
+    };
+    initValue?: Record<string, any>;
+    props?: Record<string, any>;
+    [k: string]: any;
+}
+/**
  * Configuration for the DevProvider
  */
 interface DevProviderConfig {
@@ -12,6 +46,17 @@ interface DevProviderConfig {
     persist?: boolean;
     /** Mock node ID (default: 'dev-node-1') */
     nodeId?: string;
+    /** Key in dev data that holds the control value (e.g. devField). In the definition, the control is the prop with the UI (e.g. cases with ui.switch); in dev that value lives at data[propertyKey], so devField = $.data.cases. Default: 'devField' */
+    propertyKey?: string;
+    /** When set, provider builds slotConfig internally; loader does not need to pass slotConfig. */
+    slotPreset?: SlotPreset;
+    /** Optional. Full slot config; overrides slotPreset and elementDefinition when provided. */
+    slotConfig?: DevSlotConfig;
+    /**
+     * Action or signal definition (defineAction result). Provider derives slotConfig from slots + initValue
+     * and uses initValue as initialData when initialData is not provided.
+     */
+    elementDefinition?: ElementDefinition | null;
 }
 /**
  * Context value for development/testing
@@ -28,6 +73,14 @@ interface DevContextValue {
     /** Remove all inferred types */
     clearAllInferredTypes: () => void;
     nodeId: string;
+    /** Current active slot/case id (for elements with slots, e.g. Switch). Null when none selected. Provider state only; not stored in data. */
+    activeSlotId: string | null;
+    /** Set the active slot/case id. Stored in provider state only; not written to data. */
+    setActiveSlotId: (id: string | null) => void;
+    /** Slot config when provided to DevProvider (so toolbar can call getSlots(data)). */
+    slotConfig: DevSlotConfig | undefined;
+    /** Action/signal definition passed to DevProvider (for debugging). */
+    elementDefinition: ElementDefinition | null | undefined;
     clearAll: () => void;
     exportData: () => string;
     importData: (json: string) => void;
@@ -74,15 +127,23 @@ declare function useInferredTypes(): {
  * }
  * ```
  */
-declare function DevProvider({ children, storageKey, initialData, persist, nodeId, }: PropsWithChildren<DevProviderConfig>): React__default.JSX.Element;
+declare function DevProvider({ children, storageKey, initialData, persist, nodeId, propertyKey, slotPreset, slotConfig: slotConfigProp, elementDefinition, }: PropsWithChildren<DevProviderConfig>): React__default.JSX.Element;
 
+/**
+ * Helper: get slots from data when the shape is { cases: { cases: [...] } } or similar.
+ * Use this inside slotConfig.getSlots for Switch-style data, or implement your own for other shapes.
+ */
+declare function getSlotsFromCasesData(data: Record<string, any>): {
+    id: string;
+    label: string;
+}[];
 /**
  * DevToolbar - Optional toolbar for development
  * Shows current data state and provides controls for import/export/clear
- * Also allows spoofing inferred types for testing components that depend on external field types
+ * Also allows spoofing inferred types and selecting active path/case when slotConfig.getSlots is provided
  */
 declare function DevToolbar({ className }: {
     className?: string;
 }): React__default.JSX.Element;
 
-export { DevContext, type DevContextValue, DevProvider, type DevProviderConfig, DevToolbar, useDevContext, useInferredTypes, useNodeProperty };
+export { DevContext, type DevContextValue, DevProvider, type DevProviderConfig, type DevSlotConfig, DevToolbar, type ElementDefinition, type SlotPreset, getSlotsFromCasesData, useDevContext, useInferredTypes, useNodeProperty };
