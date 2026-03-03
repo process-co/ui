@@ -17,7 +17,7 @@ declare const SlotEnable: (props: SlotEnableProps) => React.JSX.Element;
 
 interface SlotDeleteProps {
     slotId: string;
-    onDelete: () => void;
+    onDelete: (slotId: string) => void;
 }
 declare const SlotDelete: (props: SlotDeleteProps) => React.JSX.Element;
 

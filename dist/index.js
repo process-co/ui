@@ -15360,7 +15360,15 @@ var faCircleXmark = {
 // src/components/slots/SlotDelete.tsx
 var SlotDelete = (props) => {
   const { slotId, onDelete } = props;
-  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(Button, { variant: "ghost", size: "iconSm", onClick: onDelete }, /* @__PURE__ */ React.createElement(FontAwesomeIcon, { icon: faCircleXmark, className: "uii:text-red-500" })));
+  return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(
+    Button,
+    {
+      variant: "ghost",
+      size: "iconSm",
+      onClick: () => onDelete(slotId)
+    },
+    /* @__PURE__ */ React.createElement(FontAwesomeIcon, { icon: faCircleXmark, className: "uii:text-red-500" })
+  ));
 };
 
 // src/components/slots/SlotDragHandle.tsx

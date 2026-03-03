@@ -332,6 +332,67 @@ function SwitchEditor({ fieldName }) {
 
 ---
 
+## Slots
+
+Slots are **logical sub-containers or branches** used in flow control. Elements like Switch or If-Then expose multiple slots (e.g. cases or branches); each slot can contain child steps. The flow editor and property panel abstract away layout and evaluation so custom controls only need to work with slot IDs and active/enabled state.
+
+### What slots are
+
+- **Container elements** (e.g. Switch, If-Then, Loop) define a set of **slots**. Each slot is one branch or case.
+- At runtime, the **active** slot is the branch that evaluation chose (e.g. the matching case in a Switch).
+- Slots can be **enabled or disabled** per branch; the host evaluates this from your element data.
+- Custom controls receive slot context via `useSlotContext(slotId)` and can use **slot controls** to render branch lists, enable/disable toggles, and reorder/delete.
+
+### useSlotContext
+
+Use this hook when your control needs to know whether a given slot is active (evaluated path) or enabled (user can toggle).
+
+```tsx
+import { useSlotContext } from '@process.co/ui/slots';
+
+function MyBranchLabel({ slotId }: { slotId: string }) {
+  const slot = useSlotContext(slotId);
+  if (!slot) return null; // Not inside a provider
+  return (
+    <span className={slot.active ? 'font-bold' : ''}>
+      {slot.enabled ? 'On' : 'Off'}
+    </span>
+  );
+}
+```
+
+**Returns:** `{ active: boolean, enabled: boolean } | undefined`
+
+- **active** – Whether this slot is the one evaluation selected (e.g. the current case).
+- **enabled** – Whether the slot is enabled (from the element’s slot definition).
+- **undefined** – When not inside a host that provides slot context (e.g. outside the flow editor property panel).
+
+### Slot controls
+
+These components work with the same context and are intended for building branch/case UIs:
+
+| Export | Description |
+|--------|-------------|
+| `SlotElements` | Renders the list of elements in a slot (e.g. steps in a case). |
+| `SlotEnable` | Toggle to enable/disable a slot (uses context `isSlotEnabled` / `handleSlotEnabledChange`). |
+| `SlotDelete` | Control to delete a slot or its contents. |
+| `SlotDragHandle` | Drag handle for reordering within a slot. |
+| `ExportManager` | UI for managing exports from a slot. |
+
+They are provided by the host (flow editor) via `TemplateFieldProvider`; you do not pass slot state yourself when running inside the editor.
+
+### Slot definition (for element authors)
+
+If you define an action or signal with branches/cases, you declare **slots** in the element definition. The host uses this to build the slot list, resolve the active slot from evaluation results, and wire enable/disable. You do not implement layout or evaluation yourself.
+
+- **Static slots** – Fixed set of branches (e.g. "then" and "else"). In the definition: `type: 'static'`, an `id` (optional template like `{{ID_GUID}}_default_case`), and optional `labelPath`, `labelValue`, `enabledPath`.
+- **Dynamic slots** – Branches come from an array in your element data (e.g. `cases[]`). In the definition: a `path` (e.g. `$.data.cases.cases[*]`), plus `idPath`, `labelPath`, and optionally `enabledPath` per item.
+- **Active slot** – The host evaluates your element and reads the chosen branch from the evaluation result. You provide paths in the definition (e.g. `activeSlotId`, `activeSlotLabel`) that point into that result; the host uses them to drive `isSlotActive` and the canvas.
+
+The exact schema (e.g. `slots.slots[]`, `slots.activeSlotId`) is defined by the host and the namespace/action APIs. As a custom control author, you only need `useSlotContext(slotId)` and the slot controls; the host wires definitions to context.
+
+---
+
 ## Building Custom Controls
 
 Custom controls integrate with Process.co's collaborative editing system through the `useNodeProperty` hook.
