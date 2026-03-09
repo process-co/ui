@@ -8720,7 +8720,7 @@ var buttonVariants = cva(
         lg: "uii:h-10 uii:rounded-sm uii:px-6 uii:has-[>svg]:px-4",
         icon: "uii:size-9",
         iconSm: "uii:size-6 uii:text-base",
-        iconNarrow: "uii:h-9, uii:w-4"
+        iconNarrow: "uii:h-9 uii:w-4"
       }
     },
     defaultVariants: {
