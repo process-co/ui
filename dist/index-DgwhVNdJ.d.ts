@@ -1,30 +1,42 @@
-import * as React from 'react';
+import * as React$1 from 'react';
 
 interface SlotElementsProps {
     slotId: string;
 }
-declare const SlotElements: (props: SlotElementsProps) => React.JSX.Element;
+declare const SlotElements: (props: SlotElementsProps) => React$1.JSX.Element;
 
 interface ExportManagerProps {
+    /** Slot to manage export for (e.g. case id). Required so 3rd party controls can render one per slot. */
     slotId: string;
+    /** When 'button', only a "Manage exports" button is shown; click opens the host's export editor pane. When 'full', the full form is shown in the pane. Default 'button'. Mirrors packages/ui. */
+    variant?: 'button' | 'full';
+    /** When true (e.g. opened in the expanding panel), do not show the collapse/expand row. Mirrors packages/ui. */
+    embeddedInPanel?: boolean;
+    /** Optional. Slot type label (e.g. "case", "path"). When set on the button, passed with openExportEditor for pane header. Mirrors packages/ui. */
+    slotLabel?: string;
+    /** Optional. Name for this slot instance (e.g. "Case 1"). string | ReactNode for formatting. 3rd party composes it to match their UI; passed with openExportEditor for pane header. Mirrors packages/ui. */
+    slotName?: string | React.ReactNode;
+    /** Optional. Placeholder for the export code editor. string | ReactNode for formatting. When set on the button, passed with openExportEditor so the pane has it in context. Mirrors packages/ui. */
+    exportPlaceholder?: string | React.ReactNode;
 }
-declare const ExportManager: (props: ExportManagerProps) => React.JSX.Element;
+/** Stub implementation for dev/Storybook. In the host, the real ExportManager from packages/ui is used. API must match packages/ui so 3rd-party code works in both environments. */
+declare const ExportManager: ({ slotId, variant, slotLabel: slotLabelProp, slotName: slotNameProp, exportPlaceholder: exportPlaceholderProp, }: ExportManagerProps) => React$1.JSX.Element;
 
 interface SlotEnableProps {
     slotId: string;
 }
-declare const SlotEnable: (props: SlotEnableProps) => React.JSX.Element;
+declare const SlotEnable: (props: SlotEnableProps) => React$1.JSX.Element;
 
 interface SlotDeleteProps {
     slotId: string;
     onDelete: (slotId: string) => void;
 }
-declare const SlotDelete: (props: SlotDeleteProps) => React.JSX.Element;
+declare const SlotDelete: (props: SlotDeleteProps) => React$1.JSX.Element;
 
 interface SlotDragHandleProps {
     slotId: string;
 }
-declare const SlotDragHandle: (props: SlotDragHandleProps) => React.JSX.Element;
+declare const SlotDragHandle: (props: SlotDragHandleProps) => React$1.JSX.Element;
 
 /**
  * Hook to subscribe to the slot enabled and active states by slot id.

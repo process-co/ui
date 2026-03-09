@@ -341,7 +341,7 @@ Slots are **logical sub-containers or branches** used in flow control. Elements 
 - **Container elements** (e.g. Switch, If-Then, Loop) define a set of **slots**. Each slot is one branch or case.
 - At runtime, the **active** slot is the branch that evaluation chose (e.g. the matching case in a Switch).
 - Slots can be **enabled or disabled** per branch; the host evaluates this from your element data.
-- Custom controls receive slot context via `useSlotContext(slotId)` and can use **slot controls** to render branch lists, enable/disable toggles, and reorder/delete.
+- Custom controls receive slot context via `useSlotContext(slotId)` and can use **slot UI components** to render branch lists, enable/disable toggles, reorder/delete, and manage per-slot exports.
 
 ### useSlotContext
 
@@ -363,23 +363,56 @@ function MyBranchLabel({ slotId }: { slotId: string }) {
 
 **Returns:** `{ active: boolean, enabled: boolean } | undefined`
 
-- **active** – Whether this slot is the one evaluation selected (e.g. the current case).
-- **enabled** – Whether the slot is enabled (from the element’s slot definition).
-- **undefined** – When not inside a host that provides slot context (e.g. outside the flow editor property panel).
+| Property | Description |
+|----------|-------------|
+| **active** | Whether this slot is the one evaluation selected (e.g. the current case). |
+| **enabled** | Whether the slot is enabled (from the element’s slot definition). |
+| **undefined** | When not inside a host that provides slot context (e.g. outside the flow editor property panel). |
 
-### Slot controls
+### Slot UI components
 
-These components work with the same context and are intended for building branch/case UIs:
+These components work with the host’s `TemplateFieldProvider` context and are intended for building branch/case UIs:
 
-| Export | Description |
-|--------|-------------|
-| `SlotElements` | Renders the list of elements in a slot (e.g. steps in a case). |
-| `SlotEnable` | Toggle to enable/disable a slot (uses context `isSlotEnabled` / `handleSlotEnabledChange`). |
-| `SlotDelete` | Control to delete a slot or its contents. |
-| `SlotDragHandle` | Drag handle for reordering within a slot. |
-| `ExportManager` | UI for managing exports from a slot. |
+| Component | Description |
+|-----------|-------------|
+| **SlotElements** | Renders the list of elements in a slot (e.g. steps in a case). |
+| **SlotEnable** | Toggle to enable/disable a slot (uses context `isSlotEnabled` / `handleSlotEnabledChange`). |
+| **SlotDelete** | Control to delete a slot or its contents. |
+| **SlotDragHandle** | Drag handle for reordering within a slot. |
+| **ExportManager** | Button or full form for managing how a slot’s result is exported (mapping or code). Opens the host’s export editor pane when clicked. |
 
-They are provided by the host (flow editor) via `TemplateFieldProvider`; you do not pass slot state yourself when running inside the editor.
+When running inside the flow editor, the host wires slot state and callbacks; you do not pass slot state yourself. In Storybook or element-dev-server, these components render as stubs or use dev context where available.
+
+### ExportManager
+
+**ExportManager** lets users configure how a slot’s output is exported (e.g. mapping paths or custom code). You render one per slot; the host opens a shared “Manage exports” pane when the user clicks the button.
+
+#### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `slotId` | `string` | **Required.** Slot identifier (e.g. case id). Use the same id your UI uses for this branch. |
+| `variant` | `'button' \| 'full'` | `'button'` shows only a “Manage … exports” button; `'full'` shows the full form (used inside the host’s pane). Default `'button'`. |
+| `embeddedInPanel` | `boolean` | When true, the form is always expanded (e.g. inside the host’s pane). |
+| `slotLabel` | `string` | **Slot type label** (e.g. `"case"`, `"path"`, `"slot"`). Used in the pane header: “Manage **{slotLabel}** exports: {slotName}”. Default from context or `"slot"`. |
+| `slotName` | `string \| React.ReactNode` | **Slot instance name** (e.g. “Case 1”, “Path A”). You compose this to match your UI; it appears after the colon in the pane header. Supports `ReactNode` for formatting (e.g. bold, icons). Fallback in the pane is `slotId`. |
+| `exportPlaceholder` | `string \| React.ReactNode` | Placeholder for the export code editor (e.g. `"return { ... };"`). Passed to the pane when the editor opens. Supports `ReactNode` for formatted hints. |
+
+#### Example
+
+```tsx
+import { ExportManager } from '@process.co/ui/slots';
+
+// One button per case; when clicked, opens the host’s export pane with a clear header
+<ExportManager
+  slotId={case.id}
+  slotLabel="case"
+  slotName={case.label ?? `Case ${index + 1}`}
+  exportPlaceholder="return { outcome: steps.lastStep.results };"
+/>
+```
+
+The pane header will show: **Manage case exports: {slotName}**. The host provides the full export form (mapping rules or code) in the pane; your props only customize the labels and placeholder.
 
 ### Slot definition (for element authors)
 
@@ -389,7 +422,7 @@ If you define an action or signal with branches/cases, you declare **slots** in 
 - **Dynamic slots** – Branches come from an array in your element data (e.g. `cases[]`). In the definition: a `path` (e.g. `$.data.cases.cases[*]`), plus `idPath`, `labelPath`, and optionally `enabledPath` per item.
 - **Active slot** – The host evaluates your element and reads the chosen branch from the evaluation result. You provide paths in the definition (e.g. `activeSlotId`, `activeSlotLabel`) that point into that result; the host uses them to drive `isSlotActive` and the canvas.
 
-The exact schema (e.g. `slots.slots[]`, `slots.activeSlotId`) is defined by the host and the namespace/action APIs. As a custom control author, you only need `useSlotContext(slotId)` and the slot controls; the host wires definitions to context.
+The exact schema (e.g. `slots.slots[]`, `slots.activeSlotId`) is defined by the host and the namespace/action APIs. As a custom control author, you only need `useSlotContext(slotId)` and the slot components; the host wires definitions to context.
 
 ---
 

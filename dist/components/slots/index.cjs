@@ -4293,7 +4293,8 @@ var buttonVariants = cva(
         sm: "uii:h-8 uii:rounded-sm uii:gap-1.5 uii:px-3 uii:has-[>svg]:px-2.5",
         lg: "uii:h-10 uii:rounded-sm uii:px-6 uii:has-[>svg]:px-4",
         icon: "uii:size-9",
-        iconSm: "uii:size-6 uii:text-base"
+        iconSm: "uii:size-6 uii:text-base",
+        iconNarrow: "uii:h-9, uii:w-4"
       }
     },
     defaultVariants: {
@@ -4319,12 +4320,6 @@ function Button({
     }
   );
 }
-
-// src/components/slots/ExportManager.tsx
-var ExportManager = (props) => {
-  const { slotId } = props;
-  return /* @__PURE__ */ React.createElement(Button, { variant: "outline", size: "sm" }, "Manage Exports");
-};
 function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForDefaultPrevented = true } = {}) {
   return function handleEvent(event) {
     originalEventHandler?.(event);
@@ -4335,7 +4330,7 @@ function composeEventHandlers(originalEventHandler, ourEventHandler, { checkForD
 }
 function createContextScope(scopeName, createContextScopeDeps = []) {
   let defaultContexts = [];
-  function createContext3(rootComponentName, defaultContext) {
+  function createContext32(rootComponentName, defaultContext) {
     const BaseContext = React4__namespace.createContext(defaultContext);
     const index = defaultContexts.length;
     defaultContexts = [...defaultContexts, defaultContext];
@@ -4368,7 +4363,7 @@ function createContextScope(scopeName, createContextScopeDeps = []) {
     };
   };
   createScope.scopeName = scopeName;
-  return [createContext3, composeContextScopes(createScope, ...createContextScopeDeps)];
+  return [createContext32, composeContextScopes(createScope, ...createContextScopeDeps)];
 }
 function composeContextScopes(...scopes) {
   const baseScope = scopes[0];
@@ -4389,116 +4384,6 @@ function composeContextScopes(...scopes) {
   };
   createScope.scopeName = baseScope.scopeName;
   return createScope;
-}
-var useLayoutEffect2 = globalThis?.document ? React4__namespace.useLayoutEffect : () => {
-};
-var useInsertionEffect = React4__namespace[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
-function useControllableState({
-  prop,
-  defaultProp,
-  onChange: onChange2 = () => {
-  },
-  caller
-}) {
-  const [uncontrolledProp, setUncontrolledProp, onChangeRef] = useUncontrolledState({
-    defaultProp,
-    onChange: onChange2
-  });
-  const isControlled = prop !== void 0;
-  const value = isControlled ? prop : uncontrolledProp;
-  {
-    const isControlledRef = React4__namespace.useRef(prop !== void 0);
-    React4__namespace.useEffect(() => {
-      const wasControlled = isControlledRef.current;
-      if (wasControlled !== isControlled) {
-        const from = wasControlled ? "controlled" : "uncontrolled";
-        const to = isControlled ? "controlled" : "uncontrolled";
-        console.warn(
-          `${caller} is changing from ${from} to ${to}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`
-        );
-      }
-      isControlledRef.current = isControlled;
-    }, [isControlled, caller]);
-  }
-  const setValue = React4__namespace.useCallback(
-    (nextValue) => {
-      if (isControlled) {
-        const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
-        if (value2 !== prop) {
-          onChangeRef.current?.(value2);
-        }
-      } else {
-        setUncontrolledProp(nextValue);
-      }
-    },
-    [isControlled, prop, setUncontrolledProp, onChangeRef]
-  );
-  return [value, setValue];
-}
-function useUncontrolledState({
-  defaultProp,
-  onChange: onChange2
-}) {
-  const [value, setValue] = React4__namespace.useState(defaultProp);
-  const prevValueRef = React4__namespace.useRef(value);
-  const onChangeRef = React4__namespace.useRef(onChange2);
-  useInsertionEffect(() => {
-    onChangeRef.current = onChange2;
-  }, [onChange2]);
-  React4__namespace.useEffect(() => {
-    if (prevValueRef.current !== value) {
-      onChangeRef.current?.(value);
-      prevValueRef.current = value;
-    }
-  }, [value, prevValueRef]);
-  return [value, setValue, onChangeRef];
-}
-function isFunction(value) {
-  return typeof value === "function";
-}
-function usePrevious(value) {
-  const ref = React4__namespace.useRef({ value, previous: value });
-  return React4__namespace.useMemo(() => {
-    if (ref.current.value !== value) {
-      ref.current.previous = ref.current.value;
-      ref.current.value = value;
-    }
-    return ref.current.previous;
-  }, [value]);
-}
-function useSize(element) {
-  const [size, setSize] = React4__namespace.useState(void 0);
-  useLayoutEffect2(() => {
-    if (element) {
-      setSize({ width: element.offsetWidth, height: element.offsetHeight });
-      const resizeObserver = new ResizeObserver((entries) => {
-        if (!Array.isArray(entries)) {
-          return;
-        }
-        if (!entries.length) {
-          return;
-        }
-        const entry = entries[0];
-        let width;
-        let height;
-        if ("borderBoxSize" in entry) {
-          const borderSizeEntry = entry["borderBoxSize"];
-          const borderSize = Array.isArray(borderSizeEntry) ? borderSizeEntry[0] : borderSizeEntry;
-          width = borderSize["inlineSize"];
-          height = borderSize["blockSize"];
-        } else {
-          width = element.offsetWidth;
-          height = element.offsetHeight;
-        }
-        setSize({ width, height });
-      });
-      resizeObserver.observe(element, { box: "border-box" });
-      return () => resizeObserver.unobserve(element);
-    } else {
-      setSize(void 0);
-    }
-  }, [element]);
-  return size;
 }
 // @__NO_SIDE_EFFECTS__
 function createSlot2(ownerName) {
@@ -4614,6 +4499,182 @@ var Primitive = NODES.reduce((primitive, node) => {
   Node2.displayName = `Primitive.${node}`;
   return { ...primitive, [node]: Node2 };
 }, {});
+var useLayoutEffect2 = globalThis?.document ? React4__namespace.useLayoutEffect : () => {
+};
+function useSize(element) {
+  const [size, setSize] = React4__namespace.useState(void 0);
+  useLayoutEffect2(() => {
+    if (element) {
+      setSize({ width: element.offsetWidth, height: element.offsetHeight });
+      const resizeObserver = new ResizeObserver((entries) => {
+        if (!Array.isArray(entries)) {
+          return;
+        }
+        if (!entries.length) {
+          return;
+        }
+        const entry = entries[0];
+        let width;
+        let height;
+        if ("borderBoxSize" in entry) {
+          const borderSizeEntry = entry["borderBoxSize"];
+          const borderSize = Array.isArray(borderSizeEntry) ? borderSizeEntry[0] : borderSizeEntry;
+          width = borderSize["inlineSize"];
+          height = borderSize["blockSize"];
+        } else {
+          width = element.offsetWidth;
+          height = element.offsetHeight;
+        }
+        setSize({ width, height });
+      });
+      resizeObserver.observe(element, { box: "border-box" });
+      return () => resizeObserver.unobserve(element);
+    } else {
+      setSize(void 0);
+    }
+  }, [element]);
+  return size;
+}
+var useInsertionEffect = React4__namespace[" useInsertionEffect ".trim().toString()] || useLayoutEffect2;
+function useControllableState({
+  prop,
+  defaultProp,
+  onChange: onChange2 = () => {
+  },
+  caller
+}) {
+  const [uncontrolledProp, setUncontrolledProp, onChangeRef] = useUncontrolledState({
+    defaultProp,
+    onChange: onChange2
+  });
+  const isControlled = prop !== void 0;
+  const value = isControlled ? prop : uncontrolledProp;
+  {
+    const isControlledRef = React4__namespace.useRef(prop !== void 0);
+    React4__namespace.useEffect(() => {
+      const wasControlled = isControlledRef.current;
+      if (wasControlled !== isControlled) {
+        const from = wasControlled ? "controlled" : "uncontrolled";
+        const to = isControlled ? "controlled" : "uncontrolled";
+        console.warn(
+          `${caller} is changing from ${from} to ${to}. Components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled value for the lifetime of the component.`
+        );
+      }
+      isControlledRef.current = isControlled;
+    }, [isControlled, caller]);
+  }
+  const setValue = React4__namespace.useCallback(
+    (nextValue) => {
+      if (isControlled) {
+        const value2 = isFunction(nextValue) ? nextValue(prop) : nextValue;
+        if (value2 !== prop) {
+          onChangeRef.current?.(value2);
+        }
+      } else {
+        setUncontrolledProp(nextValue);
+      }
+    },
+    [isControlled, prop, setUncontrolledProp, onChangeRef]
+  );
+  return [value, setValue];
+}
+function useUncontrolledState({
+  defaultProp,
+  onChange: onChange2
+}) {
+  const [value, setValue] = React4__namespace.useState(defaultProp);
+  const prevValueRef = React4__namespace.useRef(value);
+  const onChangeRef = React4__namespace.useRef(onChange2);
+  useInsertionEffect(() => {
+    onChangeRef.current = onChange2;
+  }, [onChange2]);
+  React4__namespace.useEffect(() => {
+    if (prevValueRef.current !== value) {
+      onChangeRef.current?.(value);
+      prevValueRef.current = value;
+    }
+  }, [value, prevValueRef]);
+  return [value, setValue, onChangeRef];
+}
+function isFunction(value) {
+  return typeof value === "function";
+}
+function usePrevious(value) {
+  const ref = React4__namespace.useRef({ value, previous: value });
+  return React4__namespace.useMemo(() => {
+    if (ref.current.value !== value) {
+      ref.current.previous = ref.current.value;
+      ref.current.value = value;
+    }
+    return ref.current.previous;
+  }, [value]);
+}
+
+// src/components/fields/index.tsx
+function useTemplateFieldContext() {
+  return {
+    yDoc: null,
+    collabUser: null,
+    awareness: null,
+    availableNodes: null,
+    myInterface: null,
+    typeDeclarations: "",
+    element: null,
+    nodeId: "",
+    onControlFocus: () => {
+    },
+    onControlBlur: () => {
+    },
+    onRecordChange: () => {
+    },
+    onValidationChange: () => {
+    },
+    onValueChange: void 0,
+    parentFieldPath: null,
+    disabled: false,
+    slotLabel: "slot",
+    slotName: void 0,
+    exportPlaceholder: void 0,
+    onOpenExportEditor: void 0
+  };
+}
+React4.createContext(null);
+
+// src/components/slots/ExportManager.tsx
+var ExportManager = ({
+  slotId,
+  variant = "button",
+  slotLabel: slotLabelProp,
+  slotName: slotNameProp,
+  exportPlaceholder: exportPlaceholderProp
+}) => {
+  const {
+    slotLabel: slotLabelContext = "slot",
+    slotName: slotNameContext,
+    exportPlaceholder: exportPlaceholderContext,
+    onOpenExportEditor
+  } = useTemplateFieldContext();
+  const slotLabel = slotLabelProp ?? slotLabelContext;
+  const slotName = slotNameProp ?? slotNameContext;
+  const exportPlaceholder = exportPlaceholderProp ?? exportPlaceholderContext;
+  if (variant === "button") {
+    const payloadSlotLabel = typeof slotLabel === "string" ? slotLabel : void 0;
+    const payloadSlotName = typeof slotName === "string" ? slotName : void 0;
+    const payloadPlaceholder = typeof exportPlaceholder === "string" ? exportPlaceholder : void 0;
+    return /* @__PURE__ */ React.createElement(
+      Button,
+      {
+        variant: "outline",
+        size: "sm",
+        onClick: () => onOpenExportEditor?.({ mode: "slot", slotId, slotLabel: payloadSlotLabel, slotName: payloadSlotName, placeholder: payloadPlaceholder })
+      },
+      "Manage ",
+      slotLabel,
+      " exports"
+    );
+  }
+  return /* @__PURE__ */ React.createElement("div", { className: "rounded border p-2 text-sm text-muted-foreground" }, "Export form (full UI provided by host when running in flow editor).");
+};
 var SWITCH_NAME = "Switch";
 var [createSwitchContext] = createContextScope(SWITCH_NAME);
 var [SwitchProvider, useSwitchContext] = createSwitchContext(SWITCH_NAME);

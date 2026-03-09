@@ -6,7 +6,7 @@ import * as TogglePrimitive from '@radix-ui/react-toggle';
 
 declare const buttonVariants: (props?: ({
     variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link" | "typePill" | null | undefined;
-    size?: "default" | "sm" | "lg" | "icon" | "iconSm" | null | undefined;
+    size?: "default" | "sm" | "lg" | "icon" | "iconSm" | "iconNarrow" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 declare function Button({ className, variant, size, asChild, ...props }: React.ComponentProps<"button"> & VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
@@ -375,6 +375,16 @@ declare function normalizeFieldValue(val: string | {
  * Mock context value (always returns defaults).
  * In production, this is replaced with the real context from packages/ui.
  */
+/** Payload for opening the export editor pane. Slot mode can include slotLabel (type), slotName (instance), placeholder for the pane context. slotName/placeholder support string | ReactNode for formatting. Must match packages/ui. */
+type OpenExportEditorPayload = {
+    mode: 'slot';
+    slotId: string;
+    slotLabel?: string;
+    slotName?: string | React__default.ReactNode;
+    placeholder?: string | React__default.ReactNode;
+} | {
+    mode: 'container';
+};
 interface TemplateFieldContextValue {
     yDoc: null;
     collabUser: null;
@@ -392,6 +402,14 @@ interface TemplateFieldContextValue {
     onValueChange?: (fieldKey: string, value?: unknown, metadata?: Record<string, any>) => void;
     parentFieldPath: string | null;
     disabled: boolean;
+    /** Optional. Slot type label (e.g. "case", "path"). Mirrors packages/ui. */
+    slotLabel?: string;
+    /** Optional. Name for this slot instance (e.g. "Case 1"); string | ReactNode for formatting; 3rd party composes it; passed to pane header. Mirrors packages/ui. */
+    slotName?: string | React__default.ReactNode;
+    /** Optional. Placeholder for export code editor; string | ReactNode for formatting. When set on the button, passed with openExportEditor so the pane has it. Mirrors packages/ui. */
+    exportPlaceholder?: string | React__default.ReactNode;
+    /** Optional. Opens the host's export editor pane; payload can include slotLabel, slotName, placeholder. Mirrors packages/ui. */
+    onOpenExportEditor?: (payload: OpenExportEditorPayload) => void;
 }
 /**
  * Mock hook - returns empty context values.
@@ -437,6 +455,14 @@ type TemplateFieldProviderProps = {
     onValueChange?: (fieldKey: string, value?: unknown, metadata?: Record<string, any>) => void;
     parentFieldPath?: string | null;
     disabled?: boolean;
+    /** Optional. Label for the slot in export UI (e.g. "case", "path"). Mirrors packages/ui. */
+    slotLabel?: string;
+    /** Optional. Name for this slot instance (e.g. "Case 1"); string | ReactNode for formatting; 3rd party composes it; passed to pane header. Mirrors packages/ui. */
+    slotName?: string | React__default.ReactNode;
+    /** Optional. Placeholder for export code editor; string | ReactNode for formatting; when set on the button, passed to the pane. Mirrors packages/ui. */
+    exportPlaceholder?: string | React__default.ReactNode;
+    /** Optional. Opens the host's export editor pane; slot payload can include slotLabel, slotName, placeholder. Mirrors packages/ui. */
+    onOpenExportEditor?: (payload: OpenExportEditorPayload) => void;
 };
 type NestedFieldProviderProps = {
     children: React__default.ReactNode;
@@ -840,6 +866,7 @@ type index_NestedFieldProviderProps = NestedFieldProviderProps;
 declare const index_NodePropertyProvider: typeof NodePropertyProvider;
 type index_NodePropertyProviderProps = NodePropertyProviderProps;
 declare const index_OPERATORS_BY_TYPE: typeof OPERATORS_BY_TYPE;
+type index_OpenExportEditorPayload = OpenExportEditorPayload;
 type index_OperatorDef<T = never> = OperatorDef<T>;
 type index_ParsedTypes = ParsedTypes;
 type index_PropertyMetadata = PropertyMetadata;
@@ -885,7 +912,7 @@ declare const index_useSetProperty: typeof useSetProperty;
 declare const index_useTemplateFieldContext: typeof useTemplateFieldContext;
 declare const index_useTriggerLayoutUpdate: typeof useTriggerLayoutUpdate;
 declare namespace index {
-  export { type index_BaseOperatorType as BaseOperatorType, index_Button as Button, type index_FieldValidationRule as FieldValidationRule, type index_FieldValue as FieldValue, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_LogicToggleButton as LogicToggleButton, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, type index_PropertyMetadata as PropertyMetadata, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_ToggleButton as ToggleButton, index_buttonVariants as buttonVariants, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_logicToggleButtonStyles as logicToggleButtonStyles, index_normalizeFieldValue as normalizeFieldValue, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_toggleButtonVariants as toggleButtonVariants, index_useAllInferredTypes as useAllInferredTypes, index_useClearAllInferredTypes as useClearAllInferredTypes, index_useClearInferredType as useClearInferredType, index_useClearValidationErrorsByPrefix as useClearValidationErrorsByPrefix, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useFlowEditorActions as useFlowEditorActions, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetFieldMetadataOnly as useSetFieldMetadataOnly, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext, index_useTriggerLayoutUpdate as useTriggerLayoutUpdate };
+  export { type index_BaseOperatorType as BaseOperatorType, index_Button as Button, type index_FieldValidationRule as FieldValidationRule, type index_FieldValue as FieldValue, type index_InferConfig as InferConfig, index_InferredTypesContext as InferredTypesContext, type index_InferredTypesContextValue as InferredTypesContextValue, index_InferredTypesProvider as InferredTypesProvider, type index_InferredTypesProviderProps as InferredTypesProviderProps, index_Input as Input, type index_InputProps as InputProps, index_LogicToggleButton as LogicToggleButton, index_NestedFieldProvider as NestedFieldProvider, type index_NestedFieldProviderProps as NestedFieldProviderProps, index_NodePropertyProvider as NodePropertyProvider, type index_NodePropertyProviderProps as NodePropertyProviderProps, index_OPERATORS_BY_TYPE as OPERATORS_BY_TYPE, type index_OpenExportEditorPayload as OpenExportEditorPayload, type index_OperatorDef as OperatorDef, type index_ParsedTypes as ParsedTypes, type index_PropertyMetadata as PropertyMetadata, index_Select as Select, type index_SelectOption as SelectOption, type index_SelectProps as SelectProps, type index_SelectRenderProps as SelectRenderProps, type index_TemplateFieldChangeEvent as TemplateFieldChangeEvent, type index_TemplateFieldContextValue as TemplateFieldContextValue, type index_TemplateFieldFocusContext as TemplateFieldFocusContext, index_TemplateFieldProvider as TemplateFieldProvider, type index_TemplateFieldProviderProps as TemplateFieldProviderProps, type index_TemplateFieldValidationError as TemplateFieldValidationError, index_ToggleButton as ToggleButton, index_buttonVariants as buttonVariants, index_computeExtendedType as computeExtendedType, index_filterOperatorsByType as filterOperatorsByType, index_getNumberConstants as getNumberConstants, index_getOperatorsForType as getOperatorsForType, index_getStringConstants as getStringConstants, index_intersectTypes as intersectTypes, index_logicToggleButtonStyles as logicToggleButtonStyles, index_normalizeFieldValue as normalizeFieldValue, index_parseInferSyntax as parseInferSyntax, index_parseInferredTypes as parseInferredTypes, index_toggleButtonVariants as toggleButtonVariants, index_useAllInferredTypes as useAllInferredTypes, index_useClearAllInferredTypes as useClearAllInferredTypes, index_useClearInferredType as useClearInferredType, index_useClearValidationErrorsByPrefix as useClearValidationErrorsByPrefix, index_useFieldPath as useFieldPath, index_useFieldValidation as useFieldValidation, index_useFlowEditorActions as useFlowEditorActions, index_useInferredType as useInferredType, index_useInferredTypes as useInferredTypes, index_useIsInNodePropertyProvider as useIsInNodePropertyProvider, index_useIsInTemplateFieldProvider as useIsInTemplateFieldProvider, index_useNodeProperties as useNodeProperties, index_useNodeProperty as useNodeProperty, index_useSetFieldMetadataOnly as useSetFieldMetadataOnly, index_useSetInferredType as useSetInferredType, index_useSetProperty as useSetProperty, index_useTemplateFieldContext as useTemplateFieldContext, index_useTriggerLayoutUpdate as useTriggerLayoutUpdate };
 }
 
-export { type SelectRenderProps as $, useIsInNodePropertyProvider as A, Button as B, useNodeProperty as C, useNodeProperties as D, useInferredType as E, useSetInferredType as F, useClearInferredType as G, useClearAllInferredTypes as H, type InferredTypesContextValue as I, useClearValidationErrorsByPrefix as J, useFlowEditorActions as K, LogicToggleButton as L, useAllInferredTypes as M, NestedFieldProvider as N, OPERATORS_BY_TYPE as O, type PropertyMetadata as P, useSetProperty as Q, useTriggerLayoutUpdate as R, type FieldValidationRule as S, ToggleButton as T, useFieldValidation as U, type FieldValue as V, Input as W, type InputProps as X, Select as Y, type SelectProps as Z, type SelectOption as _, type TemplateFieldContextValue as a, parseInferredTypes as a0, computeExtendedType as a1, filterOperatorsByType as a2, getStringConstants as a3, getNumberConstants as a4, type BaseOperatorType as a5, type OperatorDef as a6, type ParsedTypes as a7, buttonVariants as b, useIsInTemplateFieldProvider as c, useFieldPath as d, TemplateFieldProvider as e, type TemplateFieldProviderProps as f, type NestedFieldProviderProps as g, type TemplateFieldValidationError as h, index as i, type TemplateFieldFocusContext as j, type TemplateFieldChangeEvent as k, logicToggleButtonStyles as l, InferredTypesContext as m, normalizeFieldValue as n, useInferredTypes as o, type InferredTypesProviderProps as p, InferredTypesProvider as q, intersectTypes as r, type InferConfig as s, toggleButtonVariants as t, useTemplateFieldContext as u, parseInferSyntax as v, getOperatorsForType as w, type NodePropertyProviderProps as x, NodePropertyProvider as y, useSetFieldMetadataOnly as z };
+export { type SelectOption as $, useSetFieldMetadataOnly as A, Button as B, useIsInNodePropertyProvider as C, useNodeProperty as D, useNodeProperties as E, useInferredType as F, useSetInferredType as G, useClearInferredType as H, type InferredTypesContextValue as I, useClearAllInferredTypes as J, useClearValidationErrorsByPrefix as K, LogicToggleButton as L, useFlowEditorActions as M, NestedFieldProvider as N, type OpenExportEditorPayload as O, type PropertyMetadata as P, useAllInferredTypes as Q, useSetProperty as R, useTriggerLayoutUpdate as S, ToggleButton as T, type FieldValidationRule as U, useFieldValidation as V, type FieldValue as W, Input as X, type InputProps as Y, Select as Z, type SelectProps as _, type TemplateFieldContextValue as a, type SelectRenderProps as a0, parseInferredTypes as a1, computeExtendedType as a2, filterOperatorsByType as a3, getStringConstants as a4, getNumberConstants as a5, type BaseOperatorType as a6, type OperatorDef as a7, type ParsedTypes as a8, buttonVariants as b, useIsInTemplateFieldProvider as c, useFieldPath as d, TemplateFieldProvider as e, type TemplateFieldProviderProps as f, type NestedFieldProviderProps as g, type TemplateFieldValidationError as h, index as i, type TemplateFieldFocusContext as j, type TemplateFieldChangeEvent as k, logicToggleButtonStyles as l, InferredTypesContext as m, normalizeFieldValue as n, useInferredTypes as o, type InferredTypesProviderProps as p, InferredTypesProvider as q, intersectTypes as r, type InferConfig as s, toggleButtonVariants as t, useTemplateFieldContext as u, parseInferSyntax as v, OPERATORS_BY_TYPE as w, getOperatorsForType as x, type NodePropertyProviderProps as y, NodePropertyProvider as z };

@@ -8740,7 +8740,8 @@ var buttonVariants = cva(
         sm: "uii:h-8 uii:rounded-sm uii:gap-1.5 uii:px-3 uii:has-[>svg]:px-2.5",
         lg: "uii:h-10 uii:rounded-sm uii:px-6 uii:has-[>svg]:px-4",
         icon: "uii:size-9",
-        iconSm: "uii:size-6 uii:text-base"
+        iconSm: "uii:size-6 uii:text-base",
+        iconNarrow: "uii:h-9, uii:w-4"
       }
     },
     defaultVariants: {
@@ -8964,7 +8965,11 @@ function useTemplateFieldContext() {
     },
     onValueChange: void 0,
     parentFieldPath: null,
-    disabled: false
+    disabled: false,
+    slotLabel: "slot",
+    slotName: void 0,
+    exportPlaceholder: void 0,
+    onOpenExportEditor: void 0
   };
 }
 function useIsInTemplateFieldProvider() {

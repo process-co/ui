@@ -4291,7 +4291,8 @@ var buttonVariants = cva(
         sm: "uii:h-8 uii:rounded-sm uii:gap-1.5 uii:px-3 uii:has-[>svg]:px-2.5",
         lg: "uii:h-10 uii:rounded-sm uii:px-6 uii:has-[>svg]:px-4",
         icon: "uii:size-9",
-        iconSm: "uii:size-6 uii:text-base"
+        iconSm: "uii:size-6 uii:text-base",
+        iconNarrow: "uii:h-9, uii:w-4"
       }
     },
     defaultVariants: {
@@ -11684,7 +11685,11 @@ function useTemplateFieldContext() {
     },
     onValueChange: void 0,
     parentFieldPath: null,
-    disabled: false
+    disabled: false,
+    slotLabel: "slot",
+    slotName: void 0,
+    exportPlaceholder: void 0,
+    onOpenExportEditor: void 0
   };
 }
 function useIsInTemplateFieldProvider() {
@@ -11988,9 +11993,39 @@ var SlotElements = (props) => {
 };
 
 // src/components/slots/ExportManager.tsx
-var ExportManager = (props) => {
-  const { slotId } = props;
-  return /* @__PURE__ */ React.createElement(Button, { variant: "outline", size: "sm" }, "Manage Exports");
+var ExportManager = ({
+  slotId,
+  variant = "button",
+  slotLabel: slotLabelProp,
+  slotName: slotNameProp,
+  exportPlaceholder: exportPlaceholderProp
+}) => {
+  const {
+    slotLabel: slotLabelContext = "slot",
+    slotName: slotNameContext,
+    exportPlaceholder: exportPlaceholderContext,
+    onOpenExportEditor
+  } = useTemplateFieldContext();
+  const slotLabel = slotLabelProp ?? slotLabelContext;
+  const slotName = slotNameProp ?? slotNameContext;
+  const exportPlaceholder = exportPlaceholderProp ?? exportPlaceholderContext;
+  if (variant === "button") {
+    const payloadSlotLabel = typeof slotLabel === "string" ? slotLabel : void 0;
+    const payloadSlotName = typeof slotName === "string" ? slotName : void 0;
+    const payloadPlaceholder = typeof exportPlaceholder === "string" ? exportPlaceholder : void 0;
+    return /* @__PURE__ */ React.createElement(
+      Button,
+      {
+        variant: "outline",
+        size: "sm",
+        onClick: () => onOpenExportEditor?.({ mode: "slot", slotId, slotLabel: payloadSlotLabel, slotName: payloadSlotName, placeholder: payloadPlaceholder })
+      },
+      "Manage ",
+      slotLabel,
+      " exports"
+    );
+  }
+  return /* @__PURE__ */ React.createElement("div", { className: "rounded border p-2 text-sm text-muted-foreground" }, "Export form (full UI provided by host when running in flow editor).");
 };
 var SWITCH_NAME = "Switch";
 var [createSwitchContext] = createContextScope(SWITCH_NAME);

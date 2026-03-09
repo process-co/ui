@@ -1156,6 +1156,9 @@
   .uii\:min-h-\[56px\] {
     min-height: 56px;
   }
+  .uii\:w-4 {
+    width: calc(var(--uii-spacing) * 4);
+  }
   .uii\:w-6 {
     width: calc(var(--uii-spacing) * 6);
   }
