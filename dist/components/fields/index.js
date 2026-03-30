@@ -8948,7 +8948,8 @@ function useTemplateFieldContext() {
     slotLabel: "slot",
     slotName: void 0,
     exportPlaceholder: void 0,
-    onOpenExportEditor: void 0
+    onOpenExportEditor: void 0,
+    renderPathGroupHeaderStart: void 0
   };
 }
 function useIsInTemplateFieldProvider() {

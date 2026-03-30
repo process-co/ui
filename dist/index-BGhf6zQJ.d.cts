@@ -410,6 +410,10 @@ interface TemplateFieldContextValue {
     exportPlaceholder?: string | React__default.ReactNode;
     /** Optional. Opens the host's export editor pane; payload can include slotLabel, slotName, placeholder. Mirrors packages/ui. */
     onOpenExportEditor?: (payload: OpenExportEditorPayload) => void;
+    /** Optional. Variable-picker group header leading content (e.g. ElementLogo). Mirrors packages/ui. */
+    renderPathGroupHeaderStart?: (group: {
+        id: string;
+    }) => React__default.ReactNode;
 }
 /**
  * Mock hook - returns empty context values.
