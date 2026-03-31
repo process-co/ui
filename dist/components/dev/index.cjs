@@ -425,7 +425,7 @@ function DevToolbar({ className }) {
       placeholder: "Field name (e.g., switchExpression)",
       value: newTypeKey,
       onChange: (e) => setNewTypeKey(e.target.value),
-      className: "uii:text-xs uii:px-2 uii:py-1 uii:border uii:rounded uii:flex-1 uii:min-w-[150px] uii:bg-white dark:uii:bg-gray-800"
+      className: "uii:text-xs uii:px-2 uii:py-1 uii:border uii:rounded uii:flex-1 uii:min-w-[150px] uii:bg-white dark:uii:bg-[#282A3A]"
     }
   ), /* @__PURE__ */ React2__default.default.createElement(
     "input",
@@ -435,7 +435,7 @@ function DevToolbar({ className }) {
       value: newTypeValue,
       onChange: (e) => setNewTypeValue(e.target.value),
       onKeyDown: (e) => e.key === "Enter" && handleAddType(),
-      className: "uii:text-xs uii:px-2 uii:py-1 uii:border uii:rounded uii:flex-1 uii:min-w-[200px] uii:bg-white dark:uii:bg-gray-800"
+      className: "uii:text-xs uii:px-2 uii:py-1 uii:border uii:rounded uii:flex-1 uii:min-w-[200px] uii:bg-white dark:uii:bg-[#282A3A]"
     }
   ), /* @__PURE__ */ React2__default.default.createElement(
     "button",
@@ -456,7 +456,7 @@ function DevToolbar({ className }) {
     "div",
     {
       key,
-      className: "uii:flex uii:items-center uii:gap-2 uii:text-xs uii:bg-white dark:uii:bg-gray-800 uii:px-2 uii:py-1 uii:rounded"
+      className: "uii:flex uii:items-center uii:gap-2 uii:text-xs uii:bg-white dark:uii:bg-[#282A3A] uii:px-2 uii:py-1 uii:rounded"
     },
     /* @__PURE__ */ React2__default.default.createElement(
       "button",
@@ -491,7 +491,7 @@ function DevToolbar({ className }) {
       },
       "\u2715"
     )
-  ))))), showData && /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:mt-2" }, /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:text-xs uii:mb-1 uii:font-medium" }, "Data:"), /* @__PURE__ */ React2__default.default.createElement("pre", { className: "uii:text-xs uii:bg-gray-100 dark:uii:bg-gray-800 uii:p-2 uii:rounded uii:overflow-auto uii:max-h-48" }, JSON.stringify(devCtx.data, null, 2)), /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:text-xs uii:mb-1 uii:mt-2 uii:font-medium" }, "Inferred Types:"), /* @__PURE__ */ React2__default.default.createElement("pre", { className: "uii:text-xs uii:bg-gray-100 dark:uii:bg-gray-800 uii:p-2 uii:rounded uii:overflow-auto uii:max-h-24" }, JSON.stringify(devCtx.inferredTypes, null, 2))), showDefinition && /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:mt-2" }, /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:text-xs uii:mb-1 uii:font-medium" }, "Action / signal definition:"), devCtx.elementDefinition != null ? /* @__PURE__ */ React2__default.default.createElement("pre", { className: "uii:text-xs uii:bg-amber-50 dark:uii:bg-amber-950/30 uii:p-2 uii:rounded uii:overflow-auto uii:max-h-64 uii:border uii:border-amber-200 dark:uii:border-amber-800" }, JSON.stringify(devCtx.elementDefinition, null, 2)) : /* @__PURE__ */ React2__default.default.createElement("p", { className: "uii:text-xs uii:text-gray-500 uii:italic" }, "No definition passed to DevProvider.")));
+  ))))), showData && /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:mt-2" }, /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:text-xs uii:mb-1 uii:font-medium" }, "Data:"), /* @__PURE__ */ React2__default.default.createElement("pre", { className: "uii:text-xs uii:bg-gray-100 dark:uii:bg-[#282A3A] uii:p-2 uii:rounded uii:overflow-auto uii:max-h-48" }, JSON.stringify(devCtx.data, null, 2)), /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:text-xs uii:mb-1 uii:mt-2 uii:font-medium" }, "Inferred Types:"), /* @__PURE__ */ React2__default.default.createElement("pre", { className: "uii:text-xs uii:bg-gray-100 dark:uii:bg-[#282A3A] uii:p-2 uii:rounded uii:overflow-auto uii:max-h-24" }, JSON.stringify(devCtx.inferredTypes, null, 2))), showDefinition && /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:mt-2" }, /* @__PURE__ */ React2__default.default.createElement("div", { className: "uii:text-xs uii:mb-1 uii:font-medium" }, "Action / signal definition:"), devCtx.elementDefinition != null ? /* @__PURE__ */ React2__default.default.createElement("pre", { className: "uii:text-xs uii:bg-amber-50 dark:uii:bg-amber-950/30 uii:p-2 uii:rounded uii:overflow-auto uii:max-h-64 uii:border uii:border-amber-200 dark:uii:border-amber-800" }, JSON.stringify(devCtx.elementDefinition, null, 2)) : /* @__PURE__ */ React2__default.default.createElement("p", { className: "uii:text-xs uii:text-gray-500 uii:italic" }, "No definition passed to DevProvider.")));
 }
 
 exports.DevContext = DevContext;
