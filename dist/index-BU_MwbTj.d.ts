@@ -473,6 +473,7 @@ type NestedFieldProviderProps = {
     fieldName: string;
 };
 type TemplateFieldValidationError = {
+    /** Hard syntax / TS inference failure only — not type-mismatch-only. */
     hasError: boolean;
     hasSyntaxError: boolean;
     hasTypeMismatch: boolean;
