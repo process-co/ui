@@ -8141,6 +8141,8 @@ var Icon = SelectIcon;
 var Portal2 = SelectPortal;
 var Content2 = SelectContent;
 var Viewport = SelectViewport;
+var Group = SelectGroup;
+var Label = SelectLabel;
 var Item = SelectItem;
 var ItemText = SelectItemText;
 var ItemIndicator = SelectItemIndicator;
@@ -8230,6 +8232,11 @@ function Select2({
 }) {
   return /* @__PURE__ */ React33.createElement(Root22, { "data-slot": "select", ...props });
 }
+function SelectGroup2({
+  ...props
+}) {
+  return /* @__PURE__ */ React33.createElement(Group, { "data-slot": "select-group", ...props });
+}
 function SelectValue2({
   ...props
 }) {
@@ -8291,6 +8298,19 @@ function SelectContent2({
     !hideScrollDownButton && /* @__PURE__ */ React33.createElement(SelectScrollDownButton2, null)
   ));
 }
+function SelectLabel2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ React33.createElement(
+    Label,
+    {
+      "data-slot": "select-label",
+      className: cn("uii:px-2 uii:py-1.5 uii:text-sm uii:font-medium", className),
+      ...props
+    }
+  );
+}
 function SelectItem2({
   className,
   children,
@@ -8345,6 +8365,45 @@ function SelectScrollDownButton2({
   );
 }
 
+// src/components/fields/select-options.ts
+function isSelectGroupHeading(opt) {
+  return typeof opt === "object" && opt !== null && opt.type === "group" && typeof opt.key === "string" && typeof opt.label === "string";
+}
+function toSelectOption(opt) {
+  if (typeof opt === "string") return { value: opt, label: opt };
+  const value = typeof opt.value === "number" ? String(opt.value) : opt.value;
+  return { value, label: opt.label, node: opt.node };
+}
+function normalizeSelectOptions(input) {
+  const out = [];
+  for (const item of input) {
+    if (isSelectGroupHeading(item)) continue;
+    out.push(toSelectOption(item));
+  }
+  return out;
+}
+function groupSelectOptions(input) {
+  const segments = [];
+  let current = { items: [] };
+  const flush = () => {
+    if (current.heading) {
+      if (current.items.length > 0) segments.push(current);
+    } else if (current.items.length > 0) {
+      segments.push(current);
+    }
+  };
+  for (const item of input) {
+    if (isSelectGroupHeading(item)) {
+      flush();
+      current = { heading: item, items: [] };
+      continue;
+    }
+    current.items.push(toSelectOption(item));
+  }
+  flush();
+  return segments;
+}
+
 // src/components/fields/Select.tsx
 function useResolvedExpectedType2(expectedType, devCtx) {
   const inferredTypes = devCtx?.inferredTypes;
@@ -8397,11 +8456,14 @@ function Select3({
   const resolvedExpectedType = useResolvedExpectedType2(expectedType, devCtx);
   const [isExpressionMode, setIsExpressionMode] = React33.useState(false);
   const [expressionValue, setExpressionValue] = React33.useState("");
-  const options = React33.useMemo(() => {
-    return rawOptions.map(
-      (opt) => typeof opt === "string" ? { value: opt, label: opt } : opt
-    );
-  }, [rawOptions]);
+  const groupedOptions = React33.useMemo(
+    () => groupSelectOptions(rawOptions),
+    [rawOptions]
+  );
+  const options = React33.useMemo(
+    () => normalizeSelectOptions(rawOptions),
+    [rawOptions]
+  );
   const displayValue = React33.useMemo(() => {
     if (value != null && typeof value === "object" && "expression" in value) {
       return String(value.expression ?? "");
@@ -8443,6 +8505,7 @@ function Select3({
     onChange: handleSelectChange,
     onExpressionClick: () => setIsExpressionMode(true),
     options,
+    groupedOptions,
     localInput: displayValue,
     setLocalInput: () => {
     },
@@ -8556,9 +8619,18 @@ function Select3({
         },
         /* @__PURE__ */ React33.createElement(SelectValue2, { placeholder })
       ),
-      /* @__PURE__ */ React33.createElement(SelectContent2, null, options.map((opt) => /* @__PURE__ */ React33.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React33.createElement(React33.Fragment, null, opt.label))))
+      /* @__PURE__ */ React33.createElement(SelectContent2, null, renderSelectSegments(groupedOptions))
     )
   )));
+}
+function renderSelectSegments(segments) {
+  return segments.map((segment, idx) => {
+    const items = segment.items.map((opt) => /* @__PURE__ */ React33.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React33.createElement(React33.Fragment, null, opt.label)));
+    if (!segment.heading) {
+      return /* @__PURE__ */ React33.createElement(React33.Fragment, { key: `__ungrouped_${idx}` }, items);
+    }
+    return /* @__PURE__ */ React33.createElement(SelectGroup2, { key: segment.heading.key }, /* @__PURE__ */ React33.createElement(SelectLabel2, null, segment.heading.label), items);
+  });
 }
 var REACT_LAZY_TYPE = Symbol.for("react.lazy");
 var use = React33[" use ".trim().toString()];
@@ -9252,6 +9324,6 @@ lucide-react/dist/esm/lucide-react.js:
    *)
 */
 
-export { Button, InferredTypesContext, InferredTypesProvider, Input, LogicToggleButton, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select3 as Select, TemplateFieldProvider, ToggleButton, buttonVariants, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, intersectTypes, logicToggleButtonStyles, normalizeFieldValue, parseInferSyntax, parseInferredTypes, toggleButtonVariants, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useClearValidationErrorsByPrefix, useFieldPath, useFieldValidation, useFlowEditorActions, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetFieldMetadataOnly, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate };
+export { Button, InferredTypesContext, InferredTypesProvider, Input, LogicToggleButton, NestedFieldProvider, NodePropertyProvider, OPERATORS_BY_TYPE, Select3 as Select, TemplateFieldProvider, ToggleButton, buttonVariants, computeExtendedType, filterOperatorsByType, getNumberConstants, getOperatorsForType, getStringConstants, groupSelectOptions, intersectTypes, isSelectGroupHeading, logicToggleButtonStyles, normalizeFieldValue, normalizeSelectOptions, parseInferSyntax, parseInferredTypes, renderSelectSegments, toggleButtonVariants, useAllInferredTypes, useClearAllInferredTypes, useClearInferredType, useClearValidationErrorsByPrefix, useFieldPath, useFieldValidation, useFlowEditorActions, useInferredType, useInferredTypes, useIsInNodePropertyProvider, useIsInTemplateFieldProvider, useNodeProperties, useNodeProperty, useSetFieldMetadataOnly, useSetInferredType, useSetProperty, useTemplateFieldContext, useTriggerLayoutUpdate };
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

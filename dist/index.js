@@ -8860,11 +8860,15 @@ __export(fields_exports, {
   getNumberConstants: () => getNumberConstants,
   getOperatorsForType: () => getOperatorsForType,
   getStringConstants: () => getStringConstants,
+  groupSelectOptions: () => groupSelectOptions,
   intersectTypes: () => intersectTypes,
+  isSelectGroupHeading: () => isSelectGroupHeading,
   logicToggleButtonStyles: () => logicToggleButtonStyles,
   normalizeFieldValue: () => normalizeFieldValue,
+  normalizeSelectOptions: () => normalizeSelectOptions,
   parseInferSyntax: () => parseInferSyntax,
   parseInferredTypes: () => parseInferredTypes,
+  renderSelectSegments: () => renderSelectSegments,
   toggleButtonVariants: () => toggleButtonVariants,
   useAllInferredTypes: () => useAllInferredTypes,
   useClearAllInferredTypes: () => useClearAllInferredTypes,
@@ -10166,6 +10170,8 @@ var Icon2 = SelectIcon;
 var Portal3 = SelectPortal;
 var Content23 = SelectContent;
 var Viewport = SelectViewport;
+var Group3 = SelectGroup;
+var Label3 = SelectLabel;
 var Item3 = SelectItem;
 var ItemText = SelectItemText;
 var ItemIndicator3 = SelectItemIndicator;
@@ -10177,6 +10183,11 @@ function Select2({
   ...props
 }) {
   return /* @__PURE__ */ React45.createElement(Root24, { "data-slot": "select", ...props });
+}
+function SelectGroup2({
+  ...props
+}) {
+  return /* @__PURE__ */ React45.createElement(Group3, { "data-slot": "select-group", ...props });
 }
 function SelectValue2({
   ...props
@@ -10239,6 +10250,19 @@ function SelectContent2({
     !hideScrollDownButton && /* @__PURE__ */ React45.createElement(SelectScrollDownButton2, null)
   ));
 }
+function SelectLabel2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ React45.createElement(
+    Label3,
+    {
+      "data-slot": "select-label",
+      className: cn("uii:px-2 uii:py-1.5 uii:text-sm uii:font-medium", className),
+      ...props
+    }
+  );
+}
 function SelectItem2({
   className,
   children,
@@ -10293,6 +10317,45 @@ function SelectScrollDownButton2({
   );
 }
 
+// src/components/fields/select-options.ts
+function isSelectGroupHeading(opt) {
+  return typeof opt === "object" && opt !== null && opt.type === "group" && typeof opt.key === "string" && typeof opt.label === "string";
+}
+function toSelectOption(opt) {
+  if (typeof opt === "string") return { value: opt, label: opt };
+  const value = typeof opt.value === "number" ? String(opt.value) : opt.value;
+  return { value, label: opt.label, node: opt.node };
+}
+function normalizeSelectOptions(input) {
+  const out = [];
+  for (const item of input) {
+    if (isSelectGroupHeading(item)) continue;
+    out.push(toSelectOption(item));
+  }
+  return out;
+}
+function groupSelectOptions(input) {
+  const segments = [];
+  let current = { items: [] };
+  const flush = () => {
+    if (current.heading) {
+      if (current.items.length > 0) segments.push(current);
+    } else if (current.items.length > 0) {
+      segments.push(current);
+    }
+  };
+  for (const item of input) {
+    if (isSelectGroupHeading(item)) {
+      flush();
+      current = { heading: item, items: [] };
+      continue;
+    }
+    current.items.push(toSelectOption(item));
+  }
+  flush();
+  return segments;
+}
+
 // src/components/fields/Select.tsx
 function useResolvedExpectedType2(expectedType, devCtx) {
   const inferredTypes = devCtx?.inferredTypes;
@@ -10345,11 +10408,14 @@ function Select3({
   const resolvedExpectedType = useResolvedExpectedType2(expectedType, devCtx);
   const [isExpressionMode, setIsExpressionMode] = React45.useState(false);
   const [expressionValue, setExpressionValue] = React45.useState("");
-  const options = React45.useMemo(() => {
-    return rawOptions.map(
-      (opt) => typeof opt === "string" ? { value: opt, label: opt } : opt
-    );
-  }, [rawOptions]);
+  const groupedOptions = React45.useMemo(
+    () => groupSelectOptions(rawOptions),
+    [rawOptions]
+  );
+  const options = React45.useMemo(
+    () => normalizeSelectOptions(rawOptions),
+    [rawOptions]
+  );
   const displayValue = React45.useMemo(() => {
     if (value != null && typeof value === "object" && "expression" in value) {
       return String(value.expression ?? "");
@@ -10391,6 +10457,7 @@ function Select3({
     onChange: handleSelectChange,
     onExpressionClick: () => setIsExpressionMode(true),
     options,
+    groupedOptions,
     localInput: displayValue,
     setLocalInput: () => {
     },
@@ -10504,9 +10571,18 @@ function Select3({
         },
         /* @__PURE__ */ React45.createElement(SelectValue2, { placeholder })
       ),
-      /* @__PURE__ */ React45.createElement(SelectContent2, null, options.map((opt) => /* @__PURE__ */ React45.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React45.createElement(React45.Fragment, null, opt.label))))
+      /* @__PURE__ */ React45.createElement(SelectContent2, null, renderSelectSegments(groupedOptions))
     )
   )));
+}
+function renderSelectSegments(segments) {
+  return segments.map((segment, idx) => {
+    const items = segment.items.map((opt) => /* @__PURE__ */ React45.createElement(SelectItem2, { key: opt.value, value: opt.value }, opt.node ? opt.node : /* @__PURE__ */ React45.createElement(React45.Fragment, null, opt.label)));
+    if (!segment.heading) {
+      return /* @__PURE__ */ React45.createElement(React45.Fragment, { key: `__ungrouped_${idx}` }, items);
+    }
+    return /* @__PURE__ */ React45.createElement(SelectGroup2, { key: segment.heading.key }, /* @__PURE__ */ React45.createElement(SelectLabel2, null, segment.heading.label), items);
+  });
 }
 
 // src/components/fields/types.ts
